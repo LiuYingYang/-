@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.product.dao.ProductSpecItemMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.product.entity.ProductSpecItem">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="product_spec_item_id" jdbcType="BIGINT" property="productSpecItemId"/>
+        <result column="specification_value" jdbcType="VARCHAR" property="specificationValue"/>
+        <result column="specification_name" jdbcType="VARCHAR" property="specificationName"/>
+        <result column="product_id" jdbcType="BIGINT" property="productId"/>
+        <result column="sku_img" jdbcType="VARCHAR" property="skuImg"/>
+        <result column="price" jdbcType="DECIMAL" property="price"/>
+        <result column="stock" jdbcType="INTEGER" property="stock"/>
+        <result column="activity_stock" jdbcType="INTEGER" property="activityStock"/>
+        <result column="activity_price" jdbcType="VARCHAR" property="activityPrice"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+        <result column="agent_stock" jdbcType="INTEGER" property="agentStock"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        product_spec_item_id,specification_value,product_id,sku_img,price,stock,activity_stock,appmodel_id,specification_name
+    </sql>
+
+    <update id="updateSpecProductStockReturn" parameterType="map">
+        update t_product_spec_item
+        <trim prefix="set" suffixOverrides=",">
+            <trim prefix="stock = case" suffix="end">
+                <foreach collection="map.entrySet()" item="value" index="key">
+                    when product_spec_item_id = #{key} then stock + #{value}
+                </foreach>
+            </trim>
+        </trim>
+        where
+        product_spec_item_id in
+        <foreach collection="map.entrySet()" item="value" index="key" separator="," open="(" close=")">
+            #{key}
+        </foreach>
+
+    </update>
+
+    <select id="selectByProductId" parameterType="long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_product_spec_item
+        where product_id = #{productId,jdbcType=BIGINT} order by price asc
+    </select>
+
+    <select id="selectByNotActiveProduct" resultMap="BaseResultMap">
+        select
+        DISTINCT   spec.product_spec_item_id,spec.specification_value,
+            spec.product_id,spec.sku_img,spec.price,spec.stock,spec.activity_stock,
+            spec.appmodel_id,spec.specification_name
+        from t_product_spec_item spec
+          where
+        spec.product_id = #{productId,jdbcType=BIGINT}
+        order by spec.price asc
+    </select>
+</mapper>

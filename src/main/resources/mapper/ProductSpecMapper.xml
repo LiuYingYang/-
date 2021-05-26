@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.product.dao.ProductSpecMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.product.entity.ProductSpec">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="product_spec_id" jdbcType="BIGINT" property="productSpecId"/>
+        <result column="specification_class_id" jdbcType="INTEGER" property="specificationClassId"/>
+        <result column="specification_id" jdbcType="INTEGER" property="specificationId"/>
+        <result column="product_id" jdbcType="BIGINT" property="productId"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        product_spec_id,specification_class_id,specification_id,product_id,appmodel_id
+    </sql>
+    <select id="selectByProductId" parameterType="long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_product_spec
+        where product_id = #{productId,jdbcType=BIGINT}
+    </select>
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.promotion.dao.ActivityProductStockMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.promotion.entity.ActivityProductStock">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="activity_product_stock_id" jdbcType="INTEGER" property="activityProductStockId"/>
+        <result column="activity_product_id" jdbcType="BIGINT" property="activityProductId"/>
+        <result column="product_spec_item_id" jdbcType="BIGINT" property="productSpecItemId"/>
+        <result column="activity_stock" jdbcType="INTEGER" property="activityStock"/>
+        <result column="activity_price" jdbcType="DOUBLE" property="activityPrice"/>
+        <result column="activity_id" jdbcType="INTEGER" property="activityId"/>
+        <result column="activity_type" jdbcType="INTEGER" property="activityType"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+        <result column="delete_state" jdbcType="BIT" property="deleteState"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    activity_product_stock_id, activity_product_id, product_spec_item_id, activity_stock,activity_price,
+    appmodel_id,activity_id,activity_type,delete_state
+  </sql>
+
+    <select id="selectActivityProductStock" resultMap="BaseResultMap"
+            parameterType="com.medusa.basemall.promotion.entity.ActivityProductStock">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_product_stock
+        where activity_product_id=#{activityProductId,jdbcType=INTEGER} and
+        product_spec_item_id=#{productSpecItemId,jdbcType=INTEGER}
+    </select>
+
+    <select id="findByAcitivityProductId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_product_stock
+        where activity_product_id=#{activityProductId,jdbcType=INTEGER}
+    </select>
+    <select id="selectByProductSpecItemId" resultMap="BaseResultMap">
+        SELECT
+          <include refid="Base_Column_List"/>
+        FROM
+        t_activity_product_stock
+        WHERE
+        activity_product_id IN (
+            SELECT
+            activity_product_id
+            FROM
+            t_activity_product_stock
+            WHERE
+            delete_state = 0
+            AND product_spec_item_id = #{productSpecItemId}
+        )
+    </select>
+    <select id="selectByActivityIdAndActivityTypeAndActivityProductId" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        t_activity_product_stock
+        WHERE
+        activity_product_id = #{activityProductId}
+        and activity_type = #{activityType}
+        and activity_id = #{activityId}
+    </select>
+
+</mapper>

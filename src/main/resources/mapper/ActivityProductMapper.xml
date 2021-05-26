@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.promotion.dao.ActivityProductMapper">
+
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.promotion.entity.ActivityProduct">
+        <id column="activity_product_id" jdbcType="BIGINT" property="activityProductId"/>
+        <result column="product_id" jdbcType="BIGINT" property="productId"/>
+        <result column="activity_id" jdbcType="INTEGER" property="activityId"/>
+        <result column="activity_price" jdbcType="DECIMAL" property="activityPrice"/>
+        <result column="activity_discount" jdbcType="DECIMAL" property="activityDiscount"/>
+        <result column="activity_stock" jdbcType="INTEGER" property="activityStock"/>
+        <result column="max_quantity" jdbcType="INTEGER" property="maxQuantity"/>
+        <result column="sold_quantity" jdbcType="INTEGER" property="soldQuantity"/>
+        <result column="activity_type" jdbcType="INTEGER" property="activityType"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+        <result column="delete_state" jdbcType="BIT" property="deleteState"/>
+        <result column="spec_type" jdbcType="BIT" property="specType"/>
+        <result column="preheat_state" jdbcType="BIT" property="preheatState"/>
+        <result column="home_view_stat" jdbcType="INTEGER" property="homeViewStat"/>
+        <result column="sort" jdbcType="INTEGER" property="sort"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+    activity_product_id, product_id, activity_id, activity_price, activity_discount,activity_stock,
+    max_quantity, max_quantity, sold_quantity, activity_type, appmodel_id, delete_state,spec_type,preheat_state,home_view_stat,sort
+  </sql>
+
+    <update id="deleteByActivityId">
+        update t_activity_product set delete_state = 1
+        where activity_id
+        <foreach collection="activityIds" item="item" open="in (" separator="," close=")">
+            #{item}
+        </foreach>
+        and
+        activity_type = #{type,jdbcType=INTEGER}
+        and
+        appmodel_id = #{appmodelId}
+    </update>
+    <update id="updatePreheatState">
+        update t_activity_product set preheat_state = #{state}
+        where activity_id = #{activityId}
+        and  activity_type = #{activetyType}
+        and appmodel_id = #{appmodelId}
+    </update>
+    <update id="updateSoldQuantity">
+        update t_activity_product set  sold_quantity = sold_quantity + #{quantity}
+        where activity_product_id = #{activityProductId}
+    </update>
+
+    <update id="updateDelete">
+        update t_activity_product set delete_state = #{deleteState}
+        where activity_product_id
+        <foreach collection="activityPorudctIds" open="in(" close=")" separator="," item="activityProductId">
+            #{activityProductId}
+        </foreach>
+    </update>
+
+    <select id="selectByProductId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_product
+        where product_id=#{productId,jdbcType=INTEGER} and delete_state = 0
+    </select>
+
+    <select id="selectByActivityId" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_product
+        where activity_id=#{activityId,jdbcType=INTEGER} and activity_type=#{activityType,jdbcType=INTEGER} and
+        delete_state = 0
+    </select>
+
+    <select id="selectActivityProduct" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_product
+        where product_id=#{productId,jdbcType=BIGINT} and activity_type =#{activityType,jdbcType=INTEGER} and
+        delete_state = 0
+    </select>
+
+    <select id="selectGroupActivityProduct" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_product
+        where product_id=#{productId,jdbcType=BIGINT} and activity_type =#{activityType,jdbcType=INTEGER} and
+        activity_id=#{activityId,jdbcType=INTEGER}
+        and delete_state = 0
+    </select>
+
+    <select id="selectByActivity" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_product
+        where
+        activity_id=#{activityId,jdbcType=INTEGER}
+        and
+        activity_type=#{activityType,jdbcType=INTEGER}
+        and
+        delete_state =0
+        <if test="productId != null">
+            and product_id = #{productId,jdbcType=BIGINT}
+        </if>
+    </select>
+
+    <select id="selectWhetherDelete" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_product
+        where activity_id=#{activityId,jdbcType=INTEGER} and activity_type=#{activityType,jdbcType=INTEGER}
+    </select>
+
+    <select id="selectByActivityIdsProduct" resultMap="BaseResultMap"
+            resultType="list">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_product
+        where activity_id
+        <foreach collection="activityIds" open="in(" close=")" separator="," item="activityId">
+            #{activityId}
+        </foreach>
+        and activity_type = #{activeType,jdbcType=INTEGER}
+        and appmodel_id = #{appmodelId}
+        and delete_state = 0
+    </select>
+    <select id="findPreheatTimetoStartDateActivityProduct"
+            resultMap="BaseResultMap">
+      SELECT
+         ap.activity_product_id, ap.product_id, ap.activity_id, ap.activity_price, ap.activity_discount,ap.activity_stock,
+         ap.max_quantity, ap.max_quantity, ap.sold_quantity, ap.activity_type, ap.appmodel_id, ap.delete_state,ap.spec_type,ap.preheat_state,ap.home_view_stat,ap.sort
+      FROM t_activity_product ap
+      LEFT JOIN t_activity_seckill seckill ON seckill.activity_seckill_id = ap.activity_id
+      WHERE
+        ap.appmodel_id = #{appmodelId}
+      and unix_timestamp(#{preheatTime}) BETWEEN unix_timestamp(seckill.start_date) AND unix_timestamp(seckill.end_date)
+      AND ap.product_id NOT IN (
+            SELECT
+                product_id
+            FROM
+                t_activity_product
+            WHERE
+                activity_type = #{activityType}
+            AND activity_id = #{activityId}
+        )
+    </select>
+
+    <select id="findProductIfJoninActivity" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_product
+        where product_id
+        <foreach collection="productIds" open="in(" close=")" separator="," item="productId">
+            #{productId}
+        </foreach>
+        and delete_state = 0
+    </select>
+
+    <select id="selectProductJoinActivityNotEnd" resultMap="BaseResultMap">
+        select
+        ap.*
+        from t_activity_product ap
+        <if test="activityType == 4001">
+            LEFT JOIN t_activity_seckill ask ON ask.now_state in(1,2)
+        </if>
+        <if test="activityType == 3001">
+
+        </if>
+        <if test="activityType == 2001">
+
+        </if>
+        where
+        ap.product_id = #{productId}
+        and
+        ap.activity_id = ask.activity_seckill_id
+        order by now_state desc,start_date asc
+        limit 1
+    </select>
+    <select id="selectProductJoinActivityNotEnds" resultMap="BaseResultMap">
+            SELECT
+                ap.*
+            FROM
+                t_activity_product ap
+            <if test="activityType == 4001">
+                LEFT JOIN t_activity_seckill ask ON ask.now_state in(1,2)
+            </if>
+            <if test="activityType == 3001">
+
+            </if>
+            <if test="activityType == 2001">
+
+            </if>
+            WHERE
+            ap.activity_type = #{activityType}
+            and
+            ap.activity_id = ask.activity_seckill_id
+            and
+            ap.product_id in
+            <foreach collection="productIds" open="(" close=")" separator="," item="productId">
+                #{productId}
+            </foreach>
+
+    </select>
+
+
+</mapper>

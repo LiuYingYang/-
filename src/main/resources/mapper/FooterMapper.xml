@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.shop.dao.FooterMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.shop.entity.Footer">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="footer_id" jdbcType="INTEGER" property="footerId"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+        <result column="footer_name" jdbcType="VARCHAR" property="footerName"/>
+        <result column="footer_img_no" jdbcType="VARCHAR" property="footerImgNo"/>
+        <result column="footer_img_yes" jdbcType="VARCHAR" property="footerImgYes"/>
+        <result column="footer_link" jdbcType="VARCHAR" property="footerLink"/>
+        <result column="footer_flag" jdbcType="BIT" property="footerFlag"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        footer_id, appmodel_id, footer_name, footer_img_no, footer_img_yes, footer_link, footer_flag
+    </sql>
+
+    <select id="findByAppmoedelId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_footer
+        where appmodel_id = #{appmodelId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.user.dao.MemberGroupCategoryMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.user.entity.MemberGroupCategory">
+        <id column="group_category_id" jdbcType="INTEGER" property="groupCategoryId"/>
+        <result column="group_id" jdbcType="INTEGER" property="groupId"/>
+        <result column="member_id" jdbcType="BIGINT" property="memberId"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+        <result column="groupName" jdbcType="VARCHAR" property="groupName"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        group_category_id,group_id,member_id,create_time,appmodel_id,groupName
+    </sql>
+    <select id="selectMemberGroup" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+         groupCategory.group_category_id,groupCategory.group_id,groupCategory.member_id,
+         groupCategory.create_time,groupCategory.appmodel_id,memberGroup.group_name as groupName
+        from t_member_group_category groupCategory
+        left join t_member_group memberGroup on memberGroup.group_id = groupCategory.group_id
+        where groupCategory.appmodel_id = #{appmodelId,jdbcType=VARCHAR}
+    </select>
+
+    <delete id="deleteGroup" parameterType="java.lang.Integer">
+        delete from t_member_group_category
+        where group_id = #{groupId}
+    </delete>
+
+
+    <delete id="deleteMemberId" parameterType="java.util.List">
+        delete from t_member_group_category
+        where member_id in
+        <foreach collection="list" item="member" open="(" close=")" separator=",">
+            #{member.memberId}
+        </foreach>
+    </delete>
+
+    <insert id="setMemberToGroup" parameterType="map">
+        INSERT INTO t_member_group_category(group_id,member_id,create_time,appmodel_id)
+        values
+        <foreach collection="groupIds" separator="," item="grouId">
+            (
+            #{grouId,jdbcType=INTEGER},
+            #{memberId,jdbcType=VARCHAR},
+            #{createTime,jdbcType=VARCHAR},
+            #{appmodelId,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+</mapper>

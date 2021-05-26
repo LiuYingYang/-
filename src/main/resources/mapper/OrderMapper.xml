@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.order.dao.OrderMapper">
+
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.order.entity.Order">
+        <id column="order_id" jdbcType="BIGINT" property="orderId"/>
+        <result column="tel_phone" jdbcType="VARCHAR" property="telPhone"/>
+        <result column="pay_flag" jdbcType="INTEGER" property="payFlag"/>
+        <result column="out_trade_no" jdbcType="VARCHAR" property="outTradeNo"/>
+        <result column="pay_fee" jdbcType="DECIMAL" property="payFee"/>
+        <result column="total_fee" jdbcType="DECIMAL" property="totalFee"/>
+        <result column="wxuser_id" jdbcType="BIGINT" property="wxuserId"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="pay_time" jdbcType="VARCHAR" property="payTime"/>
+        <result column="send_time" jdbcType="VARCHAR" property="sendTime"/>
+        <result column="record_time" jdbcType="VARCHAR" property="recordTime"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="wl_name" jdbcType="VARCHAR" property="wlName"/>
+        <result column="wl_num" jdbcType="VARCHAR" property="wlNum"/>
+        <result column="wl_code" jdbcType="VARCHAR" property="wlCode"/>
+        <result column="wl_price" jdbcType="DECIMAL" property="wlPrice"/>
+        <result column="user_address" jdbcType="VARCHAR" property="userAddress"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="out_trade_no_ext" jdbcType="VARCHAR" property="outTradeNoExt"/>
+        <result column="order_type" jdbcType="VARCHAR" property="orderType"/>
+        <result column="activity_id" jdbcType="INTEGER" property="activityId"/>
+        <result column="back_remark" jdbcType="VARCHAR" property="backRemark"/>
+        <result column="delete_state" jdbcType="BIT" property="deleteState"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+        <result column="distribute_mode" jdbcType="VARCHAR" property="distributeMode"/>
+        <result column="delivery_staff" jdbcType="VARCHAR" property="deliveryStaff"/>
+        <result column="group_state" jdbcType="INTEGER" property="groupState"/>
+        <result column="group_member_id" jdbcType="INTEGER" property="groupMemberId"/>
+        <result column="factPay_wxuser_id" jdbcType="BIGINT" property="factpayWxuserId"/>
+        <result column="pay_type" jdbcType="VARCHAR" property="payType"/>
+        <result column="member_discount" jdbcType="DOUBLE" property="memberDiscount"/>
+        <result column="wxuser_coupon_id" javaType="INTEGER" property="wxuserCouponId"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        order_id,order_type,pay_flag ,wxuser_id ,tel_phone, user_name,
+        user_address, pay_fee, total_fee, out_trade_no ,create_time ,pay_time,
+        send_time, record_time ,remark, wl_name,wl_num ,wl_code ,wl_price,
+        distribute_mode, out_trade_no_ext, back_remark, delete_state, appmodel_id,
+        update_time, delivery_staff, group_state, group_member_id, pay_type, factPay_wxuser_id,
+         member_discount,wxuser_coupon_id,activity_id
+    </sql>
+
+    <resultMap id="OrderExtend" extends="BaseResultMap" type="com.medusa.basemall.order.entity.OrderExtend">
+        <!--<association property="group" javaType="com.medusa.basemall.promotion.entity.Group"-->
+        <!--column="group_id" select="com.medusa.basemall.promotion.dao.GroupMapper.selectByPrimaryKey"/>-->
+        <association property="groupMember" javaType="com.medusa.basemall.promotion.entity.GroupMember"
+                     column="group_member_id"
+                     select="com.medusa.basemall.promotion.dao.GroupMemberMapper.selectByPrimaryKey"/>
+        <collection property="orderDetails" ofType="com.medusa.basemall.order.entity.OrderDetail"
+                    column="order_id" select="com.medusa.basemall.order.dao.OrderDetailMapper.selectByOrderId"/>
+    </resultMap>
+
+    <resultMap id="OrderBuyMax" extends="BaseResultMap" type="com.medusa.basemall.order.vo.OrderBuyMaxVO">
+        <collection property="orderDetails" ofType="com.medusa.basemall.order.entity.OrderDetail"
+                    column="order_id" select="com.medusa.basemall.order.dao.OrderDetailMapper.selectByOrderId"/>
+    </resultMap>
+
+
+    <select id="findByOutTradeNo" parameterType="java.lang.String" resultMap="OrderExtend">
+        select
+        <include refid="Base_Column_List"/>
+        from
+        t_order
+        where
+        out_trade_no = #{outTradeNo,jdbcType=VARCHAR}
+        or
+        out_trade_no_ext = #{outTradeNo,jdbcType=VARCHAR}
+    </select>
+
+    <select id="findOrderMini" parameterType="com.medusa.basemall.order.entity.Order" resultMap="OrderExtend">
+        select
+        <include refid="Base_Column_List"/>
+        FROM
+        t_order
+        <where>
+            <if test=" payFlag  &gt;= 0 and payFlag &lt; 4">
+                pay_flag = #{payFlag}
+            </if>
+            <if test="payFlag == 4 ">
+                pay_flag in(4,5,6)
+            </if>
+            and wxuser_id = #{wxuserId}
+            <if test="appmodelId != null">
+                and appmodel_id = #{appmodelId}
+            </if>
+            and delete_state = 0
+        </where>
+    </select>
+
+    <select id="findOrderDetail" resultMap="OrderExtend" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        FROM
+        t_order
+        <where>
+            and appmodel_id = #{appmodelId}
+            and order_id = #{orderId}
+        </where>
+    </select>
+
+    <select id="findOrderMiniGroup" parameterType="java.util.Map" resultMap="OrderExtend">
+        select
+         o.order_id,o.order_type,o.pay_flag ,o.wxuser_id ,o.tel_phone, o.user_name,
+        o.user_address, o.pay_fee, o.total_fee, o.out_trade_no ,o.create_time ,o.pay_time,
+         o.send_time, o.record_time ,o.remark, o.wl_name,o.wl_num ,o.wl_code ,o.wl_price,
+        o.distribute_mode, o.out_trade_no_ext, o.back_remark, o.delete_state, o.appmodel_id,
+        o.update_time, o.delivery_staff, o.group_state, o.group_member_id, o.pay_type, o.factPay_wxuser_id,o.member_discount,o.wxuser_coupon_id
+         FROM t_order o
+        LEFT JOIN t_group_member groupMeber on groupMeber.group_member_id = o.group_member_id
+        LEFT JOIN t_group g on g.group_id = groupMeber.group_id
+        where o.appmodel_id = #{appmodelId}
+        and o.wxuser_id =  #{wxuserId}
+        and o.group_state = #{orderState}
+         and o.group_member_id >0
+         and o.delete_state = 0
+    </select>
+
+
+    <select id="findOrderManager" parameterType="java.util.Map" resultMap="OrderExtend">
+        select
+        <include refid="Base_Column_List"/>
+        from t_order
+        <if test="orderState == 0">
+            <where>
+                appmodel_id = #{appmodelId}
+                <include refid="Order"/>
+            </where>
+        </if>
+        <if test="orderState != 0">
+            <where>
+                appmodel_id = #{appmodelId}
+                <if test="orderState == 1">
+                    and create_time BETWEEN date_add(now(),interval - 3 month) AND now()
+                </if>
+                <if test="orderState == 2">
+                    and pay_flag = 0
+                </if>
+                <if test="orderState == 3">
+                    and pay_flag = 1
+                </if>
+                <if test="orderState == 4">
+                    and pay_flag = 2
+                </if>
+                <if test="orderState == 5">
+                    and pay_flag = 3
+                </if>
+                <if test="orderState == 6">
+                    and pay_flag in(4,5,6)
+                </if>
+                <include refid="Order"/>
+            </where>
+        </if>
+    </select>
+
+    <sql id="Order">
+        <if test="productName != null">
+            and order_id in (select order_id from t_order_detail where product_name like #{productName} and appmodel_id
+            = #{appmodelId})
+        </if>
+        <if test="nickName != null">
+            and wxuser_id in (select wxuser_id from t_wxuser where nike_name like #{nickName} and appmodel_id =
+            #{appmodelId})
+        </if>
+        <if test="userName != null">
+            and user_name like #{userName}
+        </if>
+        <if test="phone != null">
+            and tel_phone like #{phone}
+        </if>
+        <if test="outTradeNum != null">
+            and out_trade_no_ext like #{outTradeNum} or out_trade_no like #{outTradeNum}
+        </if>
+        <if test="wlNum != null">
+            and wl_num like #{wlNum}
+        </if>
+        <if test="startTime != null">
+            and pay_time > #{startTime}
+        </if>
+        <if test="endTime != null">
+            and  <![CDATA[ pay_time <  #{endTime} ]]>
+        </if>
+    </sql>
+
+    <select id="selectCountSuccessful" resultType="INTEGER"
+            parameterType="com.medusa.basemall.integral.vo.PrizeSurveyVo">
+        select count(*)
+        from t_order
+        where appmodel_id = #{appmodelId, jdbcType=VARCHAR} and pay_flag = 3
+        <if test="startDate != null and startDate != ''">
+            and record_time > #{startDate}
+        </if>
+        <if test="endDate != null and endDate != ''">
+            and  <![CDATA[ record_time <  #{endDate} ]]>
+        </if>
+        and record_time is not null
+    </select>
+
+    <select id="selectSumSuccessful" resultType="DOUBLE" parameterType="com.medusa.basemall.integral.vo.PrizeSurveyVo">
+        select sum(pay_fee)
+        from t_order
+        where appmodel_id = #{appmodelId, jdbcType=VARCHAR} and pay_flag =3
+        <if test="startDate != null and startDate != ''">
+            and record_time > #{startDate}
+        </if>
+        <if test="endDate != null and startDate != ''">
+            and  <![CDATA[ record_time <  #{endDate} ]]>
+        </if>
+        and record_time is not null
+    </select>
+
+    <select id="selectTodayWaitOrder" resultType="INTEGER"
+            parameterType="com.medusa.basemall.integral.vo.PrizeSurveyVo">
+        select count(*)
+        from t_order
+        where appmodel_id = #{appmodelId, jdbcType=VARCHAR} and pay_flag = 1
+        and pay_time like concat('%',#{realTime},'%')
+    </select>
+
+    <select id="selectTodayOverOrder" resultType="INTEGER"
+            parameterType="com.medusa.basemall.integral.vo.PrizeSurveyVo">
+        select count(*)
+        from t_order
+        where appmodel_id = #{appmodelId, jdbcType=VARCHAR} and pay_flag in(1,2,3)
+        and pay_time like concat('%',#{realTime},'%')
+    </select>
+
+    <select id="selectSumTodayPrice" resultType="DOUBLE" parameterType="com.medusa.basemall.integral.vo.PrizeSurveyVo">
+        select sum(pay_fee)
+        from t_order
+        where appmodel_id = #{appmodelId, jdbcType=VARCHAR} and pay_flag in(1,2,3)
+        and pay_time like concat('%',#{realTime},'%')
+    </select>
+    <select id="selectByWxuserIdAndGroupState" resultMap="OrderExtend" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from t_order
+        where wxuser_id = #{wxuserId, jdbcType=BIGINT} and group_state = #{groupState, jdbcType=INTEGER}
+    </select>
+    <select id="findWxuserConfirmOrderSum" resultType="java.lang.Integer">
+        select count(*)
+        from t_order
+        where wxuser_id = #{wxuserId} and pay_flag = 3
+    </select>
+    <select id="findWxuserConfirmOrderTotlePrice" resultType="java.lang.Double">
+         select sum(pay_fee)
+        from t_order
+        where wxuser_id = #{wxuserId} and pay_flag = 3
+    </select>
+    <select id="findWxuserLastPay" resultType="java.lang.String">
+        select
+          pay_time
+        from t_order
+        where wxuser_id = #{wxuserId, jdbcType=BIGINT}
+        order by pay_time desc
+        limit 1
+    </select>
+    <select id="findMiniOrderStatistics" resultType="java.lang.Integer">
+        select
+        count(order_id)
+        from t_order
+        where
+        wxuser_id = #{wxuserId, jdbcType=BIGINT}
+        AND delete_state = false
+        AND pay_flag = #{payFlag}
+        <if test="createTime != null">
+            and create_time > #{createTime}
+        </if>
+        <if test="payTime != null">
+            and pay_time > #{payTime}
+        </if>
+        <if test="sendTime != null">
+            and send_time > #{sendTime}
+        </if>
+        <if test="recordTime != null">
+            and record_time > #{recordTime}
+        </if>
+    </select>
+
+
+    <select id="findJoinActivityNumberOfPeople" resultType="java.lang.Integer">
+        select
+           count(distinct wxuser_id)
+        from t_order
+        where
+          activity_id = #{activityId}
+         and appmodel_id = #{appmodelId}
+         and order_type = #{activityType}
+    </select>
+    <select id="findActivityOrderPayOkSum" resultType="java.lang.Integer">
+        SELECT
+	      count(order_id)
+        from t_order
+        where
+          activity_id = #{activityId}
+         and appmodel_id =  #{appmodelId}
+         and order_type = #{activityType}
+         and pay_flag >=1 and 3 >= pay_flag
+    </select>
+    <select id="findActivityOrdertotleFee" resultType="java.lang.Double">
+        SELECT
+	      sum(pay_fee)
+        from t_order
+        where
+          activity_id = #{activityId}
+         and appmodel_id =  #{appmodelId}
+         and order_type = #{activityType}
+         and pay_flag >=1 and 3 >= pay_flag
+    </select>
+
+    <select id="selectIfBuyMax" resultMap="OrderBuyMax">
+        SELECT
+	      <include refid="Base_Column_List"/>
+        from t_order
+        where
+        activity_id = #{activityId}
+        and order_type = #{activityType}
+        and pay_flag >=0 and 3 >= pay_flag
+        and wxuser_id = #{wxuserId}
+    </select>
+</mapper>

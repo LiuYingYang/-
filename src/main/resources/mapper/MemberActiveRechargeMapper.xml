@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.user.dao.MemberActiveRechargeMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.user.entity.MemberActiveRecharge">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="active_recharge_id" jdbcType="INTEGER" property="activeRechargeId"/>
+        <result column="active_name" jdbcType="VARCHAR" property="activeName"/>
+        <result column="start_time" jdbcType="VARCHAR" property="startTime"/>
+        <result column="end_time" jdbcType="VARCHAR" property="endTime"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="send_price" jdbcType="DOUBLE" property="sendPrice"/>
+        <result column="max_price" jdbcType="DOUBLE" property="maxPrice"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+        <result column="delete_state" jdbcType="INTEGER" property="deleteState"/>
+    </resultMap>
+
+    <update id="OpenOrCloseActive" parameterType="map">
+        update t_member_active_recharge
+        set state = #{type,jdbcType=INTEGER}
+        where
+        appmodel_id = {appmodelId}
+    </update>
+</mapper>

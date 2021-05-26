@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.order.dao.OrderRefoundMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.order.entity.OrderRefound">
+        <id column="order_refound_id" jdbcType="BIGINT" property="orderRefoundId"/>
+        <result column="order_detail_id" jdbcType="BIGINT" property="orderDetailId"/>
+        <result column="order_id" jdbcType="BIGINT" property="orderId"/>
+        <result column="wxuser_id" jdbcType="BIGINT" property="wxuserId"/>
+        <result column="flow_path" jdbcType="INTEGER" property="flowPath"/>
+        <result column="business_state" jdbcType="INTEGER" property="businessState"/>
+        <result column="refound_type" jdbcType="BIT" property="refoundType"/>
+        <result column="reason" jdbcType="VARCHAR" property="reason"/>
+        <result column="refound_fee" jdbcType="DECIMAL" property="refoundFee"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="product_state" jdbcType="VARCHAR" property="productState"/>
+        <result column="refuse_reason" jdbcType="VARCHAR" property="refuseReason"/>
+        <result column="u_wl_name" jdbcType="VARCHAR" property="uWlName"/>
+        <result column="u_wl_remark" jdbcType="VARCHAR" property="uWlRemark"/>
+        <result column="u_wl_phone" jdbcType="VARCHAR" property="uWlPhone"/>
+        <result column="u_wl_num" jdbcType="VARCHAR" property="uWlNum"/>
+        <result column="u_wl_code" jdbcType="VARCHAR" property="uWlCode"/>
+        <result column="shop_address" jdbcType="VARCHAR" property="shopAddress"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="update_time" jdbcType="VARCHAR" property="updateTime"/>
+        <result column="refound_time" jdbcType="VARCHAR" property="refoundTime"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+        <result column="delete_state" jdbcType="BIT" property="deleteState"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        order_refound_id,order_detail_id,order_id,wxuser_id,flow_path,business_state,refound_type,reason,refound_fee,remark,product_state,refuse_reason,
+        u_wl_name,u_wl_remark,u_wl_phone,u_wl_num,shop_address,create_time,update_time,refound_time,appmodel_id,delete_state,u_wl_code
+    </sql>
+
+
+    <select id="findByDetailId" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+          <include refid="Base_Column_List"/>
+        from t_order_refound
+        where order_detail_id = #{detailId} order by create_time asc
+    </select>
+
+    <select id="selectTodayRefoundOrder" parameterType="com.medusa.basemall.integral.vo.PrizeSurveyVo" resultType="INTEGER">
+        select count(*)
+        <include refid="Base_Column_List"/>
+        from t_order_refound
+        where appmodel_id = #{appmodelId, jdbcType=VARCHAR} and create_time like concat('%',#{realTime},'%')
+    </select>
+</mapper>

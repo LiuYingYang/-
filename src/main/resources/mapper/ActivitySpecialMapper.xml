@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.promotion.dao.ActivitySpecialMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.promotion.entity.ActivitySpecial">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="activity_special_id" jdbcType="INTEGER" property="activitySpecialId"/>
+        <result column="activity_special_name" jdbcType="VARCHAR" property="activitySpecialName"/>
+        <result column="activity_remark" jdbcType="VARCHAR" property="activityRemark"/>
+        <result column="activity_img" jdbcType="VARCHAR" property="activityImg"/>
+        <result column="overlay_state" jdbcType="BIT" property="overlayState"/>
+        <result column="now_state" jdbcType="INTEGER" property="nowState"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="update_time" jdbcType="VARCHAR" property="updateTime"/>
+        <result column="start_date" jdbcType="VARCHAR" property="startDate"/>
+        <result column="end_date" jdbcType="VARCHAR" property="endDate"/>
+        <result column="delete_state" jdbcType="BIT" property="deleteState"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        activity_special_id, activity_special_name, activity_remark, activity_img,overlay_state,
+        now_state, create_time, update_time, start_date, end_date, delete_state, appmodel_id
+    </sql>
+
+    <!--正在进行的活动-->
+    <select id="selectNotEnd" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_special
+        where now_state in (1,2) and appmodel_id = #{appmodelId,jdbcType=VARCHAR} and delete_state=0
+        <if test="activityCouponId != null">
+            and  activity_coupon_id != #{activityGroupId,jdbcType = INTEGER}
+        </if>
+    </select>
+
+    <select id="findByAppmodelId" resultMap="BaseResultMap" parameterType="string">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_special
+        where appmodel_id = #{appmodelId,jdbcType=VARCHAR} and delete_state=0 order by start_date desc,start_date
+    </select>
+
+    <update id="batchDelete" parameterType="list">
+        update t_activity_special set delete_state=1
+        where activity_special_id in
+        <foreach item="activitySpecialId" index="index" collection="array" open="("
+                 separator="," close=")">
+            #{activitySpecialId}
+        </foreach>
+    </update>
+
+    <update id="updateEndDate">
+         update t_activity_special set now_state = #{newState},end_date=#{endDate}
+         where activity_special_id = #{activityId}
+    </update>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="INTEGER">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_special
+        where  now_state in (1,2) and activity_special_id=#{activitySpecialId,jdbcType=INTEGER and
+        delete_state=0
+    </select>
+
+    <select id="findByActivitySpecialIdStart" resultMap="BaseResultMap" parameterType="INTEGER">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_special
+        where now_state = 1 and activity_special_id=#{activitySpecialId,jdbcType=INTEGER and
+        delete_state=0
+    </select>
+
+    <select id="findByActivitySpecialIdEnd" resultMap="BaseResultMap" parameterType="INTEGER">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_special
+        where  now_state = 2 and activity_special_id=#{activitySpecialId,jdbcType=INTEGER and
+        delete_state=0
+    </select>
+
+    <select id="selectStart" resultMap="BaseResultMap" parameterType="string">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_special
+        where  now_state = 2 and appmodel_id = #{appmodelId,jdbcType = INTEGER} and delete_state = 0
+    </select>
+
+    <select id="findConflictingSeckill"  resultMap="BaseResultMap">
+        select
+          <include refid="Base_Column_List"/>
+        from t_activity_special
+        where start_date >= #{startDate}
+        and  <![CDATA[ end_date <  #{endDate} ]]>
+        and now_state in(1,2)
+        and delete_state = 0
+        and appmodel_id = #{appmodelId}
+    </select>
+
+
+</mapper>

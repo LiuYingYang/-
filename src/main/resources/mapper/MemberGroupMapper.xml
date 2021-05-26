@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.user.dao.MemberGroupMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.user.entity.MemberGroup">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="group_id" jdbcType="INTEGER" property="groupId"/>
+        <result column="group_name" jdbcType="VARCHAR" property="groupName"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+    </resultMap>
+</mapper>

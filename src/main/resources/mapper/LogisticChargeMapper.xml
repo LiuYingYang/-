@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.product.dao.LogisticChargeMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.product.entity.LogisticCharge">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="logistic_charge_id" jdbcType="INTEGER" property="logisticChargeId"/>
+        <result column="logistic_model_id" jdbcType="INTEGER" property="logisticModelId"/>
+        <result column="charge_address" jdbcType="VARCHAR" property="chargeAddress"/>
+        <result column="first_weight" jdbcType="INTEGER" property="firstWeight"/>
+        <result column="first_price" jdbcType="DECIMAL" property="firstPrice"/>
+        <result column="next_weight" jdbcType="INTEGER" property="nextWeight"/>
+        <result column="next_price" jdbcType="DECIMAL" property="nextPrice"/>
+        <result column="default_state" jdbcType="BIT" property="defaultState"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        logistic_charge_id, logistic_model_id, charge_address, first_weight,
+        first_price, next_weight, next_price, default_state, appmodel_id
+    </sql>
+
+    <select id="selectBylogisticModelId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_logistic_charge
+        where logistic_model_id = #{logisticModelId,jdbcType=INTEGER}
+    </select>
+
+    <delete id="deleteByLogisticModelId" parameterType="java.lang.Integer">
+        delete from t_logistic_charge
+        where logistic_model_id = #{logisticModelId,jdbcType=INTEGER}
+    </delete>
+
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.agent.dao.AgentMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.agent.entity.Agent">
+        <id column="agent_id" jdbcType="INTEGER" property="agentId"/>
+        <result column="wxuser_id" jdbcType="BIGINT" property="wxuserId"/>
+        <result column="agent_name" jdbcType="VARCHAR" property="agentName"/>
+        <result column="agent_phone" jdbcType="VARCHAR" property="agentPhone"/>
+        <result column="agent_grade_id" jdbcType="INTEGER" property="agentGradeId"/>
+        <result column="agent_domain" jdbcType="VARCHAR" property="agentDomain"/>
+        <result column="audit_date" jdbcType="VARCHAR" property="auditDate"/>
+        <result column="agent_status" jdbcType="INTEGER" property="agentStatus"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+        <result column="agent_balance" jdbcType="VARCHAR" property="agentBalance"/>
+        <result column="prohibit_time" jdbcType="VARCHAR" property="prohibitTime"/>
+        <result column="nike_name" jdbcType="VARCHAR" property="nikeName"/>
+    </resultMap>
+
+    <update id="updateAgentSwitch" parameterType="Map" >
+        update t_agent
+        set
+        <if test="type == 2">
+            prohibit_time = #{time},
+        </if>
+        agent_status = #{type,jdbcType=INTEGER}
+        where
+        agent_id in
+        <foreach collection="agentIds" item="agentId" open="(" separator="," close=")">
+            #{agentId}
+        </foreach>
+    </update>
+</mapper>

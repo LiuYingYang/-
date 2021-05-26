@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.promotion.dao.CouponWxuserMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.promotion.entity.CouponWxuser">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="wxuser_coupon_id" jdbcType="INTEGER" property="wxuserCouponId"/>
+        <result column="wxuser_id" jdbcType="BIGINT" property="wxuserId"/>
+        <result column="coupon_id" jdbcType="INTEGER" property="couponId"/>
+        <result column="flag" jdbcType="BIT" property="flag"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="use_time" jdbcType="VARCHAR" property="useTime"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+        <result column="activity_coupon_id" jdbcType="INTEGER" property="activityCouponId"/>
+        <association property="coupon" column="coupon_id"
+                     select="com.medusa.basemall.promotion.dao.CouponMapper.selectByPrimaryKey"/>
+        <association property="activityCoupon" column="activity_coupon_id"
+                     select="com.medusa.basemall.promotion.dao.ActivityCouponMapper.selectByPrimaryKey"/>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+    wxuser_coupon_id, wxuser_id, coupon_id, flag, create_time, use_time, appmodel_id,activity_coupon_id
+  </sql>
+    <update id="updateFlag" parameterType="INTEGER">
+        update t_coupon_wxuser set flag = 2 where flag = 0 and  activity_coupon_id = #{activityCouponId, jdbcType=INTEGER}
+    </update>
+
+    <select id="selectByWxuserIdNotUse" resultMap="BaseResultMap"
+            parameterType="com.medusa.basemall.promotion.vo.CouponWxuserVo">
+        select
+          <include refid="Base_Column_List"/>
+        from t_coupon_wxuser cw
+        where appmodel_id = #{appmodelId,jdbcType=VARCHAR} and wxuser_id = #{wxuserId,jdbcType=BIGINT} and flag = 0
+        order by create_time desc
+    </select>
+
+    <select id="selectByWxuserIdUsed" resultMap="BaseResultMap"
+            parameterType="com.medusa.basemall.promotion.vo.CouponWxuserVo">
+        select
+        <include refid="Base_Column_List"/>
+        from t_coupon_wxuser
+        where appmodel_id = #{appmodelId,jdbcType=VARCHAR} and wxuser_id = #{wxuserId,jdbcType=BIGINT} and flag in (1,2)
+    </select>
+
+    <select id="selectByAppmodelId" resultMap="BaseResultMap" parameterType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from t_coupon_wxuser
+        where wxuser_id = #{wxuserId,jdbcType=BIGINT} and appmodel_id = #{appmodelId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByCouponId" resultType="java.lang.Integer" parameterType="map">
+        select count(*)
+          from t_coupon_wxuser
+        where coupon_id = #{couponId, jdbcType=INTEGER} and wxuser_id = #{wxuserId,jdbcType=BIGINT}
+    </select>
+
+    <select id="findWxuserCoupon" resultMap="BaseResultMap">
+        select
+          <include refid="Base_Column_List"/>
+        from t_coupon_wxuser
+        where coupon_id = #{wxuserCouponId, jdbcType=INTEGER} and wxuser_id = #{wxuserId,jdbcType=BIGINT} and flag=0
+    </select>
+</mapper>

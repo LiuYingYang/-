@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.messages.dao.WxuserFormIdMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.messages.entity.WxuserFormId">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="user_form_id" jdbcType="INTEGER" property="userFormId"/>
+        <result column="open_id" jdbcType="VARCHAR" property="openId"/>
+        <result column="form_value" jdbcType="VARCHAR" property="formValue"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_form_id, open_id, form_value, create_time
+  </sql>
+    <delete id="deleteBeyondIndate">
+        delete from t_wxuser_formid
+        WHERE #{time} > create_time
+    </delete>
+
+    <select id="selectByOpenId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_wxuser_formid
+        where open_id = #{openId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

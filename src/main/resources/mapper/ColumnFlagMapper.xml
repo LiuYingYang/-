@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.shop.dao.ColumnFlagMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.shop.entity.ColumnFlag">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="column_flag_id" jdbcType="INTEGER" property="columnFlagId"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+        <result column="serarch_flag" jdbcType="BIT" property="serarchFlag"/>
+        <result column="notice_flag" jdbcType="BIT" property="noticeFlag"/>
+        <result column="shopInfo_flag" jdbcType="BIT" property="shopinfoFlag"/>
+        <result column="classify_flag" jdbcType="BIT" property="classifyFlag"/>
+        <result column="article_flag" jdbcType="BIT" property="articleFlag"/>
+        <result column="member_flag" jdbcType="BIT" property="memberFlag"/>
+        <result column="shop_flag" jdbcType="BIT" property="shopFlag"/>
+        <result column="proxy_flag" jdbcType="BIT" property="proxyFlag"/>
+        <result column="foot_flag" jdbcType="BIT" property="footFlag"/>
+        <result column="member_recharge_flag" jdbcType="BIT" property="memberRechargeFlag"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        column_flag_id, appmodel_id, serarch_flag, notice_flag, shopInfo_flag, classify_flag, article_flag, member_flag,
+        shop_flag, proxy_flag, foot_flag,member_recharge_flag
+    </sql>
+
+
+    <select id="findByAppmodelId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+          <include refid="Base_Column_List"/>
+        from t_column_flag
+        where appmodel_id = #{appmodelId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.product.dao.ParameterMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.product.entity.Parameter">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="param_id" jdbcType="INTEGER" property="paramId"/>
+        <result column="param_key" jdbcType="VARCHAR" property="paramKey"/>
+        <result column="param_value" jdbcType="VARCHAR" property="paramValue"/>
+        <result column="param_class_id" jdbcType="INTEGER" property="paramClassId"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        param_id, param_key, param_value, param_class_id, appmodel_id
+    </sql>
+
+    <select id="selectByParamClassId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_parameter
+        where param_class_id = #{paramClassId,jdbcType=INTEGER}
+    </select>
+
+</mapper>

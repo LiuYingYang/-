@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.product.dao.LogisticDistrobutionMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.product.entity.LogisticDistrobution">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="distrobution_id" jdbcType="INTEGER" property="distrobutionId"/>
+        <result column="shop_address" jdbcType="VARCHAR" property="shopAddress"/>
+        <result column="min_pay_price" jdbcType="DECIMAL" property="minPayPrice"/>
+        <result column="delivery_range" jdbcType="VARCHAR" property="deliveryRange"/>
+        <result column="operating_time" jdbcType="VARCHAR" property="operatingTime"/>
+        <result column="seller_price" jdbcType="DECIMAL" property="sellerPrice"/>
+        <result column="turn_state" jdbcType="BIT" property="turnState"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+        <result column="delivery_staffs" jdbcType="VARCHAR" property="deliveryStaffs"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+    </resultMap>
+</mapper>

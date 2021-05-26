@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.product.dao.ParameterClassMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.product.entity.ParameterClass">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="param_class_id" jdbcType="INTEGER" property="paramClassId"/>
+        <result column="param_class_name" jdbcType="VARCHAR" property="paramClassName"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+    </resultMap>
+
+    <resultMap id="DetailResultMap" type="com.medusa.basemall.product.vo.ParameterVo" extends="BaseResultMap">
+        <collection property="parameterList" column="param_class_id"
+                    select="com.medusa.basemall.product.dao.ParameterMapper.selectByParamClassId"></collection>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        param_class_id, param_class_name, create_time, appmodel_id
+    </sql>
+
+    <select id="findByAppmodelId" resultMap="DetailResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_parameter_class
+        where appmodel_id = #{appmodelId,jdbcType=VARCHAR}
+    </select>
+
+</mapper>

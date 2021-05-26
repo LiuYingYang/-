@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.promotion.dao.ActivitySeckillMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.promotion.entity.ActivitySeckill">
+        <id column="activity_seckill_id" jdbcType="INTEGER" property="activitySeckillId"/>
+        <result column="activity_seckill_name" jdbcType="VARCHAR" property="activitySeckillName"/>
+        <result column="activity_remark" jdbcType="VARCHAR" property="activityRemark"/>
+        <result column="activity_img" jdbcType="VARCHAR" property="activityImg"/>
+        <result column="overlay_state" jdbcType="BIT" property="overlayState"/>
+        <result column="now_state" jdbcType="INTEGER" property="nowState"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="update_time" jdbcType="VARCHAR" property="updateTime"/>
+        <result column="start_date" jdbcType="VARCHAR" property="startDate"/>
+        <result column="end_date" jdbcType="VARCHAR" property="endDate"/>
+        <result column="delete_state" jdbcType="BIT" property="deleteState"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+        <result column="preheat_time" jdbcType="VARCHAR" property="preheatTime"/>
+    </resultMap>
+    <resultMap id="BackResultMap" type="com.medusa.basemall.promotion.vo.ActivitySeckillVo" extends="BaseResultMap">
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        activity_seckill_id, activity_seckill_name, activity_remark, activity_img, overlay_state,
+        now_state,create_time, update_time, start_date, end_date, delete_state, appmodel_id,preheat_time
+    </sql>
+
+    <!--正在进行的活动和未开始的活动-->
+    <select id="selectNotEnd" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List"/>
+        from t_activity_seckill
+        where now_state in (1,2) and appmodel_id = #{appmodelId,jdbcType=VARCHAR} and delete_state=0 order by start_date
+    </select>
+
+
+    <select id="findByAppmodelId" resultMap="BaseResultMap" parameterType="string">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_seckill
+        where appmodel_id = #{appmodelId,jdbcType=VARCHAR} and delete_state=0 order by start_date desc
+    </select>
+
+
+    <update id="batchDelete">
+        update t_activity_seckill set delete_state=1,now_state=0
+        where appmodel_id = #{appmodelId,jdbcType=VARCHAR} and activity_seckill_id in
+        <foreach item="activitySeckillId" index="index" collection="activitySpecialIds" open="("
+                 separator="," close=")">
+            #{activitySeckillId}
+        </foreach>
+    </update>
+
+    <update id="updateEndDate">
+      update t_activity_seckill set now_state = #{newState},end_date=#{endDate}
+         where activity_seckill_id = #{activityId}
+    </update>
+
+    <select id="selectById" resultMap="BaseResultMap" parameterType="INTEGER">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_seckill
+        where now_state in (1,2) and activity_seckill_id=#{activitySeckillId,jdbcType=INTEGER} and
+        delete_state=0
+    </select>
+
+    <select id="findByActivitySeckillIdStart" resultMap="BaseResultMap" parameterType="INTEGER">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_seckill
+        where now_state = 1
+        and activity_seckill_id=#{activitySeckillId,jdbcType=INTEGER}
+        and delete_state=0
+    </select>
+
+    <select id="findByActivitySeckillIdEnd" resultMap="BaseResultMap" parameterType="INTEGER">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_seckill
+        where now_state = 2 and activity_seckill_id=#{activitySeckillId,jdbcType=INTEGER} and
+        delete_state=0
+    </select>
+
+    <select id="selectStart" resultMap="BaseResultMap" parameterType="string">
+        select
+        <include refid="Base_Column_List"/>
+        from t_activity_seckill
+        where now_state = 2 and appmodel_id = #{appmodelId,jdbcType = INTEGER} and delete_state = 0
+    </select>
+
+    <select id="findConflictingSeckill" resultMap="BaseResultMap">
+        select
+         <include refid="Base_Column_List"/>
+        from t_activity_seckill
+        where
+        #{endDate} > start_date
+        and end_date > #{startDate}
+        and end_date >  #{startDate}
+        and now_state in(1,2)
+        and delete_state = 0
+        and appmodel_id = #{appmodelId}
+    </select>
+    <select id="selectThatVeryDaySeckillActivity"
+           resultMap="BaseResultMap">
+        select
+          <include refid="Base_Column_List"/>
+        from t_activity_seckill
+        where now_state in (1,2) and appmodel_id = #{appmodelId,jdbcType=VARCHAR} and delete_state=0
+        and start_date >= #{start} and #{end} >= start_date
+        order by start_date
+    </select>
+
+</mapper>

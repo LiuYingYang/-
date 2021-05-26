@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.product.dao.CategoryMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.product.entity.Category">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="category_id" jdbcType="BIGINT" property="categoryId"/>
+        <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
+        <result column="category_type" jdbcType="INTEGER" property="categoryType"/>
+        <result column="father_id" jdbcType="BIGINT" property="fatherId"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="category_icon" jdbcType="VARCHAR" property="categoryIcon"/>
+        <result column="category_img" jdbcType="VARCHAR" property="categoryImg"/>
+        <result column="sort_index" jdbcType="INTEGER" property="sortIndex"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+    </resultMap>
+
+    <resultMap id="DetailResultMap" type="com.medusa.basemall.product.vo.CategoryVo" extends="BaseResultMap">
+        <collection property="subCategoryList" column="category_id"
+                    select="com.medusa.basemall.product.dao.CategoryMapper.selectByFatherId"></collection>
+    </resultMap>
+
+    <resultMap id="BackResultMap" type="com.medusa.basemall.shop.vo.CategoryAndProductVO" extends="BaseResultMap">
+        <collection property="categoryAndProductVOS" column="category_id"
+                    select="com.medusa.basemall.product.dao.CategoryMapper.selectByFatherId"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        category_id,category_name,category_type,father_id,create_time,category_icon,category_img,sort_index,appmodel_id
+    </sql>
+    <select id="maxCategoryType" parameterType="string" resultType="int">
+        SELECT MAX(category_type) from t_category where appmodel_id = #{appmodelId}
+    </select>
+
+    <select id="selectByFatherId" parameterType="long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_category
+        where father_id = #{fatherId,jdbcType=BIGINT} order by sort_index
+    </select>
+
+    <select id="findFirstCategory" parameterType="string" resultMap="DetailResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_category
+        where appmodel_id = #{appmodelId,jdbcType=VARCHAR} and category_type=1 order by sort_index
+    </select>
+
+
+    <resultMap id="SimplelResultMap" type="com.medusa.basemall.product.vo.CategoryProductVo">
+        <id column="category_id" jdbcType="BIGINT" property="categoryId"/>
+        <result column="father_id" jdbcType="INTEGER" property="fatherId"/>
+        <result column="category_name" jdbcType="VARCHAR" property="categoryName"/>
+        <collection property="subCategoryList" column="category_id"
+                    select="com.medusa.basemall.product.dao.CategoryMapper.selectByFatherIdSimple"></collection>
+    </resultMap>
+
+    <select id="selectByFatherIdSimple" parameterType="long" resultMap="SimplelResultMap">
+        select
+          <include refid="Base_Column_List"/>
+        from t_category
+        where father_id = #{fatherId,jdbcType=BIGINT} order by sort_index
+    </select>
+
+    <select id="findByFirstCategoryIds" parameterType="list" resultMap="SimplelResultMap">
+        select
+           <include refid="Base_Column_List"/>
+        from t_category
+        where category_type=1
+        and category_id in
+        <foreach collection="categoryIds" item="categoryId" open="(" close=")" separator=",">
+            #{categoryId}
+        </foreach>
+    </select>
+
+    <select id="selectFirstCategory" resultMap="DetailResultMap"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_category
+        where appmodel_id = #{appmodelId, jdbcType=VARCHAR} and category_type=1 order by create_time
+    </select>
+
+</mapper>

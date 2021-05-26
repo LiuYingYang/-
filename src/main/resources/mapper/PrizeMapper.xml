@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.integral.dao.PrizeMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.integral.entity.Prize">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="prize_id" jdbcType="INTEGER" property="prizeId"/>
+        <result column="prize_type" jdbcType="INTEGER" property="prizeType"/>
+        <result column="coupon_id" jdbcType="INTEGER" property="couponId"/>
+        <result column="prize_name" jdbcType="VARCHAR" property="prizeName"/>
+        <result column="prize_img" jdbcType="VARCHAR" property="prizeImg"/>
+        <result column="round_sowing_img" jdbcType="VARCHAR" property="roundSowingImg"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+        <result column="send_place" jdbcType="VARCHAR" property="sendPlace"/>
+        <result column="send_date" jdbcType="VARCHAR" property="sendDate"/>
+        <result column="delete_state" jdbcType="BIT" property="deleteState"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="update_state" jdbcType="VARCHAR" property="updateState"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+        <result column="prize_stock" jdbcType="INTEGER" property="prizeStock"/>
+        <result column="text_img" jdbcType="VARCHAR" property="textImg"/>
+        <result column="price" jdbcType="DOUBLE" property="price"/>
+        <result column="convert_price" jdbcType="INTEGER" property="convertPrice"/>
+        <result column="sales_volume" jdbcType="INTEGER" property="salesVolume"/>
+        <result column="state" jdbcType="INTEGER" property="state"/>
+        <result column="delivery_fees" jdbcType="DOUBLE" property="deliveryFees"/>
+        <result column="logistic_model_id" jdbcType="INTEGER" property="logisticModelId"/>
+        <result column="property_model_id" jdbcType="INTEGER" property="propertyModelId"/>
+        <result column="property_mine" jdbcType="VARCHAR" property="propertyMine"/>
+        <result column="all_integral" jdbcType="INTEGER" property="allIntegral"/>
+        <result column="product_bulk" jdbcType="DOUBLE" property="productBulk"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        prize_id, prize_type, prize_name, prize_img, round_sowing_img, delete_state, create_time, update_state,
+        appmodel_id, prize_stock, price, convert_price, sales_volume, state,delivery_fees, logistic_model_id,
+        property_model_id, property_mine, text_img, coupon_id, remark, send_place, send_date, all_integral,product_bulk
+    </sql>
+
+    <select id="findByState" resultMap="BaseResultMap" parameterType="com.medusa.basemall.integral.vo.PrizeVo">
+        select
+          <include refid="Base_Column_List"/>
+        from t_prize
+        where appmodel_id = #{appmodelId,jdbcType=VARCHAR} and delete_state = 0
+        <if test="prizeType != null">
+            and prize_type = #{prizeType, jdbcType=INTEGER}
+            <if test="prizeType == 1">
+                <if test="searchName != null">
+                   and  prize_name like #{searchName}
+                </if>
+            </if>
+            <if test="prizeType == 2">
+                <if test="searchName != null">
+                    and  prize_name like #{searchName}
+                </if>
+            </if>
+        </if>
+
+        <if test="state != null">
+            and state = #{state, jdbcType=INTEGER}
+        </if>
+        <if test="state == null">
+            and state in (1, 3)
+        </if>
+        order by prize_id desc
+    </select>
+
+    <select id="findByCouponId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from t_prize
+        where coupon_id = #{couponId, jdbcType=INTEGER}
+    </select>
+
+    <select id="selectUrgentPrizes" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_prize
+        where appmodel_id = #{appmodelId, jdbcType=VARCHAR} and prize_type = 1
+        and prize_stock &lt;= 10 and prize_stock &gt; 0 and state = 1 and delete_state = 0
+    </select>
+
+    <select id="selectHotProduct" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_prize
+        where appmodel_id = #{appmodelId, jdbcType=VARCHAR} and delete_state = 0 and sales_volume > 0
+        order by sales_volume limit 10
+    </select>
+
+</mapper>

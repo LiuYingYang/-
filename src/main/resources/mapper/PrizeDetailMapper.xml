@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medusa.basemall.integral.dao.PrizeDetailMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.basemall.integral.entity.PrizeDetail">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="integral_detail_id" jdbcType="BIGINT" property="integralDetailId"/>
+        <result column="type" jdbcType="INTEGER" property="type"/>
+        <result column="quantity" jdbcType="INTEGER" property="quantity"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="integral" jdbcType="INTEGER" property="integral"/>
+        <result column="prize_id" jdbcType="INTEGER" property="prizeId"/>
+        <result column="wxuser_id" jdbcType="BIGINT" property="wxuserId"/>
+        <result column="appmodel_id" jdbcType="VARCHAR" property="appmodelId"/>
+        <result column="delete_state" jdbcType="BIT" property="deleteState"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        integral_detail_id, type, create_time, prize_id, create_time, integral, wxuser_id, appmodel_id, delete_state
+    </sql>
+    <update id="updateCreatTime" parameterType="map">
+        update t_prize_detail set create_time = #{createTime, jdbcType=VARCHAR}
+        where delete_state = 0 and appmodel_id = #{appmodelId,jdbcType=VARCHAR} and type = 2
+    </update>
+
+
+
+    <select id="seletePrizeDetailByWxuserId" resultMap="BaseResultMap"
+            parameterType="com.medusa.basemall.user.entity.Wxuser">
+        select
+        <include refid="Base_Column_List"/>
+        from t_prize_detail
+        where wxuser_id = #{wxuserId,jdbcType=BIGINT} and appmodel_id = #{appmodelId,jdbcType=VARCHAR} and delete_state = 0
+        order by integral_detail_id desc
+    </select>
+
+    <select id="selectByAppmodelId" resultMap="BaseResultMap"
+            parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from t_prize_detail
+        where delete_state = 0 and appmodel_id = #{appmodelId,jdbcType=VARCHAR} and type = 2
+    </select>
+
+    <select id="selectByWxuserId" resultMap="BaseResultMap"
+            parameterType="com.medusa.basemall.user.entity.Wxuser">
+        select
+        <include refid="Base_Column_List"/>
+        from t_prize_detail
+        where delete_state = 0 and appmodel_id = #{appmodelId,jdbcType=VARCHAR} and type = 2
+        and wxuser_id = #{wxuserId,jdbcType=BIGINT}
+    </select>
+
+</mapper>
+
