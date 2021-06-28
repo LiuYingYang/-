@@ -4,29 +4,29 @@
 ## [公司介绍](https://73app.cn/)  
 专注研发集多种商家服务于一体的SaaS协同平台，为全国超10万家电商企业提供综合信息化解决方案，
 包括手机app开发、微信公众号开发、小程序开发、Web站点设计与搭建、互联网营销推广、项目技术孵化等业务。
-为客户提供互联网解决方案、技术开发、营销推广等一体化服务。 通过https://73app.cn/来了解我们吧
+为客户提供互联网解决方案、技术开发、营销推广等一体化服务。
 
 ## [新零售系统](https://www.bgniao.cn)
+基于当前流行技术组合的前后端分离商城系统： Spring Boot+Spring Cloud+MybatisPlus+XXL-JOB+redis+Vue的前后端分离的商城系统， 包含商品管理、订单管理、运费模板、素材库、小程序直播、规格管理、会员管理、运营管理、内容管理、统计报表、权限管理、装修等功能，更适合企业或个人二次开发；
 基于当前流行技术组合的轻量级 **前后端分离** ，加入 **微服务框架** 和 **分布式版本** 的 **新零售商城系统** ，是一款系统稳定且经过生产环境 **反复线上论证** 和 **真实用户数据使用** 的Java新零售系统。拥有完整下单流程的完全开源项目，本着百尺竿头更进一步的想法 公司决定将启山智软新零售系统全面面向社会。
-![](![输入图片说明](https://images.gitee.com/uploads/images/2021/0515/171604_0859cc6f_8533008.jpeg "微信截图_20210515164707.jpg") "启山智软")
+
+
+(![启山智软](https://images.gitee.com/uploads/images/2021/0515/171604_0859cc6f_8533008.jpeg "启山智软")
 
 
 
 ### 相关链接
-	社区团购		: https://www.bgniao.cn
+	新零售系统	: https://www.bgniao.cn
 	公司官网		: https://73app.cn
-	团购更新文档	: https://www.bgniao.cn/notice
-	商家后台		: https://www.bgniao.cn
-	区域团长后台	: https://www.bgniao.cn
-    运营负责人wx	: xcxqidiankeji
+        运营负责人wx	: xcxqidiankeji
 	负责人电话	: 18967889883
 
 ### 项目介绍
 		是一款基于Spring Cloud 和 Vue.js的新零售系统
 
-		包含了商品管理、订单管理、运费模板、素材库、小程序直播、砍价、规格管理、会员管理、运营管理、内容管理、统计报表、权限管理、设置等模块
+		包含了商品管理、订单管理、运费模板、素材库、小程序直播、规格管理、会员管理、运营管理、内容管理、统计报表、权限管理、设置等模块
 
-		启山智软新零售 针对用户痛点新增了 自定义装修(pc|小程序) 引导页 自定义专区 直播 物流(发货单)模式 魔方装修组件 
+		启山智软新零售 针对用户痛点新增了 自定义装修(pc==》小程序) 引导页 自定义专区 直播 物流(发货单)模式 魔方装修组件 
 		淘宝商品CSV导入 完善的售后体系 会员+消费返利 数据服务 接入盛付通第三方支付享受低费率提现等大批量功能 使用流程更加简单 页面更加简洁美观。功能更加强大且稳定
 
 
@@ -35,22 +35,8 @@
 
 	注：如需深入了解业务功能信息请添加相关 运营负责人微信  wx:xcxqidiankeji。获取测试账号进行体验
 		商家  需知 : 本平台提供商家入驻功能。商家可根据自身需求来选择对应版本 以最低的成本拥有自己的新零售商城小程序。我们也将提供最完善的服务
-        
-		开发者需知 : 启山智软新零售系统我们只开放相关文档及项目介绍。如需了解源码费用情况请添加负责人wx咨询 本公司技术人员可提供相关服务，及设计文档 数据字典 操作使用教程  接口文档  部署教程文档等
    
         如有公益项目需要使用该新零售系统我司愿提供免费的商家入驻及一切售后服务来奉献一些属于自己的爱心 ：公益项目需提供相关证明,我司将拥有针对该项的最终解释权  
-
-### 项目演示
-
-![](https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/5766.gif "启山智软新零售系统操作流程")
-
-小程序码 :
-
-![](https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/open.png "启山智软新零售系统小程序码")
-
-H5 地址 :
-
-区域团长后台 :
 
 
 ### 技术选型
@@ -78,17 +64,17 @@ H5 地址 :
 |                                                                                                     |
 | element                | 组件库         | https://element.eleme.cn/#/zh-CN                           |
 | Vue.js                 | 渐进式JavaScript 框架       | https://cn.vuejs.org/                         |
-| Vue-router 			 | 前端路由 		       | https://router.vuejs.org/zh/ 	                            |
+| Vue-router 			 | 前端路由 		       | https://router.vuejs.org/zh/ 	       |
 | vuex 					 | 状态管理            | https://vuex.vuejs.org/zh/ 		|			
-| modeuse-core 			 | 自主开发UI组件       | -- 													|
-| TypeScript             | JavaScript超集       | https://www.tslang.cn/                    
-|                        |
+| modeuse-core 			 | 自主开发UI组件       | -- 				                |
+| TypeScript             | JavaScript超集       | https://www.tslang.cn/                                |
 | eslint             	 | 代码质量控制         | https://eslint.org/                                   |                 
 | hook	             	 | 代码质量控制         |                                                       |
+| minapp                 |            小程序模板 | https://qiu8310.github.io/minapp/                    |
+|--------|-------|-----------------------------------|
+
                  
 
-### 系统架构图
-![](https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/sasasa1.png "新零售系统架构图")
 
 ### 功能模块
 	基础服务：
@@ -109,7 +95,20 @@ H5 地址 :
 
 
 
-## [更新详细说明](https://www.bgniao.cn/notice) https://www.bgniao.cn/notice
+## [更新详细说明](https://www.bgniao.cn/notice)
+
+
+### 商城功能
+
+- 一：商品模块：商品添加、规格设置，商品上下架等
+- 二：订单模块：下单、购物车、支付，发货、收货、评价、退款等
+- 三：营销模块：积分、优惠券、满减、基金、返券等
+- 四：微信模块：自定义菜单、自动回复、微信授权、图文管理、模板消息推送
+- 五：配置模块：各种配置
+- 六：用户模块：用户管理、会员卡、充值等
+- 七：其他等
+
+
 
 ### B/S 新零售系统商家端功能清单
 经营概况
@@ -163,15 +162,7 @@ H5 地址 :
 	   消息设置		: 如已绑定公众号和小程序则可配置消息模板。
 	   返利设置		: 配置小程序消费返利功能，用户消费返利至余额，余额当钱用，可增加用户粘性。
 	   装修    		: 高自由度自定义装修小程序首页，组件完善。
-	   ... ...      : 更多内容请添加运营人员微信获取商家端操作账号进行体验 
-
-
-## 角色说明
-![]( https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/platform.png "角色说明")
-
-
-## 用户端小程序页面展示
-![](https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/e2eb889d26af1165815b4b9019980d5.jpg "新零售系统用户端页面")
+	   ... ...		: 更多内容请添加运营人员微信获取商家端操作账号进行体验 
 
 
 ## 商家端页面展示
@@ -184,11 +175,6 @@ H5 地址 :
 <img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611543972(1).jpg" width="500" height="500">
 <img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611543937(1).jpg" width="450" height="500">
 
-
-	活动商品 团长信息
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611544500.jpg" width="500" height="500">
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611544500(1).jpg" width="450" height="500">
-
 	积分商城 直播
 <img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611544698.jpg" width="500" height="500">
 <img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611544698(1).jpg" width="450" height="500">
@@ -197,15 +183,12 @@ H5 地址 :
 <img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611544903(1).jpg " width="500" height="500">
 <img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611544922(1).jpg" width="450" height="500">
 
-	快递配送 社区配送
+	快递配送
 <img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611545171(1).jpg " width="500" height="500">
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611545171.jpg" width="450" height="500">
 
-	引导页 协议设置 交易设置 佣金配置
+	引导页 交易设置
 <img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611545316(1).jpg " width="500" height="500">
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611545330(1).jpg" width="450" height="500">
 <img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611545363(1).jpg " width="500" height="500">
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611545381(1).jpg" width="450" height="500">
 
 	自定义装修
 <img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611545742(1).jpg " width="1000" height="500">
