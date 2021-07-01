@@ -29,6 +29,7 @@
 
 ### 项目演示
 ![项目演示](https://medusa-small-file-1253272780.cos.ap-shanghai.myqcloud.com/api/1624938015466.gif "在这里输入图片标题")
+![移动端](https://images.gitee.com/uploads/images/2021/0701/194425_dbc8e867_8533008.jpeg "未标题-1.jpg")
 
 
 ### 小程序码，可联系管理员索要体验权限
