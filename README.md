@@ -28,7 +28,7 @@
 
 
 ### 项目演示
-
+![项目演示](https://medusa-small-file-1253272780.cos.ap-shanghai.myqcloud.com/api/1624938015466.gif "在这里输入图片标题")
 
 
 ### 小程序码，可联系管理员索要体验权限
