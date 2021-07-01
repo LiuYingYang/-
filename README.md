@@ -31,7 +31,7 @@
 
 
 ### 小程序码，可联系管理员索要体验权限
-![小程序体验码](https://images.gitee.com/uploads/images/2021/0701/092820_d3abefd1_8533008.png "体验码.png")"微信图片_20210629113413.jpg")
+![小程序体验码](https://images.gitee.com/uploads/images/2021/0701/092820_d3abefd1_8533008.png "体验码.png")
     
 
 
