@@ -34,8 +34,7 @@
 ![移动端](https://images.gitee.com/uploads/images/2021/0701/200854_b895dbd9_8533008.jpeg "未标题-1.jpg")
 
 Web端管理
-![Web端管理](https://images.gitee.com/uploads/images/2021/0702/151350_f5573397_8533008.jpeg "11-1.jpg")
-![Web端管理](https://images.gitee.com/uploads/images/2021/0702/151407_fcf428e0_8533008.jpeg "11-2.jpg")
+![](https://images.gitee.com/uploads/images/2021/0702/155226_a6cd9120_8533008.jpeg "11.jpg")
 
 ### 小程序码，可联系管理员索要体验权限
 ![小程序体验码](https://images.gitee.com/uploads/images/2021/0701/092820_d3abefd1_8533008.png "体验码.png")
