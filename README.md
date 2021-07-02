@@ -28,6 +28,7 @@
 
 
 ### 项目演示
+[输入链接说明](https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/%E5%B0%8F.gif)
 
 移动端
 ![移动端](https://images.gitee.com/uploads/images/2021/0701/200854_b895dbd9_8533008.jpeg "未标题-1.jpg")
