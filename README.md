@@ -28,7 +28,7 @@
 
 
 ### 项目演示
-![](https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/5766.gif "启山智软社区团购操作流程")
+![](https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/%E5%B0%8F.gif "启山智软社区团购操作流程")
 
 移动端
 ![移动端](https://images.gitee.com/uploads/images/2021/0701/200854_b895dbd9_8533008.jpeg "未标题-1.jpg")
