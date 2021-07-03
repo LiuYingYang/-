@@ -175,11 +175,11 @@
 - 多商户入驻
 - 多端多渠道合一
 
+### 提交反馈
+看过的小伙伴可以留下您的意见和建议，欢迎私信和Issues和PR项目，也可在评论区留言哦！
+
 移动端
 ![](https://images.gitee.com/uploads/images/2021/0702/160747_f27d2e38_8533008.jpeg "移动端展示.jpg")
 
 Web端管理
 ![](https://images.gitee.com/uploads/images/2021/0702/160736_c22cc63c_8533008.jpeg "11.jpg")
-
-### 提交反馈
-看过的小伙伴可以留下您的意见和建议，欢迎私信和Issues和PR项目，也可在评论区留言哦！
