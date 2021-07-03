@@ -27,15 +27,6 @@
         如有公益项目需要使用该新零售系统我司愿提供免费的商家入驻及一切售后服务来奉献一些属于自己的爱心 ：公益项目需提供相关证明,我司将拥有针对该项的最终解释权  
 
 
-### 项目演示
-![](https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/%E5%B0%8F.gif "启山智软社区团购操作流程")
-
-移动端
-![](https://images.gitee.com/uploads/images/2021/0702/160747_f27d2e38_8533008.jpeg "移动端展示.jpg")
-
-Web端管理
-![](https://images.gitee.com/uploads/images/2021/0702/160736_c22cc63c_8533008.jpeg "11.jpg")
-
 ### 小程序码，可联系管理员索要体验权限
 ![小程序体验码](https://images.gitee.com/uploads/images/2021/0701/092820_d3abefd1_8533008.png "体验码.png")
     
@@ -180,6 +171,15 @@ Web端管理
 ### 开发计划
 - 多商户入驻
 - 多端多渠道合一
+
+### 项目演示
+![](https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/%E5%B0%8F.gif "启山智软社区团购操作流程")
+
+移动端
+![](https://images.gitee.com/uploads/images/2021/0702/160747_f27d2e38_8533008.jpeg "移动端展示.jpg")
+
+Web端管理
+![](https://images.gitee.com/uploads/images/2021/0702/160736_c22cc63c_8533008.jpeg "11.jpg")
 
 ### 提交反馈
 看过的小伙伴可以留下您的意见和建议，欢迎私信和Issues和PR项目，也可在评论区留言哦！
