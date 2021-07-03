@@ -29,6 +29,9 @@
 
 ### 小程序码，可联系管理员索要体验权限
 ![小程序体验码](https://images.gitee.com/uploads/images/2021/0701/092820_d3abefd1_8533008.png "体验码.png")
+
+### 项目演示
+![](https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/%E5%B0%8F.gif "启山智软社区团购操作流程")
     
 
 
@@ -171,9 +174,6 @@
 ### 开发计划
 - 多商户入驻
 - 多端多渠道合一
-
-### 项目演示
-![](https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/%E5%B0%8F.gif "启山智软社区团购操作流程")
 
 移动端
 ![](https://images.gitee.com/uploads/images/2021/0702/160747_f27d2e38_8533008.jpeg "移动端展示.jpg")
