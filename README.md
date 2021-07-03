@@ -169,38 +169,3 @@ Web端管理
 	   返利设置		: 配置小程序消费返利功能，用户消费返利至余额，余额当钱用，可增加用户粘性。
 	   装修    		: 高自由度自定义装修小程序首页，组件完善。
 	   ... ...		: 更多内容请添加运营人员微信获取商家端操作账号进行体验 
-
-
-## 商家端页面展示
-	经营概况 产品列表
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611543033(1).jpg" width="500" height="500">
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611543676(1).jpg" width="450" height="500">
-	
-	商品分类 素材导入
-
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611543972(1).jpg" width="500" height="500">
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611543937(1).jpg" width="450" height="500">
-
-	积分商城 直播
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611544698.jpg" width="500" height="500">
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611544698(1).jpg" width="450" height="500">
-
-	客户列表 会员卡管理
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611544903(1).jpg " width="500" height="500">
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611544922(1).jpg" width="450" height="500">
-
-	快递配送
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611545171(1).jpg " width="500" height="500">
-
-	引导页 交易设置
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611545316(1).jpg " width="500" height="500">
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611545363(1).jpg " width="500" height="500">
-
-	自定义装修
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611545742(1).jpg " width="1000" height="500">
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611545782(1).jpg " width="300" height="500">
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611545804.jpg " width="300" height="500">
-<img src="https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/1611545831(1).jpg " width="300" height="500">
-
-
-
