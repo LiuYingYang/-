@@ -28,7 +28,10 @@
 
 
 ### 小程序码，可联系管理员索要体验权限
-![小程序体验码](https://images.gitee.com/uploads/images/2021/0701/092820_d3abefd1_8533008.png "体验码.png")
+
+
+
+![](https://images.gitee.com/uploads/images/2021/0705/113655_abec4036_8533008.jpeg "下载.jpg")
 
 ### 项目演示
 ![](https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/%E5%B0%8F.gif "启山智软社区团购操作流程")
