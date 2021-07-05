@@ -61,24 +61,10 @@
 |![](https://images.gitee.com/uploads/images/2021/0702/160736_c22cc63c_8533008.jpeg "11.jpg")|
 
 
-### 必读
-  :arrow_down: :arrow_down: 
+| 体验码 | 客服微信 |
+|-----|------|
+|![](https://images.gitee.com/uploads/images/2021/0705/113655_abec4036_8533008.jpeg "下载.jpg") | ![输入图片说明](https://images.gitee.com/uploads/images/2021/0705/193820_8b0835ad_8533008.jpeg "1.jpg")     |
 
-	注：如需深入了解业务功能信息请添加相关 运营负责人微信  wx:xcxqidiankeji。获取测试账号进行体验
-		商家  需知 : 本平台提供商家入驻功能。商家可根据自身需求来选择对应版本 以最低的成本拥有自己的新零售商城小程序。我们也将提供最完善的服务
-   
-        如有公益项目需要使用该新零售系统我司愿提供免费的商家入驻及一切售后服务来奉献一些属于自己的爱心 ：公益项目需提供相关证明,我司将拥有针对该项的最终解释权  
-
-
-### 小程序码，可联系管理员索要体验权限
-
-
-
-![](https://images.gitee.com/uploads/images/2021/0705/113655_abec4036_8533008.jpeg "下载.jpg")
-
-### 项目演示
-![](https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/%E5%B0%8F.gif "启山智软社区团购操作流程")
-    
 
 
 ### 技术选型
