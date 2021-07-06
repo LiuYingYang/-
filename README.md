@@ -6,7 +6,10 @@
 |  ![](https://images.gitee.com/uploads/images/2021/0706/145044_f04147fb_8533008.jpeg "即速应用群聊二维码.jpg")      |   ![](https://images.gitee.com/uploads/images/2021/0706/145052_d60ecc84_8533008.jpeg "宁波微信小程序开发群聊二维码.jpg")     |  ![](https://images.gitee.com/uploads/images/2021/0706/145059_b8de6a37_8533008.jpeg "1.jpg")  |
 
 
+
+
  **前言** 
+ 
 
 
 >   :fa-cloud:  关于SmartMall是否开源、如何开源，团队内部发生了激列争论:
@@ -39,6 +42,19 @@
 开源版 Smart Mall 框架面向的是广大Java程序员及团队。从技术选型上看，Spring Cloud+MybatisPlus+XXL-JOB+redis+Vue都是目前前沿主流技术栈，之所以选择vue2.0而非vue3.0，主要考虑当前阶段vue2.0对浏览器兼容性更好，可以避免因浏览器兼容问题导致系统不能正常使用。
 
 希望同学们在留言区积极提出想法建议，或者参与到开源版的bug修复、代码规范和源码贡献中去， **对贡献较大的个人或团队，我们将授权其免费使用商业版 Smart Mall 源码** 。
+
+##   :tw-2611: 允许
+
+- 1.个人学习；
+- 2.商用（请注明来源）；
+- 3.公益项目（请注明来源）。
+
+
+##   :tw-1f6ab: 禁止
+
+- 公有云厂商将其商业化。
+
+
  
 ##  :tw-1f4d7: Smart Mall功能概要
 
