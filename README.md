@@ -1,9 +1,10 @@
 [![](https://img.shields.io/badge/官方网站-www.bgniao.cn-brightgreen)](https://www.bgniao.cn/)  ![](https://img.shields.io/badge/四群-476139879-red)
- ![](https://img.shields.io/badge/五群-556731103-red)
+ ![](https://img.shields.io/badge/五群-458320504-red) ![](https://img.shields.io/badge/六群-556731103-red)
 
-| QQ交流4群 | QQ交流5群 | 微信 |
-|--------|--------|----|
-|  ![](https://images.gitee.com/uploads/images/2021/0706/145044_f04147fb_8533008.jpeg "即速应用群聊二维码.jpg")      |   ![](https://images.gitee.com/uploads/images/2021/0706/145052_d60ecc84_8533008.jpeg "宁波微信小程序开发群聊二维码.jpg")     |  ![](https://images.gitee.com/uploads/images/2021/0706/145059_b8de6a37_8533008.jpeg "1.jpg")  |
+| QQ交流群4 | QQ交流群5 | QQ交流群6 | 技术微信 |
+|--------|--------|--------|------|
+|![](https://images.gitee.com/uploads/images/2021/0707/113944_4f9df1f5_8533008.jpeg "4.jpg")|![](https://images.gitee.com/uploads/images/2021/0707/114009_f44c2fc5_8533008.png "5.png")|![](https://images.gitee.com/uploads/images/2021/0707/114022_4ac943ec_8533008.png "6.png")|![](https://images.gitee.com/uploads/images/2021/0707/114031_ddab66d2_8533008.jpeg "微信.jpg")|
+
 
 
 ####  🍊前言
