@@ -18,7 +18,7 @@
 反复权衡之后，我们做出了开源的决定：换个姿势，说不定柳暗花明。<p style="color=#1163af"> 开源，就是要赋予 Smart Mall 生命，让其自由生长 。 </p> 
 我们励志，要做 **Java程序员首选商城框架** 
 
-####   🧊[www.bgniao.cn](http://www.bgniao.cn/)
+####   🧊[www.bgniao.cn](https://www.bgniao.cn)
 
 
 ####  👒开源版
