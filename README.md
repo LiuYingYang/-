@@ -5,6 +5,12 @@
 |--------|--------|--------|------|
 |![](https://images.gitee.com/uploads/images/2021/0707/113944_4f9df1f5_8533008.jpeg "4.jpg")|![](https://images.gitee.com/uploads/images/2021/0707/114009_f44c2fc5_8533008.png "5.png")|![](https://images.gitee.com/uploads/images/2021/0707/114022_4ac943ec_8533008.png "6.png")|![](https://images.gitee.com/uploads/images/2021/0707/114031_ddab66d2_8533008.jpeg "微信.jpg")|
 
+####   🥇项目介绍
+Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前后端分离的商城系统，采用轻量级稳定框架开发，执行效率、扩展性、稳定性值得信赖。
+是一款经过生产环境 **反复线上论证** 和 **真实用户数据使用** 的Java新零售商城系统。拥有完整下单流程的完全开源项目。 
+
+📍**注：** 如需深入了解业务功能信息请添加负责人wx:xcxqidiankeji获取测更多产品信息和资料。
+
 
 
 ####  🍊前言
@@ -19,13 +25,6 @@
 我们励志，要做 **Java程序员首选商城框架** 
 
 ####   🧊[www.bgniao.cn](https://www.bgniao.cn)
-
-####   🥇项目介绍
-Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前后端分离的商城系统，采用轻量级稳定框架开发，执行效率、扩展性、稳定性值得信赖。
-是一款经过生产环境 **反复线上论证** 和 **真实用户数据使用** 的Java新零售商城系统。拥有完整下单流程的完全开源项目。 
-
-📍**注：** 如需深入了解业务功能信息请添加负责人wx:xcxqidiankeji获取测更多产品信息和资料。
-
 
 ####  👒开源版
 （抽离中，预计7月底正式上线）
