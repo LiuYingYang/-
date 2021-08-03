@@ -26,7 +26,7 @@ Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前�
 ####   🧊[www.bgniao.cn](https://www.bgniao.cn)
 
 ####  👒开源版无加密
-（抽离中，预计7月底正式上线）
+（抽离中，预计8中旬正式上线）
 
 
 开源 Smart Shop 框架， **目的是帮助程序员快速搭建高性能商城** ，具有防脱发的妙用。
