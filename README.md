@@ -108,16 +108,17 @@ Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前�
 
 
 交付清单
- :white_check_mark: 数据库初始化脚本
- :white_check_mark: 后台前端系统前端源码
- :white_check_mark: 小程序端源码
- :white_check_mark: 安装部署文档
- :white_check_mark: 后台接口文档
- :white_check_mark: 小程序端接口文档
- :white_check_mark: 数据字典
- :white_check_mark: 操作手册.docx
- :white_check_mark: 纸质授权证书
- :white_check_mark: 增值税专用发票
+- 数据库初始化脚本
+- 后台前端系统前端源码
+- 小程序端源码
+- 安装部署文档
+- 后台接口文档
+- 小程序端接口文档
+- 数据字典
+- 操作手册.docx
+- 纸质授权证书
+- 增值税专用发票
+
 
 
 ####   在线SaaS版
@@ -175,12 +176,23 @@ Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前�
 ####  熊枫鲜生
 > 专注做全球代购的平台，包含母婴用品、食品和生鲜等产品，一开始使用的是微擎某商城，商城不满足使用需求，18年底的时候找到我们要做魔方装修、引导页和邀请码登陆等功能以便做分销和装修，恰好当时我们的产品有这些功能，所以可以直接在线使用，长期运营截止到现在 **_营业额总计5800万_** 
 
+|![](https://images.gitee.com/uploads/images/2021/0809/143607_ff9011da_8533008.jpeg "微信图片_20210809143329.jpg")|![](https://images.gitee.com/uploads/images/2021/0809/143617_bc66d5a0_8533008.jpeg "微信图片_20210809143335.jpg")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0809/143627_1ce21d49_8533008.jpeg "微信图片_20210809143353.jpg")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0809/143637_135b9643_8533008.jpeg "微信图片_20210809143402.jpg")|
+|---|---|---|---|
+
+
 ####  代购商城
 > 主要经营奢侈品代购，商品全部香港直邮发货，原先某平台购买商城源码使用，一年不到功能不满足现有需求，售卖代码方一直联系不上，后来找到我们做了新人券、用户注册实名制（代购需要）、对接物流API、报表导出等功能，除了新人券其他的功能我们商城是满足的，所以在我们自有源码基础上做了新人券二开，二开后 **_营业额至今上百万_** 
+
+|![输入图片说明](https://images.gitee.com/uploads/images/2021/0809/144858_d05384fd_8533008.jpeg "微信图片_20210809143329.jpg")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0809/144907_3648ce07_8533008.jpeg "微信图片_20210809143335.jpg")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0809/144917_284a0f75_8533008.jpeg "微信图片_20210809143353.jpg")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0809/144932_143ecabf_8533008.jpeg "微信图片_20210809143402.jpg")|
+|---|---|---|---|
+
+
 
 ####  挂号平台
 > 每天早上五六点看到很多大爷大妈排队挂号，甚至冬天很冷也是这样，为了解决这个问题调露小区卫生院孙医生找到我们要做一个线下挂号平台，不要挂号费，省去了他们很早来排队的问题，程序上挂号就可以了，鉴于这个情况我们在商城基础上做了二开修改，挂号平台正式上线后用户覆盖了附近三四个小区 **_两三千人使用量_** 
 
+|![输入图片说明](https://images.gitee.com/uploads/images/2021/0809/145508_0334b068_8533008.jpeg "微信图片_20210809143329.jpg")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0809/145519_f91973cd_8533008.jpeg "微信图片_20210809143335.jpg")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0809/145530_977f3ed4_8533008.jpeg "微信图片_20210809143353.jpg")|
+|---|---|---|---|
 
 
 
