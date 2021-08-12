@@ -1,4 +1,4 @@
-[![](https://img.shields.io/badge/官方网站-https://www.bgniao.cn/-brightgreen)](https://www.bgniao.cn)  ![](https://img.shields.io/badge/四群-476139879-red)
+[![](https://img.shields.io/badge/官方网站-https://www.bgniao.cn-brightgreen)](https://www.bgniao.cn)  ![](https://img.shields.io/badge/四群-476139879-red)
  ![](https://img.shields.io/badge/五群-458320504-red) ![](https://img.shields.io/badge/六群-556731103-red)
 
 | 交流群4 | 交流群5 | 交流群6 | 技术微信 |
