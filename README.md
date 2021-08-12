@@ -1,4 +1,4 @@
-[![](https://img.shields.io/badge/官方网站-https://test.superprism.cn-brightgreen)](https://test.superprism.cn)  ![](https://img.shields.io/badge/四群-476139879-red)
+[![](https://img.shields.io/badge/官方网站-https://test.superprism.cn-brightgreen)](https://www.bgniao.cn)  ![](https://img.shields.io/badge/四群-476139879-red)
  ![](https://img.shields.io/badge/五群-458320504-red) ![](https://img.shields.io/badge/六群-556731103-red)
 
 | 交流群4 | 交流群5 | 交流群6 | 技术微信 |
@@ -97,7 +97,7 @@ Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前�
 
 ####  商业版无限开
 
-简称“商业版”，已经可以随时给需要商城源码的您部署上线，功能与在线SaaS企业版完全相同，可移步官网查看(https://test.superprism.cn)。
+简称“商业版”，已经可以随时给需要商城源码的您部署上线，功能与在线SaaS企业版完全相同，可移步官网查看(https://www.bgniao.cn)。
 
 推出商业版源码的目的，是为了保证产品持续迭代、长期发展。如此强大的商城SaaS系统，拿去就能实现商业无限开，香不香？
 
@@ -155,7 +155,7 @@ Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前�
 
 |![](https://images.gitee.com/uploads/images/2021/0802/144350_d868856f_8533008.png "image.png")|![](https://images.gitee.com/uploads/images/2021/0802/144417_2689bcde_8533008.png "image (1).png")|
 |----------------------------------------------------------|----------------------------------------------------------|
-| 演示地址：https://test.superprism.cn/ 账号：18967889883 密码：admin | 演示地址：https://test.superprism.cn/ 账号：18067188818 密码：admin |
+| 演示地址：https://www.bgniao.cn 账号：18967889883 密码：admin | 演示地址：https://www.bgniao.cn 账号：18067188818 密码：admin |
 
 | 小程序演示 | 操作流程 |
 |-------|------|
