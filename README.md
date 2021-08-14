@@ -15,6 +15,13 @@
 Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前后端分离的商城系统，优化核心、减少依赖，执行效率、扩展性、稳定性都很高。
 是一款经过生产环境**反复线上论证**和**真实用户数据使用**的Java新零售商城系统。
 
+### 荣誉资质
+|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104042_f5d3ec3b_8533008.png "布谷鸟SaaS平台.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104054_cc195768_8533008.png "布谷鸟社区团购.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104233_f71a9b70_8533008.png "外观专利.png")|
+|---|---|---|
+|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104314_eb3cf97f_8533008.png "布谷鸟微商城系统软著.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104323_8bb31568_8533008.png "微信图片_20210130165613.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104333_c16ef7e9_8533008.png "布谷鸟群管理机器人系统.png")|
+
+
+
 
 ### 技术架构
 #### 运行环境
