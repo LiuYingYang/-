@@ -242,7 +242,7 @@
     # 重置当前分支的HEAD为指定commit，同时重置暂存区和工作区，与指定commit一致
     $ git reset --hard [commit]
     
-    # 重置当前HEAD为指定commit，但保持暂存区和工作区不变
+    # 重置当前HEAD为指定commit但保持暂存区和工作区不变
     $ git reset --keep [commit]
     
     # 新建一个commit，用来撤销指定commit
