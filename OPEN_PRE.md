@@ -25,11 +25,11 @@ Smart Shop商城使用前置条件
     注：平台类型为：平台型服务商
 
     选择权限 ： 				   小程序 公众号可按需求勾选
-    授权发起页域名: 			           部署项目的域名
+    授权发起页域名: 			   部署项目的域名
     授权测试公众号/小程序列表 ： 		   小程序原始id
     授权事件接收URL ：			   域名/api/platform/notify/receive_ticket
-    消息校验Token:  			           superprism（可自定义）
-    消息加解密Key:				   43位
+    消息校验Token:  			   superprism（可自定义）
+    消息加解密Key:		           43位
     消息与事件接收URL：			   域名/api/platform/notify/$APPID$/callback
     小程序服务器域名 : 
     小程序业务域名    : 
