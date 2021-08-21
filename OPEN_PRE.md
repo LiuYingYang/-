@@ -53,18 +53,23 @@
 - jenkins
 - JDK
 - xxl-job-admin
+
 - Htop(视图化top) 可装可不装 
-  - yum -y install epel-release
-  - yum -y install htop
-  - https://www.cnblogs.com/zangfans/p/8595000.html 
+
+       yum -y install epel-release
+       yum -y install htop
+       https://www.cnblogs.com/zangfans/p/8595000.html 
 
 - Nginx web代理
-  - yum install nginx-1.16.1
+  
+        yum install nginx-1.16.1
 - Nacos
-  - 解压zip 
-  - 启动 ：sh startup.sh -m standalone    
+  
+         解压zip 
+         启动 ：sh startup.sh -m standalone    
     
 - Docker
+
         sudo wget -qO- https://get.docker.com | sh
         版本查看 ： docker version
         启动     ： service docker start
@@ -76,29 +81,35 @@
         详细使用请大家自行百度。如遇问题可加入qq群,会有专人解答
     
 - Harbor docker视图化仓库
+
         解压zip 
         修改相关配置
         启动  ：    ./install.sh
         查看  ：   docker ps
      
 - Mysql 
+       
         请大家自行安装 如遇问题可加入qq群,会有专人解答 5.7版本及以上
      
 - Redis
+       
         请大家自行安装 如遇问题可加入qq群,会有专人解答
         
 - rabbitmq 
+       
         因使用延迟队列,我们提供专门docker镜像
         docker pull xiaoq123/mq-image:3.8
         docker run -d -p 15672:15672 -p 5672:5672  --name rabbitmq --restart always -e RABBITMQ_DEFAULT_USER=用户名 -e RABBITMQ_DEFAULT_PASS=密码 - 
         xiaoq123/mq-image:3.8
 - xxl-job-admin
+       
         因版本变动过大,我们提供专门docker镜像
         docker pull xiaoq123/xxl-job-image:2.1.1
         docker run -e PARAMS="--spring.datasource.url=jdbc:mysql://数据库地址?Unicode=true&characterEncoding=UTF-8 --spring.datasource.username=数据库账号--spring.datasource.password=数据库密码 " -p 9010:8080 -v /tmp:/data/applogs --name xxl-job-admin  --privileged=true -d xiaoq123/xxl-job-image:2.1.1
 
  
 - zip压缩包获取
+       
         链接：https://pan.baidu.com/s/1rXzEYl_Korj9T27ptplRbA 
         提取码：64s1 
         --来自百度网盘超级会员V4的分享      
