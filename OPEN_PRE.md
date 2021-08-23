@@ -116,6 +116,15 @@
          
         安装过程中出现问题或疑惑可加入qq群探讨
  
+***
+   
+   
+    项目启动前 需要安装完成 Nacos Nexus Docker Mysql Redis rabbitmq xxl-job-admin
+    
+    项目上线前 需要安装完成 Nacos Nexus Docker Mysql Redis rabbitmq xxl-job-admin Jenkins Nginx Harbor JDK 
+    如有疑问可加入qq群进行沟通
+
+***
 
 
 项目介绍 
@@ -134,3 +143,48 @@
         gruul-discount-open             抵扣服务
         gruul-logistics-open            物流服务
         
+nginx配置
+  
+    nginx使用教程请参考 Nginx中文文档 (https://www.nginx.cn/doc/)
+    
+      server {
+        listen 80;
+        listen [::]:80;
+        server_name open.bgniao.cn;
+        return 301 https://open.bgniao.cn/$request_uri;
+      }
+      server{
+        listen 443 ssl ;
+        listen [::]:443 ssl ;
+        server_name open.bgniao.cn;
+        #SSL
+        ssl_certificate /etc/nginx/ssl/1_open.bgniao.cn_bundle.crt;
+        ssl_certificate_key /etc/nginx/ssl/2_open.bgniao.cn.key;
+        ssl_session_timeout 5m;
+        ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+        ssl_prefer_server_ciphers on;
+
+         #后端接口
+        location /api/ {
+          if ($request_method = OPTIONS ) {
+              add_header Access-Control-Allow-Origin "*";
+              add_header Access-Control-Allow-Methods "POST, GET, PUT, OPTIONS, DELETE, HEAD";
+              add_header Access-Control-Max-Age "3600";
+              add_header Access-Control-Allow-Headers "DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorizationi, *";
+              add_header Access-Control-Allow-Credentials "true";
+              add_header Content-Length 0;
+              add_header Content-Type text/plain;
+              return 204;
+          }
+
+           add_header 'Access-Control-Allow-Origin' "*";
+           add_header 'Access-Control-Allow-Methods' 'POST, GET, PUT, OPTIONS, DELETE, HEAD';
+           add_header 'Access-Control-Allow-Headers' 'DNT,X-Mx-ReqToken,Keep-Alive,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Authorization,*';
+           add_header 'Access-Control-Allow-Credentials' 'true';
+           add_header Access-Control-Max-Age "3600";
+           proxy_set_header Upgrade $http_upgrade;
+           proxy_set_header Connection "upgrade";
+           proxy_pass http://127.0.0.1:10999/;
+        }
+       }
