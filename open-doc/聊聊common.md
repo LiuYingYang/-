@@ -20,10 +20,10 @@ gruul-common
 	
    gruul-common-base
 	├──  com.medusa.gruul.common.core
-	│   ├── EscapeLogin.java  -- 免登入注解,可在没有token情况调用接口 使用 @EscapeLogin
-	│   ├── RestExceptionHandler.java -- 全局异常捕捉    未捕捉异常 (400,"服务器内部错误")  
-    │   ├──                              自定义异常捕捉   自定义异常(自定义code,"自定义msg")
-    │   ├──                                   throw new ServiceException(900100,"商品信息不存在");   
+	│   ├── EscapeLogin.java            -- 免登入注解,可在没有token情况调用接口 使用 @EscapeLogin
+	│   ├── RestExceptionHandler.java   -- 全局异常捕捉    未捕捉异常 (400,"服务器内部错误")  
+    │   ├──                                     自定义异常捕捉   自定义异常(自定义code,"自定义msg")
+    │   ├──                                     throw new ServiceException(900100,"商品信息不存在");   
 	|   ├── ServiceException.java       -- 自定义异常 
 	|   ├── JavaTimeModule.java         -- 时间默认序列化
 	|   ├── EnableMonitorHeartbeat.java -- 心跳监听注解 (开源版未使用，区分基础库实现多版本并行)
