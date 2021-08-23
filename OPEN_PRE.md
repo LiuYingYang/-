@@ -118,3 +118,19 @@
  
 
 
+项目介绍 
+        
+        gruul 
+        account-open                    用户服务
+        platform-open                   平台服务
+        gruul-sms-open                  短信服务
+        grull-oss-open                  oss存储服务(内存不足时可优先考虑进行合并)
+        gruul-afs-open                  售后服务
+        gruul-goods-open                商品服务
+        gruul-order-open                订单服务
+        gruul-shops-open                店铺服务
+        grull-payment-open              支付服务
+        gruul-gateway-open              网关服务
+        gruul-discount-open             抵扣服务
+        gruul-logistics-open            物流服务
+        

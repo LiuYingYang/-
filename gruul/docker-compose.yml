@@ -1,0 +1,232 @@
+# 启动方法 VERSION=s1.0.6 (所需版本) BRANCH=test docker-compose up -d              down
+version: '2'
+services:
+      #积分模块
+  gruul-integral:
+    image: 111.231.208.4:81/gruul/gruul-integral:$BRANCH-$VERSION
+    restart: always
+    container_name: gruul-integral-$VERSION
+    ports:
+      - "9699:9699"
+    environment:
+      - SERVER_PORT=9699
+      - SPRING_PROFILES_ACTIVE=$ACTIVE
+      - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+      #数据模块
+  gruul-datasets:
+     image: 111.231.208.4:81/gruul/gruul-datasets:$BRANCH-$VERSION
+     restart: always
+     container_name: gruul-datasets-$VERSION
+     ports:
+       - "9599:9599"
+     environment:
+       - SERVER_PORT=9599
+       - SPRING_PROFILES_ACTIVE=$ACTIVE
+       - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+        #用户模块
+  gruul-account:
+     image: 111.231.208.4:81/gruul/gruul-account:$BRANCH-$VERSION
+     restart: always
+     container_name: gruul-account-$VERSION
+     ports:
+        - "9449:9449"
+     environment:
+       - SERVER_PORT=9449
+       - SPRING_PROFILES_ACTIVE=$ACTIVE
+       - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+        #物流模块
+  gruul-logistics:
+     image: 111.231.208.4:81/gruul/gruul-logistics:$BRANCH-$VERSION
+     restart: always
+     container_name: gruul-logistics-$VERSION
+     ports:
+        - "9168:9168"
+     environment:
+       - SERVER_PORT=9168
+       - SPRING_PROFILES_ACTIVE=$ACTIVE
+       - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+        #团长模块
+  gruul-assemble:
+     image: 111.231.208.4:81/gruul/gruul-assemble:$BRANCH-$VERSION
+     restart: always
+     container_name: gruul-assemble-$VERSION
+     ports:
+        - "9208:9208"
+     environment:
+        - SERVER_PORT=9208
+        - SPRING_PROFILES_ACTIVE=$ACTIVE
+        - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+        #直播服务
+  gruul-live:
+     image: 111.231.208.4:81/gruul/gruul-live:$BRANCH-$VERSION
+     restart: always
+     container_name: gruul-live-$VERSION
+     ports:
+        - "9749:9749"
+     environment:
+         - SERVER_PORT=9749
+         - SPRING_PROFILES_ACTIVE=$ACTIVE
+         - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+        #商品服务
+  gruul-goods:
+     image: 111.231.208.4:81/gruul/gruul-goods:$BRANCH-$VERSION
+     restart: always
+     container_name: gruul-goods-$VERSION
+     ports:
+       - "9099:9099"
+     environment:
+       - SERVER_PORT=9099
+       - SPRING_PROFILES_ACTIVE=$ACTIVE
+       - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+        #短信服务
+  gruul-sms:
+     image: 111.231.208.4:81/gruul/gruul-sms:$BRANCH-$VERSION
+     restart: always
+     container_name: gruul-sms-$VERSION
+     ports:
+       - "9049:9049"
+     environment:
+       - SERVER_PORT=9049
+       - SPRING_PROFILES_ACTIVE=$ACTIVE
+       - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+         #社区配送
+  gruul-shipping:
+     image: 111.231.208.4:81/gruul/gruul-shipping:$BRANCH-$VERSION
+     restart: always
+     container_name: gruul-shipping-$VERSION
+     ports:
+       - "9077:9077"
+     environment:
+       - SERVER_PORT=9077
+       - SPRING_PROFILES_ACTIVE=$ACTIVE
+       - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+         #提货点
+  gruul-point:
+     image: 111.231.208.4:81/gruul/gruul-point:$BRANCH-$VERSION
+     restart: always
+     container_name: gruul-point-$VERSION
+     ports:
+       - "9079:9079"
+     environment:
+       - SERVER_PORT=9079
+       - SPRING_PROFILES_ACTIVE=$ACTIVE
+       - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+        #折扣服务
+  gruul-discount:
+     image: 111.231.208.4:81/gruul/gruul-discount:$BRANCH-$VERSION
+     restart: always
+     container_name: gruul-discount-$VERSION
+     ports:
+       - "9949:9949"
+     environment:
+       - SERVER_PORT=9949
+       - SPRING_PROFILES_ACTIVE=$ACTIVE
+       - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+        #商铺服务
+  gruul-shops:
+     image: 111.231.208.4:81/gruul/gruul-shops:$BRANCH-$VERSION
+     restart: always
+     container_name: gruul-shops-$VERSION
+     ports:
+       - "9209:9209"
+     environment:
+       - SERVER_PORT=9209
+       - SPRING_PROFILES_ACTIVE=$ACTIVE
+       - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+        #佣金服务
+  gruul-finance:
+     image: 111.231.208.4:81/gruul/gruul-finance:$BRANCH-$VERSION
+     restart: always
+     container_name: gruul-finance-$VERSION
+     ports:
+       - "9549:9549"
+     environment:
+       - SERVER_PORT=9549
+       - SPRING_PROFILES_ACTIVE=$ACTIVE
+       - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+        #订单服务
+  gruul-order:
+     image: 111.231.208.4:81/gruul/gruul-order:$BRANCH-$VERSION
+     restart: always
+     container_name: gruul-order-$VERSION
+     ports:
+       - "9149:9149"
+     environment:
+       - SERVER_PORT=9149
+       - SPRING_PROFILES_ACTIVE=$ACTIVE
+       - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+        #oss
+  gruul-oss:
+     image: 111.231.208.4:81/gruul/gruul-oss:$BRANCH-$VERSION
+     restart: always
+     container_name: gruul-oss-$VERSION
+     ports:
+       - "9299:9299"
+     environment:
+       - SERVER_PORT=9299
+       - SPRING_PROFILES_ACTIVE=$ACTIVE
+       - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+        #支付模块
+  gruul-payment:
+     image: 111.231.208.4:81/gruul/gruul-payment:$BRANCH-$VERSION
+     restart: always
+     container_name: gruul-payment-$VERSION
+     ports:
+       - "9349:9349"
+     environment:
+       - SERVER_PORT=9349
+       - SPRING_PROFILES_ACTIVE=$ACTIVE
+       - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+        #平台服务
+  gruul-platform:
+     image: 111.231.208.4:81/gruul/gruul-platform:$BRANCH-$VERSION
+     restart: always
+     container_name: gruul-platform-$VERSION
+     ports:
+       - "9199:9199"
+     environment:
+       - SERVER_PORT=9199
+       - SPRING_PROFILES_ACTIVE=$ACTIVE
+       - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+        #售后
+  gruul-afs:
+     image: 111.231.208.4:81/gruul/gruul-afs:$BRANCH-$VERSION
+     restart: always
+     container_name: gruul-afs-$VERSION
+     ports:
+       - "9801:9801"
+     environment:
+       - SERVER_PORT=9801
+       - SPRING_PROFILES_ACTIVE=$ACTIVE
+       - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+        #接龙
+  gruul-solitaire:
+     image: 111.231.208.4:81/gruul/gruul-solitaire:$BRANCH-$VERSION
+     restart: always
+     container_name: gruul-solitaire-$VERSION
+     ports:
+       - "9851:9851"
+     environment:
+       - SERVER_PORT=9851
+       - SPRING_PROFILES_ACTIVE=$ACTIVE
+       - SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=$VERSION
+       #城市合伙人
+  medusa-admin:
+     image: 111.231.208.4:81/gruul/medusa-admin:$BRANCH-$VERSION
+     restart: always
+     container_name: medusa-admin-$VERSION
+     ports:
+       - "8011:80"
+      #pc区域团长后台
+  medusa-leader-admin:
+     image: 111.231.208.4:81/gruul/medusa-leader-admin:$BRANCH-$VERSION
+     restart: always
+     container_name: medusa-leader-admin-$VERSION
+     ports:
+       - "8015:80"
+  medusa-h5:
+     image: 111.231.208.4:81/gruul/medusa-h5:$BRANCH-$VERSION
+     restart: always
+     container_name: medusa-h5-$VERSION
+     ports:
+       - "8016:80"

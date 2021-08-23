@@ -375,3 +375,5 @@
     </pluginRepositories>
 
 </project>
+
+<!--注：该处pom文件不是微服务所使用pom。具体微服务启动方式请查看OPEN_PRE -->
