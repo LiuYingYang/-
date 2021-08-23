@@ -6,6 +6,7 @@
 **Smart Shop商城使用前置条件**
 
 1. 营业执照
+1. 备案域名一个(小程序上线)
 1. 认证微信小程序一个
 1. 商家支付证书(包含支付和退款)
 1. Linux服务器一台  （部署项目）
@@ -150,16 +151,16 @@ nginx配置
       server {
         listen 80;
         listen [::]:80;
-        server_name open.bgniao.cn;
-        return 301 https://open.bgniao.cn/$request_uri;
+        server_name 域名;
+        return 301 https://域名/$request_uri;
       }
       server{
         listen 443 ssl ;
         listen [::]:443 ssl ;
-        server_name open.bgniao.cn;
+        server_name 域名;
         #SSL
-        ssl_certificate /etc/nginx/ssl/1_open.bgniao.cn_bundle.crt;
-        ssl_certificate_key /etc/nginx/ssl/2_open.bgniao.cn.key;
+        ssl_certificate /etc/nginx/ssl/域名证书.crt;
+        ssl_certificate_key /etc/nginx/ssl/域名证书.key;
         ssl_session_timeout 5m;
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
         ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
