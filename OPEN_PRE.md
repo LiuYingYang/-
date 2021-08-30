@@ -100,8 +100,7 @@
        
         因使用延迟队列,我们提供专门docker镜像
         docker pull xiaoq123/mq-image:3.8
-        docker run -d -p 15672:15672 -p 5672:5672  --name rabbitmq --restart always -e RABBITMQ_DEFAULT_USER=用户名 -e RABBITMQ_DEFAULT_PASS=密码 - 
-        xiaoq123/mq-image:3.8
+        docker run -d -p 15672:15672 -p 5672:5672  --name rabbitmq --restart always -e RABBITMQ_DEFAULT_USER=用户名 -e RABBITMQ_DEFAULT_PASS=密码xiaoq123/mq-image:3.8
 - xxl-job-admin
        
         因版本变动过大,我们提供专门docker镜像
