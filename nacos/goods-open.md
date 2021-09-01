@@ -65,9 +65,3 @@ monitor:
   baseType: "business"     #基础库类型  public-支撑基础库   business-业务基础库
   serviceType: "universalService" #服务类型    universalService-通用服务  commissionService-定制服务
 
-gruul:
-  authCode: 
-  referer: 
-
-```
-
