@@ -1,3 +1,4 @@
+<a href='https://gitee.com/qisange/basemall/stargazers'><img src='https://gitee.com/qisange/basemall/badge/star.svg?theme=dark' alt='star'></img></a>
 | 交流群4 | 交流群5 | 交流群6 | 技术微信 |
 |--------|--------|--------|------|
 |![](https://images.gitee.com/uploads/images/2021/0707/113944_4f9df1f5_8533008.jpeg "4.jpg")|![](https://images.gitee.com/uploads/images/2021/0707/114009_f44c2fc5_8533008.png "5.png")|![](https://images.gitee.com/uploads/images/2021/0707/114022_4ac943ec_8533008.png "6.png")|![](https://images.gitee.com/uploads/images/2021/0707/114031_ddab66d2_8533008.jpeg "微信.jpg")|
