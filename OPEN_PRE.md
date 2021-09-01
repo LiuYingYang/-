@@ -66,9 +66,19 @@
         yum install nginx-1.16.1
 - Nacos
   
-         解压zip 
-         启动 ：sh startup.sh -m standalone    
-    
+         解压 tar.gz
+         移动到bin目录下  cd /nacos/bin 
+         单机版启动 ：sh startup.sh -m standalone    
+         访问 ：ip:8848/nacos   
+                user :nacos
+                pwd:nacos
+         如需使用数据库进行配置请执行初始化sql及更改配置
+         /nacos/conf/nacos-mysql.sql
+         /nacos/conf/application.properties.example
+        注：nacos密码有进行加密 要自己生成一个
+            org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+            String pwd = new BCryptPasswordEncoder().encode("123456");
+         
 - Docker
 
         sudo wget -qO- https://get.docker.com | sh
