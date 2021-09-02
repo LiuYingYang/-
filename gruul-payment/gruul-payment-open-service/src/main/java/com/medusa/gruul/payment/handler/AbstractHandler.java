@@ -10,7 +10,6 @@ import com.medusa.gruul.payment.api.constant.MagicConstant;
 import com.medusa.gruul.payment.api.constant.StatusConstant;
 import com.medusa.gruul.payment.api.entity.Payment;
 import com.medusa.gruul.payment.api.entity.PaymentRecord;
-import com.medusa.gruul.payment.api.enums.FeeTypeEnum;
 import com.medusa.gruul.payment.api.model.dto.PayRequestDto;
 import com.medusa.gruul.payment.api.model.dto.PayResultDto;
 import org.slf4j.Logger;

@@ -1,6 +1,5 @@
 package com.medusa.gruul.payment;
 
-import com.medusa.gruul.common.core.monitor.EnableMonitorHeartbeat;
 import com.medusa.gruul.common.swagger.annotation.EnableGruulSwagger2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;

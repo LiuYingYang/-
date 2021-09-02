@@ -1,6 +1,5 @@
 package com.medusa.gruul.oss.controller;
 
-import com.google.common.collect.Maps;
 import com.medusa.gruul.common.core.annotation.EscapeLogin;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.Result;
@@ -12,29 +11,19 @@ import com.medusa.gruul.oss.task.UpdateConfigTask;
 import com.medusa.gruul.oss.ueditor.ActionEnter;
 import com.medusa.gruul.oss.utls.OssRedisTools;
 import io.swagger.annotations.Api;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileItemFactory;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**

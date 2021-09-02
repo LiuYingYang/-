@@ -12,11 +12,7 @@
 
     <modules>
         <module>gruul-common</module>
-        <module>gruul-gateway-open</module>
-        <module>gruul-logistics</module>
-        <module>gruul-payment</module>
-        <module>gruul-oss</module>
-        <module>gruul-sms</module>
+
     </modules>
 
     <properties>
