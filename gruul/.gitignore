@@ -68,7 +68,7 @@ node_modules
 ### txlcn ###
 .txlcn
 
-gruul-common\
+../gruul-common
 gruul-gateway\
 gruul-platform\
 gruul-tm\
