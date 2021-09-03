@@ -1,3 +1,10 @@
+<!--
+ * @description: 抽离开源版本
+ * @Author: chuyinlong
+ * @Date: 2021-09-03 10:01:47
+ * @LastEditors: chuyinlong
+ * @LastEditTime: 2021-09-03 10:59:39
+-->
 | 交流群4 | 交流群5 | 交流群6 | 技术微信 |
 |--------|--------|--------|------|
 |![](https://images.gitee.com/uploads/images/2021/0707/113944_4f9df1f5_8533008.jpeg "4.jpg")|![](https://images.gitee.com/uploads/images/2021/0707/114009_f44c2fc5_8533008.png "5.png")|![](https://images.gitee.com/uploads/images/2021/0707/114022_4ac943ec_8533008.png "6.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0902/144038_a64c12c0_8533008.png "微信截图_20210902143902.png")|
@@ -81,7 +88,7 @@ Smart Shop 是一款经过生产环境**反复线上论证**和**真实用户数
 ### 系统版本
 
 ####  开源版无加密
-开源 Smart Shop 框架（测试中，预计九月初正式上线），**目的是帮助程序员快速搭建高性能商城** 。
+开源 Smart Shop 框架（已上线），**目的是帮助程序员快速搭建高性能商城** 。
 
 既然是框架，那么重点要解决的就是底层架构的复用问题，除了基础的用户、商品、订单、物流、售后等完整业务流程的功能外，其他业务模块不是开源的重点。我们承诺： **开源版 Smart Shop 框架永久免费无加密** 。商业版使用的底层框架，跟开源版完全相同，所以使用开源版的同学，可以轻松升级到商业版。
 
@@ -157,9 +164,9 @@ Smart Shop 是一款经过生产环境**反复线上论证**和**真实用户数
 
 ###  项目演示
 
-|![](https://images.gitee.com/uploads/images/2021/0802/144350_d868856f_8533008.png "image.png")|![](https://images.gitee.com/uploads/images/2021/0802/144417_2689bcde_8533008.png "image (1).png")|
+|开源版：![](https://medusa-small-file.oss-cn-hangzhou.aliyuncs.com/gruul/20210903/aa1615e427d448cb93de24f511ec0243.png "kaiyuan.png")|![](https://images.gitee.com/uploads/images/2021/0802/144350_d868856f_8533008.png "image.png")|![](https://images.gitee.com/uploads/images/2021/0802/144417_2689bcde_8533008.png "image (1).png")|
 |----------------------------------------------------------|----------------------------------------------------------|
-| 演示地址：https://test.superprism.cn/login 账号：18967889883 密码：admin | 演示地址：https://test.superprism.cn/login 账号：18067188818 密码：admin |
+| 开源版本演示地址：https://open.bgniao.cn/copartner/0.1/sign 账号：15824556145 密码：admin123 | 演示地址：https://test.superprism.cn/login 账号：18967889883 密码：admin | 演示地址：https://test.superprism.cn/login 账号：18067188818 密码：admin |
 
 | 小程序演示 | 操作流程 |
 |-------|------|
