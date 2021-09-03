@@ -60,7 +60,7 @@ gruul:
       - t_payment_record
 
 pay:
-  notify: "https://open.bgniao.cn/api/payment-open/notify"
+  notify: "https://域名/api/payment-open/notify"
   workerId: 1
   datacenterId: 1
   ipsWorkerId: 2
@@ -68,8 +68,8 @@ pay:
   ipsVersion: 2.0.0
   ipsURL: https://api.ips.com.cn
   ipsTradePlatformPaySubUrl: /trade/platform/pay
-  ipsNotify: https://open.bgniao.cn/api/payment-open/ips_notify
-  wxRefundUrl: https://open.bgniao.cn/api/payment-open/wx_refund_notify
+  ipsNotify: https://域名/api/payment-open/ips_notify
+  wxRefundUrl: https://域名/api/payment-open/wx_refund_notify
 
 xxl:
   job:
