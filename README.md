@@ -163,10 +163,10 @@ Smart Shop 是一款经过生产环境**反复线上论证**和**真实用户数
 
 
 ###  项目演示
+| 开源版：![](https://medusa-small-file.oss-cn-hangzhou.aliyuncs.com/gruul/20210903/aa1615e427d448cb93de24f511ec0243.png "kaiyuan.png") | ![](https://images.gitee.com/uploads/images/2021/0802/144350_d868856f_8533008.png "image.png") | ![](https://images.gitee.com/uploads/images/2021/0802/144417_2689bcde_8533008.png "image (1).png") |
+|-----------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| 开源版本演示地址：https://open.bgniao.cn/copartner/0.1/sign 账号：15824556145 密码：admin123                                                     | 演示地址：https://test.superprism.cn/login 账号：18967889883 密码：admin                                  | 演示地址：https://test.superprism.cn/login 账号：18067188818 密码：admin                                      |
 
-|开源版：![](https://medusa-small-file.oss-cn-hangzhou.aliyuncs.com/gruul/20210903/aa1615e427d448cb93de24f511ec0243.png "kaiyuan.png")|![](https://images.gitee.com/uploads/images/2021/0802/144350_d868856f_8533008.png "image.png")|![](https://images.gitee.com/uploads/images/2021/0802/144417_2689bcde_8533008.png "image (1).png")|
-|----------------------------------------------------------|----------------------------------------------------------|
-| 开源版本演示地址：https://open.bgniao.cn/copartner/0.1/sign 账号：15824556145 密码：admin123 | 演示地址：https://test.superprism.cn/login 账号：18967889883 密码：admin | 演示地址：https://test.superprism.cn/login 账号：18067188818 密码：admin |
 
 | 小程序演示 | 操作流程 |
 |-------|------|
