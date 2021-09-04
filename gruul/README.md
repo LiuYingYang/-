@@ -8,11 +8,11 @@ gruul 小程序商城
 	```yaml
 	gruul
 	├── gruul-common  --公共模块
-	├── gruul-nacos  --注册配置中心[8848]
+	├── gruul-nacos  --注册配置中心[naocs端口号]
 	├── gruul-gateway  --gateway网关[10999]
 	├── gruul-ops  --运维模块
 	│   ├── gruul-ops-job  --xxl-job-admin[9010]
-	│   ├── gruul-ops-monitor  --Spring Boot Admin[5001]
+	│   ├── gruul-ops-monitor(未上传)  --Spring Boot Admin[5001]
 	├── gruul-oss  --OSS模块
 	│   ├── gruul-oss-api  --OSS公共api
 	│   ├── gruul-oss-service  --OSS业务处理[]
@@ -63,31 +63,45 @@ gruul 小程序商城
 #### 安装教程
 
 1. 下载本项目
-2. 添加本地hosts记录
-	```yaml
-	127.0.0.1 gruul-nacos
-	127.0.0.1 gruul-gateway
-	127.0.0.1 gruul-redis
-	127.0.0.1 gruul-mysql
-	```
-3. 初始化数据库
-	- 运行建库语句sql文件
+
+2. 初始化数据库
+	- 运行建库语句sql文件 (每个项目doc下有先对应的sql文件)
 	- 运行其他的sql文件
-4. 修改配置文件
+3. 修改配置文件
 	- 修改gruul-nacos\src\main\resources\bootstrap.yml 中的数据库配置
 	- 运行nacos  默认账号密码（nacos/nacos） 
 	- 修改application-open.yml文件中的redis配置
 	- 修改oss-open.yml等文件中的数据库配置
-5. 安装lombok插件
+4. 安装lombok插件
 	详见 [idea安装Lombok](https://www.jianshu.com/p/37e24fe833d6)
 
-6. 启动顺序  
-	1.NacosApplication.java  
-	2.GatewayApplication.java  
-	3.TMApplication.java  
-	4.XxlJobAdminApplication.java  
-	5.随意
-
+5. 启动顺序  
+	1.NacosApplication.java (nacos)  
+	2.GatewayApplication.java  (网关)
+	3.XxlJobAdminApplication.java (xxl-job-admin)  
+	4.随意(应用)
+6. 项目部署
+    正式部署  
+        gitlab(代码存储工具)  
+        jenkins(代码集成) 
+        Docker(容器管理) 
+        DockerHarbor(可视化镜像仓库)
+        Nexus(私服) 
+        JDK
+        MAVEN
+    简易部署
+       本地打jar包  (sms)   mvn clean install package deploy
+       执行Dockerfile(sms)
+       启动镜像
+        docker run --name gruul-oss-open-0.1 --restart always -p 10300:10300  -v /tmp/logs/gruul:/tmp/logs/gruul -e SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=0.1 -e SPRING_PROFILES_ACTIVE=open 镜像:版本号
+       命令详解
+         -- name 配置docker容器名称
+         -- restart always 自动重启
+         -p 10300:10300 保留端口及端口映射
+         -e SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=0.1 (指定版本)
+         -e SPRING_PROFILES_ACTIVE=open (设置使用配置)
+         -v /tmp/logs/gruul:/tmp/logs/gruul (挂载目录)
+         
 #### 开发说明
 
 1. git commit 提交规范  
@@ -119,7 +133,7 @@ gruul 小程序商城
      3. body  
         对本地提交的详细描述，不建议。我们建议多次少量提交，而不是一次巨量的提交，有助于revert和code review。
         
-	辅助工具 安装插件 git-commit-template 
+	辅助工具 安装插件 git-commit-template (随意)
     
 2. 编码规范
 	安装插件Alibaba Java Coding Guidelines plugin 提交代码前须使用插件检查代码，全部修改之后在进行提交
