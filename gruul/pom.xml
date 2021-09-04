@@ -22,6 +22,7 @@
         <module>gruul-payment-open</module>
         <module>gruul-shops-open</module>
         <module>gruul-sms-open</module>
+        <module>gruul-platform-open</module>
     </modules>
 
     <properties>
