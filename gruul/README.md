@@ -81,26 +81,27 @@ gruul 小程序商城
 	3.XxlJobAdminApplication.java (xxl-job-admin)  
 	4.随意(应用)
 6. 项目部署
-    正式部署  
-        gitlab(代码存储工具)  
-        jenkins(代码集成) 
-        Docker(容器管理) 
-        DockerHarbor(可视化镜像仓库)
-        Nexus(私服) 
-        JDK
-        MAVEN
-    简易部署
-       本地打jar包  (sms)   mvn clean install package deploy
-       执行Dockerfile(sms)
-       启动镜像
-        docker run --name gruul-oss-open-0.1 --restart always -p 10300:10300  -v /tmp/logs/gruul:/tmp/logs/gruul -e SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=0.1 -e SPRING_PROFILES_ACTIVE=open 镜像:版本号
-       命令详解
-         -- name 配置docker容器名称
-         -- restart always 自动重启
-         -p 10300:10300 保留端口及端口映射
-         -e SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=0.1 (指定版本)
-         -e SPRING_PROFILES_ACTIVE=open (设置使用配置)
-         -v /tmp/logs/gruul:/tmp/logs/gruul (挂载目录)
+    
+        正式部署  用过jenkins进行代码构建打包
+            gitlab(代码存储工具)  
+            jenkins(代码集成) 
+            Docker(容器管理) 
+            DockerHarbor(可视化镜像仓库)
+            Nexus(私服) 
+            JDK
+            MAVEN
+        简易部署
+           本地打jar包  (sms)   mvn clean install package deploy
+           执行Dockerfile(sms)
+           启动镜像
+            docker run --name gruul-oss-open-0.1 --restart always -p 10300:10300  -v /tmp/logs/gruul:/tmp/logs/gruul -e SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=0.1 -e SPRING_PROFILES_ACTIVE=open 镜像:版本号
+           命令详解
+             -- name 配置docker容器名称
+             -- restart always 自动重启
+             -p 10300:10300 保留端口及端口映射
+             -e SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=0.1 (指定版本)
+             -e SPRING_PROFILES_ACTIVE=open (设置使用配置)
+             -v /tmp/logs/gruul:/tmp/logs/gruul (挂载目录)
          
 #### 开发说明
 
