@@ -26,7 +26,7 @@ public class RedisTest extends RedisVisitorBaseFacade{
         System.out.println("=========get=set================end");
         RedisTestVo v = new RedisTestVo();
         v.setName("testobj");
-        v.setId(2l);
+        v.setId(2L);
         v.setPs(1.0);
         v.setTime(new Date());
         System.out.println("=========get=set==Object==============start");

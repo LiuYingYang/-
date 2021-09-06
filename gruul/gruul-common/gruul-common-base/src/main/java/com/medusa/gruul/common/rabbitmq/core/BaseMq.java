@@ -58,14 +58,18 @@ public class BaseMq {
     }
 
     public synchronized static void initMany(MqSelector... selectors) throws Exception {
-        if (selectors == null || selectors.length == 0) return;
+        if (selectors == null || selectors.length == 0){
+            return;
+        } 
         for (MqSelector selector : selectors) {
             getInitedInstance(selector);
         }
     }
 
     public synchronized static void destroyAll() {
-        if (instances == null || instances.size() == 0) return;
+        if (instances == null || instances.size() == 0) {
+            return;
+        }
         for (BaseMq instance : instances.values()) {
             instance.destroy();
         }

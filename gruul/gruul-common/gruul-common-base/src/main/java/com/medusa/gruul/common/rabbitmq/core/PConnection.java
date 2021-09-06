@@ -95,8 +95,9 @@ public class PConnection {
     }
 
     public void close() throws Exception {
-        if (connection.isOpen())
+        if (connection.isOpen()){
             connection.close();
+        }
     }
 
     public boolean isOk() throws Exception {

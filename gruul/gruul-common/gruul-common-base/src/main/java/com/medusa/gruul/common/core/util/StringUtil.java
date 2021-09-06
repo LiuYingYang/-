@@ -23,20 +23,20 @@ import java.util.regex.Pattern;
 public class StringUtil extends StringUtils {
 
     // 一个空的字符串。
-    public static final String EMPTY_STRING     = "";
+    public static final String EMPTY_STRING = "";
 
     // ================================将符号也作为常量，避免半角全角符号导致的狗血异常======================================
     // 逗号
-    public static final String SYMBOL_COMMA     = ",";
+    public static final String SYMBOL_COMMA = ",";
 
     // 等于号
-    public static final String SYMBOL_EQUAL     = "=";
+    public static final String SYMBOL_EQUAL = "=";
 
     // 点号
-    public static final String SYMBOL_DOT       = ".";
+    public static final String SYMBOL_DOT = ".";
 
     // 问号
-    public static final String SYMBOL_QUESTION  = "?";
+    public static final String SYMBOL_QUESTION = "?";
 
     // 分号
     public static final String SYMBOL_SEMICOLON = ";";
@@ -44,11 +44,11 @@ public class StringUtil extends StringUtils {
     /**
      * 验证EMAIL正则表达式
      */
-    public static final String PATTERN_EMAIL    = "^([a-zA-Z0-9]*[-_]?[a-zA-Z0-9]+)*@([a-zA-Z0-9]*[-_]?[a-zA-Z0-9]+)+[\\.][A-Za-z]{2,3}([\\.][A-Za-z]{2})?$";
+    public static final String PATTERN_EMAIL = "^([a-zA-Z0-9]*[-_]?[a-zA-Z0-9]+)*@([a-zA-Z0-9]*[-_]?[a-zA-Z0-9]+)+[\\.][A-Za-z]{2,3}([\\.][A-Za-z]{2})?$";
 
     /**
      * 如果传入的值是null，返回空字符串，如果不是null，返回本身。
-     * 
+     *
      * @param word 传入的源字符串。
      * @return
      */
@@ -58,7 +58,7 @@ public class StringUtil extends StringUtils {
 
     /**
      * 如果传入的值是null，返回空字符串，如果不是null，返回本身。
-     * 
+     *
      * @param word 传入的源字符串。
      * @return
      */
@@ -68,7 +68,7 @@ public class StringUtil extends StringUtils {
 
     /**
      * 根据分隔符从一段字符串拿到对应的列表。应用于以下场景。 2,3,4,5 ==> [2,3,4,5]
-     * 
+     *
      * @param originWord
      * @param symbol
      * @return
@@ -94,20 +94,22 @@ public class StringUtil extends StringUtils {
 
     /**
      * 将map转换成String
+     *
      * @param map
      * @return
      */
-    public static String mapToString(Map<String ,String > map){
+    public static String mapToString(Map<String, String> map) {
         Set<String> keySet = map.keySet();
         StringBuffer strBuff = new StringBuffer();
-        for(String keyStr : keySet){
-            if(StringUtils.isNotBlank(map.get(keyStr))){
+        for (String keyStr : keySet) {
+            if (StringUtils.isNotBlank(map.get(keyStr))) {
 
                 strBuff.append(keyStr).append("=").append(map.get(keyStr)).append("&");
             }
         }
-        return strBuff.substring(0,strBuff.length()-1).toString();
+        return strBuff.substring(0, strBuff.length() - 1).toString();
     }
+
     /**
      * @param originalStr
      * @param symbol
@@ -131,7 +133,7 @@ public class StringUtil extends StringUtils {
 
     /**
      * 移除左边的0, eg：00000jakjdkf89000988000 转换之后变为 jakjdkf89000988000
-     * 
+     *
      * @param str
      * @return
      */
@@ -152,7 +154,7 @@ public class StringUtil extends StringUtils {
 
     /**
      * 格式化大数据为len个小数
-     * 
+     *
      * @param obj
      * @param len
      * @return
@@ -181,9 +183,9 @@ public class StringUtil extends StringUtils {
 
     /**
      * 金额格式化
-     * 
+     *
      * @param money 金额
-     * @param len 小数位数
+     * @param len   小数位数
      * @return 格式后的金额
      */
     public static String insertComma(String money, int len) {
@@ -208,7 +210,7 @@ public class StringUtil extends StringUtils {
 
     /**
      * 金额去掉“,”
-     * 
+     *
      * @param money 金额
      * @return 去掉“,”后的金额
      */
@@ -222,8 +224,8 @@ public class StringUtil extends StringUtils {
     }
 
     public static String toRMB(double money) {
-        char[] s1 = { '零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖' };
-        char[] s4 = { '分', '角', '元', '拾', '佰', '仟', '万', '拾', '佰', '仟', '亿', '拾', '佰', '仟', '万' };
+        char[] s1 = {'零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖'};
+        char[] s4 = {'分', '角', '元', '拾', '佰', '仟', '万', '拾', '佰', '仟', '亿', '拾', '佰', '仟', '万'};
         String str = String.valueOf(Math.round(money * 100 + 0.00001));
         String result = "";
 
@@ -264,7 +266,7 @@ public class StringUtil extends StringUtils {
 
     /**
      * 判断是否为数字或小数
-     * 
+     *
      * @param number
      * @return
      */
@@ -281,23 +283,20 @@ public class StringUtil extends StringUtils {
 
     /**
      * 过程名称：ChineseLen(获得当前文字的长度，中文为2个字符)
-     * 
+     *
      * @param FromStr
      * @return
      */
 
-    public static boolean checkChineseLen(String FromStr, int maxLen)
-
-    {
-        if (StringUtil.isBlank(FromStr))
+    public static boolean checkChineseLen(String FromStr, int maxLen) {
+        if (StringUtil.isBlank(FromStr)) {
             return false;
+        }
         int FromLen = FromStr.length();
 
         int ChineseLen = 0;
 
-        for (int i = 0; i < FromLen; i++)
-
-        {
+        for (int i = 0; i < FromLen; i++) {
 
             if (gbValue(FromStr.charAt(i)) > 0) {
 
@@ -321,31 +320,25 @@ public class StringUtil extends StringUtils {
 
     /*******
      * 过程名称：gbValue(返回GBK的编码)
-     * 
+     *
      * @param ch
      * @return
      */
 
-    public static int gbValue(char ch)
-
-    {
+    public static int gbValue(char ch) {
         String str = new String();
 
         str += ch;
 
-        try
-
-        {
+        try {
             byte[] bytes = str.getBytes("GBK");
 
-            if (bytes.length < 2)
+            if (bytes.length < 2) {
                 return 0;
-
+            }
             return (bytes[0] << 8 & 0xff00) + (bytes[1] & 0xff);
 
-        } catch (Exception e)
-
-        {
+        } catch (Exception e) {
 
             return 0;
 
@@ -355,7 +348,7 @@ public class StringUtil extends StringUtils {
 
     /**
      * 半角转全角
-     * 
+     *
      * @param input String.
      * @return 全角字符串.
      */
@@ -374,7 +367,7 @@ public class StringUtil extends StringUtils {
 
     /**
      * 全角转半角
-     * 
+     *
      * @param input String.
      * @return 半角字符串
      */
@@ -396,8 +389,8 @@ public class StringUtil extends StringUtils {
 
     /**
      * LIST转换为字符串，转换时插入制定的分隔符
-     * 
-     * @param list 字符串LIST
+     *
+     * @param list   字符串LIST
      * @param symbol 分隔符
      * @return
      */
@@ -405,14 +398,20 @@ public class StringUtil extends StringUtils {
         String res = null;
         if (null != list && 0 < list.size()) {
             int size = list.size();
-            if (size == 1)
+            if (size == 1) {
                 return String.valueOf(list.get(0));
+            }
+
             StringBuilder sb = new StringBuilder();
-            if (symbol == null)
+            if (symbol == null) {
                 symbol = "";
+            }
+
             for (int i = 0; i < size; i++) {
-                if (i > 0)
+                if (i > 0) {
                     sb.append(symbol);
+                }
+
                 sb.append(String.valueOf(list.get(i)));
             }
             res = sb.toString();
@@ -425,7 +424,7 @@ public class StringUtil extends StringUtils {
      * <p>
      * 判断是否为数字格式
      * </p>
-     * 
+     *
      * <pre>
      * StringUtils.isNumeric(null)   = false
      * StringUtils.isNumeric("")     = false
@@ -436,7 +435,7 @@ public class StringUtil extends StringUtils {
      * StringUtils.isNumeric("12-3") = false
      * StringUtils.isNumeric("12.3") = true
      * </pre>
-     * 
+     *
      * @param str the String to check, may be null
      * @return <code>true</code> if only contains digits, and is non-null
      */
@@ -456,7 +455,7 @@ public class StringUtil extends StringUtils {
 
     /**
      * 判断是否为数字(有小数位或者有千分位)
-     * 
+     *
      * @param str
      * @return
      */
@@ -466,7 +465,7 @@ public class StringUtil extends StringUtils {
 
     /**
      * 判断是否为email格式
-     * 
+     *
      * @param email 验证字符串
      * @return true|false
      */
@@ -479,8 +478,8 @@ public class StringUtil extends StringUtils {
 
     /**
      * 字符数组转化为字符串
-     * 
-     * @param strs 字符数组
+     *
+     * @param strs   字符数组
      * @param symbol 分隔符
      * @return
      */
@@ -511,15 +510,16 @@ public class StringUtil extends StringUtils {
 
     /**
      * 首字母大写
-     * 
+     *
      * @param s
      * @return
      */
     public static String toUpperCaseFirstOne(String s) {
-        if (Character.isUpperCase(s.charAt(0)))
+        if (Character.isUpperCase(s.charAt(0))) {
             return s;
-        else
+        } else {
             return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
+        }
     }
 
 

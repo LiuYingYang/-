@@ -13,12 +13,12 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeoutException;
+
 /**
- *
  * @author wangpeng
+ * @version V1.0
  * @data 2018-07-08下午1:41:10
  * @description TODO
- * @version V1.0
  */
 public class SmsSingleMqHelper implements ReConnectionListener {
     private final static Logger logger = LoggerFactory.getLogger(SmsSingleMqHelper.class);
@@ -49,54 +49,54 @@ public class SmsSingleMqHelper implements ReConnectionListener {
     }
 
     public synchronized static SmsSingleMqHelper getInstance(BaseMq provider) {
-        if(sInstance == null) {
+        if (sInstance == null) {
             sInstance = new SmsSingleMqHelper(provider);
         }
         return sInstance;
     }
 
     @Override
-    public void resetConnectionFactory(ConnectionFactory connectionFactory){
+    public void resetConnectionFactory(ConnectionFactory connectionFactory) {
         try {
             shutdown();
             this.factory = connectionFactory;
             initConnection();
             runConsume(null);
         } catch (Exception e) {
-            logger.error("重连出错",e);
+            logger.error("重连出错", e);
         }
     }
 
-    public void initConnection(int connectionNum, int channelNum, String queueName, String exchangeName, String severity, String exchangeType,String delayQueue) throws IOException, TimeoutException {
+    public void initConnection(int connectionNum, int channelNum, String queueName, String exchangeName, String severity, String exchangeType, String delayQueue) throws IOException, TimeoutException {
         this.connectionNum = connectionNum;
         this.channelNum = channelNum;
         this.queueName = queueName;
         this.exchangeName = exchangeName;
         this.severity = severity;
         this.exchangeType = exchangeType;
-        this.delayQueue =delayQueue;
+        this.delayQueue = delayQueue;
         initConnection();
     }
 
     private void initConnection() throws IOException, TimeoutException {
-        for (int i = 0;i < this.connectionNum; i++){
+        for (int i = 0; i < this.connectionNum; i++) {
             Connection connection = this.factory.newConnection();
             connectionList.add(connection);
         }
     }
 
-    public void shutdown(){
+    public void shutdown() {
         logger.info("Message Queue start to shutdown");
 
-        if(channelList != null && channelList.size() > 0){
-            for(Channel channel:channelList){
+        if (channelList != null && channelList.size() > 0) {
+            for (Channel channel : channelList) {
                 closeChannel(channel);
             }
             channelList.clear();
         }
 
-        if(connectionList != null && connectionList.size() > 0){
-            for(Connection connection:connectionList){
+        if (connectionList != null && connectionList.size() > 0) {
+            for (Connection connection : connectionList) {
                 closeConnection(connection);
             }
             connectionList.clear();
@@ -107,22 +107,22 @@ public class SmsSingleMqHelper implements ReConnectionListener {
     }
 
 
-    private void closeConnection(Connection connection){
-        if(connection != null && connection.isOpen()){
+    private void closeConnection(Connection connection) {
+        if (connection != null && connection.isOpen()) {
             try {
                 connection.close();
             } catch (Exception e) {
-                logger.error("关闭connection出错",e);
+                logger.error("关闭connection出错", e);
             }
         }
     }
 
-    private void closeChannel(Channel channel){
-        if(channel != null && channel.isOpen()){
+    private void closeChannel(Channel channel) {
+        if (channel != null && channel.isOpen()) {
             try {
                 channel.close();
             } catch (Exception e) {
-                logger.error("关闭channel出错",e);
+                logger.error("关闭channel出错", e);
             }
         }
     }
@@ -133,22 +133,23 @@ public class SmsSingleMqHelper implements ReConnectionListener {
      * @throws IOException
      */
 
-    public void startConsume(String consumerClazz,Boolean isdDelay) throws IOException {
+    public void startConsume(String consumerClazz, Boolean isdDelay) throws IOException {
         this.consumerClazz = consumerClazz;
         runConsume(isdDelay);
     }
 
-    private void runConsume(Boolean isDelay){
+    private void runConsume(Boolean isDelay) {
         this.runJobPool = Executors.newFixedThreadPool(this.connectionNum * this.channelNum);
-        for(int i = 0;i < this.connectionNum;i++){
-            for(int j = 0;j < this.channelNum;j++){
-                runJobs(runJobPool, i,isDelay);
+        for (int i = 0; i < this.connectionNum; i++) {
+            for (int j = 0; j < this.channelNum; j++) {
+                runJobs(runJobPool, i, isDelay);
             }
         }
     }
 
-    private void runJobs(ExecutorService executorService, final int i,Boolean isdDelay){
+    private void runJobs(ExecutorService executorService, final int i, Boolean isdDelay) {
         executorService.execute(new Runnable() {
+            @Override
             public void run() {
                 try {
                     Channel channel = connectionList.get(i).createChannel();
@@ -156,7 +157,7 @@ public class SmsSingleMqHelper implements ReConnectionListener {
 
                     boolean durable = true;    //设置转发器、队列持久化
                     //声明持久化转发器的类型
-                    if(isdDelay){
+                    if (isdDelay) {
                         HashMap<String, Object> arguments = new HashMap<String, Object>();
                         arguments.put("x-dead-letter-exchange", "amq.direct");
                         arguments.put("x-dead-letter-routing-key", "message_ttl_routingKey");
@@ -166,19 +167,19 @@ public class SmsSingleMqHelper implements ReConnectionListener {
                         channel.queueDeclare(queueName, true, false, false, null);
                         // 绑定路由
                         channel.queueBind(queueName, "amq.direct", "message_ttl_routingKey");
-                    }else{
-                    if (initExchange) {
-                        channel.exchangeDeclare(exchangeName, exchangeType == null ? "direct" : exchangeType, durable);
-                    }
-                    //声明持久化队列
-                    channel.queueDeclare(queueName, durable, false, false, null);
-                    //转发器与队列绑定
-                    channel.queueBind(queueName, exchangeName, severity); //routing key
-                    channel.basicQos(1, true);
+                    } else {
+                        if (initExchange) {
+                            channel.exchangeDeclare(exchangeName, exchangeType == null ? "direct" : exchangeType, durable);
+                        }
+                        //声明持久化队列
+                        channel.queueDeclare(queueName, durable, false, false, null);
+                        //转发器与队列绑定
+                        channel.queueBind(queueName, exchangeName, severity); //routing key
+                        channel.basicQos(1, true);
                     }
                     //反射指定运行类
                     Constructor con = Class.forName(consumerClazz).getConstructor(Channel.class);
-                    DefaultConsumer consumer = (DefaultConsumer)con.newInstance(channel);
+                    DefaultConsumer consumer = (DefaultConsumer) con.newInstance(channel);
                     //指定消费队列，增加消息应答
                     channel.basicConsume(queueName, false, consumer);
                 } catch (Exception e) {
@@ -202,7 +203,7 @@ public class SmsSingleMqHelper implements ReConnectionListener {
         channel.basicConsume(queueName, true, consumer);
 
     }*/
-    public void setInitExchange(boolean initExchange){
+    public void setInitExchange(boolean initExchange) {
         this.initExchange = initExchange;
     }
 

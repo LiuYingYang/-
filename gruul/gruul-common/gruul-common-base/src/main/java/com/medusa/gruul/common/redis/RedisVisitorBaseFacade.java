@@ -137,7 +137,7 @@ public abstract class RedisVisitorBaseFacade implements IRedisCommand {
     public Long del(String... keys) {
         try {
             if (ArrayUtils.isEmpty(keys)) {
-                return 0l;
+                return 0L;
             }
 
             Set<String> keySet = new HashSet<>();
@@ -155,7 +155,7 @@ public abstract class RedisVisitorBaseFacade implements IRedisCommand {
     public Long delByKeyPattern(String keyPattern) {
         try {
             if (StringUtils.isBlank(keyPattern)) {
-                return 0l;
+                return 0L;
             }
             return redisManager.delByKeyPattern(keyPattern);
         } catch (Exception e) {
