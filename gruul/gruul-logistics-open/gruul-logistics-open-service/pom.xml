@@ -118,7 +118,6 @@
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
-
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -129,6 +128,7 @@
             </plugin>
         </plugins>
     </build>
+
 
 
 </project>

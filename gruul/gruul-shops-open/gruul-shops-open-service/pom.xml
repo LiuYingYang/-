@@ -38,7 +38,7 @@
         <!-- sms -->
         <dependency>
             <groupId>com.medusa</groupId>
-            <artifactId>gruul-sms-api</artifactId>
+            <artifactId>gruul-sms-open-api</artifactId>
             <version>${gruul.version}</version>
         </dependency>
 
