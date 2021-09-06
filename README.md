@@ -183,7 +183,7 @@ Smart Shop 是一款经过生产环境**反复线上论证**和**真实用户数
 |![](https://images.gitee.com/uploads/images/2021/0702/160736_c22cc63c_8533008.jpeg "11.jpg")|
 
 
-###  典型成功案例
+###  典型客户案例
 ####  熊枫鲜生
 > 专注做全球代购的平台，包含母婴用品、美妆护肤，食品和生鲜等产品，一开始使用的是微擎某商城，商城不满足使用需求，18年底的时候找到我们要做魔方装修、引导页和邀请码登陆等功能以便做分销和装修，恰好当时我们的产品有这些功能，所以可以直接在线使用，长期运营截止到现在 **_营业额总计5800万_** 
 
@@ -205,6 +205,10 @@ Smart Shop 是一款经过生产环境**反复线上论证**和**真实用户数
 |![输入图片说明](https://images.gitee.com/uploads/images/2021/0903/132153_4187f01b_8533008.jpeg "1.jpeg")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0903/132204_94a04119_8533008.jpeg "2.jpeg")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0903/132217_cca82ee0_8533008.jpeg "3.jpeg")|
 |---|---|---|
 
+### 代码位置
+    商家端   :https://gitee.com/qisange/basemall/tree/master/group-mall-admin-source
+    小程序端 :https://gitee.com/qisange/basemall/tree/master/group-shop-uniapp-wx-Source
+    后端     :https://gitee.com/qisange/basemall/tree/master/gruul
 
 ### 特别鸣谢
 
