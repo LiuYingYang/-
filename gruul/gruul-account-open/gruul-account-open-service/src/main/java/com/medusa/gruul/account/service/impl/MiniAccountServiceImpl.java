@@ -1,5 +1,9 @@
 package com.medusa.gruul.account.service.impl;
 
+import cn.binarywang.wx.miniapp.api.WxMaService;
+import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl;
+import cn.binarywang.wx.miniapp.bean.WxMaJscode2SessionResult;
+import cn.binarywang.wx.miniapp.config.impl.WxMaDefaultConfigImpl;
 import cn.binarywang.wx.miniapp.util.crypt.WxMaCryptUtils;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
@@ -8,6 +12,7 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.lang.Snowflake;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.IdUtil;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.extra.qrcode.QrCodeUtil;
 import cn.hutool.extra.qrcode.QrConfig;
@@ -45,6 +50,7 @@ import com.medusa.gruul.platform.api.model.dto.LoginDto;
 import com.medusa.gruul.shops.api.entity.ShopsPartner;
 import com.medusa.gruul.shops.api.feign.RemoteShopsService;
 import lombok.extern.slf4j.Slf4j;
+import me.chanjar.weixin.common.error.WxErrorException;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +100,21 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
     @Autowired
     private RemoteGoodsService remoteGoodsService;
 
+    /**
+     * 封装小程序信息
+     *
+     * @return
+     */
+    public WxMaService getWxMaService() {
+        WxMaDefaultConfigImpl config = new WxMaDefaultConfigImpl();
+        config.setAppid("小程序Appid");
+        config.setSecret("小程序Secret");
+        config.setMsgDataFormat("JSON");
+        WxMaService wxMaService = new WxMaServiceImpl();
+        wxMaService.setWxMaConfig(config);
+        return wxMaService;
+    }
+
     @Override
     @Transactional(rollbackFor = Exception.class)
     public LoginBaseInfoVo login(String code) {
@@ -102,7 +123,28 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
             throw new ServiceException("登陆失败,请求错误", SystemCode.DATA_EXISTED.getCode());
         }
         LocalDateTime currentDateTime = LocalDateTime.now();
+        //Todo 微信开放平台获取openid 等 调用
         LoginDto login = remoteMiniInfoService.login(tenantId, code);
+
+        //Todo 如没有微信开放平台可使用微信小程序
+//        final WxMaService wxService = getWxMaService();
+//        if (StrUtil.isBlank(code)) {
+//            throw new ServiceException("当前code不存在");
+//        }
+//        WxMaJscode2SessionResult session = null;
+//        try {
+//            session = wxService.getUserService().getSessionInfo(code);
+//            if (ObjectUtil.isEmpty(session)) {
+//                throw new ServiceException("login handler error");
+//            }
+//        } catch (WxErrorException e) {
+//            e.printStackTrace();
+//        }
+//        LoginDto login = new LoginDto();
+//        login.setOpenId(session.getOpenid());
+//        login.setUnionId(session.getUnionid());
+//        login.setSessionKey(session.getSessionKey());
+
         if (login == null || login.getOpenId() == null) {
             throw new ServiceException("登陆失败,调用错误", SystemCode.DATA_EXISTED.getCode());
         }
