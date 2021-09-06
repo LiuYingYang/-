@@ -7,7 +7,8 @@
     "commit": "git cz",
     "prepare": "husky install",
     "analyzer": "cross-env ANALYZER=1 vue-cli-service serve --mode test",
-    "build": "cross-env vue-cli-service build --mode development",
+    "build:develop": "cross-env vue-cli-service build --mode development",
+    "build:pro": "cross-env vue-cli-service build --mode production",
     "lint": "eslint --config .eslintrc.js --fix --ext .ts,.vue src",
     "lint:quiet": "eslint --config .eslintrc.js --fix --ext .ts,.vue src --quiet"
   },
