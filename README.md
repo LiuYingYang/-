@@ -208,7 +208,7 @@ Smart Shop 是一款经过生产环境**反复线上论证**和**真实用户数
 ### 代码位置
     商家端   :https://gitee.com/qisange/basemall/tree/master/group-mall-admin-source
     小程序端 :https://gitee.com/qisange/basemall/tree/master/group-shop-uniapp-wx-Source
-    后端    :https://gitee.com/qisange/basemall/tree/master/gruul
+    后端     :https://gitee.com/qisange/basemall/tree/master/gruul
 
 ### 特别鸣谢
 
