@@ -388,7 +388,7 @@ public class LogisticsAddressServiceImpl implements ILogisticsAddressService {
 			return (String) logisticsExpressNumber.getData();
 		}else{
 			//{"code":300115,"msg":"业务参数有误，请检查","data":{"reason":"请确认账户合法性"}}
-			if (logisticsExpressNumber.getMsg().equals("业务参数有误，请检查")){
+			if ("业务参数有误，请检查".equals(logisticsExpressNumber.getMsg())){
 				throw  new ServiceException("请检查快递公司是否配置正常");
 			}
 			throw new ServiceException(logisticsExpressNumber.getMsg(), SystemCode.FAILURE.getCode());

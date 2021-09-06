@@ -53,7 +53,7 @@ public class StringUtil extends StringUtils {
      * @return
      */
     public static String getNotNullValue(String word) {
-        return (word == null || word.equalsIgnoreCase("null")) ? "" : word;
+        return (word == null || "null".equalsIgnoreCase(word)) ? "" : word;
     }
 
     /**
@@ -63,7 +63,7 @@ public class StringUtil extends StringUtils {
      * @return
      */
     public static String getNotNullValue(String word, String defaultWord) {
-        return (word == null || word.equalsIgnoreCase("null")) ? defaultWord : word;
+        return (word == null || "null".equalsIgnoreCase(word)) ? defaultWord : word;
     }
 
     /**

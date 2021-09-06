@@ -22,8 +22,8 @@ public interface RemoteSmsSendService {
 
 
     /***
-    * @description:发送短信
-    * @param:sendSmsFeginDto
+    * 发送短信
+    * @param sendSmsFeginDto  短信信息
     * @return: java.lang.Boolean
     * @throws:
     * @author: wangpeng

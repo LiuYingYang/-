@@ -50,10 +50,10 @@ public class AccountCenterMenuServiceImpl extends ServiceImpl<AccountCenterMenuM
             if ( StrUtil.isNotBlank(menu.getLinkSelectItem())) {
                 JSONObject linkSelectItem = JSONObject.parseObject(menu.getLinkSelectItem());
                 String name = linkSelectItem.getString("name");
-                if (StrUtil.isNotBlank(name) && (name.equals("团长中心")
-                        || name.equals("团长信息")
-                        || name.equals("提货点信息")
-                        || name.equals("提货点后台"))) {
+                if (StrUtil.isNotBlank(name) && ("团长中心".equals(name)
+                        || "团长信息".equals(name)
+                        || "提货点信息".equals(name)
+                        || "提货点后台".equals(name))) {
                     continue;
                 }
             }

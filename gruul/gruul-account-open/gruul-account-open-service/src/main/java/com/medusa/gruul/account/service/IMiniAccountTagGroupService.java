@@ -47,8 +47,10 @@ public interface IMiniAccountTagGroupService extends IService<MiniAccountTagGrou
     void removeUserTag(List<String> userIds, List<Long> tagId);
 
     /**
+     * 删除用户标签
      *
      * @param tagId
+     *
      */
     void removeByTagId(List<Long> tagId);
 }

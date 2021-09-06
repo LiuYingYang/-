@@ -13,8 +13,17 @@ import java.util.List;
  * 文件上传
  */
 public interface FileService extends IService<FileEntity> {
+    /**
+     * oos文件配置
+     * @return
+     */
     OssConfigDto getConfig();
 
+    /**
+     * 批量下载
+     * @param linkList
+     * @return 。
+     */
     List<String> batchDownload(List<String> linkList);
 
 }

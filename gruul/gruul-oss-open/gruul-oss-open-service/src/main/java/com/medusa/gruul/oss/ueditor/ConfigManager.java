@@ -135,6 +135,7 @@ public final class ConfigManager {
 				conf.put("dir", this.jsonConfig.getString("fileManagerListPath"));
 				conf.put("count", this.jsonConfig.getInt("fileManagerListSize"));
 				break;
+            default:
 
 		}
 

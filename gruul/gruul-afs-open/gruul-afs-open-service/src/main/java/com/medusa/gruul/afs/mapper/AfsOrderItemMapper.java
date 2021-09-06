@@ -28,8 +28,9 @@ public interface AfsOrderItemMapper extends BaseMapper<AfsOrderItem> {
     List<Long> selectExchangeOrderIdsByOriginalOrderId(@Param(value = "orderId") Long orderId);
 
     /**
-     *
+     * 用户售后
      * @param orderId
+     * @return  用户售后信息
      */
     List<Map<String,String>> userApplyItem(@Param("orderId") Long orderId);
 }
