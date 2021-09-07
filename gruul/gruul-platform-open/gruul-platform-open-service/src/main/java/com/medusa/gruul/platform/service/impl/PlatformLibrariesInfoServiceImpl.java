@@ -171,41 +171,7 @@ public class PlatformLibrariesInfoServiceImpl extends ServiceImpl<PlatformLibrar
         this.getBaseMapper().updateById(platformLibrariesInfo);
     }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void delete(Long id) {
-        PlatformLibrariesInfo platformLibrariesInfo = this.getBaseMapper().selectById(id);
-        if (platformLibrariesInfo == null) {
-            throw new ServiceException("不存在该基础库");
-        }
-        if (!platformLibrariesInfo.getStatus().equals(CommonConstants.NUMBER_ZERO)) {
-            //确认指定服务都已经停止运行
-            List<PlatformServiceInfo> serviceInfos = platformServiceInfoService.getByLibrariesId(platformLibrariesInfo.getId());
-            if (CollectionUtil.isNotEmpty(serviceInfos)) {
-                Integer activity = 0;
-                List<Long> ids = new LinkedList<>();
-                for (PlatformServiceInfo serviceInfo : serviceInfos) {
-                    long activityCount = platformServiceInfoService.getServiceActivityCount(serviceInfo);
-                    if (activityCount > 0) {
-                        activity++;
-                    }
-                    ids.add(serviceInfo.getId());
-                }
-                if (!activity.equals(CommonConstants.NUMBER_ZERO)) {
-                    throw new ServiceException("无法删除业务基础库,还存在活动服务");
-                }
-                platformServiceInfoService.removeByIds(ids);
-            }
-        }
-        //如果有店铺使用该业务基础库则不能删除
-        if (platformLibrariesInfo.getCategoryType().equals(CommonConstants.NUMBER_ONE)) {
-            List<PlatformShopTemplateDetail> platformShopTemplateDetails = platformShopTemplateDetailService.getByLibrariesId(platformLibrariesInfo.getId());
-            if (CollectionUtil.isNotEmpty(platformShopTemplateDetails)) {
-                throw new ServiceException("当前业务基础库,存在使用模板版本");
-            }
-        }
-        this.removeById(id);
-    }
+
 
     @Override
     public PageUtils<LibrariesServiceListVo> getByBaseLibrariesId(Integer page, Integer size, Integer serviceType, Integer libraiesId) {

@@ -47,11 +47,7 @@ public class AccountInfoController {
     @EscapeLogin
     @ApiOperation(value = "平台后台登录接口", tags = "平台后台")
     public Result add(@RequestBody @Validated TenementLoginDto tenementLoginDto) {
-        if (StrUtil.equals(tenementLoginDto.getUsername(), paltformProperties.getUsername())
-                &&
-                StrUtil.equals(tenementLoginDto.getPassword(), paltformProperties.getPassword())) {
-            return Result.ok();
-        }
+        //TODO   接口阉割 。 控制层留用
         return Result.failed("账号密码错误!!");
     }
 

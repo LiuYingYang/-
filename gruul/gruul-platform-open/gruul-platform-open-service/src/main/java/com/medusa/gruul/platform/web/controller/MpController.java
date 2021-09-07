@@ -39,6 +39,10 @@ public class MpController {
     @Autowired
     private WxMpMessageRouter messageRouter;
 
+
+
+    //Todo 该处为h5 后端未删减
+
     @GetMapping("/wx/jdk-config")
     @EscapeLogin
     @ApiOperation(value = "获取公众号微信jdk配置信息")

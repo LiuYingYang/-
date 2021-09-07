@@ -292,17 +292,6 @@ public class PlatformShopInfoServiceImpl extends ServiceImpl<PlatformShopInfoMap
     }
 
 
-    @Override
-    public PageUtils amdinList(Page<PlatformShopInfo> page, Integer templateInfoId, Integer deployType,
-                               Integer shopStatus, String search, Integer versionId, Long packageId, Long agentId) {
-
-        IPage<PlatformShopInfo> iPage = this.getBaseMapper().amdinSelectPage(page, templateInfoId, search, shopStatus, deployType, versionId, packageId, agentId);
-        List<PlatformShopInfo> records = iPage.getRecords();
-        if (CollectionUtil.isEmpty(records)) {
-            return new PageUtils(null, (int) iPage.getTotal(), (int) iPage.getSize(), (int) iPage.getCurrent());
-        }
-        return getViewVo(iPage);
-    }
 
     @Override
     public PageUtils<List<ShopViewListVo>> consoleList(Page page) {
@@ -507,35 +496,7 @@ public class PlatformShopInfoServiceImpl extends ServiceImpl<PlatformShopInfoMap
         return this.baseMapper.selectOne(new QueryWrapper<PlatformShopInfo>().eq("tenant_id", tenantId));
     }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void amdinDel(Long shopId) {
-        PlatformShopInfo platformShopInfo = this.getById(shopId);
-        if (platformShopInfo == null) {
-            throw new ServiceException("不存在店铺");
-        }
-        removeShopInfo(platformShopInfo);
-    }
 
-    @Override
-    public void adminCloseOrOpen(Long shopId) {
-        PlatformShopInfo platformShopInfo = this.getById(shopId);
-        if (platformShopInfo == null) {
-            throw new ServiceException("不存在该店铺");
-        }
-        //店铺到期禁止操作
-        if (platformShopInfo.getIsDue().equals(CommonConstants.NUMBER_ONE)) {
-            throw new ServiceException("店铺到期请先续费订购");
-        }
-        PlatformShopInfo up = new PlatformShopInfo();
-        up.setId(platformShopInfo.getId());
-        if (platformShopInfo.getStatus().equals(CommonConstants.NUMBER_FOUR)) {
-            up.setStatus(CommonConstants.NUMBER_TWO);
-        } else {
-            up.setStatus(CommonConstants.NUMBER_FOUR);
-        }
-        up.updateById();
-    }
 
     @Override
     public AccountInfoVo adminJoinShop(Long shopId) {
@@ -811,24 +772,9 @@ public class PlatformShopInfoServiceImpl extends ServiceImpl<PlatformShopInfoMap
         return this.getBaseMapper().selectByCancelAuthMiniShops(shopTemplateId);
     }
 
-    @Override
-    public PayInfoVo payMode(Long shopId) {
-        PlatformShopInfo shopInfo = this.getById(shopId);
-        if (shopInfo == null) {
-            throw new ServiceException("无效数据请求");
-        }
-        return this.payInfo(CommonConstants.NUMBER_THREE, null, shopInfo.getTenantId());
-    }
 
-    @Override
-    public void managerPayInfoUpdata(PayInfoUpdataDto payInfoUpdataDto) {
-        PlatformShopInfo shopInfo = this.getById(payInfoUpdataDto.getShopId());
-        if (shopInfo == null) {
-            throw new ServiceException("无效数据请求");
-        }
-        payInfoUpdataDto.setTenantId(shopInfo.getTenantId());
-        this.payInfoUpdata(payInfoUpdataDto);
-    }
+
+
 
     @Override
     public void defaultRepair(String tenantId) {

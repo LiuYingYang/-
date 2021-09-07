@@ -42,12 +42,7 @@ public interface IPlatformLibrariesInfoService extends IService<PlatformLibrarie
      */
     void updateServiceLibraries(ServiceLibrariesDto dto);
 
-    /**
-     * 删除业务基础库
-     *
-     * @param id 业务基础库id
-     */
-    void delete(Long id);
+
 
     /**
      * 查询指定基础库服务

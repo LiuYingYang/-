@@ -41,6 +41,7 @@ public class MiniInfoController {
     @PostMapping("wxa/getwxacode")
     @ApiOperation(value = "获取小程序码,返回base64")
     public Result wxaGetwxacode(@RequestBody @Validated WxaGetwxacode wxaGetwxacode) {
+        //Todo 没走开放平台得 该处请替换为小程序相关方法
         return miniInfoService.wxaGetwxacode(wxaGetwxacode);
     }
 

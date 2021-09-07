@@ -17,10 +17,7 @@ public interface MeConstant {
     String TEXT = "text";
     String WXD101A85AA106F53E = "wxd101a85aa106f53e";
     String WX570BC396A51B8FF8 = "wx570bc396a51b8ff8";
-    /**
-     * 笔歌小程序appId
-     */
-    String BIGE_MP_APPID = "wx70715838e115372f";
+
     /**
      * 布谷鸟appId
      */
