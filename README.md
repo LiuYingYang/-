@@ -84,6 +84,12 @@ Smart Shop 是一款经过生产环境**反复线上论证**和**真实用户数
 - 工具规范：使用统一jar包避免出现内容冲突；
 - 代码整洁：可读性、维护性更高。
 
+### 代码位置
+    商家端   :https://gitee.com/qisange/basemall/tree/master/group-mall-admin-source
+    小程序端 :https://gitee.com/qisange/basemall/tree/master/group-shop-uniapp-wx-Source
+    后端     :https://gitee.com/qisange/basemall/tree/master/gruul
+    数据库   ：gruul/gruul-*-open/doc/xxx.sql
+
 
 ### 系统版本
 
@@ -205,11 +211,6 @@ Smart Shop 是一款经过生产环境**反复线上论证**和**真实用户数
 |![输入图片说明](https://images.gitee.com/uploads/images/2021/0903/132153_4187f01b_8533008.jpeg "1.jpeg")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0903/132204_94a04119_8533008.jpeg "2.jpeg")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0903/132217_cca82ee0_8533008.jpeg "3.jpeg")|
 |---|---|---|
 
-### 代码位置
-    商家端   :https://gitee.com/qisange/basemall/tree/master/group-mall-admin-source
-    小程序端 :https://gitee.com/qisange/basemall/tree/master/group-shop-uniapp-wx-Source
-    后端     :https://gitee.com/qisange/basemall/tree/master/gruul
-    数据库   ：gruul/gruul-*-open/doc/xxx.sql
 
 ### 特别鸣谢
 
