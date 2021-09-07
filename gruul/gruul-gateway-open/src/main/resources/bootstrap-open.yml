@@ -7,8 +7,8 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: nacos地址
-        ip: ip地址
+        server-addr: ip
+        ip: ip
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         file-extension: yml

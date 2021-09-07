@@ -19,4 +19,6 @@ public class SkipUrlVo {
     @ApiModelProperty(value = "pc端版本")
     private String pcTerminaVersion;
 
+    private  String RegionalUrl;
+
 }
