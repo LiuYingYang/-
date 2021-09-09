@@ -7,7 +7,7 @@
 -->
 | 交流群4 | 交流群5 | 交流群6 | 技术微信 |
 |--------|--------|--------|------|
-|![](https://images.gitee.com/uploads/images/2021/0707/113944_4f9df1f5_8533008.jpeg "4.jpg")|![](https://images.gitee.com/uploads/images/2021/0707/114009_f44c2fc5_8533008.png "5.png")|![](https://images.gitee.com/uploads/images/2021/0707/114022_4ac943ec_8533008.png "6.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0902/144038_a64c12c0_8533008.png "微信截图_20210902143902.png")|
+|![](https://images.gitee.com/uploads/images/2021/0707/113944_4f9df1f5_8533008.jpeg "4.jpg")|![](https://images.gitee.com/uploads/images/2021/0707/114009_f44c2fc5_8533008.png "5.png")|![](https://images.gitee.com/uploads/images/2021/0707/114022_4ac943ec_8533008.png "6.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0909/104715_7e44acdf_8533008.png "0af656df7854299aa6dd432949d5c47.png")|
 ### 前言
 
 期盼已久的smart shop商城系统基础框架正式开源，我们承诺开源框架完全免费使用，其余功能可支持定制开发。由于SaaS系统研发投入成本高，迄今已超过300w人民币。在此对【中国石油】、【贵州茅台】、【辽宁红运】等基于本系统进行二次开发的知名集团企业表示感谢！
