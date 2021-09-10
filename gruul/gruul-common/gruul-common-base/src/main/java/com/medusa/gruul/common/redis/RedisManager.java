@@ -37,7 +37,7 @@ public class RedisManager implements IRedisCommand {
     private RedisManager() {
         RedisConfig bean = SpringContextHolder.getBean(RedisConfig.class);
         // 设置主机
-        JedisPoolConfig poolConfig= new JedisPoolConfig();
+        JedisPoolConfig poolConfig = new JedisPoolConfig();
         poolConfig.setMaxTotal(40);
         poolConfig.setMaxIdle(40);
         host = bean.isIntra() ? bean.getIntranet() : bean.getOuternet();
@@ -72,7 +72,7 @@ public class RedisManager implements IRedisCommand {
         }
     }
 
-
+    @Override
     public String type(String key) {
         Jedis jedis = null;
         try {
@@ -92,6 +92,7 @@ public class RedisManager implements IRedisCommand {
      * @param key
      * @return
      */
+    @Override
     public String get(String key) {
         Jedis jedis = null;
         try {
@@ -111,6 +112,7 @@ public class RedisManager implements IRedisCommand {
      * @param key
      * @param value
      */
+    @Override
     public void set(String key, String value) {
         Jedis jedis = null;
         try {
@@ -127,6 +129,7 @@ public class RedisManager implements IRedisCommand {
     /**
      * 自增
      */
+    @Override
     public Long incr(String key) {
         Jedis jedis = null;
         try {
@@ -143,6 +146,7 @@ public class RedisManager implements IRedisCommand {
     /**
      * 递减
      */
+    @Override
     public Long decr(String key) {
         Jedis jedis = null;
         try {
@@ -156,6 +160,7 @@ public class RedisManager implements IRedisCommand {
         }
     }
 
+    @Override
     public void setNxPx(String key, String value, long time) {
         Jedis jedis = null;
         try {
@@ -169,6 +174,7 @@ public class RedisManager implements IRedisCommand {
         }
     }
 
+    @Override
     public Long expire(String key, Integer seconds) {
         Jedis jedis = null;
         try {
@@ -182,6 +188,7 @@ public class RedisManager implements IRedisCommand {
         }
     }
 
+    @Override
     public Long del(String... keys) {
         Jedis jedis = null;
         try {
@@ -195,6 +202,7 @@ public class RedisManager implements IRedisCommand {
         }
     }
 
+    @Override
     public Long delByKeyPattern(String keyPattern) {
         Jedis jedis = null;
         try {
@@ -209,6 +217,7 @@ public class RedisManager implements IRedisCommand {
         }
     }
 
+    @Override
     public String flushdb() {
         Jedis jedis = null;
         try {
@@ -228,6 +237,7 @@ public class RedisManager implements IRedisCommand {
      * @param keyPattern
      * @return
      */
+    @Override
     public Set<String> keys(String keyPattern) {
         Jedis jedis = null;
         try {
@@ -250,6 +260,7 @@ public class RedisManager implements IRedisCommand {
      * @param values
      * @return
      */
+    @Override
     public Long lpush(String key, String... values) {
         Jedis jedis = null;
         try {
@@ -270,6 +281,7 @@ public class RedisManager implements IRedisCommand {
      * @param key
      * @return
      */
+    @Override
     public String lpop(String key) {
         Jedis jedis = null;
         try {
@@ -290,6 +302,7 @@ public class RedisManager implements IRedisCommand {
      * @param values
      * @return
      */
+    @Override
     public Long rpush(String key, String... values) {
         Jedis jedis = null;
         try {
@@ -309,6 +322,7 @@ public class RedisManager implements IRedisCommand {
      * @param key
      * @return
      */
+    @Override
     public String rpop(String key) {
         Jedis jedis = null;
         try {
@@ -330,6 +344,7 @@ public class RedisManager implements IRedisCommand {
      * @param end
      * @return
      */
+    @Override
     public List<String> lrange(String key, long start, long end) {
         Jedis jedis = null;
         try {
@@ -350,6 +365,7 @@ public class RedisManager implements IRedisCommand {
      * @param key
      * @return
      */
+    @Override
     public Long llen(String key) {
         Jedis jedis = null;
         try {
@@ -372,6 +388,7 @@ public class RedisManager implements IRedisCommand {
      * @param index
      * @return
      */
+    @Override
     public String lindex(String key, long index) {
         Jedis jedis = null;
         try {
@@ -394,6 +411,7 @@ public class RedisManager implements IRedisCommand {
      * @param value
      * @return
      */
+    @Override
     public Long lrem(String key, long count, String value) {
         Jedis jedis = null;
         try {
@@ -416,6 +434,7 @@ public class RedisManager implements IRedisCommand {
      * @param members
      * @return
      */
+    @Override
     public Long sadd(String key, String... members) {
         Jedis jedis = null;
         try {
@@ -436,6 +455,7 @@ public class RedisManager implements IRedisCommand {
      * @param key
      * @return
      */
+    @Override
     public Long scard(String key) {
         Jedis jedis = null;
         try {
@@ -456,6 +476,7 @@ public class RedisManager implements IRedisCommand {
      * @param key
      * @return
      */
+    @Override
     public Set<String> smembers(String key) {
         Jedis jedis = null;
         try {
@@ -477,6 +498,7 @@ public class RedisManager implements IRedisCommand {
      * @param member
      * @return
      */
+    @Override
     public boolean sismember(String key, String member) {
         Jedis jedis = null;
         try {
@@ -497,6 +519,7 @@ public class RedisManager implements IRedisCommand {
      * @param keys
      * @return
      */
+    @Override
     public Set<String> sdiff(String... keys) {
         Jedis jedis = null;
         try {
@@ -515,6 +538,7 @@ public class RedisManager implements IRedisCommand {
      * @param keys
      * @return
      */
+    @Override
     public Set<String> sinter(String... keys) {
         Jedis jedis = null;
         try {
@@ -533,6 +557,7 @@ public class RedisManager implements IRedisCommand {
      * @param keys
      * @return
      */
+    @Override
     public Set<String> sunion(String... keys) {
         Jedis jedis = null;
         try {
@@ -551,6 +576,7 @@ public class RedisManager implements IRedisCommand {
      * @param key
      * @return
      */
+    @Override
     public String spop(String key) {
         Jedis jedis = null;
         try {
@@ -572,6 +598,7 @@ public class RedisManager implements IRedisCommand {
      * @param count
      * @return
      */
+    @Override
     public Set<String> spop(String key, long count) {
         Jedis jedis = null;
         try {
@@ -590,6 +617,7 @@ public class RedisManager implements IRedisCommand {
      * @param key
      * @return
      */
+    @Override
     public String srandmember(String key) {
         Jedis jedis = null;
         try {
@@ -609,6 +637,7 @@ public class RedisManager implements IRedisCommand {
      * @param count
      * @return
      */
+    @Override
     public List<String> srandmember(String key, int count) {
         Jedis jedis = null;
         try {
@@ -629,6 +658,7 @@ public class RedisManager implements IRedisCommand {
      * @param members
      * @return
      */
+    @Override
     public Long srem(String key, String... members) {
         Jedis jedis = null;
         try {
@@ -643,7 +673,7 @@ public class RedisManager implements IRedisCommand {
     }
 
     // -------有序集合处理-------
-
+    @Override
     public Long zadd(String key, double score, String member) {
         Jedis jedis = null;
         try {
@@ -713,6 +743,7 @@ public class RedisManager implements IRedisCommand {
      * @param value
      * @return
      */
+    @Override
     public Long hset(String key, String field, String value) {
         Jedis jedis = null;
         try {
@@ -733,6 +764,7 @@ public class RedisManager implements IRedisCommand {
      * @param field
      * @return
      */
+    @Override
     public String hget(String key, String field) {
         Jedis jedis = null;
         try {
@@ -752,6 +784,7 @@ public class RedisManager implements IRedisCommand {
      * @param key
      * @return
      */
+    @Override
     public Map<String, String> hgetAll(String key) {
         Jedis jedis = null;
         try {
@@ -773,6 +806,7 @@ public class RedisManager implements IRedisCommand {
      * @param <T>
      * @return
      */
+    @Override
     public <T> T hgetAll(T t, String key) {
         Map<String, String> hash = hgetAll(key);
         T ret = HashMapParser.hash2Obj(t, hash);
@@ -785,6 +819,7 @@ public class RedisManager implements IRedisCommand {
      * @param key
      * @return
      */
+    @Override
     public Set<String> hkeys(String key) {
         Jedis jedis = null;
         try {
@@ -803,6 +838,7 @@ public class RedisManager implements IRedisCommand {
      * @param key
      * @return
      */
+    @Override
     public List<String> hvals(String key) {
         Jedis jedis = null;
         try {
@@ -821,6 +857,7 @@ public class RedisManager implements IRedisCommand {
      * @param key
      * @return
      */
+    @Override
     public Long hlen(String key) {
         Jedis jedis = null;
         try {
@@ -841,6 +878,7 @@ public class RedisManager implements IRedisCommand {
      * @param fields
      * @return
      */
+    @Override
     public List<String> hmget(String key, String... fields) {
         Jedis jedis = null;
         try {
@@ -862,6 +900,7 @@ public class RedisManager implements IRedisCommand {
      * @param <T>
      * @return
      */
+    @Override
     public <T> T hmget(T t, String key, String... fields) {
         List<String> rets = hmget(key, fields);
 
@@ -885,6 +924,7 @@ public class RedisManager implements IRedisCommand {
      * @param keyMapPair
      * @return
      */
+    @Override
     public String hmset(KeyMapPair keyMapPair) {
         return hmset(keyMapPair.getKey(), keyMapPair.getMap());
     }
@@ -897,6 +937,7 @@ public class RedisManager implements IRedisCommand {
      * @return
      * @throws MissAnnotationException
      */
+    @Override
     public <T> String hmset(T t) throws MissAnnotationException {
         KeyMapPair keyMapPair = HashMapParser.obj2Hash(t);
         return hmset(keyMapPair);
@@ -909,6 +950,7 @@ public class RedisManager implements IRedisCommand {
      * @param hash
      * @return
      */
+    @Override
     public String hmset(String key, Map<String, String> hash) {
         Jedis jedis = null;
         try {
@@ -932,6 +974,7 @@ public class RedisManager implements IRedisCommand {
      * @param value
      * @return
      */
+    @Override
     public Long hsetnx(String key, String field, String value) {
         Jedis jedis = null;
         try {
@@ -953,6 +996,7 @@ public class RedisManager implements IRedisCommand {
      * @param value
      * @return
      */
+    @Override
     public Long hincrBy(String key, String field, long value) {
         Jedis jedis = null;
         try {
@@ -973,6 +1017,7 @@ public class RedisManager implements IRedisCommand {
      * @param field
      * @return
      */
+    @Override
     public Boolean hexists(String key, String field) {
         Jedis jedis = null;
         try {
@@ -992,6 +1037,7 @@ public class RedisManager implements IRedisCommand {
      * @param key
      * @param fields
      */
+    @Override
     public Long hdel(String key, String... fields) {
         Jedis jedis = null;
         try {

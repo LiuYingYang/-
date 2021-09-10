@@ -24,9 +24,21 @@ public interface ShopsPartnerMapper extends BaseMapper<ShopsPartner> {
     @InterceptorIgnore(tenantLine = "true")
     ShopsPartnerVo oneByTenantId(String tenantId);
 
+    /**
+     * the is selectByPlatformIdAndTenantId
+     * @param platformId 平台id
+     * @param tenantId 租户id
+     * @return ShopsPartner
+     */
     @SqlParser(filter = true)
     ShopsPartner selectByPlatformIdAndTenantId(@Param("platformId") Long platformId, @Param("tenantId") String tenantId);
 
+    /**
+     * the is selectByTenantIdAndPartnerIdIsNull
+     *
+     * @param tenantId 租户id
+     * @return ShopsPartner
+     */
     @SqlParser(filter = true)
     ShopsPartner selectByTenantIdAndPartnerIdIsNull(@Param("tenantId") String tenantId);
 

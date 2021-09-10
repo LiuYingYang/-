@@ -15,8 +15,9 @@ import lombok.Setter;
  * <p>return: a</P>
  */
 public enum CommonEnum {
-
+    //成功
     SUCCESS_RESPONSE(200, "成功"),
+    //失败
     FAILED_RESPONSE(500, "失败");
     @Setter
     @Getter

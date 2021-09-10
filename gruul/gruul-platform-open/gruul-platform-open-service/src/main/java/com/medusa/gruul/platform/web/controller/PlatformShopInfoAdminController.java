@@ -58,16 +58,15 @@ public class PlatformShopInfoAdminController {
                                                              @ApiParam(value = "套餐id", required = false) @RequestParam(required = false) Long packageId,
                                                              @ApiParam(value = "代理id", required = false) @RequestParam(required = false) Long agentId
     ) {
-        PageUtils<List<ShopViewListVo>> pageUtils = platformShopInfoService.amdinList(new Page(page, size), templateInfoId,
-                deployType, shopStatus, search, versionId, packageId,agentId);
-        return Result.ok(pageUtils);
+        //Todo 业务删除。控制层留用
+        return Result.ok();
     }
 
     @DeleteMapping(value = "/amdin/del/{shopId}")
     @ApiOperation(value = "管理台删除店铺")
     @EscapeLogin
     public Result amdinDel(@PathVariable Long shopId) {
-        platformShopInfoService.amdinDel(shopId);
+        //Todo 业务删除。控制层留用
         return Result.ok();
     }
 
@@ -75,7 +74,7 @@ public class PlatformShopInfoAdminController {
     @ApiOperation(value = "管理台营业禁用或开启,取反只需要传入店铺id")
     @EscapeLogin
     public Result adminCloseOrOpen(@ApiParam(value = "店铺id", required = true) @PathVariable Long shopId) {
-        platformShopInfoService.adminCloseOrOpen(shopId);
+        //Todo 业务删除。控制层留用
         return Result.ok();
     }
 
@@ -93,15 +92,15 @@ public class PlatformShopInfoAdminController {
     @EscapeLogin
     @ApiOperation(value = "管理台使用获取指定商户支付配置", tags = "管理台服务商相关")
     public Result<PayInfoVo> payMode(@ApiParam(value = "店铺id", required = true) @PathVariable Long shopId) {
-        PayInfoVo infoVo = platformShopInfoService.payMode(shopId);
-        return Result.ok(infoVo);
+        //Todo 业务删除。控制层留用
+        return Result.ok();
     }
 
     @PostMapping("/admin/pay/info")
     @EscapeLogin
     @ApiOperation(value = "管理台修改指定商户支付配置修改", tags = "管理台服务商相关")
     public Result managerPayInfoUpdata(@RequestBody PayInfoUpdataDto payInfoUpdataDto) {
-        platformShopInfoService.managerPayInfoUpdata(payInfoUpdataDto);
+        //Todo 业务删除。控制层留用
         return Result.ok();
     }
 

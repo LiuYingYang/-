@@ -55,7 +55,7 @@ public class AfsNegotiateHistoryServiceImpl extends ServiceImpl<AfsNegotiateHist
     private RemoteOrderService remoteOrderService;
     @Resource
     private RemoteLogisticsFeginService remoteLogisticsFeginService;
-    private final static String mergePoint = "0";
+    private final static String MERGE_POINT = "0";
 
     /**
      * 初始化协商历史

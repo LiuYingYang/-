@@ -24,8 +24,10 @@ public class PoolUtil {
             if (!pool.awaitTermination(time, TimeUnit.SECONDS)) {
                 pool.shutdownNow(); // Cancel currently executing tasks
                 // Wait a while for tasks to respond to being cancelled
-                if (!pool.awaitTermination(time, TimeUnit.SECONDS))
+                if (!pool.awaitTermination(time, TimeUnit.SECONDS)){
                     logger.error("Pool did not terminate");
+                }
+
             }
         } catch (InterruptedException ie) {
             // (Re-)Cancel if current thread also interrupted

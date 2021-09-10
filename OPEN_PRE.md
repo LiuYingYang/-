@@ -82,6 +82,7 @@
         注：nacos密码有进行加密 要自己生成一个
             org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
             String pwd = new BCryptPasswordEncoder().encode("123456");
+![nacos数据库配置](https://images.gitee.com/uploads/images/2021/0909/093854_52bcc674_8055613.png "屏幕截图.png")
          
 - Docker
 
@@ -203,3 +204,6 @@ nginx配置
            proxy_pass http://127.0.0.1:10999/;
         }
        }
+
+
+

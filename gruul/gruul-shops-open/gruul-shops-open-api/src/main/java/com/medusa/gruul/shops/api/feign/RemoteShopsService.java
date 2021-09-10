@@ -24,6 +24,7 @@ public interface RemoteShopsService {
      * 根据平台用户id获取店铺信息
      *
      * @param platformId 平台用户id
+     * @param tenantId 租户id
      * @return Result
      */
     @RequestMapping(value = "/get/platform_id/{platformId}", method = RequestMethod.GET)

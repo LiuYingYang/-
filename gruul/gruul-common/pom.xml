@@ -6,8 +6,8 @@
     <modules>
         <module>gruul-common-verify</module>
         <module>gruul-common-base</module>
-        <module>gruul-common-auth</module>
         <module>gruul-common-gray</module>
+        <module>gruul-common-auth</module>
     </modules>
 
     <parent>

@@ -140,4 +140,27 @@ gruul 小程序商城
 	安装插件Alibaba Java Coding Guidelines plugin 提交代码前须使用插件检查代码，全部修改之后在进行提交
 
 
+3.api jar包本地注入方式 
+      
+      修改gruul/pom.xml中的 modules 注释所有子模块进行maven clean install 
+      恢复gruul-common/pom.xml中的module 注释所有子模块进行 maven clean install 
+            按如下顺序进行注释 maven clean install 
+            1.gruul-common-verify
+            2.gruul-common-base
+            3.gruul-common-gray
+            4.gruul-common-auth
+       恢复gruul/gateway  方法同上
+       恢复业务代码api  操作 gruul/gruul-**-open/pom.xml
+       注释modules中的module maven clean install 
+          恢复gruul-xxx-api 针对恢复gruul-xxx-api 执行 maven clean install 
+          反复操作所有业务模板针对 gruul-xxx-api进行 maven clean install 
+      最终效果
+      
+            
+
+      
+![输入图片说明](https://images.gitee.com/uploads/images/2021/0910/145912_fd38abf1_5199717.png "屏幕截图.png")      
+        
+
+ ![输入图片说明](https://images.gitee.com/uploads/images/2021/0910/150414_965fff96_5199717.png "屏幕截图.png")
 

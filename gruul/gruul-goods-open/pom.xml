@@ -16,7 +16,7 @@
 
     <modules>
         <module>gruul-goods-open-api</module>
-        <module>gruul-goods-open-service</module>
+<!--        <module>gruul-goods-open-service</module>-->
     </modules>
 
 </project>

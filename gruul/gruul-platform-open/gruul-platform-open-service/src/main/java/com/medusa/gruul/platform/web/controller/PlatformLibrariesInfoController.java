@@ -72,7 +72,7 @@ public class PlatformLibrariesInfoController {
     @PutMapping(value = "/service/libraries")
     @EscapeLogin
     public Result updateServiceLibraries(@Validated @RequestBody ServiceLibrariesDto dto) {
-        platformLibrariesInfoService.updateServiceLibraries(dto);
+        //Todo 业务删除。控制层留用
         return Result.ok();
     }
 
@@ -80,7 +80,7 @@ public class PlatformLibrariesInfoController {
     @PutMapping(value = "/service/libraries/{id}")
     @EscapeLogin
     public Result delete(@ApiParam(value = "业务基础库id") @PathVariable Long id) {
-        platformLibrariesInfoService.delete(id);
+        //Todo 业务删除。控制层留用
         return Result.ok();
     }
 }

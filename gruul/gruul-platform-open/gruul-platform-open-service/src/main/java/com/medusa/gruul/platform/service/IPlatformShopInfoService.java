@@ -46,21 +46,6 @@ public interface IPlatformShopInfoService extends IService<PlatformShopInfo> {
     Long consoleCreate(ShopInfoConsoleCreateDto dto);
 
     /**
-     * 管理台查询所有店铺
-     *
-     * @param page           分页对象
-     * @param templateInfoId 模板id
-     * @param deployType     部署方式
-     * @param shopStatus     店铺状态
-     * @param search         店铺名称
-     * @param versionId      模板版本id
-     * @param packageId      套餐id
-     * @param agentId
-     * @return com.medusa.gruul.platform.model.vo.ShopViewListVo
-     */
-    PageUtils<List<ShopViewListVo>> amdinList(Page<PlatformShopInfo> page, Integer templateInfoId, Integer deployType, Integer shopStatus, String search, Integer versionId, Long packageId, Long agentId);
-
-    /**
      * 控制台查询所属用户的所有店铺
      *
      * @param page 分页对象
@@ -122,19 +107,7 @@ public interface IPlatformShopInfoService extends IService<PlatformShopInfo> {
      */
     PlatformShopInfo getByTenantId(String tenantId);
 
-    /**
-     * 删除指定店铺
-     *
-     * @param shopId 店铺id
-     */
-    void amdinDel(Long shopId);
 
-    /**
-     * 打烊或营业
-     *
-     * @param shopId 店铺id
-     */
-    void adminCloseOrOpen(Long shopId);
 
     /**
      * 进入指定店铺
@@ -245,20 +218,8 @@ public interface IPlatformShopInfoService extends IService<PlatformShopInfo> {
      */
     List<PlatformShopInfo> getByCancelAuthMiniShops(Long shopTemplateId);
 
-    /**
-     * 获取指定商户支付配置
-     *
-     * @param shopId 店铺id
-     * @return com.medusa.gruul.platform.api.model.vo.PayInfoVo
-     */
-    PayInfoVo payMode(Long shopId);
 
-    /**
-     * 管理台修改指定商户支付配置修改
-     *
-     * @param payInfoUpdataDto com.medusa.gruul.platform.model.dto.PayInfoUpdataDto
-     */
-    void managerPayInfoUpdata(PayInfoUpdataDto payInfoUpdataDto);
+
 
     /**
      * 重新生产店所有默认值

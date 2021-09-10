@@ -7,24 +7,20 @@
 -->
 | 交流群4 | 交流群5 | 交流群6 | 技术微信 |
 |--------|--------|--------|------|
-|![](https://images.gitee.com/uploads/images/2021/0707/113944_4f9df1f5_8533008.jpeg "4.jpg")|![](https://images.gitee.com/uploads/images/2021/0707/114009_f44c2fc5_8533008.png "5.png")|![](https://images.gitee.com/uploads/images/2021/0707/114022_4ac943ec_8533008.png "6.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0902/144038_a64c12c0_8533008.png "微信截图_20210902143902.png")|
+|![](https://images.gitee.com/uploads/images/2021/0707/113944_4f9df1f5_8533008.jpeg "4.jpg")|![](https://images.gitee.com/uploads/images/2021/0707/114009_f44c2fc5_8533008.png "5.png")|![](https://images.gitee.com/uploads/images/2021/0707/114022_4ac943ec_8533008.png "6.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0909/104715_7e44acdf_8533008.png "0af656df7854299aa6dd432949d5c47.png")|
 ### 前言
 
-关于 Smart Shop 是否对外免费开放源码，启山智软进行了长达1个月的市场分析：
-一方面，这套SaaS系统研发投入成本高，迄今已超过300w人民币;另一方面，系统已经积攒了逾2000个商家用户，覆盖超过80w终端用户，其中不乏【中国石油】、【贵州茅台】、【辽宁红运】这类集团大公司及知名品牌，基于本系统进行的二次开发和已嵌入其原来系统。
+期盼已久的smart shop商城系统基础框架正式开源，我们承诺开源框架完全免费使用，其余功能可支持定制开发。由于SaaS系统研发投入成本高，迄今已超过300w人民币。在此对【中国石油】、【贵州茅台】、【辽宁红运】等基于本系统进行二次开发的知名集团企业表示感谢！
 
-我们由衷希望通过gitee平台让赋予 Smart Shop 新生命，希望精心“培育”的代码可以在大家的认可和鞭策下发挥更大的价值。代码质量如何，懂行的人一看就能了然于胸。真心希望能够得到大家中肯的建议和评价。我们立志，要让 Smart Shop 成为 **Java程序员的首选商城框架** ！！由此我们决定把核心功能逐步开放出来。
+其次我们由衷希望通过gitee平台能赋予 Smart Shop 新生命，希望精心“培育”的代码可以在大家的认可和鞭策下发挥更大的价值。代码如何，懂行的人一看就能了然于胸。真心希望能够得到大家中肯的建议和评价。我们立志，要让 Smart Shop 成为 **Java程序员的首选商城框架** ！！
 
 ### 项目介绍
 Smart Shop 是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前后端分离的商城系统，采用轻量级稳定框架开发及优化核心，减少依赖，具备出色的执行效率、扩展性、稳定性。
 Smart Shop 是一款经过生产环境**反复线上论证**和**真实用户数据使用**的Java新零售商城系统。
 
 ### 荣誉资质
-|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104042_f5d3ec3b_8533008.png "布谷鸟SaaS平台.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104054_cc195768_8533008.png "布谷鸟社区团购.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104233_f71a9b70_8533008.png "外观专利.png")|
+|![输入图片说明](https://images.gitee.com/uploads/images/2021/0907/162352_817a9646_8533008.png "商城软著_20210907161716.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104042_f5d3ec3b_8533008.png "布谷鸟SaaS平台.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104233_f71a9b70_8533008.png "外观专利.png")|
 |---|---|---|
-|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104314_eb3cf97f_8533008.png "布谷鸟微商城系统软著.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104323_8bb31568_8533008.png "微信图片_20210130165613.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104333_c16ef7e9_8533008.png "布谷鸟群管理机器人系统.png")|
-
-
 
 
 ### 技术架构
@@ -83,6 +79,16 @@ Smart Shop 是一款经过生产环境**反复线上论证**和**真实用户数
 - 注释完整：描述性高大量减少了开发人员的代码阅读工作量；
 - 工具规范：使用统一jar包避免出现内容冲突；
 - 代码整洁：可读性、维护性更高。
+
+ **代码位置** 
+
+  商家端  :https://gitee.com/qisange/basemall/tree/master/group-mall-admin-source
+
+  小程序端 :https://gitee.com/qisange/basemall/tree/master/group-shop-uniapp-wx-Source
+
+  后端    :https://gitee.com/qisange/basemall/tree/master/gruul
+
+  数据库  ：gruul/gruul-*-open/doc/xxx.sql
 
 
 ### 系统版本
@@ -205,10 +211,6 @@ Smart Shop 是一款经过生产环境**反复线上论证**和**真实用户数
 |![输入图片说明](https://images.gitee.com/uploads/images/2021/0903/132153_4187f01b_8533008.jpeg "1.jpeg")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0903/132204_94a04119_8533008.jpeg "2.jpeg")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0903/132217_cca82ee0_8533008.jpeg "3.jpeg")|
 |---|---|---|
 
-### 代码位置
-    商家端   :https://gitee.com/qisange/basemall/tree/master/group-mall-admin-source
-    小程序端 :https://gitee.com/qisange/basemall/tree/master/group-shop-uniapp-wx-Source
-    后端     :https://gitee.com/qisange/basemall/tree/master/gruul
 
 ### 特别鸣谢
 

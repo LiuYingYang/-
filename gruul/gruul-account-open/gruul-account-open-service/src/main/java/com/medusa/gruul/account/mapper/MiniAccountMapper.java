@@ -52,8 +52,10 @@ public interface MiniAccountMapper extends BaseMapper<MiniAccount> {
 
     /**
      * 根据租户用户获取会员信息
-     *
+     * @param tenantId 租户id
+     * @param userId 用户id
      * @return com.medusa.gruul.account.api.entity.MiniAccount
+     *
      */
     MiniAccount getMemberInfo(@Param("tenantId") String tenantId, @Param("userId") String userId);
 

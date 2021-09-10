@@ -46,7 +46,7 @@ public interface RemoteSysOssService {
 
     /**
      * 文件上传
-     *
+     * @param prefix 后缀
      * @param bytes
      * @return com.medusa.gruul.common.core.util.Result<java.lang.String>
      * @Author alan

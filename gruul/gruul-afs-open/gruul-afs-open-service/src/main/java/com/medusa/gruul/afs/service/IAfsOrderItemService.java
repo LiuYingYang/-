@@ -27,6 +27,7 @@ public interface IAfsOrderItemService extends IService<AfsOrderItem> {
     /**
      * 获取用户退款次数 -- 针对商品
      * @param orderId
+     * @return  用户当前订单退款情况
      */
     HashMap<String, Object> userApply(Long orderId);
 }
