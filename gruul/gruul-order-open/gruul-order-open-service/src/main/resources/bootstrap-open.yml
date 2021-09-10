@@ -9,7 +9,6 @@ spring:
       discovery:
         server-addr: ip
         ip: ip
-        register-enabled: false
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         file-extension: yml
