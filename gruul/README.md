@@ -9,22 +9,22 @@ gruul 小程序商城
 	gruul
 	├── gruul-common  --公共模块
 	├── gruul-nacos  --注册配置中心[naocs端口号]
-	├── gruul-gateway  --gateway网关[10999]
+	├── gruul-gateway-open  --gateway网关[10999]
 	├── gruul-ops  --运维模块
 	│   ├── gruul-ops-job  --xxl-job-admin[9010]
 	│   ├── gruul-ops-monitor(未上传)  --Spring Boot Admin[5001]
-	├── gruul-oss  --OSS模块
+	├── gruul-oss-open  --OSS模块
 	│   ├── gruul-oss-api  --OSS公共api
 	│   ├── gruul-oss-service  --OSS业务处理[]
 	goods
 	goods
 	goods
-	├── gruul-order  --订单模块
+	├── gruul-order-open  --订单模块
 	│   ├── gruul-order-api  --订单公共api
 	│   ├── gruul-order-service  --订单业务处理[10300]
 	|
 	platform
-	├── gruul-platform  --平台模块
+	├── gruul-platform-open  --平台模块
 	│   ├── gruul-platform-api  --平台公共api
 	│   ├── gruul-platform-service  --平台业务处理[10200]
 	```
