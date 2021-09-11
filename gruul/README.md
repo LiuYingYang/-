@@ -68,15 +68,16 @@ gruul 小程序商城
 	- 运行建库语句sql文件 (每个项目doc下有先对应的sql文件)
 	- 运行其他的sql文件
 3. 修改配置文件
-	- 修改gruul-nacos\src\main\resources\bootstrap.yml 中的数据库配置
+	- 修改gruul-*-open\src\main\resources\bootstrap.yml 中的nacos连接配置
 	- 运行nacos  默认账号密码（nacos/nacos） 
+        - 加入相关配置配置文件
 	- 修改application-open.yml文件中的redis配置
 	- 修改oss-open.yml等文件中的数据库配置
 4. 安装lombok插件
 	详见 [idea安装Lombok](https://www.jianshu.com/p/37e24fe833d6)
 
 5. 启动顺序  
-	1.NacosApplication.java (nacos)  
+	1.NacosApplication       (nacos) (该处指安装的nacos)  
 	2.GatewayApplication.java  (网关)
 	3.XxlJobAdminApplication.java (xxl-job-admin)  
 	4.随意(应用)
