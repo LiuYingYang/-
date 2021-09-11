@@ -79,7 +79,8 @@ gruul 小程序商城
 5. 启动顺序  
 	1.NacosApplication       (nacos) (该处指安装的nacos)  
 	2.GatewayApplication.java  (网关)
-	3.XxlJobAdminApplication.java (xxl-job-admin)  
+
+	3.XxlJobAdminApplication(xxl-job-admin)  
 	4.随意(应用)
 6. 项目部署
     
