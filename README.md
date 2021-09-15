@@ -63,7 +63,7 @@ Smart Shop 是一款经过生产环境**反复线上论证**和**真实用户数
 | TypeScript             | JavaScript超集       | https://www.tslang.cn/                                |
 | eslint             	 | 代码质量控制         | https://eslint.org/                                   |                 
 | hook	             	 | 代码质量控制         |                                                       |
-| uniapp                 |            小程序模板 | https://qiu8310.github.io/minapp/                    |
+| uniapp                 |            小程序模板 | https://uniapp.dcloud.io/README                |
 |--------|-------|-----------------------------------|
 
 #### 业务架构
