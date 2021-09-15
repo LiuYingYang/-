@@ -144,9 +144,6 @@
         <if test="dto.orderId!=null  and dto.orderId!=''">
             AND o.id LIKE concat('%',#{dto.orderId},'%')
         </if>
-        <if test="dto.pointName!=null and dto.pointName!=''">
-            AND od.point_name LIKE concat('%',#{dto.pointName},'%')
-        </if>
         <if test="dto.deliverySn !=null  and dto.deliverySn!=''">
             AND od.delivery_sn LIKE concat('%',#{dto.deliverySn},'%')
         </if>
