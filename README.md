@@ -17,8 +17,6 @@ smart shop是一套基于启山智软社区团购的基础上剥离出来的SaaS
 **启山智软社区团购相关链接**
 - gitee            :https://gitee.com/qisange/group_purchase2.0
 - 社区团购	   : https://www.bgniao.cn
-- 公司官网	   : https://73app.cn
-- 团购更新文档	   : https://www.bgniao.cn/notice
 - 商家后台	   : https://www.bgniao.cn
 - 区域团长后台	   : https://www.bgniao.cn
 - 商务对接wx/电话   : xcxqidiankeji/18967889883
