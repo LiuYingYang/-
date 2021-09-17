@@ -27,7 +27,7 @@ smart shop是一套基于启山智软社区团购的基础上剥离出来的SaaS
 
 ### 项目介绍
 Smart Shop 是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前后端分离的商城系统，采用轻量级稳定框架开发及优化核心，减少依赖，具备出色的执行效率、扩展性、稳定性。
-Smart Shop 是一款经过生产环境**反复线上论证**和**真实用户数据使用**的Java新零售商城系统。
+Smart Shop 经过了生产环境**反复线上论证**和**大量真实用户数据使用**的考验。
 
 ### 荣誉资质
 |![输入图片说明](https://images.gitee.com/uploads/images/2021/0907/162352_817a9646_8533008.png "商城软著_20210907161716.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104042_f5d3ec3b_8533008.png "布谷鸟SaaS平台.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104233_f71a9b70_8533008.png "外观专利.png")|
