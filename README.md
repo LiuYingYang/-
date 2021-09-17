@@ -14,13 +14,14 @@
 
 smart shop是一套基于启山智软社区团购的基础上剥离出来的SaaS版商城系统，我们将启山智软社区团购的部分业务进行了重构，延用了用户端小程序、区域团长后台、自定义装修组件等相关模块。如果大家对于社区团购类的系统感兴趣，可查看相关链接
 
-        - gitee            :https://gitee.com/qisange/group_purchase2.0
-        - 社区团购	   : https://www.bgniao.cn
-	- 公司官网	   : https://73app.cn
-	- 团购更新文档	   : https://www.bgniao.cn/notice
-	- 商家后台	   : https://www.bgniao.cn
-	- 区域团长后台	   : https://www.bgniao.cn
-	- 商务对接wx/电话   : xcxqidiankeji/18967889883
+**启山智软社区团购相关链接**
+- gitee            :https://gitee.com/qisange/group_purchase2.0
+- 社区团购	   : https://www.bgniao.cn
+- 公司官网	   : https://73app.cn
+- 团购更新文档	   : https://www.bgniao.cn/notice
+- 商家后台	   : https://www.bgniao.cn
+- 区域团长后台	   : https://www.bgniao.cn
+- 商务对接wx/电话   : xcxqidiankeji/18967889883
 
 我们承诺开源框架完全免费使用，其余功能可支持定制开发。由于SaaS系统研发投入成本高，迄今已超过300w人民币。在此对【中国石油】、【贵州茅台】、【辽宁红运】等基于本系统进行二次开发的知名集团企业表示感谢！
 
