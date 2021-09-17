@@ -10,7 +10,7 @@
 |![](https://images.gitee.com/uploads/images/2021/0707/113944_4f9df1f5_8533008.jpeg "4.jpg")|![](https://images.gitee.com/uploads/images/2021/0707/114009_f44c2fc5_8533008.png "5.png")|![](https://images.gitee.com/uploads/images/2021/0707/114022_4ac943ec_8533008.png "6.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0909/104715_7e44acdf_8533008.png "0af656df7854299aa6dd432949d5c47.png")|
 ### 前言
 
-期盼已久的smart shop商城系统基础框架正式开源上架啦 :exclamation: :exclamation:  :exclamation: 
+期盼已久的smart shop商城系统基础框架正式开源上架啦 :exclamation: :tada::exclamation: :tada: :exclamation::tada:     
 
 smart shop是一套基于启山智软社区团购的基础上剥离出来的SaaS版商城系统，我们将启山智软社区团购的部分业务进行了重构，延用了用户端小程序、区域团长后台、自定义装修组件等相关模块。如果大家对于社区团购类的系统感兴趣，可查看相关链接
 
