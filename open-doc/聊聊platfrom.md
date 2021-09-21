@@ -22,5 +22,5 @@ gruul-platform
 	|   ├── WechatOpenProperties.java   -- 第三方平台(微信开放平台)
 	|   ├── WxConfiguration.java        -- 属性注入并初始化
 	|   ├── WxMpProperties.java         -- 微信公众号属性
-	|   ├── XxlJobConfig.java           -- xxl-job-admin 默认配置
+	|   ├── XxlJobConfig.java           -- xxl-job-admin 默认配置(定时任务)
 
