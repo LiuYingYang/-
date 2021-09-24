@@ -8,10 +8,10 @@
 
 | 交流群4 | 交流群5  | 技术微信 |
 |--------|--------|--------|
-|![](https://images.gitee.com/uploads/images/2021/0707/113944_4f9df1f5_8533008.jpeg "4.jpg")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0923/155113_986d69ed_8533008.png "1632383416(1).png")|![](https://images.gitee.com/uploads/images/2021/0909/104715_7e44acdf_8533008.png "0af656df7854299aa6dd432949d5c47.png")|
+|![](https://images.gitee.com/uploads/images/2021/0707/113944_4f9df1f5_8533008.jpeg "4.jpg")|![](https://images.gitee.com/uploads/images/2021/0707/114009_f44c2fc5_8533008.png "5.png")|![](https://images.gitee.com/uploads/images/2021/0909/104715_7e44acdf_8533008.png "0af656df7854299aa6dd432949d5c47.png")|
 ### 前言
 
-期盼已久的smart shop商城系统基础框架正式开源上架啦 :tada:  :tada:  :tada:    
+期盼已久的smart shop商城系统核心框架正式开源上架啦 :tada:  :tada:  :tada:    
 
 smart shop是一套基于启山智软社区团购的基础上剥离出来的SaaS版商城系统，我们将启山智软社区团购的部分业务进行了重构，延用了用户端小程序、区域团长后台、自定义装修组件等相关模块。
 
@@ -174,9 +174,9 @@ Smart Shop 经过了生产环境**反复线上论证**和**大量真实用户数
 
 
 ###  项目演示
-| 开源版：![](https://medusa-small-file.oss-cn-hangzhou.aliyuncs.com/gruul/20210903/aa1615e427d448cb93de24f511ec0243.png "kaiyuan.png") | ![输入图片说明](https://images.gitee.com/uploads/images/2021/0923/155220_542c44f3_8533008.png "1632382919(1).png") | ![](https://images.gitee.com/uploads/images/2021/0923/144438_0944e807_8533008.jpeg "2f262ce68ebb9ad5d5646252b48bf90d.jpg") |
+| 开源版：![](https://medusa-small-file.oss-cn-hangzhou.aliyuncs.com/gruul/20210903/aa1615e427d448cb93de24f511ec0243.png "kaiyuan.png") | ![](https://images.gitee.com/uploads/images/2021/0802/144350_d868856f_8533008.png "image.png") | ![](https://images.gitee.com/uploads/images/2021/0802/144417_2689bcde_8533008.png "image (1).png") |
 |-----------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
-| 开源版本演示地址：https://open.bgniao.cn/copartner/0.1/sign 账号：15824556145 密码：admin123                                                     | 演示地址：https://www.bgniao.cn/login 账号：18158554030密码：medusa2016                               | 演示地址：https://www.bgniao.cn/login 账号:18967889888密码：medusa2016                                       |
+| 开源版本演示地址：https://open.bgniao.cn/copartner/0.1/sign 账号：15824556145 密码：admin123                                                     | 演示地址：https://test.superprism.cn/login 账号：18967889883 密码：admin                                  | 演示地址：https://test.superprism.cn/login 账号：18067188818 密码：admin                                      |
 
 
 | 小程序演示 | 操作流程 |
@@ -229,7 +229,7 @@ Smart Shop 经过了生产环境**反复线上论证**和**大量真实用户数
 
 前端开发：斯巴达、罗天师yyds、龙哥
 
-后端开发：白沙群岛、老头、杰哥、蝴蝶君、阿帕奇、机器猫
+后端开发：白沙群岛、老头、杰哥、阳仔、阿帕奇、机器猫
 
 测试：聂小倩、铁柱、佩奇
 
