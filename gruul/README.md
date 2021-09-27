@@ -16,9 +16,7 @@ gruul 小程序商城
 	├── gruul-oss-open  --OSS模块
 	│   ├── gruul-oss-api  --OSS公共api
 	│   ├── gruul-oss-service  --OSS业务处理[]
-	goods
-	goods
-	goods
+	order
 	├── gruul-order-open  --订单模块
 	│   ├── gruul-order-api  --订单公共api
 	│   ├── gruul-order-service  --订单业务处理[10300]
@@ -27,6 +25,11 @@ gruul 小程序商城
 	├── gruul-platform-open  --平台模块
 	│   ├── gruul-platform-api  --平台公共api
 	│   ├── gruul-platform-service  --平台业务处理[10200]
+	|
+	goods
+	├── gruul-goods-open  --商品模块
+	│   ├── gruul-goods-api  --商品公共api
+	│   ├── gruul-goods-service  --商品业务处理[10100]
 	```
 2. swagger使用
 	- 在主类上添加注解 @EnableGruulSwagger2
@@ -79,9 +82,10 @@ gruul 小程序商城
 5. 启动顺序  
 	1.NacosApplication       (nacos) (该处指安装的nacos)  
 	2.GatewayApplication.java  (网关)
-
 	3.XxlJobAdminApplication(xxl-job-admin)  
 	4.随意(应用)
+	
+	详见 ： https://gitee.com/qisange/basemall/blob/master/OPEN_PRE.md
 6. 项目部署
     
         正式部署  用过jenkins进行代码构建打包
