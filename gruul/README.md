@@ -172,3 +172,39 @@ gruul 小程序商城
  ![输入图片说明](https://images.gitee.com/uploads/images/2021/0910/150414_965fff96_5199717.png "屏幕截图.png")
 
 
+jenkins file 详解
+   Jenkinsfile为Jenkins的流水线脚本 
+   语法说明
+   
+        buildDiscarder(logRotator(numToKeepStr: '2')) 保留成功次数
+        DEV_NODE  jenkins节点管理
+        PORT      项目版本号
+        DOCKER_REGISTRY docker镜像上传版本
+        MAPPING_PATH    映射地址
+        
+         steps {
+                  maven版本   maven标识
+               withMaven(maven: 'maven3.6.2', mavenSettingsConfig: '3ea105df-717e-4eb7-8f6b-8a429180b140') { 
+                 maven打包
+                 sh "mvn clean package -U -Dmaven.test.skip=true deploy"
+                }
+         }
+         docker镜像build push到仓库
+         docker.withRegistry("http://${DOCKER_REGISTRY}", "harbor") {
+                 def customImage = docker.build("${IMAGE_NAME}:${IMAGE_VERSION}")
+                  customImage.push()
+          }
+          
+Dockerfile 详解   
+    
+    引入依赖镜像    
+    FROM anapsix/alpine-java:8_server-jre_unlimited
+    
+    创建软连接同步时间
+    RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
+    
+    add jar 
+    ADD gruul-platform-open-service/target/*.jar gruul-platform.jar
+    
+    配置内存
+    ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom" ,"-jar" , "-Xms512m","-Xmx512m" ,"/gruul-platform.jar"]
