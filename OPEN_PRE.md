@@ -125,11 +125,11 @@
 
  
 - zip压缩包获取
-       
-        链接：https://pan.baidu.com/s/1rXzEYl_Korj9T27ptplRbA 
-        提取码：64s1 
-        --来自百度网盘超级会员V4的分享      
-         
+    
+        链接：https://pan.baidu.com/s/1OSU6-CGBqDWO0YRPUDHdLQ 
+        提取码：m9bd 
+        --来自百度网盘超级会员V4的分享
+        
         安装过程中出现问题或疑惑可加入qq群探讨
  
 ***

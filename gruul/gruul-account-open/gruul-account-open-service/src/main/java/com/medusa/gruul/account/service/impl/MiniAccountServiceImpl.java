@@ -126,8 +126,7 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
         //Todo 微信开放平台获取openid 等 调用
         LoginDto login = remoteMiniInfoService.login(tenantId, code);
 
-        //Todo 如没有微信开放平台可使用微信小程序
-//        final WxMaService wxService = getWxMaService();
+        //Todo 如 etWxMaService();
 //        if (StrUtil.isBlank(code)) {
 //            throw new ServiceException("当前code不存在");
 //        }
