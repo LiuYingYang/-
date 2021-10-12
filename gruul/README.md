@@ -66,9 +66,9 @@ gruul 小程序商城
 #### 安装教程
 
 1. 下载本项目
-
+        - 阅读开源前置条件 :https://gitee.com/qisange/basemall/blob/master/OPEN_PRE.md
 2. 初始化数据库
-	- 运行建库语句sql文件 (每个项目doc下有先对应的sql文件)
+	- 运行建库语句sql文件 (每个项目doc下有先对应的sql文件) or  /gruul/init-default-sql 下相关sql文件
 	- 运行其他的sql文件
 3. 修改配置文件
 	- 修改gruul-*-open\src\main\resources\bootstrap.yml 中的nacos连接配置
