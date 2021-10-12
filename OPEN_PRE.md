@@ -135,9 +135,9 @@
 ***
    
    
-    项目启动前 需要安装完成 Nacos Nexus Docker Mysql Redis rabbitmq xxl-job-admin
+    项目本地启动 需要安装完成 Nacos Docker Mysql Redis rabbitmq xxl-job-admin
     
-    项目上线前 需要安装完成 Nacos Nexus Docker Mysql Redis rabbitmq xxl-job-admin Jenkins Nginx Harbor JDK 
+    项目上线前 需要安装完成 Nacos Docker Mysql Redis rabbitmq xxl-job-admin Nexus  Jenkins Nginx Harbor JDK 
     如有疑问可加入qq群进行沟通
 
 ***
