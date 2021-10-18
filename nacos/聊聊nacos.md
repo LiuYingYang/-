@@ -51,8 +51,9 @@ nacos 安装
       ips*  :  第三方支付相关配置(二开可参考)
   
 
-    nacos配置加载需要先安装nacos。并创建相关yml文件
-  
+    nacos配置加载需要先安装nacos。并创建相关yml文件  nacos为配置文件 创建顺序 
+    1.application-open.md  2.随意
+
     如遇问题可加入qq群,会有专人解答
 
 
