@@ -128,11 +128,11 @@
  
 - zip压缩包获取
     
-        链接：https://pan.baidu.com/s/1OSU6-CGBqDWO0YRPUDHdLQ 
-        提取码：m9bd 
-        --来自百度网盘超级会员V4的分享
-        
-        安装过程中出现问题或疑惑可加入qq群探讨
+   
+         --来自百度网盘超级会员V4的分享
+        hi，这是我用百度网盘分享的内容~复制这段内容打开「百度网盘」APP即可获取 
+        链接:https://pan.baidu.com/s/1Ww1RNmxvndvitAO1ML3rSA 
+        提取码:536z
  
 ***
    
