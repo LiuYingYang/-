@@ -69,7 +69,9 @@
 
 - Nginx web代理
   
-        yum install nginx-1.16.1
+        yum install nginx
+        nginx -t 校验文件
+        nginx -s reload 重载文件
 - Nacos
   
          解压 tar.gz
@@ -141,6 +143,8 @@
     
     项目上线前 需要安装完成 Nacos Docker Mysql Redis rabbitmq xxl-job-admin Nexus  Jenkins Nginx Harbor JDK 
     如有疑问可加入qq群进行沟通
+
+    jenkins  Harbor 为自动构建工具 详细内容请参考 gruul-xxx 下的Jenkinsfile Dockerfile
 
 ***
 
