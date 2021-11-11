@@ -6,7 +6,7 @@
  * @LastEditTime: 2021-09-03 10:59:39
 -->
 # 双11活动钜惠来袭:tada:  :tada:  :tada: 
-![](https://images.gitee.com/uploads/images/2021/1110/174641_360413f3_8533008.jpeg "未标题-7.jpg")
+![](https://images.gitee.com/uploads/images/2021/1111/111202_a2ffa922_8533008.jpeg "121.jpg")
 近期发现市场上有人冒充smart shop工作人员通过售卖盗版smart shop商城系统源码非法获益，在此我们郑重声明：非经过本公司官方渠道购买的smart shop源码出现任何问题我们概不负责。
 
 使用违法获取的盗版系统，存在很多的数据安全隐患，还会带来法律风险，请大家共同监督，发现人员出售盗版系统，及时与我们联系，我们将依法追究其法律责任 :exclamation:  :exclamation:  :exclamation: 
