@@ -15,6 +15,7 @@ import cn.hutool.core.img.ImgUtil;
 import cn.hutool.core.map.MapUtil;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import com.alibaba.druid.util.Base64;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -75,6 +76,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -895,6 +897,26 @@ public class MiniInfoServiceImpl extends ServiceImpl<MiniInfoMapper, MiniInfo> i
         }
 
         return Boolean.TRUE;
+    }
+
+    @Override
+    public void privacy() {
+        String tenantId = TenantContextHolder.getTenantId();
+        MiniInfo miniInfo = checkCurrentTenantId(tenantId);
+        WxOpenMaService wxMaServiceByAppid = wxOpenService.getWxOpenComponentService().getWxMaServiceByAppid(miniInfo.getAppId());
+        try {
+            String accessToken = wxMaServiceByAppid.getAccessToken();
+            String uriWithComponentAccessToken = "https://api.weixin.qq.com/cgi-bin/component/setprivacysetting?access_token=" + accessToken;
+            File file = new File(this.getClass().getResource("/privacy.json").getPath());
+            cn.hutool.json.JSON json = JSONUtil.readJSON(file, StandardCharsets.UTF_8);
+            String a =  json.toString();
+            // 设置用户隐私
+            wxOpenService.post(uriWithComponentAccessToken, a);
+
+            log.warn(accessToken);
+        } catch (WxErrorException e) {
+            e.printStackTrace();
+        }
     }
 
 

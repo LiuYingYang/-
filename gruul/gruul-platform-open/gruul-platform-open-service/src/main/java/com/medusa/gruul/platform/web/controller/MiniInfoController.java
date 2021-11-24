@@ -72,7 +72,7 @@ public class MiniInfoController {
 
     @GetMapping("version/update")
     @ApiOperation(value = "小程序版本更新")
-    public Result versionUpdate(@ApiParam(value = "店铺模版详情小程序版本子表id", required = true)@RequestParam Long templateDetailMinisId) {
+    public Result versionUpdate(@ApiParam(value = "店铺模版详情小程序版本子表id", required = true) @RequestParam Long templateDetailMinisId) {
         miniInfoService.versionUpdate(templateDetailMinisId);
         return Result.ok();
     }
@@ -91,4 +91,10 @@ public class MiniInfoController {
         return Result.ok();
     }
 
+    @PostMapping("privacy")
+    @ApiOperation(value = "用户隐私设置")
+    public Result privacy() {
+        miniInfoService.privacy();
+        return  Result.ok();
+    }
 }

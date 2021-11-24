@@ -244,5 +244,8 @@ public interface IMiniInfoService extends IService<MiniInfo> {
      * @return   true or false
      */
     Boolean bindOpenInfo(String tenantId);
-
+    /**
+     * 用户隐私设置
+     */
+    void privacy();
 }
