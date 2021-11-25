@@ -909,9 +909,9 @@ public class MiniInfoServiceImpl extends ServiceImpl<MiniInfoMapper, MiniInfo> i
             String uriWithComponentAccessToken = "https://api.weixin.qq.com/cgi-bin/component/setprivacysetting?access_token=" + accessToken;
             File file = new File(this.getClass().getResource("/privacy.json").getPath());
             cn.hutool.json.JSON json = JSONUtil.readJSON(file, StandardCharsets.UTF_8);
-            String a =  json.toString();
+            String privacy =  json.toString();
             // 设置用户隐私
-            wxOpenService.post(uriWithComponentAccessToken, a);
+            wxOpenService.post(uriWithComponentAccessToken, privacy);
 
             log.warn(accessToken);
         } catch (WxErrorException e) {
