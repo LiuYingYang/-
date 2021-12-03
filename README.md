@@ -5,7 +5,7 @@
  * @LastEditors: chuyinlong
  * @LastEditTime: 2021-09-03 10:59:39
 -->
-![输入图片说明](gruul-mall-admin-source/public/%E5%8F%8C12.png)
+![输入图片说明](gruul/%E5%8F%8C12.png)
 ### 郑重声明
 近期发现市场上有人冒充smart shop工作人员通过售卖盗版smart shop商城系统源码非法获益，在此我们郑重声明：非经过本公司官方渠道购买的smart shop源码出现任何问题我们概不负责。
 
