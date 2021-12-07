@@ -15,7 +15,7 @@
 |![](https://images.gitee.com/uploads/images/2021/0707/113944_4f9df1f5_8533008.jpeg "4.jpg")|![](https://images.gitee.com/uploads/images/2021/0707/114009_f44c2fc5_8533008.png "5.png")|![](https://images.gitee.com/uploads/images/2021/1120/135453_4b4de7bd_8533008.jpeg "微信-.jpg")
 ### 前言
 
-期盼已久的经过百万真实用户沉淀并检验的企业级smart shop商城系统核心框架正式开源上架啦 :tada:  :tada:  :tada:    
+期盼已久的经过 **百万真实用户沉淀并检验** 的企业级smart shop商城系统核心框架正式开源上架啦 :tada:  :tada:  :tada:    
 
 我们承诺smart shop使用的开源框架完全免费，其余功能支持定制开发。由于SaaS系统研发投入成本高，迄今已超过300w人民币。在此对【中国石油】、【贵州茅台】【轩妈蛋黄酥】等基于本系统进行二次开发的知名企业表示感谢！
 
