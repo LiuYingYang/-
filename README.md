@@ -15,17 +15,14 @@
 |![](https://images.gitee.com/uploads/images/2021/0707/113944_4f9df1f5_8533008.jpeg "4.jpg")|![](https://images.gitee.com/uploads/images/2021/0707/114009_f44c2fc5_8533008.png "5.png")|![](https://images.gitee.com/uploads/images/2021/1120/135453_4b4de7bd_8533008.jpeg "微信-.jpg")
 ### 前言
 
-期盼已久的smart shop商城系统核心框架正式开源上架啦 :tada:  :tada:  :tada:    
+期盼已久的经过百万真实用户沉淀并检验的企业级smart shop商城系统核心框架正式开源上架啦 :tada:  :tada:  :tada:    
 
-smart shop是一套基于启山智软社区团购的基础上剥离出来的SaaS版商城系统，我们将启山智软社区团购的部分业务进行了重构，延用了用户端小程序、区域团长后台、自定义装修组件等相关模块。
+我们承诺smart shop使用的开源框架完全免费，其余功能支持定制开发。由于SaaS系统研发投入成本高，迄今已超过300w人民币。在此对【中国石油】、【贵州茅台】【轩妈蛋黄酥】等基于本系统进行二次开发的知名企业表示感谢！
 
-我们承诺smart shop使用到的开源框架完全免费使用，其余功能支持定制开发。由于SaaS系统研发投入成本高，迄今已超过300w人民币。在此对【中国石油】、【贵州茅台】等基于本系统进行二次开发的知名企业表示感谢！
-
-我们希望通过gitee平台能让更多的人了解smart shop商城系统，获得大家的认可的同时也希望大家对于系统能够提出你的宝贵意见，帮助我们不断的对系统进行迭代优化，使 Smart Shop 成为 **Java程序员的首选商城框架** ！！
+我们希望通过gitee平台能让更多的人了解smart shop商城系统，获得大家认可的同时也希望大家对smartshop提出宝贵的意见，帮助我们不断对系统进行迭代优化，使Smart Shop成为 **Java程序员的首选商城框架** ！！
 
 ### 项目介绍
-Smart Shop 是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前后端分离的商城系统，采用轻量级稳定框架开发及优化核心，减少依赖，具备出色的执行效率、扩展性、稳定性。
-Smart Shop 经过了生产环境**反复线上论证**和**大量真实用户数据使用**的考验。
+Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前后端分离、分布式、微服务架构的Java商城系统，采用稳定框架开发及优化核心，减少依赖，具备出色的执行效率，扩展性、稳定性高，H5/小程序/APP三端合一数据打通，Smart shop将持续收集大家反馈不断更新迭代，并经过了生产环境**反复线上论证**和**大量真实用户数据使用**的考验。
 
 ### 荣誉资质
 |![输入图片说明](https://images.gitee.com/uploads/images/2021/0907/162352_817a9646_8533008.png "商城软著_20210907161716.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104042_f5d3ec3b_8533008.png "布谷鸟SaaS平台.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104233_f71a9b70_8533008.png "外观专利.png")|
