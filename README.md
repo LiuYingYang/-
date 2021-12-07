@@ -1,11 +1,10 @@
-<!--
+![输入图片说明](images/%E5%8F%8C12%E7%A4%BE%E5%8C%BA%E5%9B%A2%E8%B4%AD.png)
  * @description: 抽离开源版本
  * @Author: chuyinlong
  * @Date: 2021-09-03 10:01:47
  * @LastEditors: chuyinlong
  * @LastEditTime: 2021-09-03 10:59:39
--->
-![输入图片说明](%E5%8F%8C12%E5%95%86%E5%9F%8E%E6%B5%B7%E6%8A%A5.jpg)
+
 ### 郑重声明
 近期发现市场上有人冒充smart shop工作人员通过售卖盗版smart shop商城系统源码非法获益，在此我们郑重声明：非经过本公司官方渠道购买的smart shop源码出现任何问题我们概不负责。
 
