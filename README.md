@@ -1,4 +1,4 @@
-![输入图片说明](images/%E5%8F%8C12%E7%A4%BE%E5%8C%BA%E5%9B%A2%E8%B4%AD.png)
+![输入图片说明](images/%E5%8F%8C12%E5%95%86%E5%9F%8E%E6%B5%B7%E6%8A%A50.gif)
  * @description: 抽离开源版本
  * @Author: chuyinlong
  * @Date: 2021-09-03 10:01:47
