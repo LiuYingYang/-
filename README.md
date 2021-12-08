@@ -175,11 +175,9 @@ Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前�
 
 
 ###  项目演示
-| 开源版：![](https://medusa-small-file.oss-cn-hangzhou.aliyuncs.com/gruul/20210903/aa1615e427d448cb93de24f511ec0243.png "kaiyuan.png") | ![](https://images.gitee.com/uploads/images/2021/0927/170756_42454dda_8533008.jpeg "2f262ce68ebb9ad5d5646252b48bf90d.jpg") | ![](https://images.gitee.com/uploads/images/2021/0927/170839_597c4881_8533008.png "1632382919(1).png") |
+| 开源版：![](https://medusa-small-file.oss-cn-hangzhou.aliyuncs.com/gruul/20210903/aa1615e427d448cb93de24f511ec0243.png "kaiyuan.png") | ![](images/smart%20shop%E5%95%86%E4%B8%9A%E7%89%88.png) 
 |-----------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
-| 开源版本演示地址：https://open.bgniao.cn/copartner/0.1/sign 账号：18058505737密码：admin123                                                     | 商业版演示地址：https://www.bgniao.cn/copartner/s1.5/overview 账号：18967889883 密码：medusa2016                                  | 商业版演示地址：https://test.superprism.cn/login 账号：18067188818 密码：admin123                                      |
-
-
+| 开源版本演示地址：https://open.bgniao.cn/copartner/0.1/sign 账号：18058505737密码：admin123                                                     | 商业版演示地址：https://mall.bgniao.cn/copartner/0.1/sign 账号：18067188818 密码：12345678 
 | 小程序演示 | 操作流程 |
 |-------|------|
 | ![](https://images.gitee.com/uploads/images/2021/0706/160100_85be067b_8533008.jpeg "下载.jpg")      |![](https://bgniao-small-file-1253272780.cos.ap-chengdu.myqcloud.com/group_purchase_open/%E5%B0%8F.gif "启山智软社区团购操作流程")      |
