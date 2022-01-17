@@ -13,7 +13,7 @@ public enum DefaultUniqueIdentificationEnum {
      * 买家订阅消息默认值
      * 创建店铺时发送
      */
-    PLATFROM_SHOP_MSG,
+    PLATFORM_SHOP_MSG,
     /**
      * 会员卡生成
      * 创建店铺时发送

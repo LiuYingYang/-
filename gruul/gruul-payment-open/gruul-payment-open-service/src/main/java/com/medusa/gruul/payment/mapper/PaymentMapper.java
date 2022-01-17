@@ -20,8 +20,7 @@ public interface PaymentMapper extends BaseMapper<Payment> {
      * @param transactionId
      * @param outTradeNo    订单号
      * @param payChannel    渠道
-     * @param tenantId      租户id
      * @return com.medusa.gruul.payment.api.entity.Payment
      */
-    Payment selectOrderStatus(@Param("transactionId") String transactionId, @Param("outTradeNo") String outTradeNo, @Param("payChannel") String payChannel, @Param("tenantId") String tenantId);
+    Payment selectOrderStatus(@Param("transactionId") String transactionId, @Param("outTradeNo") String outTradeNo, @Param("payChannel") String payChannel);
 }

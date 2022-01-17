@@ -9,11 +9,11 @@ import java.util.Map;
 
 /**
  * <p>
- * 提货点申请的详情 Mapper 接口
+ * 售后申请详情 Mapper 接口
  * </p>
  *
  * @author alan
- * @since 2020 -08-21
+ * @since 2020-08-21
  */
 public interface AfsOrderItemMapper extends BaseMapper<AfsOrderItem> {
 
@@ -28,9 +28,8 @@ public interface AfsOrderItemMapper extends BaseMapper<AfsOrderItem> {
     List<Long> selectExchangeOrderIdsByOriginalOrderId(@Param(value = "orderId") Long orderId);
 
     /**
-     * 用户售后
+     *
      * @param orderId
-     * @return  用户售后信息
      */
     List<Map<String,String>> userApplyItem(@Param("orderId") Long orderId);
 }

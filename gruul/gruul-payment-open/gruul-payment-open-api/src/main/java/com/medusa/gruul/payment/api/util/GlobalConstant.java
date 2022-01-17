@@ -34,10 +34,6 @@ public class GlobalConstant {
 
     public static final String STRING_ZERO = "0";
 
-    public static final String STRING_TENANT_ID = "tenantId";
-
-    public static final String STRING_SHOP_ID = "shopId";
-
     public static final String STRING_NUMBER_EIGHTY_SIX = "86";
 
     public static final Long LONG_ZERO = 0L;

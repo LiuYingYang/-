@@ -13,6 +13,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  * @description: AfterServiceApplication.java
  * @date 2020/8/5 21:17
  */
+@EnableMonitorHeartbeat
 @EnableScheduling
 @EnableGruulSwagger2
 @SpringCloudApplication

@@ -11,7 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @EnableGruulSwagger2
 @SpringCloudApplication
-@EnableFeignClients(basePackages = "com.medusa.gruul.*.api.feign")
+@EnableFeignClients(basePackages = "com.medusa.gruul.*.api.*")
 @EnableDiscoveryClient
 public class PaymentApplication {
 

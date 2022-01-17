@@ -25,5 +25,5 @@ public interface IPlatformAccountBalanceRecordService extends IService<PlatformA
      * @param orderNumber     订单号
      * @param accountAmount   变动金额
      */
-    void newBlanceDeail(AccountInfo accountInfo, Integer consumptionType, String orderNumber, BigDecimal accountAmount);
+    void newBalanceDetail(AccountInfo accountInfo, Integer consumptionType, String orderNumber, BigDecimal accountAmount);
 }

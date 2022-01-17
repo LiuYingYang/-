@@ -26,8 +26,8 @@ import java.math.BigDecimal;
 public class MiniAccountFootMark extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "footmark_id", type = IdType.AUTO)
-    private Long footmarkId;
+    @TableId(value = "foot_mark_id", type = IdType.AUTO)
+    private Long footMarkId;
 
     @ApiModelProperty(value = "用户id")
     @TableField("user_id")
@@ -60,12 +60,10 @@ public class MiniAccountFootMark extends BaseEntity {
 
 
     @ApiModelProperty(value = "备注")
-    @TableField("ramark")
-    private String ramark;
+    @TableField("remark")
+    private String remark;
 
 
-    @ApiModelProperty(value = "商铺Id")
-    @TableField("shop_id")
-    private String shopId;
+
 
 }

@@ -12,13 +12,14 @@ import lombok.Data;
 @Data
 public class SkipUrlVo {
 
+    @ApiModelProperty("区域团长跳转地址")
+    private String regionalUrl;
+
 
     @ApiModelProperty(value = "pc端路径")
     private String pcTerminaUrl;
 
     @ApiModelProperty(value = "pc端版本")
     private String pcTerminaVersion;
-
-    private  String RegionalUrl;
 
 }

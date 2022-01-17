@@ -1,7 +1,5 @@
 package com.medusa.gruul.order.service.impl;
 
-import cn.hutool.core.bean.BeanUtil;
-import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
@@ -10,17 +8,16 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.medusa.gruul.account.api.feign.RemoteMiniAccountService;
 import com.medusa.gruul.account.api.model.AccountInfoDto;
+import com.medusa.gruul.common.core.constant.CommonConstants;
 import com.medusa.gruul.common.core.constant.TimeConstants;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.PageUtils;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.order.api.entity.Order;
 import com.medusa.gruul.order.api.entity.OrderDelivery;
 import com.medusa.gruul.order.api.entity.OrderProductEvaluate;
 import com.medusa.gruul.order.api.entity.OrderSetting;
 import com.medusa.gruul.order.api.enums.OrderStatusEnum;
 import com.medusa.gruul.order.api.model.BaseOrderMessage;
-import com.medusa.gruul.order.api.model.OrderItemVo;
 import com.medusa.gruul.order.api.model.OrderVo;
 import com.medusa.gruul.order.api.model.RemoveSendBillOrderMessage;
 import com.medusa.gruul.order.mapper.*;
@@ -67,7 +64,7 @@ public class ManageOrderServiceImpl extends ServiceImpl<OrderMapper, Order> impl
 
     @Override
     public PageUtils searchOrder(ManageSearchOrderDto dto) {
-        List<Integer> orderStatusList = new ArrayList<>(4);
+        List<Integer> orderStatusList = new ArrayList<>(CommonConstants.NUMBER_FOUR);
         //订单状态 -1：所有订单, 0.待付款（待买家付款）, 1.待发货（买家已付款）, 2.配送中（卖家已发货）, 3.待提货（商家直配已到达提货点或物流订单已发货）, 4.已完成（用户已经签收）, 5.已关闭
         switch (dto.getOrderStatus()) {
             case -1:
@@ -149,9 +146,9 @@ public class ManageOrderServiceImpl extends ServiceImpl<OrderMapper, Order> impl
                 note = "";
             }
             if (!isOver) {
-                if(StrUtil.isNotBlank(order.getNote())){
+                if (StrUtil.isNotBlank(order.getNote())) {
                     order.setNote(sb.append(order.getNote()).append(StrUtil.CRLF).append(note).toString());
-                }else {
+                } else {
                     order.setNote(note);
                 }
             } else {
@@ -161,22 +158,6 @@ public class ManageOrderServiceImpl extends ServiceImpl<OrderMapper, Order> impl
         this.updateBatchById(orders);
     }
 
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void removeSendBill(List<Long> orderIds) {
-        List<OrderDelivery> orders = orderDeliveryMapper.selectBatchIds(orderIds);
-        for (OrderDelivery order : orders) {
-            sender.sendRemoveSendBillOrderMessage(new RemoveSendBillOrderMessage(
-                    order.getOrderId(), TenantContextHolder.getTenantId()));
-        }
-        for (OrderDelivery order : orders) {
-            order.setDeliverySn(null);
-            order.setDeliveryCompany(null);
-            order.setDeliveryTime(null);
-            orderDeliveryMapper.updateById(order);
-        }
-
-    }
 
     @Override
     public PageUtils searchOrderEvaluate(ManageSearchEvaluateDto dto) {
@@ -287,25 +268,9 @@ public class ManageOrderServiceImpl extends ServiceImpl<OrderMapper, Order> impl
             sender.sendDeliveryMessage(vo, accountInfoDto.getMiniAccountOauths().getOpenId());
             BaseOrderMessage baseOrderMessage = new BaseOrderMessage();
             baseOrderMessage.setOrderId(vo.getId());
-            baseOrderMessage.setShopId(vo.getShopId());
-            baseOrderMessage.setTenantId(vo.getTenantId());
             sender.sendAutoReceiptOrderMessage(baseOrderMessage,
                     orderSetting.getConfirmOvertime() * TimeConstants.ONE_DAY);
         }
     }
-
-    @Override
-    public void removeSendBillByProductIds(List<Long> productIds) {
-        if (productIds.isEmpty()) {
-            return;
-        }
-        List<Long> orderIds = baseMapper.selectShippedOrderByProductIds(productIds);
-        if (orderIds.isEmpty()) {
-            return;
-        } else {
-            this.removeSendBill(orderIds);
-        }
-    }
-
 
 }

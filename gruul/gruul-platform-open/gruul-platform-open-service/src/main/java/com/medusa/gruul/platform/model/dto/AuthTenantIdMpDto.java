@@ -20,9 +20,6 @@ public class AuthTenantIdMpDto implements Serializable {
     @ApiModelProperty(value = "授权作用域，拥有多个作用域用逗号（,）分隔，已微信认证的服务号拥有 snsapi_base 和 snsapi_userinfo，默认snsapi_userinfo")
     private String scope;
 
-    @ApiModelProperty(value = "租户id")
-    private String tenantId;
-
     @ApiModelProperty(value = "店铺id")
     private String shopId;
 

@@ -19,8 +19,6 @@ public class RenovationTemplateDto implements Serializable {
 
 
     private String type;
-    private String shopId;
-    private String tenantId;
     private String colour;
     private String onlineStatus;
     private String isDevTemplate;

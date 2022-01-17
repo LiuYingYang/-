@@ -10,7 +10,7 @@
     environment {
        PROJECT_VERSION = 0.1// 项目版本, 公共基础库为 public
        EVN = "-e SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=${PROJECT_VERSION} "
-       DOCKER_REGISTRY = "ip:81" //镜像上传选地址
+       DOCKER_REGISTRY = "127.0.0.1:81" //镜像上传选地址
        IMAGE_NAME = "gruul/gruul-payment-open"
        MODEL_NAME = "gruul-payment-open"
        SERVICE_NAME = "${MODEL_NAME}-${PROJECT_VERSION}"

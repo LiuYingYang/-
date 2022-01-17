@@ -43,13 +43,13 @@ public class PlatformListener {
     /**
      * 套餐延迟队列
      *
-     * @param platefromInfoId java.lang.Integer
+     * @param platformInfoId java.lang.Integer
      */
     @RabbitListener(queues = QueueNameConstant.PLATFORM_PACKAGE_DUE)
-    public void packageDueReceive(Integer platefromInfoId) {
-        log.debug("receive message:" + platefromInfoId);
+    public void packageDueReceive(Integer platformInfoId) {
+        log.debug("receive message:" + platformInfoId);
         try {
-            platformShopInfoService.packageDueReceive(platefromInfoId);
+            platformShopInfoService.packageDueReceive(platformInfoId);
         } catch (Exception e) {
             log.debug("套餐延迟队列错误 : {}  ", e.getMessage());
             e.printStackTrace();

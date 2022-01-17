@@ -36,16 +36,9 @@ public class ShowCategory extends BaseEntity {
     private Long id;
 
     /**
-     * 本店店铺id
-     */
-    @ApiModelProperty(value = "本店店铺id")
-    @TableField("shop_id")
-    private String shopId;
-
-    /**
      * 上机分类的编号：0表示一级分类
      */
-    @ApiModelProperty(value = "上机分类的编号：0表示一级分类")
+    @ApiModelProperty(value = "上级分类的编号：0表示一级分类")
     @TableField("parent_id")
     private Long parentId;
 

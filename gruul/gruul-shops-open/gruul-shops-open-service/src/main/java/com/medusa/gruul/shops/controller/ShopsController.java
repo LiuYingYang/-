@@ -19,10 +19,8 @@ import java.util.List;
 @RequestMapping(value = "/shop")
 public class ShopsController {
 
-
     @Autowired
     private ShopsService shopsService;
-
 
     /**
      * 获取商铺

@@ -8,8 +8,6 @@
         <result column="create_time" property="createTime"/>
         <result column="is_deleted" property="deleted"/>
         <result column="update_time" property="updateTime"/>
-        <result column="tenant_id" property="tenantId"/>
-        <result column="shop_id" property="shopId"/>
         <result column="agreement" property="agreement"/>
         <result column="amount_raised" property="amountRaised"/>
     </resultMap>
@@ -19,15 +17,7 @@
         create_time,
         is_deleted,
         update_time,
-        tenant_id,
-        id, shop_id, agreement, amount_raised
+        id, agreement, amount_raised
     </sql>
-    <select id="getMaxId" resultMap="BaseResultMap">
-        select
-            <include refid="Base_Column_List"/>
-        from t_shops
-        where
-        id = ( select max(id) from t_shops)
-    </select>
 
 </mapper>

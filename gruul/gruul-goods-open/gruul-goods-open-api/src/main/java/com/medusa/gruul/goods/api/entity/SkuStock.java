@@ -32,13 +32,6 @@ public class SkuStock extends BaseEntity {
     private Long id;
 
     /**
-     * 本店店铺id
-     */
-    @ApiModelProperty(value = "本店店铺id")
-    @TableField("shop_id")
-    private String shopId;
-
-    /**
      * 版本号
      */
     @Version

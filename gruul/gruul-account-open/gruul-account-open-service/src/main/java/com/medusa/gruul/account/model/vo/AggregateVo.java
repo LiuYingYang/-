@@ -23,6 +23,7 @@ public class AggregateVo {
     private AccountCenterVo accountCenterVo;
     @ApiModelProperty(value = "积分用户所需")
     private UserInfoVo userInfoVo;
+
     @ApiModelProperty(value = "套餐相关开关")
     private ShopPackageFunctionDto packageFunctionVo;
 

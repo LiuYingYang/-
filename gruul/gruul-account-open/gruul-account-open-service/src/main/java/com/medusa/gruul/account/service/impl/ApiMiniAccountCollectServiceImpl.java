@@ -19,8 +19,6 @@ import com.medusa.gruul.common.core.constant.CommonConstants;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.CurUserUtil;
 import com.medusa.gruul.common.core.util.SystemCode;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.common.dto.CurUserDto;
 import com.medusa.gruul.goods.api.constant.GoodsProductRedisKey;
 import com.medusa.gruul.goods.api.model.dto.manager.SkuStockDto;
@@ -33,9 +31,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- * @author  xiaoq
+ * @author xiaoq
  * 小程序用戶收藏 服務類
- *
  * @data 2020/2/22 15:44
  */
 @Service
@@ -57,16 +54,11 @@ public class ApiMiniAccountCollectServiceImpl extends ServiceImpl<MiniAccountCol
         for (UserCollectDto userCollectDto : userCollectDtos) {
             CurUserDto curUserDto = CurUserUtil.getHttpCurUser();
             userCollectDto.setUserId(curUserDto.getUserId());
-            String shopId = ShopContextHolder.getShopId();
-            String tenantId = TenantContextHolder.getTenantId();
             AccountRedis accountRedis = new AccountRedis();
             //缓存中更新 用户收藏商品信息
-            updateAccountCollectInfo(userCollectDto, Long.valueOf(CommonConstants.NUMBER_ZERO), accountRedis, tenantId,
-                    shopId);
+            updateAccountCollectInfo(userCollectDto, Long.valueOf(CommonConstants.NUMBER_ZERO), accountRedis);
             //消息队列 发送 用户收藏信息
             CollectMessage collectMessage = new CollectMessage();
-            collectMessage.setTenantId(tenantId);
-            collectMessage.setShopId(shopId);
             collectMessage.setUserId(curUserDto.getUserId());
             collectMessage.setProductId(Long.valueOf(CommonConstants.NUMBER_ZERO));
             collectMessage.setUserCollectDto(userCollectDto);
@@ -84,8 +76,6 @@ public class ApiMiniAccountCollectServiceImpl extends ServiceImpl<MiniAccountCol
     @Transactional(rollbackFor = Exception.class)
     public void updateAccountCollect(CollectMessage collectMessage) {
         MiniAccountCollect miniAccountCollect = collectMessage.getUserCollectDto().coverMiniAccountCollect();
-        miniAccountCollect.setTenantId(collectMessage.getTenantId());
-        miniAccountCollect.setShopId(collectMessage.getShopId());
         String userId = collectMessage.getUserId();
         Long id = collectMessage.getProductId();
         //等于0说明是加入购物车，不等于0说明是修改购物车数据
@@ -119,9 +109,7 @@ public class ApiMiniAccountCollectServiceImpl extends ServiceImpl<MiniAccountCol
     public List<UserCollectVo> getUserCollectInfo() {
         CurUserDto curUserDto = CurUserUtil.getHttpCurUser();
         String userId = curUserDto.getUserId();
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
-        List<UserCollectVo> collectInfo = getCollectInfo(userId, shopId, tenantId);
+        List<UserCollectVo> collectInfo = getCollectInfo(userId);
         return collectInfo;
     }
 
@@ -135,10 +123,8 @@ public class ApiMiniAccountCollectServiceImpl extends ServiceImpl<MiniAccountCol
     public void delAccountCollect(UserCollectDto userCollectDto) {
         CurUserDto curUserDto = CurUserUtil.getHttpCurUser();
         String userId = curUserDto.getUserId();
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
         AccountRedis accountRedis = new AccountRedis();
-        String userKey = RedisConstant.COLLECT_KEY.concat(tenantId).concat(":").concat(shopId + ":").concat(userId);
+        String userKey = RedisConstant.COLLECT_KEY.concat(":").concat(userId);
         //删除缓存数据
         accountRedis.hdel(userKey, JSON.toJSONString(userCollectDto.getProductId()));
         //删除数据库书籍
@@ -151,17 +137,15 @@ public class ApiMiniAccountCollectServiceImpl extends ServiceImpl<MiniAccountCol
     /**
      * 根据 用户条件信息 获取 用户收藏数据
      *
-     * @param userId   用户id
-     * @param shopId   商铺id
-     * @param tenantId 租户id
+     * @param userId 用户id
      * @return 用户收藏数据
      */
-    private List<UserCollectVo> getCollectInfo(String userId, String shopId, String tenantId) {
+    private List<UserCollectVo> getCollectInfo(String userId) {
         //商品缓存key值
         GoodsProductRedisKey goodsProductRedisKey = new GoodsProductRedisKey();
         //用户收藏缓存key值
         AccountRedis accountRedis = new AccountRedis();
-        String userKey = RedisConstant.COLLECT_KEY.concat(tenantId).concat(":").concat(shopId + ":").concat(userId);
+        String userKey = RedisConstant.COLLECT_KEY.concat(":").concat(userId);
         List<UserCollectVo> userCollectVos;
         //获取缓存数据 key
         List<String> listKey = accountRedis.hvals(userKey);
@@ -212,20 +196,16 @@ public class ApiMiniAccountCollectServiceImpl extends ServiceImpl<MiniAccountCol
      *
      * @param userCollectDto 用户收藏商品信息
      * @param accountRedis   key
-     * @param tenantId       租户id
-     * @param shopId         商铺id
      */
-    private void updateAccountCollectInfo(UserCollectDto userCollectDto, Long id, AccountRedis accountRedis,
-                                          String tenantId, String shopId) {
-        //用户收藏的key值   租户id:商铺id+用户id   xxx:xxxx111asass
-        String userKey = RedisConstant.COLLECT_KEY.concat(tenantId).concat(":").concat(shopId + ":").concat(userCollectDto.getUserId());
+    private void updateAccountCollectInfo(UserCollectDto userCollectDto, Long id, AccountRedis accountRedis) {
+        //用户收藏的key值   用户id   xxx:xxxx111asass
+        String userKey = RedisConstant.COLLECT_KEY.concat(":").concat(userCollectDto.getUserId());
         String hget = accountRedis.hget(userKey, JSON.toJSONString(userCollectDto.getProductId()));
         if (hget != null) {
             accountRedis
                     .hset(userKey, JSON.toJSONString(userCollectDto.getProductId()), JSON.toJSONString(userCollectDto));
             return;
         }
-
         //判断商品是加入收藏还是 更新收藏商品信息 修改的时候要先删除原先的购物车数据  再更新（Id为0代表的是加入收藏）
         if (!Long.valueOf(CommonConstants.NUMBER_ZERO).equals(id) && !userCollectDto.getProductId().equals(id)) {
             //删除缓存里面的原商品
@@ -245,10 +225,8 @@ public class ApiMiniAccountCollectServiceImpl extends ServiceImpl<MiniAccountCol
     public Boolean findAccountIsCollect(Long productId) {
         CurUserDto curUserDto = CurUserUtil.getHttpCurUser();
         String userId = curUserDto.getUserId();
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
         AccountRedis accountRedis = new AccountRedis();
-        String userKey = RedisConstant.COLLECT_KEY.concat(tenantId).concat(":").concat(shopId + ":").concat(userId);
+        String userKey = RedisConstant.COLLECT_KEY.concat(":").concat(userId);
         UserCollectVo userCollectVo = JSON
                 .parseObject(accountRedis.hget(userKey, JSON.toJSONString(productId)), UserCollectVo.class);
         if (userCollectVo == null) {
@@ -267,10 +245,8 @@ public class ApiMiniAccountCollectServiceImpl extends ServiceImpl<MiniAccountCol
     public int getCollectCount() {
         CurUserDto curUserDto = CurUserUtil.getHttpCurUser();
         String userId = curUserDto.getUserId();
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
         AccountRedis accountRedis = new AccountRedis();
-        String userKey = RedisConstant.COLLECT_KEY.concat(tenantId).concat(":").concat(shopId + ":").concat(userId);
+        String userKey = RedisConstant.COLLECT_KEY.concat(":").concat(userId);
         List<UserCollectVo> userCollectVos;
         //获取缓存数据 key
         List<String> listKey = accountRedis.hvals(userKey);

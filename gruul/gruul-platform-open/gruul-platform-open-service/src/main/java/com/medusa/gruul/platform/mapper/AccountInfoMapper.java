@@ -5,7 +5,7 @@ import com.medusa.gruul.platform.api.entity.AccountInfo;
 
 /**
  * <p>
- * 平台与租户平台用户表 Mapper 接口
+ * 平台用户表 Mapper 接口
  * </p>
  *
  * @author whh

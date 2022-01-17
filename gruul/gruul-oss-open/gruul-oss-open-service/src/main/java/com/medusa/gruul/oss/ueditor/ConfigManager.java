@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import cn.hutool.core.io.file.FileReader;
+import com.medusa.gruul.common.core.constant.CommonConstants;
 import com.medusa.gruul.oss.ueditor.define.ActionMap;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,7 +31,7 @@ public final class ConfigManager {
 	// 远程图片抓取filename定义
 	private final static String REMOTE_FILE_NAME = "remote";
 
-	/*
+	/**
 	 * 通过一个给定的路径构建一个配置管理器， 该管理器要求地址路径所在目录下必须存在config.properties文件
 	 */
 	private ConfigManager(String rootPath, String contextPath, String uri) throws FileNotFoundException, IOException {
@@ -79,7 +80,7 @@ public final class ConfigManager {
 
 	public Map<String, Object> getConfig(int type) {
 
-		Map<String, Object> conf = new HashMap<String, Object>();
+		Map<String, Object> conf = new HashMap<>(CommonConstants.NUMBER_EIGHT);
 		String savePath = null;
 
 		switch (type) {
@@ -135,7 +136,6 @@ public final class ConfigManager {
 				conf.put("dir", this.jsonConfig.getString("fileManagerListPath"));
 				conf.put("count", this.jsonConfig.getInt("fileManagerListSize"));
 				break;
-            default:
 
 		}
 
@@ -167,13 +167,7 @@ public final class ConfigManager {
 
 	}
 
-	//	private String getConfigPath() {
-	//		System.out.println(this.parentPath + File.separator + ConfigManager.configFileName);
-	//		return this.parentPath + File.separator + ConfigManager.configFileName;
-	//	}
-
 	private String getConfigPath() {
-		//return this.parentPath + File.separator + ConfigManager.configFileName;
 		try {
 			//获取classpath下的config.json路径
 			System.out.println(this.getClass().getClassLoader().getResourceAsStream("config.json"));
@@ -215,7 +209,7 @@ public final class ConfigManager {
 			bfReader.close();
 
 		} catch (UnsupportedEncodingException e) {
-			// 忽略
+			e.printStackTrace();
 		}
 
 		return this.filter(builder.toString());

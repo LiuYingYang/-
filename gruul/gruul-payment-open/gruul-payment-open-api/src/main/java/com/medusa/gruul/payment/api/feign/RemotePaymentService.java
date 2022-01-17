@@ -32,14 +32,12 @@ public interface RemotePaymentService {
      * @param outTradeNo 业务订单号
      * @param transactionId
      * @param payChannel 支付渠道
-     * @param tenantId   商户标识
      * @return 状态
      */
     @RequestMapping(value = "/pay/status/{outTradeNo}", method = RequestMethod.GET)
     PayStatusDto getPayStatus(@PathVariable("outTradeNo") String outTradeNo,
                               @PathVariable("transactionId") String transactionId,
-                              @RequestParam("payChannel") String payChannel,
-                              @RequestParam("tenantId") String tenantId);
+                              @RequestParam("payChannel") String payChannel);
 
 
     /**

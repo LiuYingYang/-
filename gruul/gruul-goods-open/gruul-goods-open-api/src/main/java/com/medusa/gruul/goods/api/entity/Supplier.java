@@ -36,13 +36,6 @@ public class Supplier extends BaseEntity {
     private Long id;
 
     /**
-     * 本店店铺id
-     */
-    @ApiModelProperty(value = "本店店铺id")
-    @TableField("shop_id")
-    private String shopId;
-
-    /**
      * 用户id
      */
     @ApiModelProperty(value = "用户id")

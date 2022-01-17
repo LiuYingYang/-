@@ -21,14 +21,6 @@ public class ShopsSearchTermsVo implements Serializable {
 
     private Long id;
 
-
-    /**
-     * 店铺id
-     */
-    @ApiModelProperty(value = "店铺id")
-    private String shopId;
-
-
     /**
      * 词语 多个以英文逗号分隔
      */
@@ -55,13 +47,6 @@ public class ShopsSearchTermsVo implements Serializable {
      */
     @ApiModelProperty(value = "逻辑删除标识  0正常 1已删除")
     private String isDeleted;
-
-
-    /**
-     * 归属关联Id
-     */
-    @ApiModelProperty(value = "归属关联Id")
-    private String tenantId;
 
 
     /**

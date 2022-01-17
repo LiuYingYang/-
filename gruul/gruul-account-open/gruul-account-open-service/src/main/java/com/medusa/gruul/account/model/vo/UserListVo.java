@@ -56,7 +56,7 @@ public class UserListVo {
     @ApiModelProperty(value = "可用积分")
     private BigDecimal integral;
 
-    @ApiModelProperty(value = "用户身份类型 0-普通用户 ")
+    @ApiModelProperty(value = "用户团长身份类型 0-普通用户  1-团长  2-区域团长")
     private Integer communityType;
 
     @ApiModelProperty(value = "用户拥护的标签")

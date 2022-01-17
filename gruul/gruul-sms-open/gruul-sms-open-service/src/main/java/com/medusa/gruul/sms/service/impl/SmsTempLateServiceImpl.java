@@ -1,13 +1,14 @@
 package com.medusa.gruul.sms.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.sms.AliYunSmsUtil;
 import com.medusa.gruul.common.core.sms.SmsSendConfig;
 import com.medusa.gruul.sms.constant.SmsEnum;
-import com.medusa.gruul.sms.dao.entity.TSmsProviderEntity;
-import com.medusa.gruul.sms.dao.entity.TSmsTemplateEntity;
-import com.medusa.gruul.sms.dao.mapper.TSmsProviderEntityMapper;
-import com.medusa.gruul.sms.dao.mapper.TSmsTemplateEntityMapper;
+import com.medusa.gruul.sms.model.entity.TSmsProviderEntity;
+import com.medusa.gruul.sms.model.entity.TSmsTemplateEntity;
+import com.medusa.gruul.sms.mapper.TSmsProviderEntityMapper;
+import com.medusa.gruul.sms.mapper.TSmsTemplateEntityMapper;
 import com.medusa.gruul.sms.model.dto.TemplateDto;
 import com.medusa.gruul.sms.service.SmsTempLateService;
 import lombok.extern.slf4j.Slf4j;
@@ -27,8 +28,7 @@ import java.util.List;
  **/
 @Service
 @Slf4j
-public class SmsTempLateServiceImpl implements SmsTempLateService {
-
+public class SmsTempLateServiceImpl extends ServiceImpl<TSmsTemplateEntityMapper, TSmsTemplateEntity> implements SmsTempLateService {
 
     @Resource
     private TSmsTemplateEntityMapper tSmsTemplateEntityMapper;
@@ -41,7 +41,7 @@ public class SmsTempLateServiceImpl implements SmsTempLateService {
         tSmsTemplateEntity.setCreateTime(new Date());
         tSmsTemplateEntity.setUpdateTime(new Date());
         BeanUtils.copyProperties(templateDto,tSmsTemplateEntity);
-        return tSmsTemplateEntityMapper.insertSelective(tSmsTemplateEntity);
+        return tSmsTemplateEntityMapper.insert(tSmsTemplateEntity);
     }
 
     @Override
@@ -59,9 +59,9 @@ public class SmsTempLateServiceImpl implements SmsTempLateService {
      * */
     @Override
     public void doVerify(TSmsTemplateEntity tSmsTemplateEntity) {
-        TSmsProviderEntity tSmsProviderEntity=null;
+        TSmsProviderEntity tSmsProviderEntity;
         try {
-            tSmsProviderEntity = tSmsProviderEntityMapper.selectByPrimaryKey(tSmsTemplateEntity.getSmsProviderId());
+            tSmsProviderEntity = tSmsProviderEntityMapper.selectById(tSmsTemplateEntity.getSmsProviderId());
             if(null == tSmsProviderEntity){
                 throw new ServiceException(SmsEnum.SMS_PROVIDER_NOT_EXIST.getMsg());
             }
@@ -70,15 +70,13 @@ public class SmsTempLateServiceImpl implements SmsTempLateService {
                 AliYunSmsUtil.doVerifyTemplate(tSmsProviderEntity.getSmsProviderAppId(),tSmsProviderEntity.getSmsProviderAppSecret(),
                         String.valueOf(tSmsTemplateEntity.getSmsTemplateType()),tSmsTemplateEntity.getSmsTemplateName(),tSmsTemplateEntity.getSmsTemplateContent()
                         ,tSmsTemplateEntity.getSmsRemark());
-            }else if(SmsSendConfig.SMS_TYPE_TX == tSmsTemplateEntity.getTemplateType()){
-             //todo 腾讯暂无api
             }
         }catch (Exception e){
             log.error("verify ali template error :",e);
         }finally {
             tSmsTemplateEntity.setUpdateTime(new Date());
             tSmsTemplateEntity.setSmsTemplateIsPass(1L);
-            tSmsTemplateEntityMapper.updateByPrimaryKeySelective(tSmsTemplateEntity);
+            tSmsTemplateEntityMapper.updateById(tSmsTemplateEntity);
         }
 
     }

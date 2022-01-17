@@ -1,7 +1,6 @@
 package com.medusa.gruul.platform.conf;
 
 import com.medusa.gruul.platform.handler.LogHandler;
-import com.medusa.gruul.platform.handler.MiniAuditHandler;
 import com.medusa.gruul.platform.handler.MpMsgHandler;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.redis.JedisWxRedisOps;
@@ -13,7 +12,6 @@ import me.chanjar.weixin.mp.config.impl.WxMpDefaultConfigImpl;
 import me.chanjar.weixin.mp.config.impl.WxMpRedisConfigImpl;
 import me.chanjar.weixin.open.api.WxOpenService;
 import me.chanjar.weixin.open.api.impl.WxOpenInRedisConfigStorage;
-import me.chanjar.weixin.open.api.impl.WxOpenMessageRouter;
 import me.chanjar.weixin.open.api.impl.WxOpenServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -38,8 +36,6 @@ public class WxConfiguration {
     private RedisProperties redisProperties;
     @Autowired
     private WxMpProperties wxMpProperties;
-    @Autowired
-    private MiniAuditHandler miniAuditHandler;
     @Autowired
     private MpMsgHandler mpMsgHandler;
     @Autowired
@@ -73,21 +69,6 @@ public class WxConfiguration {
         return pool;
     }
 
-    /**
-     * 开发平台相关
-     *
-     * @param wxOpenService me.chanjar.weixin.open.api.WxOpenService
-     * @return me.chanjar.weixin.open.api.impl.WxOpenMessageRouter
-     */
-    @Bean
-    public WxOpenMessageRouter wxOpenMessageRouter(WxOpenService wxOpenService) {
-        final WxOpenMessageRouter wxOpenMessageRouter = new WxOpenMessageRouter(wxOpenService);
-        // 记录所有事件的日志 （异步执行）
-        wxOpenMessageRouter.rule().handler(this.logHandler).next();
-        //小程序审核路由
-        wxOpenMessageRouter.rule().async(false).msgType(WxConsts.XmlMsgType.EVENT).handler(this.miniAuditHandler).end();
-        return wxOpenMessageRouter;
-    }
 
     /**
      * 公众号相关消息路由
@@ -114,7 +95,7 @@ public class WxConfiguration {
         WxRedisOps wxRedisOps = new JedisWxRedisOps(getJedisPool());
         service.setMultiConfigStorages(configs
                 .stream().map(a -> {
-                    WxMpDefaultConfigImpl configStorage = new WxMpRedisConfigImpl(wxRedisOps, "platfrom");
+                    WxMpDefaultConfigImpl configStorage = new WxMpRedisConfigImpl(wxRedisOps, "platform");
                     configStorage.setAppId(a.getAppId());
                     configStorage.setSecret(a.getSecret());
                     configStorage.setToken(a.getToken());

@@ -50,52 +50,32 @@ public interface MiniAccountMapper extends BaseMapper<MiniAccount> {
     List<MiniAccountExtDto> selectByShopUserIds(@Param("shopUserIds") List<String> shopUserIds);
 
 
-    /**
-     * 根据租户用户获取会员信息
-     * @param tenantId 租户id
-     * @param userId 用户id
-     * @return com.medusa.gruul.account.api.entity.MiniAccount
-     *
-     */
-    MiniAccount getMemberInfo(@Param("tenantId") String tenantId, @Param("userId") String userId);
 
     /**
      * 获取指定用户的唯一id
      *
-     * @param tenantId   租户id
      * @param shopUserId 店铺用户id
      * @return 唯一id
      */
-    String getUserInfoByShopUserId(@Param("tenantId") String tenantId, @Param("shopUserId") String shopUserId);
+    String getUserInfoByShopUserId( @Param("shopUserId") String shopUserId);
 
     /**
      * 获取指定用户的积分值
      *
-     * @param tenantId   租户id
      * @param shopUserId 店铺用户id
      * @return 积分值
      */
-    BigDecimal getIntegralByShopUserId(@Param("tenantId") String tenantId, @Param("shopUserId") String shopUserId);
+    BigDecimal getIntegralByShopUserId( @Param("shopUserId") String shopUserId);
 
-    /**
-     * 根据用户更新用户余额
-     *
-     * @param tenantId 租户id
-     * @param userId   店铺用户id
-     * @param amount   更新余额
-     * @return 0 or 1
-     */
-    int updateBonus(@Param("tenantId") String tenantId, @Param("userId") String userId, @Param("amount") BigDecimal amount);
 
     /**
      * 根据用户更新用户返利余额
      *
-     * @param tenantId 租户id
      * @param userId   店铺用户id
      * @param amount   余额
      * @return 0 or 1
      */
-    int updateRebateBonus(@Param("tenantId") String tenantId, @Param("userId") String userId, @Param("amount") BigDecimal amount);
+    int updateRebateBonus( @Param("userId") String userId, @Param("amount") BigDecimal amount);
 
     /**
      * 根据店铺用户id查询用户所在店铺唯一id

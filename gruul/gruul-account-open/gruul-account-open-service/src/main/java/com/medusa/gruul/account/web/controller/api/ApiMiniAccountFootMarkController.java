@@ -56,16 +56,15 @@ public class ApiMiniAccountFootMarkController {
     /**
      * 删除足迹信息
      *
-     * @param footmarkIds 足迹ids
+     * @param footMarkIds 足迹ids
      * @param type        :0-删除, 1-清空
      * @return
      */
     @PutMapping("/del/FootMarkInfo/{type}")
     @ApiOperation(value = "删除用户足迹信息")
-    public Result deleteAccountFootMark(@RequestBody Long[] footmarkIds,
+    public Result deleteAccountFootMark(@RequestBody Long[] footMarkIds,
                                         @PathVariable(value = "type") @NotNull Integer type) {
-        System.out.println(type);
-        miniAccountFootMarkService.delAccountFootMark(Arrays.asList(footmarkIds), type);
+        miniAccountFootMarkService.delAccountFootMark(Arrays.asList(footMarkIds), type);
         return Result.ok();
     }
 

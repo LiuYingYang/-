@@ -18,7 +18,7 @@ public class RedisConstant {
     public static final String ACCOUNT_KEY = "account:";
 
     /**
-     * 用户模块总key account
+     * 用户模块总key userId
      */
     public static final String ACCOUNT_DB_KEY = "userId:";
 
@@ -34,13 +34,6 @@ public class RedisConstant {
      */
     public static final String COLLECT_KEY = "collect:";
 
-    /**
-     * 用户足迹key
-     */
-    public static final String FOOT_MARK = "footMark:";
 
-    /**
-     * 会员key
-     */
-    public static final String MEMBER_KEY = "member:";
+
 }

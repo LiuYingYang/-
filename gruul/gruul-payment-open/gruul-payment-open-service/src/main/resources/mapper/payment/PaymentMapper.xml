@@ -21,7 +21,6 @@
         <result column="business_notify_status" property="businessNotifyStatus"/>
         <result column="trade_status" property="tradeStatus"/>
         <result column="third_party_notify_number" property="thirdPartyNotifyNumber"/>
-        <result column="tenant_id" property="tenantId"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -32,7 +31,7 @@
         fee_type, total_fee, body, business_params,
         terminal_ip, transaction_id, business_notify_url,
         third_party_notify_status, business_notify_status,
-        trade_status, third_party_notify_number,tenant_id
+        trade_status, third_party_notify_number
     </sql>
     <!--后期如有多渠道，需修改-->
     <select id="selectOrderStatus" resultMap="BaseResultMap">
@@ -40,7 +39,6 @@
            <include refid="Base_Column_List"/>
         from t_payment
         where
-        tenant_id = #{tenantId} and
         pay_channel = #{payChannel} and
         transaction_id = #{transactionId} and
         id = (

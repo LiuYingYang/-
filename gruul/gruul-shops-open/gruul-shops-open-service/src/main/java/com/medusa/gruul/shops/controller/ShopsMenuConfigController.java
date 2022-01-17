@@ -23,25 +23,25 @@ public class ShopsMenuConfigController {
 
 
     /**
-     * 获取店铺合伙人菜单属性配置
+     * 获取店铺菜单属性配置
      *
      * @return Result
      */
     @GetMapping("/one")
-    @ApiOperation(value = "获取店铺合伙人菜单属性配置")
+    @ApiOperation(value = "获取店铺菜单属性配置")
     public Result getMenuConfig() {
         return shopsMenuConfigService.getMenuConfig();
     }
 
 
     /**
-     * id为空 新增 / id 非空 修改 [店铺合伙人菜单属性配置]
+     * id为空 新增 / id 非空 修改 [店铺Modify菜单属性配置]
      *
      * @param param
      * @return Result
      */
     @PutMapping("/update")
-    @ApiOperation(value = "id为空 新增 / id 非空 修改 [店铺合伙人菜单属性配置] ")
+    @ApiOperation(value = "id为空 新增 / id 非空 修改 [店铺Modify菜单属性配置] ")
     public Result updateTerms(@RequestBody ShopsMenuConfigParam param) {
         return shopsMenuConfigService.updateMenuConfig(param);
     }

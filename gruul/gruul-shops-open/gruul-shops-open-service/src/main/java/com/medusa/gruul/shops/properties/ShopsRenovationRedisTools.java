@@ -1,14 +1,9 @@
 package com.medusa.gruul.shops.properties;
 
 
-import com.medusa.gruul.common.core.util.CurUserUtil;
-import com.medusa.gruul.common.dto.CurUserDto;
 import com.medusa.gruul.common.redis.RedisVisitorBaseFacade;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import javax.servlet.http.HttpServletRequest;
 
 
 /**
@@ -31,9 +26,7 @@ public class ShopsRenovationRedisTools extends RedisVisitorBaseFacade {
     public void innerRemoveCache(String name) {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if (null != requestAttributes) {
-            HttpServletRequest request = requestAttributes.getRequest();
-
-            this.del(request.getHeader(GlobalConstant.STRING_SHOP_ID) + name);
+            this.del(name);
         }
 
     }

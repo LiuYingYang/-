@@ -10,7 +10,7 @@ import lombok.Data;
  * @data: 2019/12/1
  */
 @Data
-public class AnalysisLatitudeAndlongitudeVo {
+public class AnalysisLatitudeAndLongitudeVo {
 
     @ApiModelProperty("省")
     AreaDto province;

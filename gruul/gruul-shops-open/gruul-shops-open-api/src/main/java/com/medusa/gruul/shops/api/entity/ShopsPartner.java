@@ -45,16 +45,6 @@ public class ShopsPartner extends BaseEntity {
     @TableField("partner_id")
     private Long partnerId;
 
-
-    /**
-     * 店铺id
-     */
-    @NotNull
-    @ApiModelProperty(value = "店铺id")
-    @TableField("shop_id")
-    private String shopId;
-
-
     /**
      * 电话
      */
@@ -171,10 +161,10 @@ public class ShopsPartner extends BaseEntity {
 
 
     /**
-     * 合伙人模式  0加盟 1子公司
+     * Modify模式  0加盟 1子公司
      */
     @NotNull
-    @ApiModelProperty(value = "合伙人模式  0加盟 1子公司")
+    @ApiModelProperty(value = "Modify模式  0加盟 1子公司")
     @TableField("partner_model")
     private String partnerModel;
 

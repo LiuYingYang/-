@@ -24,9 +24,9 @@ public class MeStpLogic extends StpLogic {
     public String randomTokenValue() {
         SaTokenConfig config = SaTokenManager.getConfig();
         if (JWT_UTILS == null) {
-            JWT_UTILS = new JwtUtils("mds-platfrom-new", config.getTimeout() * 1000);
+            JWT_UTILS = new JwtUtils("mds-platform-new", config.getTimeout() * 1000);
         }
-        return this.loginKey.concat(":").concat(JWT_UTILS.createJwtToken("platfrom-agent"));
+        return this.loginKey.concat(":").concat(JWT_UTILS.createJwtToken("platform-agent"));
     }
 
     @Override

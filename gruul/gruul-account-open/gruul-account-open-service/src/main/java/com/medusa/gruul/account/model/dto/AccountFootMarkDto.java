@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 @ApiModel(value = "新增或修改用户足迹DTO")
 public class AccountFootMarkDto {
     @ApiModelProperty(value = "用户足迹表id")
-    private Long footmarkId;
+    private Long footMarkId;
 
     @ApiModelProperty(value = "用户id")
     private String userId;
@@ -42,7 +42,7 @@ public class AccountFootMarkDto {
     private BigDecimal originalPrice;
 
     @ApiModelProperty(value = "备注")
-    private String ramark;
+    private String remark;
 
     public MiniAccountFootMark coverMiniAccountFootMark() {
         MiniAccountFootMark miniAccountFootMark = new MiniAccountFootMark();

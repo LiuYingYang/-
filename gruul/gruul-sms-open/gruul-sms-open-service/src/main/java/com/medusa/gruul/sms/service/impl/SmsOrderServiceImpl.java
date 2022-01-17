@@ -2,12 +2,16 @@ package com.medusa.gruul.sms.service.impl;
 
 
 import cn.hutool.core.collection.CollectionUtil;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.medusa.gruul.sms.constant.SmsEnum;
-import com.medusa.gruul.sms.dao.entity.TSmsOrderEntity;
-import com.medusa.gruul.sms.dao.entity.TSmsProviderEntity;
-import com.medusa.gruul.sms.dao.entity.TSmsSignEntity;
-import com.medusa.gruul.sms.dao.entity.TSmsTemplateEntity;
-import com.medusa.gruul.sms.dao.mapper.*;
+import com.medusa.gruul.sms.mapper.TSmsOrderEntityMapper;
+import com.medusa.gruul.sms.mapper.TSmsProviderEntityMapper;
+import com.medusa.gruul.sms.mapper.TSmsSignEntityMapper;
+import com.medusa.gruul.sms.mapper.TSmsTemplateEntityMapper;
+import com.medusa.gruul.sms.model.entity.TSmsOrderEntity;
+import com.medusa.gruul.sms.model.entity.TSmsProviderEntity;
+import com.medusa.gruul.sms.model.entity.TSmsSignEntity;
+import com.medusa.gruul.sms.model.entity.TSmsTemplateEntity;
 import com.medusa.gruul.sms.model.dto.SendSmsDto;
 import com.medusa.gruul.sms.service.SmsOrderService;
 import com.medusa.gruul.common.core.exception.ServiceException;
@@ -15,7 +19,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -27,7 +30,7 @@ import java.util.List;
  * @date: 2019-12-22 17:33
  **/
 @Service
-public class SmsOrderServiceImpl implements SmsOrderService {
+public class SmsOrderServiceImpl extends ServiceImpl<TSmsOrderEntityMapper, TSmsOrderEntity> implements SmsOrderService {
 
     @Resource
     private TSmsOrderEntityMapper tSmsOrderEntityMapper;
@@ -51,8 +54,6 @@ public class SmsOrderServiceImpl implements SmsOrderService {
     */
     @Override
     public int doCreateOrder(SendSmsDto sendSmsDto) {
-
-
         TSmsTemplateEntity tSmsTemplateEntity = new TSmsTemplateEntity();
         tSmsTemplateEntity.setUserId(sendSmsDto.getUserId());
         tSmsTemplateEntity.setId(sendSmsDto.getTemplateId());
@@ -61,7 +62,6 @@ public class SmsOrderServiceImpl implements SmsOrderService {
         List<TSmsTemplateEntity> tSmsTemplateEntities = tSmsTemplateEntityMapper.searchByEntity(tSmsTemplateEntity);
         tSmsTemplateEntity.clear();
         if(CollectionUtil.isEmpty(tSmsTemplateEntities) || 1 <  tSmsTemplateEntities.size()){
-
             throw new ServiceException(SmsEnum.SMS_TEMPLATE_NOT_EXIST.getMsg());
         }
         TSmsProviderEntity tSmsProviderEntity = new TSmsProviderEntity();
@@ -71,10 +71,8 @@ public class SmsOrderServiceImpl implements SmsOrderService {
         List<TSmsProviderEntity> tSmsProviderEntities = tSmsProviderEntityMapper.searchByEntity(tSmsProviderEntity);
         tSmsProviderEntity.clear();
         if(CollectionUtil.isEmpty(tSmsProviderEntities) || 1 <  tSmsProviderEntities.size()){
-
             throw new ServiceException(SmsEnum.SMS_PROVIDER_NOT_EXIST.getMsg());
         }
-
         TSmsSignEntity tSmsSignEntity = new TSmsSignEntity();
         tSmsSignEntity.setId(sendSmsDto.getSignId());
         tSmsSignEntity.setSmsSignIsPass(1L);
@@ -89,12 +87,13 @@ public class SmsOrderServiceImpl implements SmsOrderService {
         tSmsOrderEntity.setSmsSendStatus(0);
         tSmsOrderEntity.setSmsSendType(sendSmsDto.getSmsType());
         tSmsOrderEntity.setCreateTime(new Date());
-        return  tSmsOrderEntityMapper.insertSelective(tSmsOrderEntity);
+        return  tSmsOrderEntityMapper.insert(tSmsOrderEntity);
     }
 
     @Override
     public List<TSmsOrderEntity> doListWaitSendOrder(int smsSendStatus) {
         return  tSmsOrderEntityMapper.doListWaitSendOrder(smsSendStatus);
     }
+
 
 }

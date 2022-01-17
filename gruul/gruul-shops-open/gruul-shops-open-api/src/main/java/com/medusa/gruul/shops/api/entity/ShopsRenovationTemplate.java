@@ -38,15 +38,6 @@ public class ShopsRenovationTemplate extends BaseEntity {
 
 
     /**
-     * 店铺id
-     */
-    @NotNull
-    @ApiModelProperty(value = "店铺id")
-    @TableField("shop_id")
-    private String shopId;
-
-
-    /**
      * 模板类型 0自定义 1拼团 2商超
      */
     @NotNull

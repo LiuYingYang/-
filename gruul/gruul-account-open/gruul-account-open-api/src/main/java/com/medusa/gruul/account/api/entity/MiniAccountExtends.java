@@ -117,32 +117,6 @@ public class MiniAccountExtends extends BaseEntity {
     @TableField("community_type")
     private Integer communityType;
 
-    /**
-     * 店铺id
-     */
-    @ApiModelProperty(value = "店铺id")
-    @TableField("shop_id")
-    private String shopId;
 
-    /**
-     * 用户余额
-     */
 
-    @ApiModelProperty(value = "用户余额")
-    @TableField("supply_bonus")
-    private BigDecimal supplyBonus;
-
-    /**
-     * 用户返利余额
-     */
-    @ApiModelProperty(value = "用户返利余额")
-    @TableField("rebate_bonus")
-    private BigDecimal rebateBonus;
-
-    /**
-     * 冻结余额
-     */
-    @ApiModelProperty(value = "冻结余额")
-    @TableField("freeze_bonus")
-    private BigDecimal freezeBonus;
 }

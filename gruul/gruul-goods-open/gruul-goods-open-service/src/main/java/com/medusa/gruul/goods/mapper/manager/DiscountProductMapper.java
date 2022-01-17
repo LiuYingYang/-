@@ -20,6 +20,16 @@ import java.util.List;
  */
 @Repository
 public interface DiscountProductMapper extends BaseMapper<Product> {
+
+    /**
+     * 组件查询所有商品列表
+     *
+     * @param page
+     * @param discountProductParam
+     * @return 商品list对象
+     */
+    List<DiscountProductVo> queryDiscountProductList(IPage page, @Param("discountProductParam") DiscountProductParam discountProductParam);
+
     /**
      * 已发货的订单商品移除列表
      *

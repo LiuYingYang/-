@@ -1,20 +1,16 @@
 package com.medusa.gruul.platform.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.medusa.gruul.common.core.util.PageUtils;
 import com.medusa.gruul.common.core.util.Result;
 import com.medusa.gruul.platform.api.entity.AccountInfo;
 import com.medusa.gruul.platform.model.dto.*;
-import com.medusa.gruul.platform.model.dto.agent.BatchNoteDto;
 import com.medusa.gruul.platform.model.vo.*;
-import com.medusa.gruul.platform.model.vo.agent.AgentMerchantVo;
 
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * <p>
- * 平台与租户平台用户表 服务类
+ * 平台用户表 服务类
  * </p>
  *
  * @author whh
@@ -30,17 +26,6 @@ public interface IAccountInfoService extends IService<AccountInfo> {
      * @param type  type=1 校验账号存在  type=2校验账号不存在 默认使用1
      */
     void checkoutAccount(String phone, Integer type);
-
-    /**
-     * 租户登录接口
-     *
-     * @param tenementLoginDto dto
-     * @return
-     */
-    @Deprecated
-    OldAccountInfoVo login(TenementLoginDto tenementLoginDto);
-
-
 
     /**
      * 用户校验预授权
@@ -92,13 +77,7 @@ public interface IAccountInfoService extends IService<AccountInfo> {
     void passChangeTie(PassChangeTieDto passChangeTieDto);
 
 
-    /**
-     * 商户注册
-     *
-     * @param accountRegisterDto com.medusa.gruul.platform.model.dto.AccountRegisterDto
-     * @return com.medusa.gruul.platform.model.vo.AccountInfoVo
-     */
-    AccountInfoVo accountRegister(AccountRegisterDto accountRegisterDto);
+
 
     /**
      * 商家登录入口
@@ -132,24 +111,8 @@ public interface IAccountInfoService extends IService<AccountInfo> {
      */
     AccountInfoVo getLoginInfoVo(AccountInfo accountInfo);
 
-    /**
-     * 封装指定用户登录指定店铺的角色
-     *
-     * @param accountId 用户id
-     * @param infoVo    登录信息
-     */
-    @Deprecated
-    void getShopAccountRoleInfo(Long accountId, LoginShopInfoVo infoVo);
 
 
-
-    /**
-     * 获取token
-     *
-     * @param shopUserId 用户id
-     * @return token
-     */
-    Boolean affirmLessee(String shopUserId);
 
     /**
      * 修改用户电子发票邮箱接口
@@ -158,21 +121,7 @@ public interface IAccountInfoService extends IService<AccountInfo> {
      */
     void emailChange(EmailChangeDto emailChangeDto);
 
-    /**
-     * 批量备注用户
-     *
-     * @param noteDto com.medusa.gruul.platform.model.dto.agent.BatchNoteDto
-     */
-    void batchNote(BatchNoteDto noteDto);
 
-
-    /**
-     * 获取指定代理下的所有商户
-     *
-     * @param agentId 代理id
-     * @return com.medusa.gruul.platform.api.entity.AccountInfo
-     */
-    List<AccountInfo> getByAgentId(long agentId);
 
 
     /**

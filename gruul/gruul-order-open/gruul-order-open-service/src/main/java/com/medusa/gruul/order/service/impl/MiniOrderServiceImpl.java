@@ -7,7 +7,6 @@ import cn.hutool.core.date.TimeInterval;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.http.HttpStatus;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -23,9 +22,6 @@ import com.medusa.gruul.afs.api.enums.AfsOrderStatusEnum;
 import com.medusa.gruul.common.core.constant.TimeConstants;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.*;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
-import com.medusa.gruul.common.dto.CurShopInfoDto;
 import com.medusa.gruul.common.dto.CurUserDto;
 import com.medusa.gruul.goods.api.constant.GoodsSkuStockRedisKey;
 import com.medusa.gruul.goods.api.entity.SkuStock;
@@ -58,7 +54,6 @@ import com.medusa.gruul.platform.api.feign.RemoteMiniInfoService;
 import com.medusa.gruul.platform.api.model.dto.ShopConfigDto;
 import com.medusa.gruul.platform.api.model.vo.PayInfoVo;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -88,7 +83,6 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
     private RemoteMiniAccountService remoteMiniAccountService;
     @Resource
     private RemoteLogisticsFeginService remoteLogisticsFeginService;
-
     @Resource
     private IOrderShareSettingService orderShareSettingService;
     @Resource
@@ -151,21 +145,12 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
         result.setItemVoList(itemVoList);
         log.info(ObjectUtil.isNotNull(itemVoList) ? itemVoList.toString() : "");
         log.info("查询商品耗时{}ms", timer.intervalRestart());
-
         //查询用户持有的积分、收货地址
         AccountInfoDto accountInfoDto = remoteMiniAccountService.accountInfo(curUserDto.getUserId(), Arrays.asList(2,
                 3, 5));
         result.setMiniAccountAddress(accountInfoDto.getMiniAccountAddress());
         log.info(ObjectUtil.isNotNull(accountInfoDto) ? accountInfoDto.toString() : "");
         log.info("查询用户耗时{}ms", timer.intervalRestart());
-        //Todo 查询用户的会员情况
-
-        //Todo 查询积分使用规则
-
-        //Todo 查询满减活动信息
-
-        //Todo 查询单个客户优惠劵信息
-
         return result;
     }
 
@@ -217,21 +202,14 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
         checkAccount(accountInfoDto);
         //检查缓存中商品库存
         checkStock(createOrderDto);
-        //Todo 查询用户的会员情况
         List<ItemVo> itemVoList = remoteGoodsService.findItemVoByIds(createOrderDto.getItemSkuIds());
         if (CollUtil.isEmpty(itemVoList)) {
             throw new ServiceException(OrderCode.DATA_HAS_BEEN_UPDATED);
         }
-        //计算订单总金额
+        //计算订单总金额 同时购买数量赋值
         BigDecimal totalAmount = getTotalAmount(itemVoList, createOrderDto.getItemDtoList());
         //检查限购
         checkLimit(itemVoList, curUserDto.getUserId());
-        List<OrderItem> orderItemList = getOrderItemList(itemVoList, 1L, createOrderDto.getItemDtoList());
-        //Todo 检查优惠券
-        //Todo 检查满减活动
-
-        //Todo 检查积分
-
         //检查收货地址
         MiniAccountAddress accountAddress = checkAddress(accountInfoDto.getMiniAccountAddress(), createOrderDto);
         //计算运费
@@ -243,20 +221,14 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
             if (ObjectUtil.isNull(freightAmount) || freightAmount.equals(BigDecimal.valueOf(-1))) {
                 throw new ServiceException(OrderCode.NOT_IN_THE_SCOPE_OF_DISTRIBUTION);
             }
-        } else {
-            if (ObjectUtil.isNull(freightAmount)) {
-                freightAmount = BigDecimal.ZERO;
-            }
         }
         //检查通过发送创建订单的消息
         CreateOrderMessage message = new CreateOrderMessage();
         message.setOrderVo(createOrderDto);
         //预生成的订单ID
         Long orderId = IdWorker.getId();
-
         message.setOrderId(orderId);
         message.setCurUser(curUserDto);
-        message.setTenantId(TenantContextHolder.getTenantId());
         sender.sendCreateOrderMessage(message);
         return orderId.toString();
     }
@@ -425,22 +397,12 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
             //查询会员持有的积分、收货地址
             AccountInfoDto accountInfoDto = remoteMiniAccountService.accountInfo(curUser.getUserId(), Arrays.asList(2
                     , 3, 5));
-
-            //Todo 查询用户的会员情况
-
             //查询商品描述信息
             List<ItemVo> itemVoList = remoteGoodsService.findItemVoByIds(dto.getItemSkuIds());
             //获得当前订单的总金额
             BigDecimal totalAmount = getTotalAmount(itemVoList, dto.getItemDtoList());
             //创建订单详情并且获得每个商品的总价
             List<OrderItem> orderItemList = getOrderItemList(itemVoList, orderId, dto.getItemDtoList());
-            //Todo 计算优惠券
-
-            // Todo 计算满减
-
-            //Todo 计算积分抵扣
-
-            // TODO 并不是每个商品都参与了优惠 平摊存在不合理
             //将订单的总优惠平摊到商品上
             shareDiscount(orderItemList);
             //获取用户收货地址
@@ -453,8 +415,6 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
                 freightAmount = BigDecimal.ZERO;
             }
             BigDecimal promotionAmount = BigDecimal.ZERO;
-            //Todo 尝试使用会员权益中的包邮
-
             //扣除库存
             List<ItemDto> itemDtoList = dto.getItemDtoList();
             Set<OperateStockDto> skuSet = new HashSet<>();
@@ -463,18 +423,11 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
                         .map(vo -> new OperateStockDto(itemDto.getSkuId(), itemDto.getNumber()))
                         .collect(Collectors.toSet()));
             }
-            //Todo 扣除优惠券
-
-
-            //Todo 扣除积分
-
             //删除购物车数据
             remoteGoodsService.deleteShoppingCartByOrder(dto.getItemSkuIds(), curUser.getUserId());
-
             //扣除库存
             List<OperateStockDto> operateStockDtoList = new ArrayList<>(skuSet);
             boolean goodsSuccess = remoteGoodsService.batchSubtractStock(operateStockDtoList);
-
             if (goodsSuccess) {
                 //创建订单
                 Order order = new Order();
@@ -485,16 +438,6 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
                 order.setUserNote(dto.getUserNote());
                 order.setType(dto.getOrderType());
                 order.setTotalAmount(totalAmount.add(freightAmount));
-
-                //Todo 合计返利金额
-
-                //Todo 合计会员优惠
-
-                //Todo 促销优化金额=积分抵扣+优惠券+满减+会员价+会员免运费
-
-                // 促销优化金额=优惠券+满减
-                promotionAmount =
-                        NumberUtil.add(promotionAmount, 0, 0);
                 order.setPromotionAmount(promotionAmount);
                 //应付金额（实际支付金额）=订单总金额-促销优化金额+运费
                 BigDecimal payAmount = NumberUtil.sub(totalAmount, promotionAmount);
@@ -504,31 +447,21 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
                     payAmount = payAmount.add(freightAmount);
                 }
                 //支付金额异常
-
                 if (NumberUtil.isLess(payAmount, OrderConstant.MIN_PAY_FEE)) {
-                    log.error("订单{},支付金额:{},总金额:{},优惠券优惠:{},满减优惠:{},运费:{}", dto.toString(), payAmount,
+                    log.error("订单{},支付金额:{},总金额:{},运费:{}", dto.toString(), payAmount,
                             totalAmount, 0, 0, freightAmount);
                     payAmount = OrderConstant.MIN_PAY_FEE;
                 }
-                log.info("订单{},支付金额:{},总金额:{},优惠券优惠:{},满减优惠:{},运费:{}", dto.toString(), payAmount,
+                log.info("订单{},支付金额:{},总金额:{},运费:{}", dto.toString(), payAmount,
                         totalAmount, 0, 0, freightAmount);
-                //Todo 是否参与活动
-
                 //实际金额=应付金额-退款金额
                 order.setDiscountsAmount(payAmount.setScale(2, BigDecimal.ROUND_DOWN));
                 order.setPayAmount(payAmount.setScale(2, BigDecimal.ROUND_DOWN));
                 order.setFreightAmount(freightAmount);
-                order.setCouponId(dto.getCouponId());
-                order.setFullScaleId(dto.getFullScaleId());
                 order.setPayType(dto.getPayType());
                 order.setSourceType(dto.getSourceType());
                 order.setStatus(OrderStatusEnum.WAIT_FOR_PAY);
-
-                //Todo 赠送积分
-
                 order.setCustomForm(dto.getCustomForm());
-
-                //Todo 会员权益
                 //创建订单收货
                 installOrderDelivery(dto, orderId, accountAddress);
                 baseMapper.insert(order);
@@ -537,12 +470,10 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
                 }
                 done = true;
             } else {
-                OrderFailMessage failMessage = new OrderFailMessage().stockFail(dto.getCouponId(),
-                        curUser.getUserId(), curUser.getShopId(), TenantContextHolder.getTenantId());
+                OrderFailMessage failMessage = new OrderFailMessage().stockFail(curUser.getUserId());
                 sender.sendCreateOrderFailMessage(failMessage);
                 orderFailed.setNxPx(orderId.toString(), "库存扣除失败", TimeConstants.ONE_DAY);
             }
-
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             orderFailed.setNxPx(orderId.toString(), e.getMessage(), TimeConstants.ONE_DAY);
@@ -551,20 +482,8 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
     }
 
     private void shareDiscount(List<OrderItem> orderItemList) {
-        BigDecimal totalRealAmount = orderItemList.stream()
-                .map(OrderItem::getRealAmount)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
         for (OrderItem orderItem : orderItemList) {
             log.info("优惠分解之前的数据：" + JSONUtil.toJsonStr(orderItem));
-            // Todo 优惠券
-
-            //Todo 满减
-
-            //Todo 会员+积分 分解阉割
-
-            //Todo 向下舍入会出现差1分的情况
-
-            // orderItem.setRealAmount(realAmount.setScale(2, BigDecimal.ROUND_DOWN));
             BigDecimal realAmount = NumberUtil.sub(orderItem.getRealAmount(), orderItem.getCouponAmount(),
                     orderItem.getPromotionAmount());
             orderItem.setRealAmount(realAmount.setScale(2, BigDecimal.ROUND_HALF_UP));
@@ -604,7 +523,6 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
      */
     private List<OrderItem> getOrderItemList(List<ItemVo> itemVoList, Long orderId, List<ItemDto> itemDtoList) {
         List<OrderItem> itemList = new LinkedList<>();
-        Map<Long, ItemDto> itemDtoMap = itemDtoList.stream().collect(Collectors.toMap(ItemDto::getSkuId, v -> v));
         for (ItemVo itemVo : itemVoList) {
             OrderItem orderItem = new OrderItem();
             orderItem.setOrderId(orderId);
@@ -623,47 +541,16 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
             orderItem.setProductSkuCode(itemVo.getProductSkuCode());
             orderItem.setPromotionAmount(BigDecimal.ZERO);
             orderItem.setCouponAmount(BigDecimal.ZERO);
-            //Todo  处理会员价逻辑
-
-            //Todo 设置商品返利金额
-
             //该商品经过优惠后的最终金额
             orderItem.setRealAmount(orderItem.getProductPrice().multiply(BigDecimal.valueOf(itemVo.getProductQuantity())));
-
-            //Todo 计算商品赠送积分
-
             orderItem.setSpecs(itemVo.getSpecs());
             orderItem.setProviderId(itemVo.getProviderId());
-            //Todo 活动商品记录
-
-            //Todo 计算佣金
-
-
             itemList.add(orderItem);
         }
         itemList.sort(Comparator.comparing(OrderItem::getRealAmount).reversed());
         log.info("return orderItem {}", JSONUtil.toJsonStr(itemList));
         return itemList;
     }
-
-
-
-    /**
-     * 取最高商品单价得商品信息
-     *
-     * @param canUseCouponOrderItem 可以使用优惠券得商品
-     */
-    private OrderItem useCouponGoods(List<OrderItem> canUseCouponOrderItem) {
-        OrderItem orderItem = new OrderItem();
-        BigDecimal maxGoodsPrice = canUseCouponOrderItem.get(0).getProductPrice();
-        for (int i = 0; i < canUseCouponOrderItem.size(); i++) {
-            if (maxGoodsPrice.compareTo(canUseCouponOrderItem.get(i).getProductPrice()) < 1) {
-                orderItem = canUseCouponOrderItem.get(i);
-            }
-        }
-        return orderItem;
-    }
-
 
 
     /**
@@ -738,9 +625,6 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
      * @param status  the status
      */
     public void cancelOrder(Long orderId, Order order, OrderStatusEnum status) {
-        //Todo 归还优惠券
-
-        //Todo 归还积分
         order.setStatus(status);
         order.setCloseTime(LocalDateTime.now());
         List<OperateStockDto> operateStockDtoList =
@@ -748,8 +632,7 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
         log.info("归还库存参数:{}", operateStockDtoList.toString());
         Boolean success = remoteGoodsService.batchRevertStock(operateStockDtoList);
         if (!success) {
-            OrderFailMessage failMessage = new OrderFailMessage().stockFail(order.getCouponId()
-                    , order.getUserId(), order.getShopId(), order.getTenantId());
+            OrderFailMessage failMessage = new OrderFailMessage().stockFail(order.getUserId());
             sender.sendCancelFailOrderMessage(failMessage);
             throw new ServiceException("库存归还失败，请稍后重试");
         }
@@ -779,7 +662,7 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
         log.info("进入支付订单===================>");
         //发送到期自动取消消息
         BaseOrderMessage message =
-                new BaseOrderMessage().setOrderId(orderId).setTenantId(TenantContextHolder.getTenantId()).setShopId(ShopContextHolder.getShopId());
+                new BaseOrderMessage().setOrderId(orderId);
         sender.sendAutoCancelOrderMessage(message, getExTime(orderVo.getType()));
         log.info("超时取消订单成功===================>");
         orderVo.setExpireTime(orderVo.getCreateTime().plusSeconds(getExTime(orderVo.getType()) / 1000));
@@ -787,9 +670,7 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
         if (orderVo.getPayType().equals(PayTypeEnum.WECHAT) || orderVo.getPayType().equals(PayTypeEnum.WECHAT_H5)) {
             return userWechat(request, curUserDto, orderVo);
         }
-        //Todo 余额支付
         return null;
-
     }
 
     /**
@@ -803,7 +684,7 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
      * @date 2020/8/12 21:15
      */
     private PayResultDto userWechat(HttpServletRequest request, CurUserDto curUserDto, OrderVo orderVo) {
-        ShopConfigDto shopConfig = remoteMiniInfoService.getShopConfig(orderVo.getTenantId());
+        ShopConfigDto shopConfig = remoteMiniInfoService.getShopConfig();
         if (shopConfig == null) {
             throw new ServiceException("商户配置不存在");
         }
@@ -813,7 +694,6 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
         }
         Integer payType = payInfo.getPayType();
         PayRequestDto dto = new PayRequestDto();
-        dto.setTenantId(orderVo.getTenantId());
         dto.setPayChannel(payType);
         if (payType.equals(1)) {
             if (orderVo.getPayType().equals(PayTypeEnum.WECHAT)) {
@@ -858,13 +738,9 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public void paymentNotify(Long orderId, String tenantId) {
-        TenantContextHolder.setTenantId(tenantId);
-        ShopContextHolder.setShopId(null);
+    public void paymentNotify(Long orderId) {
         Order order = baseMapper.selectOne(new QueryWrapper<Order>().lambda().eq(Order::getId, orderId).last("limit " +
                 "1"));
-        TenantContextHolder.setTenantId(order.getTenantId());
-        ShopContextHolder.setShopId(order.getShopId());
         order.setStatus(OrderStatusEnum.WAIT_FOR_SEND);
         order.setPayTime(LocalDateTime.now());
         order.setPayType(PayTypeEnum.WECHAT);
@@ -903,7 +779,7 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
         orderDeliveryMapper.updateById(orderDelivery);
         //到期未评价自动完成订单
         BaseOrderMessage message =
-                new BaseOrderMessage().setOrderId(orderId).setTenantId(order.getTenantId()).setShopId(order.getShopId());
+                new BaseOrderMessage().setOrderId(orderId);
         sender.sendAutoCompletedOrderMessage(message, orderSetting.getFinishOvertime() * TimeConstants.ONE_DAY);
         OrderVo vo = orderInfo(order.getId());
         sender.sendReceiptOrderMessage(vo);
@@ -932,11 +808,8 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
                 }
             } else {
                 return -1;
-
             }
-
         }
-
         return 0;
     }
 
@@ -983,7 +856,6 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
             default:
                 break;
         }
-
         Page<ApiOrderVo> page = baseMapper.searchApiOrderVoPage(new Page(dto.getCurrent(), dto.getSize()),
                 orderStatusList, searchAfterOrder, CurUserUtil.getHttpCurUser().getUserId());
         for (ApiOrderVo record : page.getRecords()) {
@@ -1080,7 +952,6 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
             }
             completeOrder(orderVo.getId());
         }
-
     }
 
     @Override
@@ -1113,7 +984,6 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
         order.setCompleteTime(LocalDateTime.now());
         baseMapper.updateById(order);
         sender.sendCompletedOrderMessage(orderInfo(orderId));
-
     }
 
     @Override
@@ -1139,7 +1009,6 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
 
                 freightDtoList.add(freightDto);
             }
-
             log.info("getLogisticsFreightCalculation param is {} {}", JSONUtil.toJsonStr(freightDtoList),
                     dto.getRegion());
             BigDecimal cost = BigDecimal.ZERO;
@@ -1147,14 +1016,12 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
                 cost = remoteLogisticsFeginService.getLogisticsFreightCalculation(JSONUtil.toJsonStr(freightDtoList),
                         dto.getRegion());
             }
-
             log.info("getLogisticsFreightCalculation result is {}", cost);
             log.info("查询快递运费耗时{}ms", timer.intervalRestart());
             dtoResult = new CountCostDto();
             dtoResult.setCost(cost);
         }
         return dtoResult;
-
     }
 
     @Override
@@ -1190,7 +1057,6 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
             long count = afsOrders.stream().filter(afsOrder -> afsOrder.getStatus() != AfsOrderStatusEnum.SUCCESS && afsOrder.getStatus() != AfsOrderStatusEnum.CLOSE).count();
             afsOrdersNumber = count;
         }
-
         vo.setWaitForPay(orderList.stream().filter(o -> o.getStatus() == OrderStatusEnum.WAIT_FOR_PAY).count());
         vo.setShipped(orderList.stream().filter(o -> o.getStatus() == OrderStatusEnum.SHIPPED).count());
         vo.setWaitForPickup(orderList.stream().filter(o -> o.getStatus() == OrderStatusEnum.WAIT_FOR_PICKUP).count());
@@ -1222,18 +1088,13 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
         return orderShareInfo;
     }
 
-
     @Override
     public void refundNotify(RefundNotifyResultDto message) {
         log.info(message.toString());
-        TenantContextHolder.setTenantId(message.getTenantId());
-//        Order order = baseMapper.selectById(message.getOutTradeNo());  查询错误
         Order order = baseMapper.selectOne(new QueryWrapper<Order>().lambda().eq(Order::getTransactionId, message.getOutTradeNo()));
         order.setRefundTransactionId(message.getRefundId());
         baseMapper.updateById(order);
         OrderVo vo = baseMapper.selectOrderVoById(order.getId());
         sender.sendRefundSuccess(vo);
     }
-
-
 }

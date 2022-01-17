@@ -96,50 +96,25 @@ public interface OrderMapper extends BaseMapper<Order> {
      */
     Page<SimpleOrderVo> searchSimpleOrderVoForGroupPage(Page page,
                                                         @Param(value = "status") Integer status,
-                                                        @Param(value = "userId") String userId
-
-    );
+                                                        @Param(value = "userId") String userId);
 
     /**
      * selectOrderListByIds
      *
      * @param orderIdList the order id list
-     * @param tenantId    the tenant id
-     * @param shopId      the shop id
      * @return java.util.List<com.medusa.gruul.order.api.model.GetOrderListDto>     list
      * @author alan
      * @date 2019 /12/12 22:10
      */
     @SqlParser(filter = true)
-    List<GetOrderListDto> selectOrderListByIds(@Param(value = "orderIdList") List<Long> orderIdList,
-                                               @Param(value = "tenantId") String tenantId,
-                                               @Param(value = "shopId") String shopId
-    );
+    List<GetOrderListDto> selectOrderListByIds(@Param(value = "orderIdList") List<Long> orderIdList);
 
-    /**
-     * 查询没有生成发货单的订单
-     *
-     * @param start    the start
-     * @param end      the end
-     * @param tenantId the tenant id
-     * @param shopId   the shop id
-     * @return java.util.List<com.medusa.gruul.order.api.model.GetOrderListDto>     list
-     * @author alan
-     * @date 2019 /12/17 20:52
-     */
-    @SqlParser(filter = true)
-    List<GetOrderListDto> selectNotShippedOrder(@Param(value = "start") String start,
-                                                @Param(value = "end") String end,
-                                                @Param(value = "tenantId") String tenantId,
-                                                @Param(value = "shopId") String shopId);
 
     /**
      * 查询指定提货点的时间范围中所有已支付的订单
      *
      * @param start    the start
      * @param end      the end
-     * @param tenantId the tenant id
-     * @param shopId   the shop id
      * @param pointId  the point id
      * @return java.util.List<com.medusa.gruul.order.api.entity.Order>     list
      * @author alan
@@ -148,8 +123,6 @@ public interface OrderMapper extends BaseMapper<Order> {
     @SqlParser(filter = true)
     List<Order> selectListByPointIdAndDate(@Param(value = "start") Date start,
                                            @Param(value = "end") Date end,
-                                           @Param(value = "tenantId") String tenantId,
-                                           @Param(value = "shopId") String shopId,
                                            @Param(value = "pointId") String pointId);
 
     /**
@@ -214,16 +187,12 @@ public interface OrderMapper extends BaseMapper<Order> {
     /**
      * Select list by point id and status list.
      *
-     * @param tenantId            the tenant id
-     * @param shopId              the shop id
      * @param pointId             the point id
      * @param orderStatusEnumList the order status enum list
      * @return the list
      */
     @SqlParser(filter = true)
-    List<Order> selectListByPointIdAndStatus(@Param(value = "tenantId") String tenantId,
-                                             @Param(value = "shopId") String shopId,
-                                             @Param(value = "pointId") String pointId,
+    List<Order> selectListByPointIdAndStatus(@Param(value = "pointId") String pointId,
                                              @Param(value = "orderStatusList") List<OrderStatusEnum> orderStatusEnumList);
 
 
@@ -328,25 +297,7 @@ public interface OrderMapper extends BaseMapper<Order> {
     void closeExchangeOrder(@Param(value = "orderIds") List<Long> orderIds,
                             @Param(value = "status") OrderStatusEnum status);
 
-    /**
-     * Select list by full scale ids list.
-     *
-     * @param fullScaleIdList the full scale id list
-     * @return the list
-     */
-    List<ActivityStatisticsVo> selectListByFullScaleIds(@Param(value = "fullScaleIdList") List<Long> fullScaleIdList);
 
-    /**
-     * Gets point order history.
-     *
-     * @param tenantId the tenant id
-     * @param shopId   the shop id
-     * @param pointId  the point id
-     * @return the point order history
-     */
-    @SqlParser(filter = true)
-    int getPointOrderHistory(@Param(value = "tenantId") String tenantId,
-                             @Param(value = "shopId") String shopId,
-                             @Param(value = "pointId") String pointId);
+
 
 }

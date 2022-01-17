@@ -43,13 +43,6 @@ public class ShopsRenovationPageParam extends QueryParam {
 
 
     /**
-     * 店铺id
-     */
-    @ApiModelProperty(value = "店铺id")
-    private String shopId;
-
-
-    /**
      * 是否默认页面
      */
     @ApiModelProperty(value = "是否默认页面")

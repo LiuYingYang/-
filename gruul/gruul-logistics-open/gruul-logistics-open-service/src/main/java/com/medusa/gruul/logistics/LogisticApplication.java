@@ -1,6 +1,5 @@
 package com.medusa.gruul.logistics;
 
-import com.medusa.gruul.common.core.monitor.EnableMonitorHeartbeat;
 import com.medusa.gruul.common.swagger.annotation.EnableGruulSwagger2;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
@@ -14,7 +13,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 /**
- * @author 赵峥
+ * @author zhaozheng
  */
 @EnableScheduling
 @EnableGruulSwagger2

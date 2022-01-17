@@ -39,7 +39,6 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -54,8 +53,6 @@ import java.util.stream.Collectors;
 public class RemoteOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IRemoteOrderService {
     @Resource
     private OrderProductEvaluateMapper orderProductEvaluateMapper;
-    @Resource
-    private OrderEvaluateMapper orderEvaluateMapper;
     @Resource
     private OrderDeliveryMapper orderDeliveryMapper;
     @Resource
@@ -87,20 +84,11 @@ public class RemoteOrderServiceImpl extends ServiceImpl<OrderMapper, Order> impl
     }
 
     @Override
-    public List<GetOrderListDto> getNotShippedOrder(GetOrderListDtoByTimeScope param) {
-        List<GetOrderListDto> dtoList = baseMapper.selectNotShippedOrder(param.getStart(), param.getEnd(),
-                param.getTenantId(),
-                param.getShopId());
-        dtoList = dtoList.stream().filter(dto -> CollUtil.isEmpty(dto.getAfsOrderList())).collect(Collectors.toList());
-        return dtoList;
-    }
-
-    @Override
     public List<GetOrderListDto> getOrderListByIds(GetOrderListParam param) {
         if (param.getOrderIds().isEmpty()) {
             return new ArrayList<>();
         }
-        return baseMapper.selectOrderListByIds(param.getOrderIds(), param.getTenantId(), param.getShopId());
+        return baseMapper.selectOrderListByIds(param.getOrderIds());
     }
 
 
@@ -137,8 +125,6 @@ public class RemoteOrderServiceImpl extends ServiceImpl<OrderMapper, Order> impl
 
             BaseOrderMessage baseOrderMessage = new BaseOrderMessage();
             baseOrderMessage.setOrderId(vo.getId());
-            baseOrderMessage.setShopId(vo.getShopId());
-            baseOrderMessage.setTenantId(vo.getTenantId());
             sender.sendAutoReceiptOrderMessage(baseOrderMessage,
                     orderSetting.getConfirmOvertime() * TimeConstants.ONE_DAY);
             res.set(i + i1);
@@ -199,7 +185,6 @@ public class RemoteOrderServiceImpl extends ServiceImpl<OrderMapper, Order> impl
         exchangeOrder.setUserName(orderVo.getUserName());
         exchangeOrder.setUserAvatarUrl(orderVo.getUserAvatarUrl());
         exchangeOrder.setUserNote("");
-        // Todo 补货单阉割
         exchangeOrder.setType(OrderTypeEnum.EXCHANGE);
         exchangeOrder.setTotalAmount(BigDecimal.ZERO);
         exchangeOrder.setDiscountsAmount(BigDecimal.ZERO);
@@ -207,9 +192,6 @@ public class RemoteOrderServiceImpl extends ServiceImpl<OrderMapper, Order> impl
         exchangeOrder.setFreightAmount(BigDecimal.ZERO);
         exchangeOrder.setPromotionAmount(BigDecimal.ZERO);
         exchangeOrder.setCouponId(null);
-        exchangeOrder.setCouponAmount(BigDecimal.ZERO);
-        exchangeOrder.setFullScaleId(null);
-        exchangeOrder.setFullScaleAmount(BigDecimal.ZERO);
         exchangeOrder.setPayType(PayTypeEnum.FREE);
         exchangeOrder.setTransactionId(null);
         exchangeOrder.setPayTime(LocalDateTime.now());
@@ -285,7 +267,6 @@ public class RemoteOrderServiceImpl extends ServiceImpl<OrderMapper, Order> impl
         order.setRefundQuantity(refundQuantity);
         //退费用
         payRefund(refundAmount, order);
-        //Todo 退积分
         //针于退款，只要没钱了就关闭订单
         if (type.equals(AfsOrderTypeEnum.REFUND.getCode()) || type.equals(AfsOrderTypeEnum.RETURN_REFUND.getCode())) {
             BigDecimal payAmount = NumberUtil.sub(order.getPayAmount(), order.getFreightAmount());
@@ -300,23 +281,6 @@ public class RemoteOrderServiceImpl extends ServiceImpl<OrderMapper, Order> impl
         }
         sender.sendReturnOrderMessage(order);
         sender.sendRefundSuccess(order);
-        //针于换货，没有正在进行的售后就关闭
-        // TODO: 2021/8/27 换货？？
-//        if (type.equals(AfsOrderTypeEnum.EXCHANGE.getCode())) {
-//            List<AfsOrder> afsOrderList = afsOrderMapper.selectProgressByOrderId(order.getId());
-//            afsOrderList =
-//                    afsOrderList.stream().filter(afsOrder -> !afsOrder.getId().equals(afsId)).collect(Collectors.toList());
-//            boolean hasNotApplyOrderItem =
-//                    order.getOrderItemList().stream().filter(orderItemVo -> ObjectUtil.isNotNull(orderItemVo.getRefundAmount())).anyMatch(orderItemVo -> NumberUtil.isGreater(orderItemVo.getRefundAmount(), BigDecimal.ZERO));
-//            if (afsOrderList.isEmpty() || !hasNotApplyOrderItem) {
-//                sender.sendCloseOrderMessage(order);
-//                order.setStatus(OrderStatusEnum.EXCHANGE_SUCCESS_CLOSE);
-//                order.setCloseTime(LocalDateTime.now());
-//            }
-//            baseMapper.updateById(order);
-//
-//        }
-
     }
 
 
@@ -336,7 +300,6 @@ public class RemoteOrderServiceImpl extends ServiceImpl<OrderMapper, Order> impl
     private void wechatPayRefund(BigDecimal refundAmount, Order order) {
         RefundRequestDto dto = new RefundRequestDto();
         try {
-            dto.setTenantId(order.getTenantId());
             dto.setOrderId(order.getTransactionId());
             dto.setRouteKey(OrderQueueNameConstant.REFUND_NOTIFY);
             //没有发货的订单退掉运费
@@ -360,24 +323,6 @@ public class RemoteOrderServiceImpl extends ServiceImpl<OrderMapper, Order> impl
         if (CollUtil.isNotEmpty(orderIds)) {
             baseMapper.closeExchangeOrder(orderIds, OrderStatusEnum.EXCHANGE_CANCEL_CLOSE);
         }
-    }
-
-
-    @Override
-    public List<ActivityStatisticsVo> fullScaleStatisticsByActivityId(Long[] fullScaleIds) {
-        List<Long> fullScaleIdList = Arrays.asList(fullScaleIds);
-        if (fullScaleIdList.isEmpty()) {
-            return Collections.emptyList();
-        }
-        List<ActivityStatisticsVo> vos = orderMapper.selectListByFullScaleIds(fullScaleIdList);
-
-        return vos;
-    }
-
-    @Override
-    public Boolean getPointOrderHistory(String tenantId, String shopId, String pointId) {
-        int orderNumber = orderMapper.getPointOrderHistory(tenantId, shopId, pointId);
-        return orderNumber > 0;
     }
 
     @Override

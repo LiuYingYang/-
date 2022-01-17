@@ -5,8 +5,6 @@ import cn.hutool.core.util.ObjectUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.medusa.gruul.common.core.constant.TimeConstants;
 import com.medusa.gruul.common.core.exception.ServiceException;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.common.dto.CurUserDto;
 import com.medusa.gruul.goods.api.constant.GoodsSkuStockRedisKey;
 import com.medusa.gruul.goods.api.entity.SkuStock;
@@ -20,8 +18,6 @@ import com.medusa.gruul.order.service.IOrderSettingService;
 import com.medusa.gruul.order.service.IOrderShareSettingService;
 import com.medusa.gruul.payment.api.model.dto.RefundNotifyResultDto;
 import com.medusa.gruul.payment.api.model.dto.WxPayNotifyResultDto;
-import com.medusa.gruul.platform.api.constant.ExchangeConstant;
-import com.medusa.gruul.platform.api.constant.QueueNameConstant;
 import com.rabbitmq.client.Channel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
@@ -59,29 +55,6 @@ public class OrderListener {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    /**
-     * 数据初始化
-     *
-     * @param jsonStr
-     * @return void
-     * @author alan
-     * @date 2019/12/9 20:20
-     */
-    @RabbitListener(queues = OrderQueueNameConstant.DATA_INIT)
-    public void dataInit(String jsonStr, Channel channel, Message m) throws IOException {
-        log.info("收到数据初始化消息:deliveryTag{},当前时间{},消息内容{}.", m.getMessageProperties().getDeliveryTag(), DateUtil.now(),
-                jsonStr);
-        try {
-            DataInitMessage dataInitMessage = JSONObject.parseObject(jsonStr, DataInitMessage.class);
-            TenantContextHolder.setTenantId(dataInitMessage.getTenantId());
-            ShopContextHolder.setShopId(dataInitMessage.getShopId());
-            orderSettingService.init();
-            orderShareSettingService.init();
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-        channel.basicAck(m.getMessageProperties().getDeliveryTag(), false);
-    }
 
     /**
      * 订单创建消费者
@@ -102,8 +75,6 @@ public class OrderListener {
             CreateOrderDto createOrderDto = orderMessage.getOrderVo();
             Long orderId = orderMessage.getOrderId();
             CurUserDto curUser = orderMessage.getCurUser();
-            TenantContextHolder.setTenantId(orderMessage.getTenantId());
-            ShopContextHolder.setShopId(orderMessage.getCurUser().getShopId());
             List<ItemDto> itemDtoList = createOrderDto.getItemDtoList();
             List<SkuStock> skuStockList = new ArrayList<>(itemDtoList.size());
             OrderFailedRedisKey orderFailed = new OrderFailedRedisKey();
@@ -160,8 +131,6 @@ public class OrderListener {
                 message.toString());
 
         try {
-            TenantContextHolder.setTenantId(message.getTenantId());
-            ShopContextHolder.setShopId(message.getShopId());
             orderService.autoCancelOrder(message.getOrderId());
             log.info("超时自动取消执行完成: deliveryTag{}", properties.getDeliveryTag());
             channel.basicAck(properties.getDeliveryTag(), true);
@@ -186,8 +155,6 @@ public class OrderListener {
         log.info("收到自动签收消息:deliveryTag{},当前时间{},消息内容{}.", properties.getDeliveryTag(), DateUtil.now(),
                 message.toString());
         try {
-            TenantContextHolder.setTenantId(message.getTenantId());
-            ShopContextHolder.setShopId(message.getShopId());
             orderService.receiptOrder(message.getOrderId(), true);
             log.info("超时自动完成执行完成: deliveryTag{}", properties.getDeliveryTag());
             channel.basicAck(properties.getDeliveryTag(), true);
@@ -212,8 +179,6 @@ public class OrderListener {
         log.info("收到超时自动完成消息:deliveryTag{},当前时间{},消息内容{}.", properties.getDeliveryTag(), DateUtil.now(),
                 message.toString());
         try {
-            TenantContextHolder.setTenantId(message.getTenantId());
-            ShopContextHolder.setShopId(message.getShopId());
             orderService.evaluateOrder(message.getOrderId());
             log.info("超时自动完成执行完成: deliveryTag{}", properties.getDeliveryTag());
             channel.basicAck(properties.getDeliveryTag(), true);
@@ -238,7 +203,7 @@ public class OrderListener {
         log.info("收到支付回调消息:deliveryTag{},当前时间{},消息内容{}.", properties.getDeliveryTag(), DateUtil.now(),
                 message.toString());
         try {
-            orderService.paymentNotify(Long.parseLong(message.getOutTradeNo()), message.getTenantId());
+            orderService.paymentNotify(Long.parseLong(message.getOutTradeNo()));
             log.info("支付回调执行完成: deliveryTag{}", properties.getDeliveryTag());
             channel.basicAck(properties.getDeliveryTag(), true);
         } catch (Exception e) {
@@ -270,61 +235,5 @@ public class OrderListener {
     }
 
 
-    /**
-     * 物流模块的发货单创建及发货
-     *
-     * @param message
-     * @param properties
-     * @param channel
-     * @return void
-     * @author alan
-     * @date 2019/12/9 20:20
-     */
-    @RabbitListener(queues = OrderQueueNameConstant.DELIVER_CREATE)
-    public void deliverCreate(GenerateSendBillOrderMessage message, MessageProperties properties, Channel channel) throws IOException {
-        log.info("收到发货单创建消息:当前时间{},消息内容{}.", DateUtil.now(), message.toString());
-        try {
-            TenantContextHolder.setTenantId(message.getTenantId());
-            if (message.getOrderIds().isEmpty()) {
-                log.info("发货单创建执行失败,失败原因{}, 当前时间{}", "订单ID不得为空", DateUtil.now());
-            } else {
-                orderDeliveryService.updateShipping(message);
-                log.info("发货单创建执行完成: 当前时间{}", DateUtil.now());
-            }
-            channel.basicAck(properties.getDeliveryTag(), true);
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-    }
-
-
-    /**
-     * 物流模块发回的签收单签收
-     *
-     * @param message
-     * @param properties
-     * @param channel
-     * @return void
-     * @author alan
-     * @date 2019/12/9 20:21
-     */
-    @RabbitListener(queues = OrderQueueNameConstant.DELIVER_RECEIPT)
-    public void deliverReceipt(ReceiptSendBillOrderMessage message, MessageProperties properties, Channel channel) throws IOException {
-        log.info("收到签收单签收消息:deliveryTag{},当前时间{},消息内容{}.", properties.getDeliveryTag(), DateUtil.now(),
-                message.toString());
-        try {
-            TenantContextHolder.setTenantId(message.getTenantId());
-            if (message.getOrderIds().isEmpty()) {
-                log.info("发货单创建执行失败,失败原因{}, 当前时间{}", "订单ID不得为空", DateUtil.now());
-            } else {
-                orderDeliveryService.receiptSendBill(message);
-                log.info("签收单签收执行完成: deliveryTag{}", properties.getDeliveryTag());
-            }
-            channel.basicAck(properties.getDeliveryTag(), true);
-
-        } catch (Exception e) {
-            log.error(e.getMessage(), e);
-        }
-    }
 }
 

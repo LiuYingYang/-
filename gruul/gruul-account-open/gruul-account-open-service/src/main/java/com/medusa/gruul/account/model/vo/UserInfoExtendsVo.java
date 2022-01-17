@@ -39,8 +39,6 @@ public class UserInfoExtendsVo {
     @ApiModelProperty(value = "用户最后一次选择的地理位置经纬度 经纬度,经度在前维度在后逗号分隔")
     private String lastChooseLcation;
 
-    @ApiModelProperty(value = "商铺id")
-    private String shopId;
 
     @ApiModelProperty(value = "最后登录时间")
     private LocalDateTime lastLoginTime;
@@ -49,21 +47,5 @@ public class UserInfoExtendsVo {
     @ApiModelProperty(value = "店铺用户id")
     private String shopUserId;
 
-    /**
-     * 用户余额
-     */
-    @ApiModelProperty(value = "用户余额")
-    private BigDecimal supplyBonus;
 
-    /**
-     * 用户返利余额
-     */
-    @ApiModelProperty(value = "用户返利余额")
-    private BigDecimal rebateBonus;
-
-    /**
-     * 冻结余额
-     */
-    @ApiModelProperty(value = "冻结余额")
-    private BigDecimal freezeBonus;
 }

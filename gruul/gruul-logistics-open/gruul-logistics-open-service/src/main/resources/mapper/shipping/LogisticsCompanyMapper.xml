@@ -7,7 +7,7 @@
         <id column="id"  property="id"/>
         <result column="name"  property="name"/>
         <result column="code"  property="code"/>
-        <result column="is_deleted"  property="isDeleted"/>
+        <result column="is_deleted"  property="deleted"/>
         <result column="create_time"  property="createTime"/>
         <result column="update_time"  property="updateTime"/>
     </resultMap>
@@ -19,13 +19,13 @@
      select
      id, `name`, code,create_time,update_time
      from t_logistics_company
-     where is_deleted=0 and tenant_id = #{tenantId} and shop_id = #{shopId} 
+     where is_deleted=0
     </select>
 
     <select id="selectListCompanyByParam" resultMap="BaseResultMap" >
      select
      id, `name`, code,create_time,update_time
      from t_logistics_company
-     where is_deleted=0 and code = #{code} and tenant_id = #{tenantId} and shop_id = #{shopId} limit 1
+     where is_deleted=0 and code = #{code} limit 1
     </select>
 </mapper>

@@ -38,15 +38,6 @@ public class ShopsSearchTerms extends BaseEntity {
 
 
     /**
-     * 店铺id
-     */
-    @NotNull
-    @ApiModelProperty(value = "店铺id")
-    @TableField("shop_id")
-    private String shopId;
-
-
-    /**
      * 词语 多个以英文逗号分隔
      */
     @NotNull

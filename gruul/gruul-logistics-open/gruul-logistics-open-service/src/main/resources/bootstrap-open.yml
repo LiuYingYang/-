@@ -7,9 +7,9 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: ip
-        ip: ip
-        register-enabled:
+        server-addr: 127.0.0.1:8848
+        ip: 127.0.0.1
+#        register-enabled: false
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         file-extension: yml

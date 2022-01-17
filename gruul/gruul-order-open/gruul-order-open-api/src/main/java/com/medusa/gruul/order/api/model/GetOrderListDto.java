@@ -11,14 +11,11 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.util.List;
 
+/**
+ * @author lcysike
+ */
 @NoArgsConstructor
 @Data
-/**
- * <p>Description:  feign 获取订单内容返回实体类</P>
- * <p>Version: 1.0</p>
- * <p>Author: Mr.zhaozheng </P>
- * <p>Date: 2019-11-22 13:34 </p>
- */
 public class GetOrderListDto {
 
 

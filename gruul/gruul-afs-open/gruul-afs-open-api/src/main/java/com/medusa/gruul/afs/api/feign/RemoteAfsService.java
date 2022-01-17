@@ -4,7 +4,6 @@ import com.medusa.gruul.afs.api.model.AfsSimpleVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import springfox.documentation.annotations.ApiIgnore;
 
@@ -16,7 +15,7 @@ import java.util.List;
  *
  * @author alan
  * @description: RemoteAfsService.java
- * @date 2020 /9/24 21:58
+ * @date 2020/9/24 21:58
  */
 @FeignClient(value = "afs-open")
 @ApiIgnore

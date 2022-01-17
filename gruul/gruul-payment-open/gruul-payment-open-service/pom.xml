@@ -24,7 +24,7 @@
         <!-- common -->
         <dependency>
             <groupId>com.medusa</groupId>
-            <artifactId>gruul-common-auth</artifactId>
+            <artifactId>gruul-common-auth-open</artifactId>
             <version>${gruul.version}</version>
         </dependency>
 
@@ -32,6 +32,12 @@
         <dependency>
             <groupId>com.medusa</groupId>
             <artifactId>gruul-payment-open-api</artifactId>
+            <version>${gruul.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.medusa</groupId>
+            <artifactId>gruul-account-open-api</artifactId>
             <version>${gruul.version}</version>
         </dependency>
         <!-- 订单 -->

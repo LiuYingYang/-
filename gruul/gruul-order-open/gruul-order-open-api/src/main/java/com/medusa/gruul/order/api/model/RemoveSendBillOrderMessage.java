@@ -18,13 +18,9 @@ public class RemoveSendBillOrderMessage implements Serializable {
 
     private Long sendBillOrderId;
     private Long orderId;
-    /**
-     * 租户ID
-     */
-    private String tenantId;
 
-    public RemoveSendBillOrderMessage( Long orderId, String tenantId) {
+
+    public RemoveSendBillOrderMessage( Long orderId) {
         this.orderId = orderId;
-        this.tenantId = tenantId;
     }
 }

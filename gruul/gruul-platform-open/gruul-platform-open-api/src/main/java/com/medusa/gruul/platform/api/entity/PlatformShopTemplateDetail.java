@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.medusa.gruul.common.data.base.BaseNoTenantEntity;
+import com.medusa.gruul.common.data.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,7 +24,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("t_platform_shop_template_detail")
 @ApiModel(value = "PlatformShopTemplateDetail对象", description = "店铺模版详情表")
-public class PlatformShopTemplateDetail extends BaseNoTenantEntity {
+public class PlatformShopTemplateDetail extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

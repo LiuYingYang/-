@@ -35,13 +35,6 @@ public class AttributeTemplate extends BaseEntity {
     private Long id;
 
     /**
-     * 本店店铺id
-     */
-    @ApiModelProperty(value = "本店店铺id")
-    @TableField("shop_id")
-    private String shopId;
-
-    /**
      * 上级编号：0表示一级
      */
     @ApiModelProperty(value = "上级编号：0表示一级")

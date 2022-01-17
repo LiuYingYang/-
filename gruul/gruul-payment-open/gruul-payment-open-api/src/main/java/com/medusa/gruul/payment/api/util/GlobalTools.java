@@ -5,7 +5,6 @@ import com.google.common.collect.Maps;
 import lombok.extern.java.Log;
 import org.apache.commons.lang3.StringUtils;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
-
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 import java.beans.BeanInfo;
@@ -17,7 +16,6 @@ import java.security.*;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
 import java.util.*;
-
 import org.apache.commons.codec.binary.Hex;
 import org.bouncycastle.openssl.PasswordFinder;
 import org.bouncycastle.openssl.PEMReader;

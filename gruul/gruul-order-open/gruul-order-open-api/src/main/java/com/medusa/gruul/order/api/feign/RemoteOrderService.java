@@ -63,36 +63,15 @@ public interface RemoteOrderService {
     List<ProductRateVo> productRate(@RequestParam(value = "productIds") @NotNull List<Long> productIds);
 
     /**
-     * 获取订单列表
-     *
-     * @param start    开始时间
-     * @param end      结束时间
-     * @param tenantId 租户id
-     * @param shopId   城市合伙人id
-     * @return java.util.List<com.medusa.gruul.order.api.model.GetOrderListDto>   not shipped order
-     * @author alan ，zhaozheng
-     * @date 2019 /12/19 12:51
-     */
-    @GetMapping(value = "/remote/get/not-shipped/orders")
-    List<GetOrderListDto> getNotShippedOrder(@RequestParam("start") String start, @RequestParam("end") String end,
-                                             @RequestParam("tenantId") String tenantId,
-                                             @RequestParam("shopId") String shopId);
-
-
-    /**
      * 根据订单Id获取指定订单详情
      *
-     * @param tenantId 租户id
-     * @param shopId   城市合伙人id
      * @param orderIds 订单id
      * @return java.util.List<com.medusa.gruul.order.api.model.GetOrderListDto>   order list by ids
      * @author alan ，zhaozheng
      * @date 2019 /12/19 12:00
      */
     @GetMapping(value = "/remote/get/orders")
-    List<GetOrderListDto> getOrderListByIds(@RequestParam("tenantId") String tenantId,
-                                            @RequestParam("shopId") String shopId,
-                                            @RequestParam("orderIds") Long[] orderIds);
+    List<GetOrderListDto> getOrderListByIds(@RequestParam("orderIds") Long[] orderIds);
 
 
     /**
@@ -129,16 +108,13 @@ public interface RemoteOrderService {
     /**
      * 登陆设置成已播报
      *
-     * @param tenantId the tenant id
-     * @param shopId   the shop id
      * @return int order prompt by shop id
      * @author alan
      * @date 2020 /3/23 22:01
      */
     @ApiOperation("登陆设置成已播报")
     @GetMapping("/remote/setOrderPromptByShopId")
-    int setOrderPromptByShopId(@RequestParam(value = "tenantId") String tenantId,
-                               @RequestParam(value = "shopId") String shopId);
+    int setOrderPromptByShopId();
 
 
 

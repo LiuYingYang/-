@@ -1,16 +1,18 @@
 package com.medusa.gruul.sms.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.qcloudsms.SmsSingleSender;
 import com.github.qcloudsms.SmsSingleSenderResult;
+import com.medusa.gruul.common.core.constant.CommonConstants;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.sms.AliYunSmsUtil;
 import com.medusa.gruul.common.core.sms.SmsSendConfig;
 import com.medusa.gruul.common.core.util.LogUtil;
 import com.medusa.gruul.sms.constant.SmsEnum;
 import com.medusa.gruul.sms.constant.SmsSmsStatus;
-import com.medusa.gruul.sms.dao.entity.TSmsOrderEntity;
-import com.medusa.gruul.sms.dao.mapper.TSmsOrderEntityMapper;
+import com.medusa.gruul.sms.model.entity.TSmsOrderEntity;
+import com.medusa.gruul.sms.mapper.TSmsOrderEntityMapper;
 import com.medusa.gruul.sms.model.dto.SmsDoSendDto;
 import com.medusa.gruul.sms.service.SmsSendService;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +34,7 @@ import java.util.regex.Pattern;
  **/
 @Service
 @Slf4j
-public class SmsSendServiceImpl implements SmsSendService {
+public class SmsSendServiceImpl extends ServiceImpl<TSmsOrderEntityMapper, TSmsOrderEntity> implements SmsSendService {
 
     private static  Pattern compile = Pattern.compile("\\$\\{([^}]*)\\}");
 
@@ -46,18 +48,17 @@ public class SmsSendServiceImpl implements SmsSendService {
             if (StringUtils.isBlank(smsOrderEntity.getSmsSendMobiles())) {
                 throw new ServiceException(SmsEnum.SMS_MOBILES_ERROR.getMsg());
             }
-            List<String> phones = null;
+            List<String> phones;
             if (smsOrderEntity.getSmsSendMobiles().contains(SmsSendConfig.SMS_PHONE_SEPARATOR)) {
                 String[] split = smsOrderEntity.getSmsSendMobiles().split(SmsSendConfig.SMS_PHONE_SEPARATOR);
-                phones = new ArrayList<String>(Arrays.asList(split));
+                phones = new ArrayList<>(Arrays.asList(split));
             } else {
-                phones = new ArrayList<String>(1);
+                phones = new ArrayList<>(CommonConstants.NUMBER_ONE);
                 phones.add(smsOrderEntity.getSmsSendMobiles());
             }
             for (String phone : phones) {
                 //阿里短信
                 if (SmsSendConfig.SMS_TYPE_ALI == smsOrderEntity.getSmsType()) {
-
                     String res = sendAliYunSms(smsDoSendDto.getProviderAppId(),
                             smsDoSendDto.getProviderAppSecret(),
                             phone,
@@ -76,17 +77,14 @@ public class SmsSendServiceImpl implements SmsSendService {
             LogUtil.error(e, "", "短信发送异常");
         } finally {
             smsOrderEntity.setSmsSendStatus(SmsSmsStatus.SEND_SUCCESS);
-            tSmsOrderEntityMapper.updateByPrimaryKeySelective(smsOrderEntity);
+            tSmsOrderEntityMapper.updateById(smsOrderEntity);
         }
-
-
     }
 
     /**
      * 阿里短信源码自带单例
      */
     public String sendAliYunSms(String appKey, String appSecret, String phone, String sign, String templateCode,String params,String content) {
-
         try {
             params = covertAliParams(params, content);
             String res = AliYunSmsUtil.sendSms(appKey, appSecret, phone, sign, templateCode, params);
@@ -110,14 +108,12 @@ public class SmsSendServiceImpl implements SmsSendService {
             LogUtil.error(e, "腾讯短信发送异常");
         }
            return null;
-
     }
 
 
 
     private String covertAliParams(String params,String content) {
-
-        Map<String,Object> param = new HashMap<>(5);
+        Map<String,Object> param = new HashMap<>(CommonConstants.NUMBER_FIVE);
         if (StringUtils.isBlank(params)) {
             return "";
         }
@@ -135,26 +131,26 @@ public class SmsSendServiceImpl implements SmsSendService {
     }
 
     private ArrayList<String> covertTxParams(String params) {
-        ArrayList<String> paramsList = null;
+        ArrayList<String> paramsList;
         if (StringUtils.isBlank(params)) {
-            return new ArrayList<String>();
+            return new ArrayList<>(CommonConstants.NUMBER_ONE);
         }
         if (params.contains(SmsSendConfig.SMS_PARAM_SEPARATOR)) {
 
             String[] split = params.split(SmsSendConfig.SMS_PARAM_SPLIT_SEPARATOR);
-            paramsList = new ArrayList<String>(Arrays.asList(split));
+            paramsList = new ArrayList<>(Arrays.asList(split));
             return paramsList;
         }
-        paramsList = new ArrayList<String>(1);
+        paramsList = new ArrayList<>(CommonConstants.NUMBER_ONE);
         paramsList.add(params);
         return paramsList;
     }
 
     private List<String> getVars(String content) {
-        List<String> vars = new ArrayList<>(5);
+        List<String> vars = new ArrayList<>(CommonConstants.NUMBER_FIVE);
         Matcher matcher = compile.matcher(content);
         while(matcher.find()) {
-            vars.add(matcher.group(1));
+            vars.add(matcher.group(CommonConstants.NUMBER_ONE));
         }
        return vars;
     }

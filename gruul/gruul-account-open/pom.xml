@@ -8,6 +8,7 @@
         <version>0.1</version>
     </parent>
 
+
     <artifactId>gruul-account-open</artifactId>
 
     <description>gruul account模块</description>

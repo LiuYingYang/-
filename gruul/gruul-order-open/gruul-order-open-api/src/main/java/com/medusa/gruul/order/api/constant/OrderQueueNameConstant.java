@@ -46,10 +46,6 @@ public interface OrderQueueNameConstant {
      */
     String ORDER_AUTO_COMPLETED = "gruul.order.auto.completed";
     /**
-     * 移出发货单
-     */
-    String DELIVER_REMOVE = "gruul.deliver.remove";
-    /**
      * 取消订单
      */
     String ORDER_AUTO_CANCEL = "gruul.order.auto.cancel";
@@ -74,19 +70,15 @@ public interface OrderQueueNameConstant {
      */
     String REFUND_NOTIFY = "gruul.order.refund.notify";
 
-
     /**
      * 退款回调成功
      */
     String REFUND_NOTIFY_SUCCEED = "gruul.order.refund.notify.succeed";
 
-    //============================================物流模块============================================
-    //Todo 阉割
     /**
      * 发货单生成
      */
     String DELIVER_CREATE = "gruul.deliver.create";
-
 
     /**
      * 发货单签收

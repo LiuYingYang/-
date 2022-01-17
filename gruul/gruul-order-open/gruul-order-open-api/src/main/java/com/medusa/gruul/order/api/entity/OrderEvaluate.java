@@ -30,13 +30,6 @@ public class OrderEvaluate extends BaseEntity {
     private Long id;
 
     /**
-     * 商铺ID
-     */
-    @ApiModelProperty(value = "商铺ID")
-    @TableField("shop_id")
-    private String shopId;
-
-    /**
      * 用户id
      */
     @ApiModelProperty(value = "用户id")

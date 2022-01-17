@@ -52,16 +52,6 @@ public interface IManageOrderService extends IService<Order> {
     void noteOrder(List<Long> orderIds, String note, Boolean isOver);
 
     /**
-     * 商家移出发货单
-     *
-     * @param orderIds the order ids
-     * @return void
-     * @author alan
-     * @date 2019 /11/23 19:03
-     */
-    void removeSendBill(List<Long> orderIds);
-
-    /**
      * 商家查看评价
      *
      * @param dto the dto
@@ -167,14 +157,5 @@ public interface IManageOrderService extends IService<Order> {
      */
     void logisticsSend(ManageSearchLogisticsOrderDto dto);
 
-    /**
-     * removeSendBillByProductIds
-     *
-     * @param productIds the product ids
-     * @return void
-     * @author alan
-     * @date 2020 /6/17 22:08
-     */
-    void removeSendBillByProductIds(List<Long> productIds);
 
 }

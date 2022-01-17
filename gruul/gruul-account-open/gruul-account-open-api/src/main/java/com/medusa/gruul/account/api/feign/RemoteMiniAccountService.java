@@ -1,5 +1,9 @@
 package com.medusa.gruul.account.api.feign;
 
+import cn.binarywang.wx.miniapp.api.WxMaService;
+import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl;
+import cn.binarywang.wx.miniapp.config.impl.WxMaDefaultConfigImpl;
+import com.medusa.gruul.account.api.conf.MiniInfoProperty;
 import com.medusa.gruul.account.api.model.*;
 import com.medusa.gruul.common.core.util.Result;
 import io.swagger.annotations.ApiOperation;
@@ -36,7 +40,7 @@ public interface RemoteMiniAccountService {
      * 获取用户信息接口
      *
      * @param userId 用户id
-     * @param infos  [1,2,3,4]  1,基本信息,2,扩展信息,3-地址信息,4-授权信息  需要哪些发哪些 list
+     * @param infos  [1,2,3,4]  1,基本信息,2,扩展信息,3-地址信息,4-授权信息 5-用户所属团长信息  需要哪些发哪些 list
      * @return com.medusa.gruul.account.api.model.AccountInfoDto
      */
     @RequestMapping(value = "/account/info/{userId}", method = RequestMethod.GET)
@@ -54,14 +58,6 @@ public interface RemoteMiniAccountService {
     @ApiOperation(value = "批量获取指定用户id(用户店铺id)的用户基本信息")
     List<MiniAccountExtDto> accountsInfoList(@RequestParam(value = "shopUserId") @NotNull(message = "用户id不能为null") List<String> shopUserId);
 
-    /**
-     * 公众号授权登录,返回登录token
-     *
-     * @param wxMpUserDto com.medusa.gruul.platform.api.model.dto.WxMpUserDto
-     * @return java.lang.String
-     */
-    @RequestMapping(value = "/mp/login", method = RequestMethod.POST)
-    @ApiOperation(value = "公众号授权登录")
-    Result mpLogin(WxMpUserDto wxMpUserDto);
+
 
 }

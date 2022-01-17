@@ -17,7 +17,4 @@ public class BaseOrderMessage implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private Long orderId;
-    private String tenantId;
-    private String shopId;
-
 }

@@ -13,10 +13,6 @@ import com.medusa.gruul.order.api.entity.OrderSetting;
  */
 public interface IOrderSettingService extends IService<OrderSetting> {
 
-    /**
-     * Init.
-     */
-    void init();
 
     /**
      * Update order setting.

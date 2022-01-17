@@ -8,6 +8,7 @@ import com.github.binarywang.wxpay.config.WxPayConfig;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.service.impl.WxPayServiceApacheHttpImpl;
+import com.medusa.gruul.account.api.conf.MiniInfoProperty;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.SystemCode;
 import com.medusa.gruul.payment.api.entity.EntPay;
@@ -29,6 +30,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 
 
 /**
@@ -45,6 +47,9 @@ public class EntPayServiceImpl extends ServiceImpl<EntPayMapper, EntPay> impleme
 
     @Autowired
     private EntPayCallBackLogService entPayCallBackLogService;
+
+    @Resource
+    private MiniInfoProperty miniInfoProperty;
 
 
     /**
@@ -68,12 +73,11 @@ public class EntPayServiceImpl extends ServiceImpl<EntPayMapper, EntPay> impleme
         EntPayReQuestDto dto = new EntPayReQuestDto();
         BeanUtils.copyProperties(payReQuestParam, dto);
 
-        /** TODO : 多渠道支付暂未接入,暂不做判断 默认wx */
+        //多渠道支付暂未接入,暂不做判断 默认wx
         WxPayService wxPayService = this.getWxPayService(dto);
 
         EntPay entPay = new EntPay();
         BeanUtils.copyProperties(dto, entPay);
-        entPay.setTenantId(null);
         entPay.setTradeStatus(GlobalConstant.STRING_ZERO);
         if (!this.save(entPay)) {
             throw new ServiceException(SystemCode.DATA_ADD_FAILED.getMsg());
@@ -134,26 +138,16 @@ public class EntPayServiceImpl extends ServiceImpl<EntPayMapper, EntPay> impleme
      */
     @Override
     public WxPayService getWxPayService(EntPayReQuestDto dto) {
-        ShopConfigDto shopConfig = remoteMiniInfoService.getShopConfig(dto.getTenantId());
+        ShopConfigDto shopConfig = remoteMiniInfoService.getShopConfig();
         if (shopConfig == null) {
             throw new ServiceException("商户配置不存在");
         }
 
-        MiniInfo miniInfo = shopConfig.getMiniInfo();
-        if (miniInfo == null) {
-            throw new ServiceException("未授权小程序");
-        }
-
         PayInfoVo payInfo = shopConfig.getPayInfo();
-
         log.info("shopConfig log = " + JSONObject.toJSONString(shopConfig));
-        BeanUtils.copyProperties(miniInfo, dto);
-        if (miniInfo == null) {
-            throw new ServiceException("商户不存在");
-        }
         WxPayService wxPayService = new WxPayServiceApacheHttpImpl();
         WxPayConfig wxPayConfig = new WxPayConfig();
-        wxPayConfig.setAppId(miniInfo.getAppId());
+        wxPayConfig.setAppId(miniInfoProperty.getAppId());
         wxPayConfig.setMchId(payInfo.getMchId());
         wxPayConfig.setMchKey(payInfo.getMchKey());
         wxPayConfig.setKeyPath(payInfo.getCertificatesPath());

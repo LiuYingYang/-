@@ -11,20 +11,19 @@ import com.medusa.gruul.oss.task.UpdateConfigTask;
 import com.medusa.gruul.oss.ueditor.ActionEnter;
 import com.medusa.gruul.oss.utls.OssRedisTools;
 import io.swagger.annotations.Api;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * 文件上传
@@ -32,6 +31,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/")
 @Api(value = "file", tags = "文件上传")
+@Slf4j
 public class FileUploadController {
     @Autowired
     private FileService fileService;
@@ -52,7 +52,6 @@ public class FileUploadController {
         if (file.isEmpty()) {
             throw new ServiceException("上传文件不能为空");
         }
-
         //上传文件
         String suffix = FilenameUtils.getExtension(file.getOriginalFilename());
 
@@ -71,12 +70,10 @@ public class FileUploadController {
         return ok;
     }
 
-
     @PostMapping("/download/batch")
     public List<String> orderInfo(@RequestBody List<String> linkList) {
         return remoteSysOssService.batchDownload(linkList);
     }
-
 
     /**
      * 删除
@@ -87,7 +84,6 @@ public class FileUploadController {
 
         return Result.ok();
     }
-
 
     @GetMapping(value = "ueditor/exec")
     @EscapeLogin
@@ -106,7 +102,6 @@ public class FileUploadController {
         }
 
     }
-
 
     @EscapeLogin
     @GetMapping("/test1")
@@ -127,24 +122,37 @@ public class FileUploadController {
      *
      * @param action
      */
-    @GetMapping(value = "/bai_du")
+    @RequestMapping(value = "/bai_du")
     @EscapeLogin
     @ResponseBody
     public Object action(@RequestParam(value = "action") String action, HttpServletRequest request,
                          HttpServletResponse response) throws Exception {
-        final String upload = "uploadimage";
+        String method = request.getMethod();
         response.setContentType("application/json");
-        if (upload.equals(action)) {
-            //            ServletInputStream inputStream = request.getInputStream();
-            //            Result result = this.upload();
-            //            HashMap<String, String> resMap = new HashMap<>(4);
-            //            resMap.put("original", result.getMsg());
-            //            resMap.put("state", result.getCode() == 200 ? "SUCCESS" : "FAIL");
-            //            resMap.put("title", result.getMsg());
-            //            resMap.put("url", result.getData().toString());
-            //            return resMap;
+        if (!"GET".equalsIgnoreCase(method)){
+            StringBuffer data = new StringBuffer();
+            String line = null;
+            BufferedReader reader = null;
+            try {
+                reader = request.getReader();
+                while (null != (line = reader.readLine())) {
+                    data.append(line);
+                }
+                log.info(data.toString());
+            } catch (IOException e) {
+            } finally {
+            }
+            MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+            MultipartFile file = multipartRequest.getFile("file");
+            Result result = this.upload(file);
+            HashMap<String, String> resMap = new HashMap<>(4);
+            resMap.put("original", result.getMsg());
+            resMap.put("state", result.getCode() == 200 ? "SUCCESS" : "FAIL");
+            resMap.put("title", result.getMsg());
+            resMap.put("url", result.getData().toString());
+            log.info(this.getClass()+resMap.toString());
+            return resMap;
         }
-
         OssRedisTools redisTools = new OssRedisTools();
         final String fileName = "config.json";
         String s = redisTools.get(fileName);

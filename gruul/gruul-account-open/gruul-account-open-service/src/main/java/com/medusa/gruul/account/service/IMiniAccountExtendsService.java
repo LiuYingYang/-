@@ -2,7 +2,6 @@ package com.medusa.gruul.account.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.medusa.gruul.account.api.entity.MiniAccountExtends;
-import com.medusa.gruul.account.api.model.IntegraChangelDto;
 import com.medusa.gruul.account.api.model.MiniAccountExtendsUpdateDto;
 import com.medusa.gruul.account.model.dto.UpdateUserExtendsInfoDto;
 import com.medusa.gruul.order.api.model.OrderVo;
@@ -80,9 +79,8 @@ public interface IMiniAccountExtendsService extends IService<MiniAccountExtends>
     /**
      * 获取指定店铺下用户唯一的数据
      *
-     * @param shopId 店铺id
      * @param userId 用户唯一id
      * @return com.medusa.gruul.account.api.entity.MiniAccountExtends
      */
-    MiniAccountExtends findByShopIdAndUserId(String shopId, String userId);
+    MiniAccountExtends findByShopIdAndUserId( String userId);
 }

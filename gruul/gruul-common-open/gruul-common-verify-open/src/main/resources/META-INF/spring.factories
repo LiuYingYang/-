@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+    com.medusa.gruul.common.verify.GruulProperties
+
+#该处省去

@@ -21,7 +21,7 @@ import java.util.List;
  * </p>
  *
  * @author alan
- * @since 2020 -08-05
+ * @since 2020-08-05
  */
 @RestController
 @Api(tags = "协商历史接口")

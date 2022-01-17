@@ -17,15 +17,15 @@ import java.util.List;
 public interface IAccountCenterMenuService extends IService<AccountCenterMenu> {
 
     /**
-     * 清空当前指定租户的用户中心菜单
+     * 清空当前用户中心菜单
      */
     void clear();
 
     /**
-     * 获取当前指定租户的用户中心菜单
+     * 获取当前用户中心菜单
      * @return com.medusa.gruul.account.model.vo.MenuVo
      */
-    List<MenuVo> getByTenantId();
+    List<MenuVo> getMenuTree();
 
 
 }

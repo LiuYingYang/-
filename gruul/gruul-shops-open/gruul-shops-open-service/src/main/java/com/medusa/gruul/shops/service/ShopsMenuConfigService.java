@@ -3,11 +3,7 @@ package com.medusa.gruul.shops.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.medusa.gruul.common.core.util.Result;
 import com.medusa.gruul.shops.api.entity.ShopsMenuConfig;
-import com.medusa.gruul.shops.api.entity.ShopsRenovationAssembly;
 import com.medusa.gruul.shops.model.param.ShopsMenuConfigParam;
-import com.medusa.gruul.shops.model.param.ShopsRenovationAssemblyParam;
-
-import java.util.List;
 
 
 /**
@@ -27,7 +23,7 @@ public interface ShopsMenuConfigService extends IService<ShopsMenuConfig> {
 
 
     /**
-     * 获取店铺合伙人菜单属性配置
+     * 获取店铺菜单属性配置
      *
      * @return Result
      */

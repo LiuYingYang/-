@@ -37,9 +37,6 @@ public class DiscountProductParam extends QueryParam {
     @ApiModelProperty(value = "最大价格")
     private BigDecimal maxPrice;
 
-    @ApiModelProperty(value = "发货单id")
-    private String deliverId;
-
     @ApiModelProperty(value = "匹配的商品list")
     private List<Long> productIds;
 

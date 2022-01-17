@@ -1,6 +1,5 @@
 package com.medusa.gruul.platform.model.vo;
 
-import com.medusa.gruul.common.core.constant.enums.TemplateCodeEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -41,8 +40,6 @@ public class ShopInfoVo {
     @ApiModelProperty(value = "店铺当前使用的模板名称")
     private String templateName;
 
-    @ApiModelProperty(value = "店铺当前使用的模板标识")
-    private TemplateCodeEnum templateCode;
 
     @ApiModelProperty(value = "到期时间")
     private LocalDateTime dueTime;

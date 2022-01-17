@@ -1,11 +1,8 @@
 package com.medusa.gruul.sms.model.dto;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -24,8 +21,6 @@ public class SendSmsDto {
     @NotNull
     @ApiModelProperty(value = "发送时间")
     private Long smsSendTime;
-   /** @ApiModelProperty(value = "发送")
-    private String smsSendContent;*/
     @ApiModelProperty(value = "短信区号，默认中国86")
     private String smsSendZone;
     @ApiModelProperty(value = "短信参数")
@@ -35,7 +30,7 @@ public class SendSmsDto {
     private String smsSendMobiles;
     @NotNull
     @ApiModelProperty(value = "类型：1腾讯 2阿里")
-    private Long smsType;/*2腾讯 1阿里*/
+    private Long smsType;
     @NotNull
     @ApiModelProperty(value = "签名id")
     private Long signId;

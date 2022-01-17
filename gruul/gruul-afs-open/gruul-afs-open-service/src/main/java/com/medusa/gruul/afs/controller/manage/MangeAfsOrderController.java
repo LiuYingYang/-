@@ -20,7 +20,7 @@ import javax.validation.constraints.NotNull;
  * </p>
  *
  * @author alan
- * @since 2020 -08-05
+ * @since 2020-08-05
  */
 @RestController
 @Api(tags = "PC端接口")

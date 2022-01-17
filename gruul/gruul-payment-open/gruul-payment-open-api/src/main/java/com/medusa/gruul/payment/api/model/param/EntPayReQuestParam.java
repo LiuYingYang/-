@@ -45,14 +45,6 @@ public class EntPayReQuestParam {
 
 
     /**
-     * 租户标识
-     */
-    @NonNull
-    @ApiModelProperty(value = "租户标识")
-    private String tenantId;
-
-
-    /**
      * 用户标识
      */
     @NonNull

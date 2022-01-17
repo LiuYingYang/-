@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 /**
  * The type Order product evaluate service.
+ * @author lcysike
  */
 @Service
 public class OrderProductEvaluateServiceImpl extends ServiceImpl<OrderProductEvaluateMapper, OrderProductEvaluate> implements IOrderProductEvaluateService {

@@ -24,7 +24,7 @@ import javax.validation.constraints.NotNull;
 @Accessors(chain = true)
 @EqualsAndHashCode(callSuper = true)
 @TableName("t_shops_menu_config")
-@ApiModel(value = "店铺合伙人菜单属性配置实体", description = "店铺合伙人菜单属性配置表")
+@ApiModel(value = "店铺Modify菜单属性配置实体", description = "店铺Modify菜单属性配置表")
 @Getter
 @Setter
 public class ShopsMenuConfig extends BaseEntity {
@@ -35,15 +35,6 @@ public class ShopsMenuConfig extends BaseEntity {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
-
-
-    /**
-     * 店铺id
-     */
-    @NotNull
-    @ApiModelProperty(value = "店铺id")
-    @TableField("shop_id")
-    private String shopId;
 
 
     /**

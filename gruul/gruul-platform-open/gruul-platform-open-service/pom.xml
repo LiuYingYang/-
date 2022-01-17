@@ -33,7 +33,7 @@
         </dependency>
         <dependency>
             <groupId>com.medusa</groupId>
-            <artifactId>gruul-common-gray</artifactId>
+            <artifactId>gruul-common-gray-open</artifactId>
             <version>${gruul.version}</version>
         </dependency>
         <!-- 微信开放平台 -->

@@ -27,8 +27,8 @@ public class AccountCenterController {
 
     @PutMapping
     @ApiOperation(value = "修改用户中心配置")
-    public Result accountCenterSettingMotify(@RequestBody AccountCenterSettingDto dto) {
-        accountCenterService.accountCenterSettingMotify(dto);
+    public Result accountCenterSettingModify(@RequestBody AccountCenterSettingDto dto) {
+        accountCenterService.accountCenterSettingModify(dto);
         return Result.ok();
     }
 
@@ -38,4 +38,6 @@ public class AccountCenterController {
         AccountCenterVo vo = accountCenterService.accountCenterSetting();
         return Result.ok(vo);
     }
+
+
 }

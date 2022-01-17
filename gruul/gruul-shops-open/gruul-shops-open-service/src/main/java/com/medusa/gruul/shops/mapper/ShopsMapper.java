@@ -11,11 +11,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ShopsMapper extends BaseMapper<Shops> {
-    /**
-     * 获取id最大的店铺
-     *
-     * @return
-     */
-    Shops getMaxId();
 
 }

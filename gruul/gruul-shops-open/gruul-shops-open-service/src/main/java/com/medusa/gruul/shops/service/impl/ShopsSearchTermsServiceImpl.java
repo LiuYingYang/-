@@ -69,14 +69,14 @@ public class ShopsSearchTermsServiceImpl extends ServiceImpl<ShopsSearchTermsMap
 
     private ShopsSearchTermsVo innerGetCache() {
         CurUserDto userDto = CurUserUtil.getHttpCurUser();
-        if (null == userDto || StringUtils.isBlank(userDto.getShopId())) {
+        if (null == userDto) {
             return null;
         }
         ShopsRenovationRedisTools redisTools = new ShopsRenovationRedisTools();
-        String cache = redisTools.get(userDto.getShopId() + GlobalConstant.STRING_SHOP_SEARCH_TERMS);
+        String cache = redisTools.get(GlobalConstant.STRING_SHOP_SEARCH_TERMS);
         if (StringUtils.isBlank(cache)) {
             ShopsSearchTermsVo shopsSearchTermsVo = this.baseMapper.getTerms();
-            redisTools.set(userDto.getShopId() + GlobalConstant.STRING_SHOP_SEARCH_TERMS, JSONObject.toJSONString(shopsSearchTermsVo));
+            redisTools.set(GlobalConstant.STRING_SHOP_SEARCH_TERMS, JSONObject.toJSONString(shopsSearchTermsVo));
             return shopsSearchTermsVo;
         }
         return JSONObject.parseObject(cache, ShopsSearchTermsVo.class);

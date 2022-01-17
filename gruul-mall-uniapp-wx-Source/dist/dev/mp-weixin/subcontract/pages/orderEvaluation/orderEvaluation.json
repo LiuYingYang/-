@@ -1,6 +1,0 @@
-{
-  "navigationBarTitleText": "订单评价",
-  "usingComponents": {
-    "goods": "/components/goods/goods"
-  }
-}

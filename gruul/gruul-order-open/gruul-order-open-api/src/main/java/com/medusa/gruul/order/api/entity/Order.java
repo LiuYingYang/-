@@ -46,13 +46,6 @@ public class Order extends BaseEntity {
     private Long id;
 
     /**
-     * 商铺ID
-     */
-    @ApiModelProperty(value = "商铺ID")
-    @TableField("shop_id")
-    private String shopId;
-
-    /**
      * 用户id
      */
     @ApiModelProperty(value = "用户id")
@@ -129,28 +122,6 @@ public class Order extends BaseEntity {
     @ApiModelProperty(value = "优惠券id")
     @TableField("coupon_id")
     private Long couponId;
-
-    /**
-     * 优惠券抵扣金额
-     */
-    @ApiModelProperty(value = "优惠券抵扣金额")
-    @TableField("coupon_amount")
-    private BigDecimal couponAmount;
-
-
-    /**
-     * 满减活动ID
-     */
-    @ApiModelProperty(value = "满减活动ID")
-    @TableField("full_scale_id")
-    private Long fullScaleId;
-
-    /**
-     * 满减优惠金额
-     */
-    @ApiModelProperty(value = "满减优惠金额")
-    @TableField("full_scale_amount")
-    private BigDecimal fullScaleAmount;
 
 
     /**

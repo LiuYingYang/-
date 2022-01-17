@@ -1,21 +1,9 @@
 package com.medusa.gruul.logistics.util.express.yto;
 
-import cn.hutool.core.date.DateUtil;
-import com.medusa.gruul.common.core.util.StringUtil;
 import com.medusa.gruul.logistics.util.HttpClientUtil;
 import com.medusa.gruul.logistics.util.VerifyCodeUtil;
-import com.medusa.gruul.logistics.util.CoverXMLUtil;
-import com.medusa.gruul.logistics.util.express.yto.bean.Receiver;
-import com.medusa.gruul.logistics.util.express.yto.bean.RequestOrder;
-import com.medusa.gruul.logistics.util.express.yto.bean.Sender;
-import com.medusa.gruul.logistics.util.express.yto.bean.route.Result;
-import com.medusa.gruul.logistics.util.express.yto.bean.route.Ufinterface;
-import com.medusa.gruul.logistics.util.express.yto.bean.route.WaybillCode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 
 /**

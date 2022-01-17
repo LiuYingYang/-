@@ -1,22 +1,17 @@
 package com.medusa.gruul.shops.service.impl;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.baomidou.mybatisplus.annotation.SqlParser;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.medusa.gruul.common.core.exception.ServiceException;
-import com.medusa.gruul.common.core.util.CurUserUtil;
 import com.medusa.gruul.common.core.util.SystemCode;
-import com.medusa.gruul.common.data.annotation.EscapeShop;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
-import com.medusa.gruul.common.dto.CurShopInfoDto;
 import com.medusa.gruul.shops.api.entity.AccountCenter;
 import com.medusa.gruul.shops.api.entity.AccountCenterMenu;
 import com.medusa.gruul.shops.api.model.AccountCenterMenuDto;
 import com.medusa.gruul.shops.api.model.AccountCenterSettingDto;
-import com.medusa.gruul.shops.mapper.AccountCenterMapper;
 import com.medusa.gruul.shops.api.model.AccountCenterVo;
 import com.medusa.gruul.shops.api.model.MenuVo;
+import com.medusa.gruul.shops.mapper.AccountCenterMapper;
 import com.medusa.gruul.shops.service.IAccountCenterMenuService;
 import com.medusa.gruul.shops.service.IAccountCenterService;
 import org.springframework.beans.BeanUtils;
@@ -42,9 +37,8 @@ public class AccountCenterServiceImpl extends ServiceImpl<AccountCenterMapper, A
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @EscapeShop
     public void add(AccountCenterSettingDto accountCenterSettingDto) {
-        AccountCenter accountCenter = this.getByTenantId();
+        AccountCenter accountCenter = this.baseMapper.selectOne(new QueryWrapper<>());
         if (accountCenter == null) {
             accountCenter = new AccountCenter();
         }
@@ -67,7 +61,6 @@ public class AccountCenterServiceImpl extends ServiceImpl<AccountCenterMapper, A
      *
      * @param accountCenterSettingDto com.medusa.gruul.account.api.model.AccountCenterSettingDto
      */
-    @EscapeShop
     private void createMenu(AccountCenterSettingDto accountCenterSettingDto) {
         //清空原本菜单
         accountCenterMenuService.clear();
@@ -88,19 +81,17 @@ public class AccountCenterServiceImpl extends ServiceImpl<AccountCenterMapper, A
     }
 
     @Override
-    @EscapeShop
     public AccountCenterVo accountCenterSetting() {
-        AccountCenter accountCenter = this.getByTenantId();
+        AccountCenter accountCenter = this.baseMapper.selectOne(new QueryWrapper<>());
         AccountCenterVo accountCenterVo = new AccountCenterVo();
         BeanUtils.copyProperties(accountCenter, accountCenterVo);
-        List<MenuVo> menuVos = accountCenterMenuService.getByTenantId();
+        List<MenuVo> menuVos = accountCenterMenuService.getMenuTree();
         accountCenterVo.setMenuVos(menuVos);
         return accountCenterVo;
     }
 
     @Override
-    @EscapeShop
-    public synchronized void accountCenterSettingMotify(AccountCenterSettingDto dto) {
+    public synchronized void accountCenterSettingModify(AccountCenterSettingDto dto) {
         if (dto.getId() == null) {
             throw new ServiceException(SystemCode.DATA_NOT_EXIST);
         }
@@ -133,15 +124,5 @@ public class AccountCenterServiceImpl extends ServiceImpl<AccountCenterMapper, A
         accountCenterMenu.setAllowUse(accountCenterMenuDto.getAllowUse());
         accountCenterMenu.setLinkSelectItem(accountCenterMenuDto.getLinkSelectItem());
         return accountCenterMenu;
-    }
-
-    /**
-     * 根据租户id 获取用户中心配置
-     *
-     * @return com.medusa.gruul.account.api.entity.AccountCenter
-     */
-    @SqlParser(filter = true)
-    private AccountCenter getByTenantId() {
-        return this.baseMapper.selectOne(null);
     }
 }

@@ -8,8 +8,8 @@ import lombok.Data;
 
 /**
  * The type Manage logistics order dto.
- * <p>
  * 快递订单后台订单查询条件
+ * @author lcysike
  */
 @Data
 @ApiModel(value = "快递订单后台订单查询条件")

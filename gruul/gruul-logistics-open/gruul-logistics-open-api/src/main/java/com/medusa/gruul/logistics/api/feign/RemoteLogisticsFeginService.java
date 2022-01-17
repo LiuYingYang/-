@@ -18,12 +18,10 @@ import java.math.BigDecimal;
 public interface RemoteLogisticsFeginService {
     /**
      * 获取模板列表
-     * @param tenantId 租户 id
-     * @param shopId 城市合伙人 id
      * @return Result
      */
     @GetMapping(value = "/feign/get/list")
-    Result getLogisticList(@RequestParam("tenantId") String tenantId, @RequestParam("shopId") String shopId);
+    Result getLogisticList();
 
     /**
      * 根据模板id获取详情
@@ -37,11 +35,10 @@ public interface RemoteLogisticsFeginService {
      * 根据快递公司代码生成快递单号
      * @param expressInfoDto 订单数据传输
      * @param addressId
-     * @param shopId
      * @return Result
      */
     @GetMapping(value = "/feign/get/express/number")
-    Result getLogisticsExpressNumber(@RequestParam("expressInfoDto") ExpressInfoDto expressInfoDto, @RequestParam("addressId") Long addressId,@RequestParam("shopId") String shopId);
+    Result getLogisticsExpressNumber(@RequestParam("expressInfoDto") ExpressInfoDto expressInfoDto, @RequestParam("addressId") Long addressId);
 
     /**
      * 根据快递公司代码与运单号获取快递物流信息

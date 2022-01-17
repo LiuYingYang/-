@@ -39,7 +39,7 @@ public class SmsOrderController {
     * @date: 2019/12/22 5:31 PM
     */
     @EscapeLogin
-    @RequestMapping("/create/Order")
+    @RequestMapping("/create/order")
     @ApiOperation("创建短信发送工单")
     public Result createOrder(@RequestBody SendSmsDto sendSmsDto){
 

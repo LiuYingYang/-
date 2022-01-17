@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.medusa.gruul.account.model.dto.AddressCraeteDto;
 import com.medusa.gruul.account.model.dto.AddressUpdateDto;
 import com.medusa.gruul.account.model.vo.AccountAddressListVo;
-import com.medusa.gruul.account.model.vo.AnalysisLatitudeAndlongitudeVo;
+import com.medusa.gruul.account.model.vo.AnalysisLatitudeAndLongitudeVo;
 import com.medusa.gruul.account.model.vo.LatitudeAndlongitudeVo;
 import com.medusa.gruul.account.service.IMiniAccountAddressService;
 import com.medusa.gruul.account.util.GeoCodeUtil;
@@ -46,15 +46,15 @@ public class MiniAccountAddressController {
 
     @GetMapping
     @ApiOperation(value = "获取用户地址")
-    public Result<List<AccountAddressListVo>> addersGet(@ApiParam(value = "type 1-获取所有 2-获取默认地址,默认type=1") @RequestParam(defaultValue = "1") @NotNull(message = "错误参数") Integer type) {
+    public Result<List<AccountAddressListVo>> addressGet(@ApiParam(value = "type 1-获取所有 2-获取默认地址,默认type=1") @RequestParam(defaultValue = "1") @NotNull(message = "错误参数") Integer type) {
         List<AccountAddressListVo> vos = miniAccountAddressService.addersGet(type);
         return Result.ok(vos);
     }
 
     @PostMapping
     @ApiOperation(value = "添加用户地址")
-    public Result addressCraete(@RequestBody @Validated AddressCraeteDto addersVO) {
-        miniAccountAddressService.addressCraete(addersVO);
+    public Result addressCreate(@RequestBody @Validated AddressCraeteDto addersVO) {
+        miniAccountAddressService.addressCreate(addersVO);
         return Result.ok();
     }
 
@@ -65,10 +65,10 @@ public class MiniAccountAddressController {
         return Result.ok();
     }
 
-    @DeleteMapping("{adderssId}")
+    @DeleteMapping("{addressId}")
     @ApiOperation(value = "删除用户地址")
-    public Result addressDelete(@ApiParam(name = "地址id") @PathVariable(value = "adderssId") @NotNull(message = "错误参数") Integer adderssId) {
-        miniAccountAddressService.addressDelete(adderssId);
+    public Result addressDelete(@ApiParam(name = "地址id") @PathVariable(value = "addressId") @NotNull(message = "错误参数") Integer addressId) {
+        miniAccountAddressService.addressDelete(addressId);
         return Result.ok();
     }
 
@@ -96,7 +96,7 @@ public class MiniAccountAddressController {
 
     @GetMapping("/latitude-longitude")
     @ApiOperation(value = "获取指定地理位置经纬度")
-    public Result<LatitudeAndlongitudeVo> getLatitudeAndlongitude(@ApiParam(value = "详细地址") @RequestParam @NotNull(message = "地理位置为空") String site) {
+    public Result<LatitudeAndlongitudeVo> getLatitudeAndLongitude(@ApiParam(value = "详细地址") @RequestParam @NotNull(message = "地理位置为空") String site) {
         String addressEncoded = geoCodeUtil.getAddressEncoded(site, Boolean.FALSE);
         JSONObject jsonObject = JSON.parseObject(addressEncoded);
         JSONArray geocodes = jsonObject.getJSONArray("geocodes");
@@ -106,7 +106,7 @@ public class MiniAccountAddressController {
         String location = geocodes.getJSONObject(0).getString("location");
         LatitudeAndlongitudeVo vo = new LatitudeAndlongitudeVo();
         vo.setLocation(location);
-        vo.setAndlongitudeVo(this.analysisLatitudeAndlongitude(location).getData());
+        vo.setAndLongitudeVo(this.analysisLatitudeAndLongitude(location).getData());
         return Result.ok(vo);
     }
 
@@ -120,7 +120,7 @@ public class MiniAccountAddressController {
     @GetMapping("/analysis/latitude-longitude")
     @EscapeLogin
     @ApiOperation(value = "根据经纬度返回省市区")
-    public Result<AnalysisLatitudeAndlongitudeVo> analysisLatitudeAndlongitude(@ApiParam(value = "经纬度") @RequestParam @NotNull(message = "经纬度为空") String site) {
+    public Result<AnalysisLatitudeAndLongitudeVo> analysisLatitudeAndLongitude(@ApiParam(value = "经纬度") @RequestParam @NotNull(message = "经纬度为空") String site) {
         String addressRegeo = geoCodeUtil.getAddressRegeo(site, Boolean.FALSE);
         JSONObject jsonObject = JSON.parseObject(addressRegeo);
         Integer status = jsonObject.getInteger("status");
@@ -132,7 +132,7 @@ public class MiniAccountAddressController {
         AreaDto city = AreaUtil.getByLabel(1, addressComponent.getString("city"));
         AreaDto district = AreaUtil.getByValue(2, addressComponent.getString("adcode"));
         String adcode = addressComponent.getString("adcode");
-        AnalysisLatitudeAndlongitudeVo vo = new AnalysisLatitudeAndlongitudeVo();
+        AnalysisLatitudeAndLongitudeVo vo = new AnalysisLatitudeAndLongitudeVo();
         vo.setProvince(province);
         vo.setCity(city);
         vo.setDistrict(district);

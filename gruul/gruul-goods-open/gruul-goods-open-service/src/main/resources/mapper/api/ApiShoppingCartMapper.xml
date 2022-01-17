@@ -5,11 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.medusa.gruul.goods.api.model.vo.api.ApiShoppingCartVo">
         <id column="id" property="id"/>
-        <result column="tenant_id" property="tenantId"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_time" property="updateTime"/>
         <result column="is_deleted" property="deleted"/>
-        <result column="version" property="version"/>
         <result column="product_id" property="productId"/>
         <result column="user_id" property="userId"/>
         <result column="sku_id" property="skuId"/>
@@ -100,7 +96,6 @@
         (p.is_deleted = 1 or
         p.status = 0 or
         p.status = 2 or
-        c.activity_end_time &lt; DATE_FORMAT(NOW(),'%b %d %Y %h:%i %s') or
         EXISTS (select * from t_sku_stock k where k.is_deleted = 1 and c.sku_id = k.id) or
         EXISTS (select * from
         (select s.product_id,sum(s.stock) as sum from t_sku_stock s where s.is_deleted = 0 group by s.product_id) t

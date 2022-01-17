@@ -102,6 +102,8 @@ redis:
   timeout: 3000
   password: 
   database: 0
-
+info:
+  appId: appId
+  secret: secret
 ```
 

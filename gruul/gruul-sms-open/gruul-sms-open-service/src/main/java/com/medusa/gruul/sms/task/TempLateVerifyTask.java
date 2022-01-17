@@ -1,11 +1,7 @@
 package com.medusa.gruul.sms.task;
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.medusa.gruul.sms.constant.SmsSmsStatus;
-import com.medusa.gruul.sms.dao.entity.TSmsOrderEntity;
-import com.medusa.gruul.sms.dao.entity.TSmsTemplateEntity;
-import com.medusa.gruul.sms.service.SmsOrderService;
-import com.medusa.gruul.sms.service.SmsSendService;
+import com.medusa.gruul.sms.model.entity.TSmsTemplateEntity;
 import com.medusa.gruul.sms.service.SmsTempLateService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

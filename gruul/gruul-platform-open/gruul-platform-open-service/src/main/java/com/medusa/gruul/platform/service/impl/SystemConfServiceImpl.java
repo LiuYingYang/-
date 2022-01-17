@@ -186,13 +186,13 @@ public class SystemConfServiceImpl extends ServiceImpl<SystemConfMapper, SystemC
 
     @Override
     public void savePayConfig(SavePayConfigDto savePayConfigDto) {
-        SystemConf systemConf = this.getByParamKey(SystemConstant.PLATFROM_PAY_CONFIG);
+        SystemConf systemConf = this.getByParamKey(SystemConstant.PLATFORM_PAY_CONFIG);
         if (ObjectUtil.isNotNull(systemConf)) {
             systemConf.setParamValue(JSONObject.toJSONString(savePayConfigDto));
             this.baseMapper.updateById(systemConf);
         } else {
             systemConf = new SystemConf();
-            systemConf.setParamKey(SystemConstant.PLATFROM_PAY_CONFIG);
+            systemConf.setParamKey(SystemConstant.PLATFORM_PAY_CONFIG);
             systemConf.setParamValue(JSONObject.toJSONString(savePayConfigDto));
             this.baseMapper.insert(systemConf);
         }
@@ -221,77 +221,11 @@ public class SystemConfServiceImpl extends ServiceImpl<SystemConfMapper, SystemC
 
     @Override
     public PayConfigVo getPayConfig() {
-        SystemConf systemConf = this.getByParamKey(SystemConstant.PLATFROM_PAY_CONFIG);
+        SystemConf systemConf = this.getByParamKey(SystemConstant.PLATFORM_PAY_CONFIG);
         if (ObjectUtil.isNull(systemConf)) {
             return new PayConfigVo();
         }
         return JSONObject.parseObject(systemConf.getParamValue(), PayConfigVo.class);
-    }
-
-    @Override
-    public PayDto wxQrcodePay(String notifyUrl, String outTradeNo, String money, String body, String productId) throws WxPayException {
-        //获取支付配置
-        PayConfigVo payConfig = getPayConfig();
-        if (ObjectUtil.isEmpty(payConfig) || StrUtil.isEmpty(payConfig.getWxMchId())) {
-            throw new ServiceException("支付渠道未开发,请联系平台!");
-        }
-        //封装支付配置
-        WxPayConfig wxPayConfig = new WxPayConfig();
-        wxPayConfig.setAppId(payConfig.getWxAppId());
-        wxPayConfig.setMchId(payConfig.getWxMchId());
-        wxPayConfig.setMchKey(payConfig.getWxMchKey());
-        wxPayConfig.setNotifyUrl(notifyUrl);
-        wxPayConfig.setTradeType(WxPayConstants.TradeType.NATIVE);
-        WxPayService wxPayService = new WxPayServiceApacheHttpImpl();
-        wxPayService.setConfig(wxPayConfig);
-        //发起统一支付请求
-        WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
-        orderRequest.setBody(body);
-        orderRequest.setOutTradeNo(outTradeNo);
-        orderRequest.setTotalFee(BaseWxPayRequest.yuanToFen(money));
-        orderRequest.setSpbillCreateIp("192.168.1.1");
-        orderRequest.setNonceStr(IdUtil.simpleUUID());
-        orderRequest.setTradeType(WxPayConstants.TradeType.NATIVE);
-        orderRequest.setSignType("MD5");
-        orderRequest.setProductId(productId);
-        WxPayUnifiedOrderResult payUnifiedOrderResult = wxPayService.unifiedOrder(orderRequest);
-        PayDto dto = new PayDto();
-        dto.setPrepayId(payUnifiedOrderResult.getPrepayId());
-        dto.setCodeUrl(payUnifiedOrderResult.getCodeURL());
-        return dto;
-    }
-
-    @Override
-    public PayDto aliPayQrcodePay(String notifyUrl, String subject, String price, String outTradeNo) {
-        try {
-            AliPayApiConfigKit.getAliPayApiConfig();
-        } catch (Exception e) {
-            //获取支付配置
-            PayConfigVo payConfig = getPayConfig();
-            if (ObjectUtil.isEmpty(payConfig) || StrUtil.isEmpty(payConfig.getAlipayAppId())) {
-                throw new ServiceException("支付渠道未开发,请联系平台!");
-            }
-            setAliConfigKit(payConfig);
-        }
-
-        AlipayTradePrecreateModel alipayTradePrecreateModel = new AlipayTradePrecreateModel();
-        alipayTradePrecreateModel.setOutTradeNo(outTradeNo);
-        alipayTradePrecreateModel.setTotalAmount(price);
-        alipayTradePrecreateModel.setSubject(subject);
-        PayDto payDto = new PayDto();
-        AlipayTradePrecreateResponse alipayTradePrecreateResponse = null;
-        try {
-            alipayTradePrecreateResponse = AliPayApi.tradePrecreatePayToResponse(alipayTradePrecreateModel, notifyUrl);
-            if (!MeConstant.STATUS_10000.toString().equals(alipayTradePrecreateResponse.getCode())) {
-                log.error("支付生成订单异常： {}", alipayTradePrecreateResponse.toString());
-                throw new ServiceException("支付生成订单异常");
-            }
-        } catch (AlipayApiException e) {
-            e.printStackTrace();
-            throw new ServiceException("支付生成订单异常");
-        }
-        payDto.setCodeUrl(alipayTradePrecreateResponse.getQrCode());
-        return payDto;
     }
 
     @Override

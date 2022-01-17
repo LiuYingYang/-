@@ -5,8 +5,6 @@
 
     <resultMap id="ShopsRenovationTemplateVoMap" type="com.medusa.gruul.shops.model.vo.ShopsRenovationTemplateVo">
         <id column="id" property="id"/>
-        <result column="tenant_id" property="tenantId"/>
-        <result column="shop_id" property="shopId"/>
         <result column="type" property="type"/>
         <result column="colour" property="colour"/>
         <result column="is_deleted" property="isDeleted"/>

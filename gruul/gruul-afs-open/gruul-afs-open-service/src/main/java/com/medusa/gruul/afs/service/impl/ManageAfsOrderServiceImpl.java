@@ -25,13 +25,11 @@ import com.medusa.gruul.afs.mp.model.BaseAfsOrderMessage;
 import com.medusa.gruul.afs.service.IAfsNegotiateHistoryService;
 import com.medusa.gruul.afs.service.IAfsOrderItemService;
 import com.medusa.gruul.afs.service.IManageAfsOrderService;
-import com.medusa.gruul.common.core.constant.TimeConstants;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.PageUtils;
 import com.medusa.gruul.order.api.entity.OrderSetting;
 import com.medusa.gruul.order.api.enums.OrderStatusEnum;
 import com.medusa.gruul.order.api.feign.RemoteOrderService;
-import com.medusa.gruul.order.api.model.ExchangeOrderDto;
 import com.medusa.gruul.order.api.model.OrderVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -51,7 +49,7 @@ import java.util.stream.Collectors;
  * </p>
  *
  * @author alan
- * @since 2020 -08-05
+ * @since 2020-08-05
  */
 @Slf4j
 @Service
@@ -185,7 +183,7 @@ public class ManageAfsOrderServiceImpl extends ServiceImpl<AfsOrderMapper, AfsOr
         orderService.closeExchangeOrder(orderIds);
         for (Long orderId : orderIds) {
             //关闭签收单
-            closeReceipt(orderId, afsOrder.getId(), afsOrder.getTenantId(), afsOrder.getShopId());
+            closeReceipt(orderId, afsOrder.getId());
         }
     }
 
@@ -248,8 +246,7 @@ public class ManageAfsOrderServiceImpl extends ServiceImpl<AfsOrderMapper, AfsOr
             OrderVo orderVo = orderService.orderInfo(orderItem.getOrderId());
             log.info("OrderVo is {}", JSONUtil.toJsonStr(orderVo));
             if (OrderStatusEnum.isClose(orderVo.getStatus())) {
-                closeReceipt(orderItem.getOrderId(), orderItem.getAfsId(), orderItem.getTenantId(),
-                        orderItem.getShopId());
+                closeReceipt(orderItem.getOrderId(), orderItem.getAfsId());
             }
         }
         //更改售后单状态
@@ -275,19 +272,15 @@ public class ManageAfsOrderServiceImpl extends ServiceImpl<AfsOrderMapper, AfsOr
      *
      * @param orderId
      * @param afsId
-     * @param tenantId
-     * @param shopId
      * @return void
      * @author alan
      * @date 2021/3/17 22:35
      */
-    private void closeReceipt(Long orderId, Long afsId, String tenantId, String shopId) {
+    private void closeReceipt(Long orderId, Long afsId) {
         List<AfsOrder> afsOrderList = baseMapper.selectProgressByOrderIdAndIdNotIn(orderId, afsId);
         if (afsOrderList.isEmpty()) {
             AfsRemoveDeliverOrderMessage message = new AfsRemoveDeliverOrderMessage();
             message.setOrderId(orderId);
-            message.setTenantId(tenantId);
-            message.setShopId(shopId);
             sender.sendRemoveSendBillOrderMessage(message);
         }
 

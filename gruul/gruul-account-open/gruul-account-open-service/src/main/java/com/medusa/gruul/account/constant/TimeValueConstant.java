@@ -55,7 +55,7 @@ public class TimeValueConstant {
     public static final Long ONEHOUR = 60 * 60 * 1000L;
 
     /**
-     * 19天
+     * 1５天
      */
     public static final Long NINETEENDAYS = 15 * 24 * 60 * 60 * 1000L;
     /**

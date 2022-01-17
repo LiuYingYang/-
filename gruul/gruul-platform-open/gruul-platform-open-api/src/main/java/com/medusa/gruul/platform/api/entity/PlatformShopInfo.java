@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.medusa.gruul.common.data.base.BaseNoTenantEntity;
+import com.medusa.gruul.common.data.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @TableName("t_platform_shop_info")
 @ApiModel(value = "PlatformShopInfo对象", description = "店铺信息表")
-public class PlatformShopInfo extends BaseNoTenantEntity {
+public class PlatformShopInfo extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -120,23 +120,6 @@ public class PlatformShopInfo extends BaseNoTenantEntity {
     private Long packageOrderId;
 
 
-    /**
-     * 是否私有化部署（0否 1是）
-     */
-    @ApiModelProperty(value = "是否私有化部署（0否 1是）")
-    @TableField("is_privatization_deployment")
-    private Integer isPrivatizationDeployment;
-
-    /**
-     * 店铺租户id
-     */
-    @ApiModelProperty(value = "店铺租户id")
-    @TableField("tenant_id")
-    private String tenantId;
-
-    @ApiModelProperty(value = "创建入口 0-admin 1-商家控制台 2-代理商  3-直属渠道商   4-间接渠道商")
-    @TableField("create_join")
-    private Integer createJoin;
 
     @ApiModelProperty(value = "绑定的小程序id")
     @TableField("bind_mini_id")

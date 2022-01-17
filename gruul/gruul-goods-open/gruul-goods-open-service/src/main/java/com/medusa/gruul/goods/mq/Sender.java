@@ -48,13 +48,12 @@ public class Sender {
      * @param openId
      * @param supplierDto
      */
-    public void sendSupplierMessage(SupplierDto supplierDto, String openId, String tenantId, String templateId) {
+    public void sendSupplierMessage(SupplierDto supplierDto, String openId, String templateId) {
         log.info("-----------供应商审核订阅消息发送开始-----------");
         SubscribeMsgSendDto dto = new SubscribeMsgSendDto();
         dto.setTemplateId(templateId);
         dto.setOpenId(openId);
         dto.setToPath("pages/index/index");
-        dto.setTenantId(tenantId);
         LinkedList<String> s = new LinkedList<>();
         if(CommonConstants.NUMBER_ONE.equals(supplierDto.getStatus())){
             s.add("您已通过供应商审核，请联系商家！");

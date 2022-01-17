@@ -89,10 +89,5 @@ public class AuthUserRole {
     private Boolean deleted;
 
 
-    /**
-     * 租户id
-     */
-    @ApiModelProperty(value = "租户id")
-    @TableField("tenant_id")
-    private String tenantId;
+
 }

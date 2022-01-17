@@ -72,8 +72,8 @@ public class FeignController {
     @GetMapping(value = "/feign/get/express/number")
     @EscapeLogin
     public Result getLogisticsExpressNumber(@RequestParam("expressInfoDto") ExpressInfoDto expressInfoDto
-              , @RequestParam("addressId") Long addressId,@RequestParam("shopId") String shopId) {
-        return logisticsAddressService.getLogisticsExpressNumber(expressInfoDto, addressId,shopId);
+              , @RequestParam("addressId") Long addressId) {
+        return logisticsAddressService.getLogisticsExpressNumber(expressInfoDto, addressId);
     }
 
     /**

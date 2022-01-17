@@ -13,11 +13,4 @@ import com.medusa.gruul.platform.api.entity.MiniInfo;
  */
 public interface MiniInfoMapper extends BaseMapper<MiniInfo> {
 
-
-    /**
-     * 获取id最大的小程序
-     *
-     * @return id最大的小程序信息
-     */
-    MiniInfo getLastMini();
 }

@@ -21,8 +21,6 @@ public class SetMemberDto {
     @ApiModelProperty(value = "会员等级代码")
     @NotBlank(message = "参数为空")
     private String rankCode;
-    @ApiModelProperty(value = "租户id")
-    private String tenantId;
     @ApiModelProperty(value = "手机号")
     @NotBlank(message = "参数为空")
     private String phone;

@@ -95,12 +95,11 @@ public interface IMiniOrderService extends IService<Order> {
      * 支付回调
      *
      * @param orderId  the order id
-     * @param tenantId the tenant id
      * @return void
      * @author alan
      * @date 2019 /11/20 20:39
      */
-    void paymentNotify(Long orderId, String tenantId);
+    void paymentNotify(Long orderId);
 
     /**
      * 用户确认收货

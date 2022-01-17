@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.medusa.gruul.common.data.base.BaseNoTenantEntity;
+import com.medusa.gruul.common.data.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,7 +24,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("t_system_conf")
 @ApiModel(value = "SystemConf对象", description = "系统配置")
-public class SystemConf extends BaseNoTenantEntity {
+public class SystemConf extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

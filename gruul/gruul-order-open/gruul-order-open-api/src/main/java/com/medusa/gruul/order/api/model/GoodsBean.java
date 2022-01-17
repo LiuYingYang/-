@@ -6,14 +6,11 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 
+/**
+ * @author lcysike
+ */
 @NoArgsConstructor
 @Data
-/**
- * <p> 货物实体类型</P>
- * <p>Version: 1.0</p>
- * <p>Author: Mr.zhaozheng </P>
- * <p>Date: 2019-11-22 13:37 </p>
- */
 public class GoodsBean {
     /**
      * goodId : 1234

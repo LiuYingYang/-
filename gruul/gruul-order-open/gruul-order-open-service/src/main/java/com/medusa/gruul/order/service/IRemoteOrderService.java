@@ -31,7 +31,6 @@ public interface IRemoteOrderService extends IService<Order> {
      */
     OrderVo orderInfo(Long orderId);
 
-
     /**
      * 获取商品评价
      *
@@ -42,15 +41,6 @@ public interface IRemoteOrderService extends IService<Order> {
      */
     List<ProductRateVo> productRate(List<Long> productIds);
 
-    /**
-     * 获取未生成发货单的订单
-     *
-     * @param param the param
-     * @return java.util.List<com.medusa.gruul.order.api.model.GetOrderListDto> not shipped order
-     * @author alan
-     * @date 2019 /12/12 21:11
-     */
-    List<GetOrderListDto> getNotShippedOrder(GetOrderListDtoByTimeScope param);
 
     /**
      * 根据订单Id获取指定订单详情
@@ -62,11 +52,10 @@ public interface IRemoteOrderService extends IService<Order> {
      */
     List<GetOrderListDto> getOrderListByIds(GetOrderListParam param);
 
-
     /***
+     * 物流订单发货
      * @param orderDeliveryDtos the order delivery dtos
      * @return the int
-     * 物流订单发货
      * @param:orderDeliveryDto
      * @return: java.util.List<com.medusa.gruul.order.api.model.AreaAssSalesVo>
      * @throws:
@@ -75,11 +64,6 @@ public interface IRemoteOrderService extends IService<Order> {
      * @date 2020 /3/14 10:16 上午
      */
     int doLogisticsOrderDelivery(List<OrderDeliveryDto> orderDeliveryDtos);
-
-
-
-
-
 
     /**
      * 获取指定商品最后购买人的信息
@@ -101,7 +85,6 @@ public interface IRemoteOrderService extends IService<Order> {
      */
     List<Long> waitSendProductList(String sendBillId);
 
-
     /**
      * 获取订单设置
      *
@@ -116,7 +99,6 @@ public interface IRemoteOrderService extends IService<Order> {
      * @return the list
      */
     List<OrderVo> orderInfoList(List<Long> orderIds);
-
 
     /**
      * 创建一个换货单
@@ -143,23 +125,6 @@ public interface IRemoteOrderService extends IService<Order> {
      */
     void closeExchangeOrder(List<Long> orderIds);
 
-    /**
-     * 统计满减活动的销售额
-     *
-     * @param fullScaleIds the full scale ids
-     * @return the list
-     */
-    List<ActivityStatisticsVo> fullScaleStatisticsByActivityId(Long[] fullScaleIds);
-
-    /**
-     * 查询是否有提货点的历史订单
-     *
-     * @param tenantId the tenant id
-     * @param shopId   the shop id
-     * @param pointId  the point id
-     * @return the point order history
-     */
-    Boolean getPointOrderHistory(String tenantId, String shopId, String pointId);
 
     /**
      * 根据订单ID和SkuId查询指定商品有没有售后信息

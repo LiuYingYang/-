@@ -162,10 +162,6 @@ public class RabbitConfig implements RabbitListenerConfigurer {
         return new Queue(OrderQueueNameConstant.ORDER_COMPLETED, true);
     }
 
-    @Bean
-    public Queue deliverRemoveQueue() {
-        return new Queue(OrderQueueNameConstant.DELIVER_REMOVE, true);
-    }
 
     @Bean
     public Queue orderCancelQueue() {
@@ -190,11 +186,6 @@ public class RabbitConfig implements RabbitListenerConfigurer {
 
 
     @Bean
-    public Queue deliverCreateQueue() {
-        return new Queue(OrderQueueNameConstant.DELIVER_CREATE, true);
-    }
-
-    @Bean
     public Queue refundNotifyQueue() {
         return new Queue(OrderQueueNameConstant.REFUND_NOTIFY, true);
     }
@@ -202,23 +193,6 @@ public class RabbitConfig implements RabbitListenerConfigurer {
     @Bean
     public Queue refundNotifySucceedQueue() {
         return new Queue(OrderQueueNameConstant.REFUND_NOTIFY_SUCCEED, true);
-    }
-
-
-    /**
-     * 将物流创建队列绑定到交换机
-     */
-    @Bean
-    Binding deliverCreateBinding(DirectExchange deliverDirect, Queue deliverCreateQueue) {
-        return BindingBuilder
-                .bind(deliverCreateQueue)
-                .to(deliverDirect)
-                .with(OrderQueueEnum.QUEUE_DELIVER_CREATE.getRouteKey());
-    }
-
-    @Bean
-    public Queue deliverReceiptQueue() {
-        return new Queue(OrderQueueNameConstant.DELIVER_RECEIPT, true);
     }
 
     @Bean
@@ -229,17 +203,6 @@ public class RabbitConfig implements RabbitListenerConfigurer {
     @Bean
     public Queue orderDataInitQueue() {
         return new Queue(OrderQueueNameConstant.DATA_INIT, true);
-    }
-
-    /**
-     * 将物流签收队列绑定到交换机
-     */
-    @Bean
-    Binding deliverReceiptBinding(DirectExchange deliverDirect, Queue deliverReceiptQueue) {
-        return BindingBuilder
-                .bind(deliverReceiptQueue)
-                .to(deliverDirect)
-                .with(OrderQueueEnum.QUEUE_DELIVER_RECEIPT.getRouteKey());
     }
 
 
@@ -374,18 +337,6 @@ public class RabbitConfig implements RabbitListenerConfigurer {
 
 
     /**
-     * 将移出发货单队列绑定到交换机
-     */
-    @Bean
-    Binding deliverRemoveBinding(DirectExchange orderDirect, Queue deliverRemoveQueue) {
-        return BindingBuilder
-                .bind(deliverRemoveQueue)
-                .to(orderDirect)
-                .with(OrderQueueEnum.QUEUE_DELIVER_REMOVE.getRouteKey());
-    }
-
-
-    /**
      * 将订单支付成功绑定到支付模块交换机
      */
     @Bean
@@ -405,20 +356,6 @@ public class RabbitConfig implements RabbitListenerConfigurer {
                 .bind(refundNotifyQueue)
                 .to(paymentDirect)
                 .with(OrderQueueEnum.QUEUE_ORDER_REFUND_NOTIFY.getRouteKey());
-    }
-
-
-
-
-    /**
-     * 将订单数据初始化绑定到控制台模块
-     */
-    @Bean
-    Binding orderDataInitBinding(DirectExchange accountDirect, Queue orderDataInitQueue) {
-        return BindingBuilder
-                .bind(orderDataInitQueue)
-                .to(accountDirect)
-                .with(OrderQueueEnum.QUEUE_DATA_INIT.getRouteKey());
     }
 
 

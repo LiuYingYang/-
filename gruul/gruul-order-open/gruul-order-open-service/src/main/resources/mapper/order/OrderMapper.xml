@@ -5,11 +5,9 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.medusa.gruul.order.api.entity.Order">
         <id column="id" property="id"/>
-        <result column="tenant_id" property="tenantId"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="is_deleted" property="deleted"/>
-        <result column="shop_id" property="shopId"/>
         <result column="user_id" property="userId"/>
         <result column="user_name" property="userName"/>
         <result column="user_avatar_url" property="userAvatarUrl"/>
@@ -42,11 +40,10 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        tenant_id,
         create_time,
         update_time,
         is_deleted,
-        id, shop_id, user_id, user_name, user_avatar_url, user_note, type, total_amount, discounts_amount,
+        id, user_id, user_name, user_avatar_url, user_note, type, total_amount, discounts_amount,
          pay_amount, freight_amount, promotion_amount, coupon_id,
         coupon_amount, pay_type,transaction_id, pay_time, source_type, status,close_time,expire_time,
          note,
@@ -162,12 +159,6 @@
         <if test="dto.deliverType == 102">
             AND od.delivery_type = 102
         </if>
-        <if test='dto.area !=null and dto.area == 1'>
-            AND o.activity_ids IS NOT NULL
-        </if>
-        <if test='dto.area !=null and dto.area == 2'>
-            AND o.activity_ids IS NULL
-        </if>
         <if test='dto.remarkType == 1'>
             AND o.note != ''
         </if>
@@ -200,11 +191,9 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="OrderVoMap" type="com.medusa.gruul.order.api.model.OrderVo">
         <id column="id" property="id"/>
-        <result column="tenant_id" property="tenantId"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="is_deleted" property="deleted"/>
-        <result column="shop_id" property="shopId"/>
         <result column="user_id" property="userId"/>
         <result column="user_name" property="userName"/>
         <result column="user_avatar_url" property="userAvatarUrl"/>
@@ -313,10 +302,6 @@
         <collection column="id" property="afsOrderList"
                     select="com.medusa.gruul.order.mapper.AfsOrderMapper.selectByOrderId">
         </collection>
-        <collection column="id" property="goods" javaType="ArrayList"
-                    ofType="com.medusa.gruul.order.api.model.GoodsBean"
-                    select="com.medusa.gruul.order.mapper.OrderItemMapper.selectGoodsBeanByOrderIds">
-        </collection>
     </resultMap>
     <select id="selectOrderListByIds" resultMap="GetOrderListMap">
         SELECT
@@ -330,24 +315,8 @@
             #{orderId}
         </foreach>
         AND o.is_deleted= 0
-        AND o.tenant_id = #{tenantId}
-        AND o.shop_id = #{shopId}
     </select>
-    <select id="selectNotShippedOrder" resultMap="GetOrderListMap">
-        SELECT
-            *
-        FROM
-            t_order as o
-            LEFT JOIN t_order_delivery as od ON o.id = od.order_id
-        WHERE
-            o.pay_time &lt; #{end}
-            AND o.is_deleted= 0
-            AND o.status= 101
-            AND od.delivery_type != 102
-            AND od.send_bill_id IS NULL
-            AND o.tenant_id = #{tenantId}
-            AND o.shop_id = #{shopId}
-    </select>
+
     <select id="selectListByPointIdAndDate" resultType="com.medusa.gruul.order.api.entity.Order">
         SELECT
         o.*
@@ -359,8 +328,6 @@
         AND o.is_deleted = 0
         AND o.status != 100
         AND od.point_id = #{pointId}
-        AND o.tenant_id = #{tenantId}
-         AND o.shop_id = #{shopId}
     </select>
     <select id="selectListByPointIdAndDateBetween" resultType="com.medusa.gruul.order.api.entity.Order">
         SELECT
@@ -472,9 +439,7 @@
         t_order as o
         LEFT JOIN t_order_delivery as od ON o.id = od.order_id
         WHERE
-        o.tenant_id = #{tenantId}
-        AND o.shop_id = #{shopId}
-        AND o.status in
+        o.status in
         <foreach collection="orderStatusList" item="orderStatus" open="(" separator="," close=")">
             #{orderStatus}
         </foreach>
@@ -627,9 +592,6 @@
         <result column="receiver_phone" property="receiverPhone"/>
         <result column="receiver_detail_address" property="receiverDetailAddress"/>
         <result column="pay_amount" property="payAmount"/>
-        <collection column="id" property="itemVoList" javaType="ArrayList"
-                    select="com.medusa.gruul.order.mapper.OrderItemMapper.selectSolitaireOrderItemVoByOrderId">
-        </collection>
     </resultMap>
     <select id="getSolitaireBuyerPage" resultMap="SolitaireBuyerVoMap">
         SELECT
@@ -667,38 +629,7 @@
         ORDER BY
             pay_time DESC
     </select>
-    <select id="selectListByFullScaleIds" resultType="com.medusa.gruul.order.api.model.ActivityStatisticsVo">
-        SELECT
-        full_scale_id as activity_id,
-        sum(pay_amount) AS gaap_total,
-        COUNT(id) AS pay_order,
-        COUNT(DISTINCT(user_id)) AS people_num
-        FROM
-        t_order
-        WHERE
-        status > 100
-        AND full_scale_id IN
-        <if test="fullScaleIdList!=null and  fullScaleIdList.size() > 0">
-            <foreach collection="fullScaleIdList" item="fullScaleId" open="(" separator="," close=")">
-                #{fullScaleId}
-            </foreach>
-        </if>
-        GROUP BY full_scale_id
-    </select>
-    <select id="getPointOrderHistory" resultType="java.lang.Integer">
-        SELECT
-            COUNT(DISTINCT od.order_id)
-        FROM
-            t_order AS o
-            LEFT JOIN t_order_delivery AS od ON o.id = od.order_id
-                AND od.tenant_id = #{tenantId}
-                AND  od.shop_id=#{shopId}
-        WHERE
-            o.pay_type != 100
-            AND od.point_id = #{pointId}
-            AND o.tenant_id = #{tenantId}
-            AND o.shop_id = #{shopId}
-    </select>
+
 
 
 

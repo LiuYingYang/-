@@ -34,19 +34,8 @@ public class ShopsServiceImpl extends ServiceImpl<ShopsMapper, Shops> implements
      */
     @Override
     public List listShops() {
-        return this.baseMapper.selectList(new QueryWrapper<Shops>().eq("", ""));
+        return this.baseMapper.selectList(new QueryWrapper<>());
     }
-
-    @Override
-    public Long getMaxId() {
-        Shops shop = this.baseMapper.getMaxId();
-        Long id = 1L;
-        if(shop != null){
-            id = shop.getId();
-        }
-        return id;
-    }
-
 
     /**
      * 获取热门词汇

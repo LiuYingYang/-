@@ -3,9 +3,6 @@ package com.medusa.gruul.shops.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
-import cn.hutool.core.util.ArrayUtil;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.nacos.common.util.Md5Utils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.additional.update.impl.LambdaUpdateChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -13,14 +10,12 @@ import com.medusa.gruul.common.core.constant.CommonConstants;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.Result;
 import com.medusa.gruul.common.core.util.SystemCode;
-import com.medusa.gruul.common.data.annotation.EscapeShop;
 import com.medusa.gruul.shops.api.entity.ShopsRenovationAssembly;
 import com.medusa.gruul.shops.api.entity.ShopsRenovationPage;
 import com.medusa.gruul.shops.api.entity.ShopsRenovationTemplate;
 import com.medusa.gruul.shops.mapper.ShopsRenovationTemPageAssMapper;
 import com.medusa.gruul.shops.mapper.ShopsRenovationTemPageMapper;
 import com.medusa.gruul.shops.model.param.ShopsRenovationAssemblyParam;
-import com.medusa.gruul.shops.model.vo.ShopsRenovationAssemblyVo;
 import com.medusa.gruul.shops.properties.GlobalConstant;
 import com.medusa.gruul.shops.properties.ShopsRenovationRedisTools;
 import com.medusa.gruul.shops.service.ShopsRenovationTemPageAssService;
@@ -61,11 +56,10 @@ public class ShopsRenovationTemPageAssServiceImpl extends ServiceImpl<ShopsRenov
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    @EscapeShop
     public Result addTemplatePageAssembly(List<ShopsRenovationAssemblyParam> params) {
 
         Long pageId = params.get(0).getPageId();
-        if (params.get(0).getModelId()!=null){
+        if (params.get(0).getModelId() != null) {
             //根据modelId获取pageId
             pageId = getPageId(params);
         }
@@ -77,7 +71,7 @@ public class ShopsRenovationTemPageAssServiceImpl extends ServiceImpl<ShopsRenov
         params.stream().forEach(entity -> {
             ShopsRenovationAssembly assembly = new ShopsRenovationAssembly();
             if (null == entity.getId()) {
-                if (params.get(0).getModelId()!=null){
+                if (params.get(0).getModelId() != null) {
                     entity.setPageId(getPageId(params));
                 }
 
@@ -107,9 +101,9 @@ public class ShopsRenovationTemPageAssServiceImpl extends ServiceImpl<ShopsRenov
      */
     private Long getPageId(List<ShopsRenovationAssemblyParam> params) {
         String modelId = params.get(0).getModelId();
-        log.warn(modelId+"----------------------------------");
+        log.warn(modelId + "----------------------------------");
         ShopsRenovationPage shopsRenovationPage = shopsRenovationTemPage.selectByModelId(modelId);
-        return  shopsRenovationPage.getId();
+        return shopsRenovationPage.getId();
     }
 
 
@@ -120,7 +114,6 @@ public class ShopsRenovationTemPageAssServiceImpl extends ServiceImpl<ShopsRenov
      * @return Result
      */
     @Override
-    @EscapeShop
     public Result delTemplatePageAssembly(String ids) {
         if (StringUtils.isBlank(ids)) {
             throw new ServiceException(SystemCode.PARAM_MISS.getMsg());
@@ -149,14 +142,13 @@ public class ShopsRenovationTemPageAssServiceImpl extends ServiceImpl<ShopsRenov
      * @return Result
      */
     @Override
-    @EscapeShop
     public Result listTemplatePageAssembly(ShopsRenovationAssemblyParam param) {
         /** 临时移除缓存查询 */
-        if (null == param.getModelId()){
+        if (null == param.getModelId()) {
             return Result.ok(this.baseMapper.listTemplatePageAssembly(param));
         }
         ShopsRenovationPage shopsRenovationPage = shopsRenovationTemPage.selectByModelId(param.getModelId());
-        if (BeanUtil.isEmpty(shopsRenovationPage)){
+        if (BeanUtil.isEmpty(shopsRenovationPage)) {
             return Result.ok("无此专区商品信息");
         }
         Long id = shopsRenovationPage.getId();
@@ -172,34 +164,32 @@ public class ShopsRenovationTemPageAssServiceImpl extends ServiceImpl<ShopsRenov
      * @return List
      */
     @Override
-    @EscapeShop
     public List<ShopsRenovationAssembly> listTemplatePageAssemblyByPageId(Long pageId) {
         return this.baseMapper.listTemplatePageAssemblyByPageId(pageId);
     }
 
 
     @Override
-    public boolean updateSpecialArea(String tenantId,String shopId, String linkName,String newLinkName) {
+    public boolean updateSpecialArea(String linkName,String newLinkName) {
         ShopsRenovationTemplate shopsRenovationTemplate = shopsRenovationTemService.getOne(new QueryWrapper<ShopsRenovationTemplate>()
                 .eq("online_status", CommonConstants.NUMBER_ONE)
-                .eq("shop_id", shopId)
-                .eq("tenant_id", tenantId).last("LIMIT 1"));
+                .last("LIMIT 1"));
         if (shopsRenovationTemplate == null){
             return true;
         }
         ShopsRenovationPage shopsRenovationPage = shopsRenovationTemPageService.getOne(new QueryWrapper<ShopsRenovationPage>()
                 .eq("template_id", shopsRenovationTemplate.getId()).eq("is_def", CommonConstants.NUMBER_ONE).last("LIMIT 1"));
-        if (shopsRenovationPage == null){
+        if (shopsRenovationPage == null) {
             return true;
         }
         Long pageId = shopsRenovationPage.getId();
         List<ShopsRenovationAssembly> shopsRenovationAssemblies = shopsRenovationTemPageAssMapper.listTemplatePageAssemblyByPageId(pageId);
-        if (CollectionUtil.isEmpty(shopsRenovationAssemblies)){
+        if (CollectionUtil.isEmpty(shopsRenovationAssemblies)) {
             return true;
         }
         String properties = null;
         for (int i = 0; i < shopsRenovationAssemblies.size(); i++) {
-            properties = shopsRenovationAssemblies.get(i).getProperties().replaceAll("\""+linkName+"\"","\""+ newLinkName+"\"");
+            properties = shopsRenovationAssemblies.get(i).getProperties().replaceAll("\"" + linkName + "\"", "\"" + newLinkName + "\"");
             shopsRenovationAssemblies.get(i).setProperties(properties);
         }
         return this.updateBatchById(shopsRenovationAssemblies);

@@ -2,7 +2,7 @@ package com.medusa.gruul.order.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
+import com.medusa.gruul.common.core.constant.CommonConstants;
 import com.medusa.gruul.order.api.constant.OrderShareSettingRedisKey;
 import com.medusa.gruul.order.api.entity.OrderShareSetting;
 import com.medusa.gruul.order.mapper.OrderShareSettingMapper;
@@ -20,24 +20,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class OrderShareSettingServiceImpl extends ServiceImpl<OrderShareSettingMapper, OrderShareSetting> implements IOrderShareSettingService {
 
-    @Override
-    public void init() {
-        OrderShareSetting shareSetting = this.getOne(null);
-        if (ObjectUtil.isNull(shareSetting)) {
-            shareSetting = new OrderShareSetting();
-            shareSetting.setTitle(OrderShareSetting.DEFAULT_TITLE);
-            shareSetting.setBackground(OrderShareSetting.DEFAULT_BACKGROUND);
-            this.save(shareSetting);
-        }
-    }
+
 
     @Override
     public OrderShareSetting getSetting() {
         OrderShareSettingRedisKey redisKey = new OrderShareSettingRedisKey();
-        OrderShareSetting shareSetting = redisKey.getObject(ShopContextHolder.getShopId(), new OrderShareSetting());
+        OrderShareSetting shareSetting = redisKey.getObject("order", new OrderShareSetting());
         if (ObjectUtil.isNull(shareSetting)) {
             shareSetting = this.getOne(null);
-            redisKey.setObject(ShopContextHolder.getShopId(), shareSetting);
+            redisKey.setObject("order", shareSetting);
         }
         return shareSetting;
     }

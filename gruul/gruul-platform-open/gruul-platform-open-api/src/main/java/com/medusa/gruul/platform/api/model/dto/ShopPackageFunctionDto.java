@@ -34,6 +34,8 @@ public class ShopPackageFunctionDto {
     private Boolean live;
 
 
+    @ApiModelProperty("区域团长  true=开启 false=无法使用 level=2")
+    private Boolean area;
 
     @ApiModelProperty("版权自定义 true=开启 false=无法使用 level=2")
     private Boolean copyright;

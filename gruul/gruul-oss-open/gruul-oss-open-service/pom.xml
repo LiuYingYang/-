@@ -23,12 +23,12 @@
         </dependency>
         <dependency>
             <groupId>com.medusa</groupId>
-            <artifactId>gruul-common-auth</artifactId>
+            <artifactId>gruul-common-auth-open</artifactId>
             <version>${gruul.version}</version>
         </dependency>
         <dependency>
             <groupId>com.medusa</groupId>
-            <artifactId>gruul-common-gray</artifactId>
+            <artifactId>gruul-common-gray-open</artifactId>
             <version>${gruul.version}</version>
         </dependency>
         <dependency>

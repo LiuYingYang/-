@@ -86,25 +86,7 @@ public class ApiShoppingCartDto implements Serializable {
     @NotNull
     private Integer status;
 
-    /**
-     * 活动id
-     */
-    @ApiModelProperty(value = "活动id")
-    private Long activityId;
 
-    /**
-     * 活动开始时间
-     */
-    @ApiModelProperty(value = "活动开始时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date activityStartTime;
-
-    /**
-     * 活动结束时间
-     */
-    @ApiModelProperty(value = "活动结束时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date activityEndTime;
 
     /**
      * 选中状态(0--未选中，1--已选中)

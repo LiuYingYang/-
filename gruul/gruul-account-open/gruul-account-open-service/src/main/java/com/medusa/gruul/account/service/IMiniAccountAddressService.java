@@ -23,7 +23,7 @@ public interface IMiniAccountAddressService extends IService<MiniAccountAddress>
      *
      * @param addersVO com.medusa.gruul.account.model.dto.AddressCraeteDto
      */
-    void addressCraete(AddressCraeteDto addersVO);
+    void addressCreate(AddressCraeteDto addersVO);
 
 
     /**
@@ -37,9 +37,9 @@ public interface IMiniAccountAddressService extends IService<MiniAccountAddress>
     /**
      * 删除指定地址
      *
-     * @param adderssId 地址id
+     * @param addressId 地址id
      */
-    void addressDelete(Integer adderssId);
+    void addressDelete(Integer addressId);
 
     /**
      * 更新用户地址

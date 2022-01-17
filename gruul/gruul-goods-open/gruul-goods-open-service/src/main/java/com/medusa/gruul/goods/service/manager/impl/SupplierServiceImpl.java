@@ -14,7 +14,6 @@ import com.medusa.gruul.common.core.constant.CommonConstants;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.StringUtil;
 import com.medusa.gruul.common.core.util.SystemCode;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.goods.api.entity.Product;
 import com.medusa.gruul.goods.api.entity.Supplier;
 import com.medusa.gruul.goods.api.model.dto.manager.SupplierDto;
@@ -184,7 +183,6 @@ public class SupplierServiceImpl extends ServiceImpl<SupplierMapper, Supplier> i
         String templateId = oldSupplier.getTemplateId();
         if(StringUtil.isNotEmpty(templateId)){
             //审核后 调用消息订阅去发送审核消息通知
-            String tenantId = TenantContextHolder.getTenantId();
             List<Integer> infos = new ArrayList<>(CommonConstants.NUMBER_ONE);
             infos.add(CommonConstants.NUMBER_FOUR);
             AccountInfoDto accountInfoDto = remoteMiniAccountService.accountInfo(oldSupplier.getUserId(), infos);
@@ -192,7 +190,7 @@ public class SupplierServiceImpl extends ServiceImpl<SupplierMapper, Supplier> i
                 throw new ServiceException("用户信息不存在！", SystemCode.DATA_EXISTED_CODE);
             }else{
                 String openId = accountInfoDto.getMiniAccountOauths().getOpenId();
-                sender.sendSupplierMessage(supplierDto, openId, tenantId, templateId);
+                sender.sendSupplierMessage(supplierDto, openId, templateId);
 
             }
         }

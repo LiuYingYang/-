@@ -16,7 +16,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @ApiModel(description = "系统内置code")
 public enum SmsEnum implements IResultCode {
-    //枚举相关
 	SMS_TEMPLATE_NOT_EXIST(1001, "模版不存在或未通过审核"),
 	SMS_SIGN_NOT_EXIST(1002, "签名不存在或未通过审核"),
 	SMS_PROVIDER_NOT_EXIST(1003, "供应商不存在或未通过审核"),

@@ -9,14 +9,12 @@
         <result column="create_time" property="createTime"/>
         <result column="is_deleted" property="deleted"/>
         <result column="update_time" property="updateTime"/>
-        <result column="tenant_id" property="tenantId"/>
-        <result column="shop_id" property="shopId"/>
     </resultMap>
 
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,is_open,create_time,is_deleted,update_time,tenant_id,shop_id
+        id,is_open,create_time,is_deleted,update_time
     </sql>
     <update id="updateShopGuidePageSwitchStatus">
          UPDATE

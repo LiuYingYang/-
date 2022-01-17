@@ -4,6 +4,7 @@ import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.ReUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
+import com.medusa.gruul.common.core.constant.CommonConstants;
 import com.medusa.gruul.common.core.constant.RegexConstants;
 import com.medusa.gruul.common.core.constant.TimeConstants;
 import com.medusa.gruul.common.core.constant.enums.AuthCodeEnum;
@@ -17,11 +18,11 @@ import com.medusa.gruul.platform.constant.RedisConstant;
 import com.medusa.gruul.platform.constant.SmsConstant;
 import com.medusa.gruul.platform.model.dto.SendCodeDto;
 import com.medusa.gruul.platform.service.ISendCodeService;
-import com.medusa.gruul.sms.api.dto.SendSmsFeginDto;
+import com.medusa.gruul.sms.api.dto.SendSmsFeignDto;
 import com.medusa.gruul.sms.api.feign.RemoteSmsSendService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Calendar;
 
 /**
@@ -35,7 +36,7 @@ import java.util.Calendar;
 @Service
 public class SendCodeServiceImpl implements ISendCodeService {
 
-    @Autowired
+    @Resource
     private RemoteSmsSendService remoteSmsSendService;
 
 
@@ -53,20 +54,20 @@ public class SendCodeServiceImpl implements ISendCodeService {
         if (StrUtil.isNotEmpty(code)) {
             return;
         }
-        code = RandomUtil.randomNumbers(6);
+        code = RandomUtil.randomNumbers(CommonConstants.NUMBER_SIX);
         //验证码有效期未过则重新发送
-        SendSmsFeginDto sendSmsFeginDto = new SendSmsFeginDto();
-        sendSmsFeginDto.setSmsSendTime(Calendar.getInstance().getTimeInMillis());
-        sendSmsFeginDto.setSmsSendMobiles(sendCodeDto.getPhone());
-        sendSmsFeginDto.setSmsSendParam(code);
-        sendSmsFeginDto.setSmsSendZone(SmsConstant.ZONE);
-        sendSmsFeginDto.setSmsType(SmsConstant.SMS_TYPE_ALIYUN);
-        sendSmsFeginDto.setSmsSendZone(SmsConstant.ZONE);
-        sendSmsFeginDto.setSignId(SmsConstant.SIGN_ID);
-        sendSmsFeginDto.setTemplateId(SmsConstant.TEMPLATE_ID);
-        sendSmsFeginDto.setProviderId(SmsConstant.PROVIDER_ID);
-        sendSmsFeginDto.setUserId(SmsConstant.USER_ID);
-        Result order = remoteSmsSendService.createOrder(sendSmsFeginDto);
+        SendSmsFeignDto sendSmsFeignDto = new SendSmsFeignDto();
+        sendSmsFeignDto.setSmsSendTime(Calendar.getInstance().getTimeInMillis());
+        sendSmsFeignDto.setSmsSendMobiles(sendCodeDto.getPhone());
+        sendSmsFeignDto.setSmsSendParam(code);
+        sendSmsFeignDto.setSmsSendZone(SmsConstant.ZONE);
+        sendSmsFeignDto.setSmsType(SmsConstant.SMS_TYPE_ALIYUN);
+        sendSmsFeignDto.setSmsSendZone(SmsConstant.ZONE);
+        sendSmsFeignDto.setSignId(SmsConstant.SIGN_ID);
+        sendSmsFeignDto.setTemplateId(SmsConstant.TEMPLATE_ID);
+        sendSmsFeignDto.setProviderId(SmsConstant.PROVIDER_ID);
+        sendSmsFeignDto.setUserId(SmsConstant.USER_ID);
+        Result order = remoteSmsSendService.createOrder(sendSmsFeignDto);
         if ((MeConstant.STATUS_OK == order.getCode()) == Boolean.FALSE) {
             throw new ServiceException("短信发送失败,".concat(order.getMsg()));
         }
@@ -98,11 +99,11 @@ public class SendCodeServiceImpl implements ISendCodeService {
     @Override
     public void certificateCheck(String certificateCheck, String phone, Integer type) {
         PlatformRedis platformRedis = new PlatformRedis();
-        String phoneCheche = platformRedis.get(RedisConstant.PHONE_CERTIFICATE_KEY.concat(type.toString()).concat(":").concat(certificateCheck));
-        if (StrUtil.isEmpty(phoneCheche)) {
+        String phoneCheck = platformRedis.get(RedisConstant.PHONE_CERTIFICATE_KEY.concat(type.toString()).concat(":").concat(certificateCheck));
+        if (StrUtil.isEmpty(phoneCheck)) {
             throw new ServiceException("无效验证码");
         }
-        if (!phone.equals(phoneCheche)) {
+        if (!phone.equals(phoneCheck)) {
             throw new ServiceException("无效验证码,请输入获取验证码的手机号");
         }
         platformRedis.del(phone);

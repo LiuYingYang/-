@@ -136,7 +136,6 @@ public class Sender {
         dto.setTemplateId(orderVo.getOrderDelivery().getDeliveryTemplateId());
         dto.setOpenId(openId);
         dto.setToPath(StrUtil.format("/pages/orderDetail/orderDetail?orderId={}", orderVo.getId()));
-        dto.setTenantId(orderVo.getTenantId());
         LinkedList<String> s = new LinkedList<>();
         //订单编号：20191111232312
         //发货时间：2019年12月12日 14:02
@@ -173,27 +172,6 @@ public class Sender {
     }
 
 
-    /**
-     * 订单移出发货单
-     *
-     * @param message
-     * @return void
-     * @author alan
-     * @date 2019/12/9 20:18
-     */
-    public void sendRemoveSendBillOrderMessage(RemoveSendBillOrderMessage message) {
-        CorrelationData correlationData = new CorrelationData(IdUtil.fastSimpleUUID());
-        log.info("sendRemoveSendBillOrderMessage:" + message.toString());
-        rabbitTemplate.convertAndSend(OrderQueueNameConstant.DELIVER_REMOVE, message, correlationData);
-    }
-
-    public void generateSendBillOrderMessage(GenerateSendBillOrderMessage message) {
-        CorrelationData correlationData = new CorrelationData(IdUtil.fastSimpleUUID());
-        log.info("generateSendBillOrderMessage message:" + message.toString());
-        rabbitTemplate.convertAndSend(OrderQueueEnum.QUEUE_DELIVER_CREATE.getExchange(),
-                OrderQueueEnum.QUEUE_DELIVER_CREATE.getRouteKey(), message, correlationData);
-
-    }
 
     public void sendReturnOrderMessage(OrderVo orderVo) {
         CorrelationData correlationData = new CorrelationData(IdUtil.fastSimpleUUID());
@@ -203,13 +181,7 @@ public class Sender {
 
     }
 
-    public void receiptSendBillOrderMessage(OrderVo orderVo) {
-        CorrelationData correlationData = new CorrelationData(IdUtil.fastSimpleUUID());
-        log.info("receiptSendBillOrderMessage message:" + orderVo.toString());
-        rabbitTemplate.convertAndSend(OrderQueueEnum.QUEUE_DELIVER_RECEIPT.getExchange(),
-                OrderQueueEnum.QUEUE_DELIVER_RECEIPT.getRouteKey(), orderVo, correlationData);
 
-    }
 
 
     //============================================订阅==============================================

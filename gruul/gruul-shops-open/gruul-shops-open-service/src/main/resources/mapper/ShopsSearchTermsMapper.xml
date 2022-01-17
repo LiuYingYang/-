@@ -8,8 +8,6 @@
         <result column="create_time" property="createTime"/>
         <result column="is_deleted" property="isDeleted"/>
         <result column="update_time" property="updateTime"/>
-        <result column="tenant_id" property="tenantId"/>
-        <result column="shop_id" property="shopId"/>
         <result column="terms" property="terms"/>
         <result column="def_terms" property="defTerms"/>
         <result column="is_show" property="isShow"/>

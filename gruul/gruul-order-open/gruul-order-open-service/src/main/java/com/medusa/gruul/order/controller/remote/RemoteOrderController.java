@@ -68,6 +68,7 @@ public class RemoteOrderController {
 
     /**
      * 获取商品评价
+     *
      * @author alan
      * @date 2020/2/7 20:12
      */
@@ -82,33 +83,10 @@ public class RemoteOrderController {
         return remoteOrderService.productRate(productIds);
     }
 
-    /**
-     * 获取未生成发货单的订单
-     *
-     * @param start    开始时间
-     * @param end      结束时间
-     * @param tenantId 租户id
-     * @param shopId   城市合伙人id
-     * @return java.util.List<com.medusa.gruul.order.api.model.GetOrderListDto>
-     * @author alan，zhaozheng
-     * @date 2019/12/12 20:51
-     */
-
-    @EscapeLogin
-    @ApiOperation("获取未生成发货单的订单")
-    @GetMapping(value = "/get/not-shipped/orders")
-    public List<GetOrderListDto> getNotShippedOrder(@RequestParam String start, @RequestParam String end,
-                                                    @RequestParam String tenantId, @RequestParam String shopId) {
-        GetOrderListDtoByTimeScope param = new GetOrderListDtoByTimeScope(start, end, tenantId, shopId);
-        return remoteOrderService.getNotShippedOrder(param);
-    }
-
 
     /**
      * 根据订单Id获取指定订单详情
      *
-     * @param tenantId 租户id
-     * @param shopId   城市合伙人id
      * @param orderIds 订单集合
      * @return java.util.List<com.medusa.gruul.order.api.model.GetOrderListDto>
      * @author alan，zhaozheng
@@ -117,31 +95,9 @@ public class RemoteOrderController {
     @EscapeLogin
     @ApiOperation("根据订单Id获取指定订单详情")
     @GetMapping(value = "/get/orders")
-    public List<GetOrderListDto> getOrderListByIds(@RequestParam String tenantId, @RequestParam String shopId,
-                                                   @RequestParam Long[] orderIds) {
-        GetOrderListParam param = new GetOrderListParam(tenantId, shopId, Arrays.asList(orderIds));
+    public List<GetOrderListDto> getOrderListByIds(@RequestParam Long[] orderIds) {
+        GetOrderListParam param = new GetOrderListParam(Arrays.asList(orderIds));
         return remoteOrderService.getOrderListByIds(param);
-    }
-
-
-    /**
-     * 查询是否有提货点的历史订单
-     *
-     * @param tenantId
-     * @param shopId
-     * @param pointId
-     * @return java.lang.Boolean
-     * @author alan
-     * @date 2020/9/12 10:53
-     */
-    @EscapeLogin
-    @ApiOperation("查询是否有提货点的历史订单")
-    @GetMapping("/point/history")
-    public Boolean getSiteOrderHistory(@RequestParam("tenantId") String tenantId,
-                                       @RequestParam("shopId") String shopId,
-                                       @RequestParam("pointId") String pointId) {
-        return remoteOrderService.getPointOrderHistory(tenantId, shopId, pointId);
-
     }
 
 
@@ -154,37 +110,6 @@ public class RemoteOrderController {
             return 0;
         }
         return remoteOrderService.doLogisticsOrderDelivery(orderDeliveryDtos);
-    }
-
-    /**
-     * 统计活动的销售额
-     *
-     * @param activityIds
-     * @return int
-     * @author alan
-     * @date 2020/3/23 22:01
-     */
-    @EscapeLogin
-    @ApiOperation("统计活动的销售额")
-    @GetMapping("/activity/statistics")
-    List<ActivityStatisticsVo> activityStatistics(@RequestParam(value = "activityIds") Long[] activityIds) {
-        // 代码阉割
-        return null;
-    }
-
-    /**
-     * 统计满减活动的销售额
-     *
-     * @param fullScaleIds
-     * @return int
-     * @author alan
-     * @date 2020/3/23 22:01
-     */
-    @EscapeLogin
-    @ApiOperation("统计满减活动的销售额")
-    @GetMapping("/fullScale/statistics")
-    List<ActivityStatisticsVo> fullScaleStatistics(@RequestParam(value = "fullScaleIds") Long[] fullScaleIds) {
-        return remoteOrderService.fullScaleStatisticsByActivityId(fullScaleIds);
     }
 
 

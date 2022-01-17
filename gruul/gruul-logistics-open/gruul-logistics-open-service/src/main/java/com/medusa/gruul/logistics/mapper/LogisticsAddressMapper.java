@@ -32,16 +32,6 @@ public interface LogisticsAddressMapper extends BaseMapper<LogisticsAddress> {
      */
     List<LogisticsAddressVo> queryAllLogisticsAddressList();
 
-
-    /**
-     * 根据快递公司代码获取关联的地址信息
-     * @param page
-     * @param expressCode 快递公司代码
-     * @return List<LogisticsAddressVo>
-     */
-    List<LogisticsAddressVo> queryLogisticsAddressByExpressCode(IPage page, @Param("expressCode") String expressCode);
-
-
     /**
      * 获取默认收/发货地址
      * @param type 收发货类型 1-发货地址 2-收货地址

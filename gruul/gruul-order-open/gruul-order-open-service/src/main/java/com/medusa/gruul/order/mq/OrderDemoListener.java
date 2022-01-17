@@ -47,7 +47,7 @@ public class OrderDemoListener {
         JSONObject object = new JSONObject(2);
         object.set("orderId", orderVo.getId());
         object.set("mp3", "http://medusa-small-file.oss-cn-hangzhou.aliyuncs.com/api/20200228113926mix(1).mp3");
-        counterHandler.sendMessageToUser(orderVo.getShopId(), object.toString());
+        counterHandler.sendMessageToUser("order", object.toString());
         //手动确认
         channel.basicAck(properties.getDeliveryTag(), true);
     }

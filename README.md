@@ -1,18 +1,3 @@
-![输入图片说明](images/%E5%8F%8C12%E5%95%86%E5%9F%8E%E6%B5%B7%E6%8A%A50.gif)
- * @description: 抽离开源版本
- * @Author: chuyinlong
- * @Date: 2021-09-03 10:01:47
- * @LastEditors: chuyinlong
- * @LastEditTime: 2021-09-03 10:59:39
-
-### 郑重声明
-近期发现市场上有人冒充smart shop工作人员通过售卖盗版smart shop商城系统源码非法获益，在此我们郑重声明：非经过本公司官方渠道购买的smart shop源码出现任何问题我们概不负责。
-
-使用违法获取的盗版系统，存在很多的数据安全隐患，还会带来法律风险，请大家共同监督，发现人员出售盗版系统，及时与我们联系，我们将依法追究其法律责任 :exclamation:  :exclamation:  :exclamation: 
-
-| 交流群4 | 交流群5  | 技术微信 |
-|--------|--------|--------|
-|![](https://images.gitee.com/uploads/images/2021/0707/113944_4f9df1f5_8533008.jpeg "4.jpg")|![](https://images.gitee.com/uploads/images/2021/0707/114009_f44c2fc5_8533008.png "5.png")|![](https://images.gitee.com/uploads/images/2021/1120/135453_4b4de7bd_8533008.jpeg "微信-.jpg")
 ### 前言
 
 期盼已久的经过 **百万真实用户沉淀并检验** 的企业级smart shop商城系统核心框架正式开源上架啦 :tada:  :tada:  :tada:    
@@ -21,9 +6,19 @@
 
 我们希望通过gitee平台能让更多的人了解smart shop商城系统，获得大家认可的同时也希望大家对smartshop提出宝贵的意见，帮助我们不断对系统进行迭代优化，使Smart Shop成为 **Java程序员的首选商城框架** ！！
 
+
+| 交流群4 | 交流群5  | 技术微信 |
+|--------|--------|--------|
+|![输入图片说明](images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20211218091213.png)|![输入图片说明](images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20211218091218.png)|![](https://images.gitee.com/uploads/images/2021/1120/135453_4b4de7bd_8533008.jpeg "微信-.jpg")
+
+
 ### 项目介绍
 Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前后端分离、分布式、微服务架构的Java商城系统，采用稳定框架开发及优化核心，减少依赖，具备出色的执行效率，扩展性、稳定性高，H5/小程序/APP三端合一数据打通，Smart shop将持续收集大家反馈不断更新迭代，并经过了生产环境**反复线上论证**和**大量真实用户数据使用**的考验。
 
+### 郑重声明
+近期发现市场上有人冒充smart shop工作人员通过售卖盗版smart shop商城系统源码非法获益，在此我们郑重声明：非经过本公司官方渠道购买的smart shop源码出现任何问题我们概不负责。
+
+使用违法获取的盗版系统，存在很多的数据安全隐患，还会带来法律风险，请大家共同监督，发现人员出售盗版系统，及时与我们联系，我们将依法追究其法律责任 :exclamation:  :exclamation:  :exclamation: 
 ### 荣誉资质
 |![输入图片说明](https://images.gitee.com/uploads/images/2021/0907/162352_817a9646_8533008.png "商城软著_20210907161716.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104042_f5d3ec3b_8533008.png "布谷鸟SaaS平台.png")|![输入图片说明](https://images.gitee.com/uploads/images/2021/0814/104233_f71a9b70_8533008.png "外观专利.png")|
 |---|---|---|
@@ -110,8 +105,6 @@ Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前�
 
 ✅ 个人学习；
 
-✅ 商用（请注明来源）；
-
 ✅ 公益项目（请注明来源）。
 
 
@@ -137,7 +130,6 @@ Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前�
 - 安装部署文档
 - 后台接口文档
 - 小程序端接口文档
-- 数据字典
 - 操作手册.docx
 - 纸质授权证书
 - 增值税专用发票
@@ -175,9 +167,13 @@ Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前�
 
 
 ###  项目演示
-|![输入图片说明](images/aa1615e427d448cb93de24f511ec0243.png)|![输入图片说明](images/smart%20shop%E5%95%86%E4%B8%9A%E7%89%88.png)|
-|---|---|
-|开源版本演示地址：https://open.bgniao.cn/copartner/0.1/sign 账号：18058505737密码：admin123|商业版演示地址：https://mall.bgniao.cn/copartner/0.1/sign 账号：18067188818 密码：12345678|
+|![输入图片说明](images/1641779802(1).png)|
+|------|
+###  演示地址
+|商业版源码生产环境演示地址：https://mall.bgniao.cn/copartner/1.0/sign 账号：18345208780 密码：admin123|
+|------|
+| H5演示地址：https://mall.bgniao.cn/h5/#/ |
+
 
 
 |小程序端真机截图|
@@ -209,13 +205,13 @@ Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前�
 ####  新线科技
 > 新线科技一家专注于计算机、软件及辅助设备、电子产品销售等科技型公司，有着自己的技术团队。前期用的是PHP的营销商城，近几年客户量发展较快再加上所售产品价格较高，基于长期发展肯定需要更换商城的底层架构，必然会用到Spring Cloud，选择我们这套系统是技术成本较低的一个选择。
 
-| ![输入图片说明](211.jpg)  |![输入图片说明](images/212.jpg)   | ![输入图片说明](images/213.jpg)  | ![输入图片说明](images/214.jpg)  |
+| ![输入图片说明](images/22d8edb51ba4af1e329aa5e300de2c8.jpg)  |![输入图片说明](images/212.jpg)   | ![输入图片说明](images/213.jpg)  | ![输入图片说明](images/214.jpg)  |
 |---|---|---|---|
 
 ####  劲面堂
 > 劲面堂，连锁品牌有着大量忠实粉丝的餐饮公司，对用户数据尤为看中，需要有一套属于自己公司的售卖系统。随着市场变化可随时做二次开发来满足市场需求长远考虑JAVA微服务架构是不二之选。
 
-| ![输入图片说明](010.jpg)  | ![输入图片说明](images/011.jpg)  | ![输入图片说明](images/012.jpg)  | ![输入图片说明](images/013.jpg)  |
+| ![输入图片说明](images/010.jpg)  | ![输入图片说明](images/011.jpg)  | ![输入图片说明](images/012.jpg)  | ![输入图片说明](images/013.jpg)  |
 |---|---|---|---|
 
 

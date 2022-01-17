@@ -1,11 +1,9 @@
 package com.medusa.gruul.shops.model.vo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -23,20 +21,6 @@ public class ShopsRenovationTemplateVo implements Serializable {
 
 
     private Long id;
-
-
-    /**
-     * 归属关联Id
-     */
-    @ApiModelProperty(value = "归属关联Id")
-    private String tenantId;
-
-
-    /**
-     * 店铺id
-     */
-    @ApiModelProperty(value = "店铺id")
-    private String shopId;
 
 
     /**

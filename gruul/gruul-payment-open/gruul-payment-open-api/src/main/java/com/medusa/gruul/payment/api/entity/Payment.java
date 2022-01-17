@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.medusa.gruul.common.data.base.BaseNoTenantEntity;
+import com.medusa.gruul.common.data.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @TableName("t_payment")
 @ApiModel(value = "Payment对象", description = "")
-public class Payment extends BaseNoTenantEntity {
+public class Payment extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -135,14 +135,5 @@ public class Payment extends BaseNoTenantEntity {
     @ApiModelProperty(value = "回调次数")
     @TableField("third_party_notify_number")
     private Integer thirdPartyNotifyNumber;
-
-
-    /**
-     * 租户标识
-     */
-    @ApiModelProperty(value = "租户标识")
-    @TableField("tenant_id")
-    private String tenantId;
-
 
 }

@@ -2,8 +2,6 @@ package com.medusa.gruul.goods.service.manager.impl;
 
 
 import com.medusa.gruul.common.core.util.Result;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.goods.service.manager.IFreightTemplateService;
 import com.medusa.gruul.logistics.api.feign.RemoteLogisticsFeginService;
 import org.springframework.stereotype.Service;
@@ -32,9 +30,7 @@ public class FreightTemplateServiceImpl implements IFreightTemplateService {
      */
     @Override
     public Result findFreightTemplateListByLogistics() {
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
-        return remoteLogisticsFeginService.getLogisticList(tenantId, shopId);
+        return remoteLogisticsFeginService.getLogisticList();
     }
 
     /**

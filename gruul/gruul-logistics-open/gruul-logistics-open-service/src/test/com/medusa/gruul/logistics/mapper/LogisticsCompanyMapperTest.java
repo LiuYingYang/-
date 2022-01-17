@@ -2,8 +2,6 @@ package com.medusa.gruul.logistics.mapper;
 
 import com.baomidou.mybatisplus.test.autoconfigure.MybatisPlusTest;
 import com.medusa.gruul.common.core.constant.CommonConstants;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.logistics.api.entity.LogisticsCompany;
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,11 +25,7 @@ public class LogisticsCompanyMapperTest {
 
     @Test
     public void selectListCompany() {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         Map<String, Object> param = new HashMap<>(CommonConstants.NUMBER_TWO);
-        param.put("shopId", "100002100001");
-        param.put("tenantId", "100002");
         List<LogisticsCompany> logisticsCompanies = logisticsCompanyMapper.selectListCompany(param);
         Assert.assertNotNull(logisticsCompanies);
         System.out.println(logisticsCompanies.toString());
@@ -39,11 +33,7 @@ public class LogisticsCompanyMapperTest {
 
     @Test
     public void selectListCompanyByParam() {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         Map<String, Object> param = new HashMap<>(CommonConstants.NUMBER_TWO);
-        param.put("shopId", "100002100001");
-        param.put("tenantId", "100002");
         param.put("code", "zt");
         LogisticsCompany logisticsCompany = logisticsCompanyMapper.selectListCompanyByParam(param);
         Assert.assertNotNull(logisticsCompany);

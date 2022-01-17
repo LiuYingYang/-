@@ -12,8 +12,6 @@ import java.math.BigDecimal;
 @Data
 public class PayRequestDto {
 
-    @ApiModelProperty(value = "商户标识 ,必要参数")
-    private String tenantId;
     @ApiModelProperty(value = "支付渠道 1-微信支付(枚举) ,必要参数")
     private Integer payChannel;
     @ApiModelProperty(value = "交易类型 1--JSAPI支付（小程序appId支付）、2--Native支付、3--app支付，4--JSAPI支付（公众号appId支付）   6-H5支付 ,必要参数")

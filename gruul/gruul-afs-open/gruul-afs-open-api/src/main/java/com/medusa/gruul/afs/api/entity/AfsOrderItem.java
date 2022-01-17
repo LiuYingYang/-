@@ -14,11 +14,11 @@ import java.math.BigDecimal;
 
 /**
  * <p>
- * 申请的详情
+ * 售后申请的详情
  * </p>
  *
  * @author alan
- * @since 2020 -08-21
+ * @since 2020-08-21
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -35,13 +35,6 @@ public class AfsOrderItem extends BaseEntity {
     @ApiModelProperty(value = "id")
     @TableId("id")
     private Long id;
-
-    /**
-     * 商铺ID
-     */
-    @ApiModelProperty(value = "商铺ID")
-    @TableField("shop_id")
-    private String shopId;
 
     /**
      * 售后申请单ID

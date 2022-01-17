@@ -24,17 +24,11 @@ public class ShopsRenovationTemplateParam extends QueryParam {
     @ApiModelProperty("id")
     private Long id;
 
-    /**
-     * 店铺id
-     */
-    @ApiModelProperty(value = "店铺id")
-    private String shopId;
-
 
     /**
-     * 模板类型 0自定义 1拼团 2商超
+     * 模板类型 0自定义 2商超
      */
-    @ApiModelProperty(value = "模板类型 0自定义 1拼团 2商超")
+    @ApiModelProperty(value = "模板类型 0自定义 2商超")
     private String type;
 
 

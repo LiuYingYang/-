@@ -12,6 +12,7 @@ import com.github.binarywang.wxpay.constant.WxPayConstants;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
 import com.github.binarywang.wxpay.service.impl.WxPayServiceApacheHttpImpl;
+import com.medusa.gruul.account.api.conf.MiniInfoProperty;
 import com.medusa.gruul.common.core.constant.CommonConstants;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.LocalDateTimeUtils;
@@ -34,9 +35,12 @@ import com.medusa.gruul.platform.api.model.dto.ShopConfigDto;
 import com.medusa.gruul.platform.api.model.vo.PayInfoVo;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -45,6 +49,7 @@ import java.util.concurrent.TimeUnit;
  * @author whh
  */
 @Component
+@EnableConfigurationProperties(MiniInfoProperty.class)
 public class WxPayMiniHandler extends AbstractHandler {
 
     @Autowired
@@ -61,6 +66,9 @@ public class WxPayMiniHandler extends AbstractHandler {
 
     @Autowired
     private RemoteMiniInfoService remoteMiniInfoService;
+
+    @Resource
+    private MiniInfoProperty miniInfoProperty;
 
     /**
      * 超时关闭订单
@@ -112,17 +120,16 @@ public class WxPayMiniHandler extends AbstractHandler {
         paymentWechat.setPaymentId(payment.getId());
         paymentWechat.setOutTradeNo(payRequestDto.getOutTradeNo());
         paymentWechat.setSubject(payRequestDto.getSubject());
-        paymentWechat.setTenantId(payRequestDto.getTenantId());
         paymentWechat.setOpenId(payRequestDto.getOpenId());
         paymentWechatService.save(paymentWechat);
 
         //记录业务数据
-        PaymentRecord paymentRecord = this.generateRecod(payRequestDto);
+        PaymentRecord paymentRecord = this.generateRecord(payRequestDto);
         paymentRecord.setPaymentId(payment.getId());
 
 
         //获取支付配置,并封装数据调用支付接口
-        WxPayService wxPayService = getWxPayService(payment.getTenantId(), payment.getBusinessNotifyUrl(), payRequestDto.getTradeType());
+        WxPayService wxPayService = getWxPayService(payment.getBusinessNotifyUrl(), payRequestDto.getTradeType());
         WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
         orderRequest.setBody(payment.getBody());
         orderRequest.setOutTradeNo(payment.getTransactionId().toString());
@@ -184,17 +191,16 @@ public class WxPayMiniHandler extends AbstractHandler {
         paymentWechat.setPaymentId(payment.getId());
         paymentWechat.setOutTradeNo(payRequestDto.getOutTradeNo());
         paymentWechat.setSubject(payRequestDto.getSubject());
-        paymentWechat.setTenantId(payRequestDto.getTenantId());
         paymentWechat.setOpenId(payRequestDto.getOpenId());
         paymentWechatService.save(paymentWechat);
 
         //记录业务数据
-        PaymentRecord paymentRecord = this.generateRecod(payRequestDto);
+        PaymentRecord paymentRecord = this.generateRecord(payRequestDto);
         paymentRecord.setPaymentId(payment.getId());
 
 
         //获取支付配置,并封装数据调用支付接口
-        WxPayService wxPayService = getWxPayService(payment.getTenantId(), payment.getBusinessNotifyUrl(), payRequestDto.getTradeType());
+        WxPayService wxPayService = getWxPayService(payment.getBusinessNotifyUrl(), payRequestDto.getTradeType());
         WxPayUnifiedOrderRequest orderRequest = new WxPayUnifiedOrderRequest();
         orderRequest.setBody(payment.getBody());
         orderRequest.setOutTradeNo(payment.getTransactionId().toString());
@@ -260,8 +266,8 @@ public class WxPayMiniHandler extends AbstractHandler {
     }
 
 
-    private WxPayService getWxPayService(String tenantId, String notify, Integer tradeType) {
-        ShopConfigDto shopConfig = remoteMiniInfoService.getShopConfig(tenantId);
+    private WxPayService getWxPayService(String notify, Integer tradeType) {
+        ShopConfigDto shopConfig = remoteMiniInfoService.getShopConfig();
         if (shopConfig == null) {
             throw new ServiceException("商户配置不存在");
         }
@@ -269,10 +275,9 @@ public class WxPayMiniHandler extends AbstractHandler {
         if (payInfo == null) {
             throw new ServiceException("支付配置不存在");
         }
-
         WxPayService wxPayService = new WxPayServiceApacheHttpImpl();
         WxPayConfig wxPayConfig = new WxPayConfig();
-        String appId = "";
+        String appId = miniInfoProperty.getAppId();
         if (tradeType.equals(WxPayEnum.JSAPI_MP.getType())) {
             MiniInfo mpInfo = shopConfig.getMpInfo();
             if (mpInfo == null) {
@@ -282,12 +287,6 @@ public class WxPayMiniHandler extends AbstractHandler {
                 throw new ServiceException("公众号未授权");
             }
             appId = mpInfo.getAppId();
-        } else {
-            MiniInfo miniInfo = shopConfig.getMiniInfo();
-            if (miniInfo == null) {
-                throw new ServiceException("未授权小程序");
-            }
-            appId = miniInfo.getAppId();
         }
         wxPayConfig.setAppId(appId);
         wxPayConfig.setMchId(payInfo.getMchId());
@@ -301,8 +300,8 @@ public class WxPayMiniHandler extends AbstractHandler {
     }
 
     @Override
-    public PaymentRecord generateRecod(PayRequestDto payRequestDto) {
-        return super.generateRecod(payRequestDto);
+    public PaymentRecord generateRecord(PayRequestDto payRequestDto) {
+        return super.generateRecord(payRequestDto);
     }
 
     @Override

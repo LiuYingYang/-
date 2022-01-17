@@ -53,14 +53,6 @@ public class ShopGuidePage<T extends Model<?>> extends Model<T> implements Seria
 	@TableField("type")
 	private Integer type;
 
-	@ApiModelProperty(value = "店铺id")
-	@TableField("shop_id")
-	private String shopId;
-
-	@ApiModelProperty("租户ID")
-	@TableField("tenant_id")
-	private String tenantId;
-
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@ApiModelProperty("创建时间")
 	@TableField(fill = FieldFill.INSERT)

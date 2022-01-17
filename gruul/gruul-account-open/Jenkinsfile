@@ -9,7 +9,7 @@
     environment {
        PROJECT_VERSION = 0.1 // 项目版本,
        EVN = " -e SPRING_CLOUD_NACOS_DISCOVERY_METADATA_VERSION=${PROJECT_VERSION} "
-       DOCKER_REGISTRY = "ip:81" //镜像上传选地址
+       DOCKER_REGISTRY = "127.0.0.1:81" //镜像上传选地址
        IMAGE_NAME = "gruul/gruul-account-open"
        IMAGE_VERSION = "open-${PROJECT_VERSION}"
        MODEL_NAME = "gruul-account-open"

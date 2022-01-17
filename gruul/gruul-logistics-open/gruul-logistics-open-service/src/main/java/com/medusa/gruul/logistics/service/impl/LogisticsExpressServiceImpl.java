@@ -2,6 +2,7 @@ package com.medusa.gruul.logistics.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -9,7 +10,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.Result;
 import com.medusa.gruul.common.core.util.SystemCode;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
 import com.medusa.gruul.logistics.api.entity.LogisticsCompany;
 import com.medusa.gruul.logistics.api.entity.LogisticsExpress;
 import com.medusa.gruul.logistics.mapper.LogisticsCompanyMapper;
@@ -20,7 +20,6 @@ import com.medusa.gruul.logistics.model.vo.LogisticsExpressVo;
 import com.medusa.gruul.logistics.model.vo.LogisticsRouteVo;
 import com.medusa.gruul.logistics.service.ILogisticsExpressService;
 import com.medusa.gruul.logistics.util.express.kuaidihelp.KuaiDiHelp;
-import com.medusa.gruul.logistics.util.express.sf.SFExpressUtil;
 import com.medusa.gruul.order.api.entity.OrderSetting;
 import com.medusa.gruul.order.api.feign.RemoteOrderService;
 import lombok.extern.slf4j.Slf4j;
@@ -132,15 +131,15 @@ public class LogisticsExpressServiceImpl implements ILogisticsExpressService {
      */
     @Override
     public Result getLogisticsExpressRoute(String waybillNo, String shipperType) {
-        String shopId = ShopContextHolder.getShopId();
         String expressInfo;
         if(KuaiDiHelp.SFCODE.equals(shipperType)){
-            List<LogisticsExpress> logisticsExpresses = logisticsExpressMapper.selectList(new QueryWrapper<LogisticsExpress>().eq("code", KuaiDiHelp.SFCODE));
-            if(CollectionUtil.isNotEmpty(logisticsExpresses)){
-                LogisticsExpress logisticsExpress = logisticsExpresses.get(0);
-                expressInfo = SFExpressUtil.getSFRoute(waybillNo, logisticsExpress.getCustomerName(), logisticsExpress.getCustomerPassword());
-            }else{
-                throw new ServiceException("请前往快递设置-物流服务设置顺丰快递的大客户账号！", SystemCode.DATA_EXISTED.getCode());
+            //使用其他api进行获取
+            String s = HttpUtil.get("https://api.svip8.vip/?key=DSrpgUkt3wsiIjOzy7h90CZxHefYMWBA&text=" + waybillNo);
+            JSONObject jsonObject = JSON.parseObject(s);
+            if(jsonObject.getInteger("code") == 200){
+                expressInfo = jsonObject.getJSONObject("data").getString("context");
+            }else {
+                throw new ServiceException("暂无物流信息");
             }
         }else{
             OrderSetting orderSetting = remoteOrderService.getOrderSetting();

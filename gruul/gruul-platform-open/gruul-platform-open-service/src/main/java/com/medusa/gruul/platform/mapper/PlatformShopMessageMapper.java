@@ -15,11 +15,4 @@ import java.util.List;
  */
 public interface PlatformShopMessageMapper extends BaseMapper<PlatformShopMessage> {
 
-    /**
-     * 获取租户最后一个版本的消息
-     *
-     * @return com.medusa.gruul.platform.api.entity.PlatformShopMessage
-     */
-    List<PlatformShopMessage> getLastMiniMsg();
-
 }

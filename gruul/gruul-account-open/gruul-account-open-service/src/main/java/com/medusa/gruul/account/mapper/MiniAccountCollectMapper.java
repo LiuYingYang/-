@@ -1,6 +1,5 @@
 package com.medusa.gruul.account.mapper;
 
-import com.baomidou.mybatisplus.annotation.SqlParser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.medusa.gruul.account.api.entity.MiniAccountCollect;
 import com.medusa.gruul.account.model.dto.UserCollectDto;
@@ -26,7 +25,6 @@ public interface MiniAccountCollectMapper extends BaseMapper<MiniAccountCollect>
      * @param userId 用戶id
      * @return 用户收藏信息
      */
-    @SqlParser(filter = true)
     List<UserCollectVo> getUserCollectInfoById(String userId);
 
     /**

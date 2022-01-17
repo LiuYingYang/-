@@ -102,7 +102,7 @@ public class PaymentServiceImpl extends ServiceImpl<PaymentMapper, Payment> impl
     public String innerHandleCallback(Payment payment, String xmlResult) {
         //回调都已处理直接返回
         if (payment.getBusinessNotifyStatus().equals(StatusConstant.BusinessNotifyStatus.PROCESSED)
-                && payment.getThirdPartyNotifyStatus().equals(StatusConstant.ThirdpartyNotifyStatus.PROCESSED)) {
+                && payment.getThirdPartyNotifyStatus().equals(StatusConstant.ThirdPartyNotifyStatus.PROCESSED)) {
             return ReturnCodeConstant.SUCCESS;
         }
         //回调次数加1
@@ -112,7 +112,7 @@ public class PaymentServiceImpl extends ServiceImpl<PaymentMapper, Payment> impl
         if (StrUtil.isNotEmpty(payment.getRouteKey())) {
             //支付流水订单交易状态设置为成功,并且已设置回调状态为已设置
             THREAD_POOL_EXECUTOR.execute(() -> {
-                payment.setThirdPartyNotifyStatus(StatusConstant.ThirdpartyNotifyStatus.PROCESSED);
+                payment.setThirdPartyNotifyStatus(StatusConstant.ThirdPartyNotifyStatus.PROCESSED);
                 payment.setTradeStatus(StatusConstant.TradeStatus.TRADE_SUCCESS);
                 payment.setBusinessNotifyStatus(StatusConstant.BusinessNotifyStatus.PROCESSED);
                 this.baseMapper.updateById(payment);
@@ -122,13 +122,13 @@ public class PaymentServiceImpl extends ServiceImpl<PaymentMapper, Payment> impl
         } else if (StrUtil.isNotEmpty(payment.getBusinessNotifyUrl())) {
             //url回调多次
             //第三方回调已处理,业务回调未处理直接发送业务回调请求
-            if (payment.getThirdPartyNotifyStatus().equals(StatusConstant.ThirdpartyNotifyStatus.PROCESSED) &&
+            if (payment.getThirdPartyNotifyStatus().equals(StatusConstant.ThirdPartyNotifyStatus.PROCESSED) &&
                     payment.getBusinessNotifyStatus().equals(StatusConstant.BusinessNotifyStatus.UNTREATED)) {
                 businessNotify(payment);
                 return "";
             }
             //支付流水订单设置为成功
-            payment.setThirdPartyNotifyStatus(StatusConstant.ThirdpartyNotifyStatus.PROCESSED);
+            payment.setThirdPartyNotifyStatus(StatusConstant.ThirdPartyNotifyStatus.PROCESSED);
             payment.setTradeStatus(StatusConstant.TradeStatus.TRADE_SUCCESS);
             this.baseMapper.updateById(payment);
             //设置回调参数
@@ -212,9 +212,6 @@ public class PaymentServiceImpl extends ServiceImpl<PaymentMapper, Payment> impl
         PayInfoVo payInfo = shopConfig.getPayInfo();
 
         log.warn("shopConfig log = " + JSONObject.toJSONString(shopConfig));
-        if (miniInfo == null) {
-            throw new ServiceException("商户不存在");
-        }
         WxPayService wxPayService = new WxPayServiceApacheHttpImpl();
         WxPayConfig wxPayConfig = new WxPayConfig();
         wxPayConfig.setAppId(miniInfo.getAppId());
@@ -234,14 +231,14 @@ public class PaymentServiceImpl extends ServiceImpl<PaymentMapper, Payment> impl
     private void amqpNotifySend(Payment payment) {
         PaymentWechat paymentWechat = paymentWechatService.getOne(new QueryWrapper<PaymentWechat>().eq("payment_id", payment.getId()));
         WxPayNotifyResultDto wxPayNotifyResultDto = new WxPayNotifyResultDto(paymentWechat.getOutTradeNo(), payment.getBusinessParams(),
-                payment.getTenantId(), payment.getTransactionId().toString());
+                payment.getTransactionId().toString());
         amqpTemplate.convertAndSend(PaymentQueueEnum.QUEUE_PAYMENT_NOTIFY_SUCCESS.getExchange(), payment.getRouteKey(), wxPayNotifyResultDto);
     }
 
     @Override
-    public PayStatusDto getPayStatus(String outTradeNo, String payChannel, String tenantId, String transactionId) {
+    public PayStatusDto getPayStatus(String outTradeNo, String payChannel, String transactionId) {
         PayStatusDto payStatusDto = new PayStatusDto();
-        Payment payment = this.baseMapper.selectOrderStatus(outTradeNo, payChannel, tenantId, transactionId);
+        Payment payment = this.baseMapper.selectOrderStatus(outTradeNo, payChannel, transactionId);
         if (payment == null) {
             payStatusDto.setTradeStatus(0);
             return payStatusDto;
@@ -261,7 +258,6 @@ public class PaymentServiceImpl extends ServiceImpl<PaymentMapper, Payment> impl
                 WxPayNotifyResultDto notifyParam = new WxPayNotifyResultDto();
                 notifyParam.setOutTradeNo(paymentWechat.getOutTradeNo());
                 notifyParam.setBusinessParams(payment.getBusinessParams());
-                notifyParam.setTenantId(payment.getTenantId());
                 notifyParam.setTransactionId(payment.getTransactionId().toString());
                 String post = HttpUtil.post(payment.getBusinessNotifyUrl(), JSONUtil.toJsonStr(notifyParam));
                 if (StrUtil.equalsAnyIgnoreCase(post, ReturnCodeConstant.SUCCESS)) {

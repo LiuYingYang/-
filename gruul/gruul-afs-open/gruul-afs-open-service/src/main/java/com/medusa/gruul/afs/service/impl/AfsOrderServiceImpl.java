@@ -4,7 +4,6 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.date.LocalDateTimeUtil;
-import cn.hutool.core.util.BooleanUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
@@ -57,7 +56,7 @@ import java.util.stream.Collectors;
  * </p>
  *
  * @author alan
- * @since 2020 -08-05
+ * @since 2020-08-05
  */
 @Slf4j
 @Service
@@ -194,7 +193,6 @@ public class AfsOrderServiceImpl extends ServiceImpl<AfsOrderMapper, AfsOrder> i
     public AfsOrder saveAfsOrder(BaseApplyDto dto, CurUserDto curUserDto, OrderVo orderVo, Integer userAfterSaleNum,
                                  OrderSetting orderSetting, Long receiptBillId) {
         AfsOrder afsOrder = new AfsOrder();
-        afsOrder.setShopId(orderVo.getShopId());
         afsOrder.setNo(orderVo.getId().toString().concat(dto.getType().getName()).concat(String.valueOf(userAfterSaleNum + 1)));
         afsOrder.setType(dto.getType());
         afsOrder.setStatus(AfsOrderStatusEnum.WAIT_FOR_BUSINESS_APPROVED);
@@ -210,7 +208,6 @@ public class AfsOrderServiceImpl extends ServiceImpl<AfsOrderMapper, AfsOrder> i
         }
         afsOrder.setDeadline(LocalDateTimeUtil.now().plusDays(orderSetting.getMerchantConfirmOvertime()));
         afsOrder.setDescription(dto.getDescription());
-        // TODO: 2021/8/3 不确定 申请售后的签收单ID 是什么
         afsOrder.setReceiptBillId(orderVo.getOrderDelivery().getOrderId());
         afsOrder.setImages(dto.getImages());
         afsOrder.setIsLogistics(orderVo.getOrderDelivery().getDeliveryType().equals(DeliverTypeEnum.LOGISTICS));
@@ -478,7 +475,7 @@ public class AfsOrderServiceImpl extends ServiceImpl<AfsOrderMapper, AfsOrder> i
             afsOrder.setDeliverySn(deliverySn);
             afsOrder.setDeliveryCode(deliveryCode);
             afsOrder.setDeliveryCompany(deliveryCompany);
-            // TODO: 2021/8/3 暂且换成 商家最大审核期限
+            // 设置商家最大审核期限
             afsOrder.setDeadline(LocalDateTimeUtil.now().plusDays(orderSetting.getMerchantConfirmOvertime()));
             afsOrder.setStatus(AfsOrderStatusEnum.WAIT_FOR_BUSINESS_RECEIPT);
             this.updateById(afsOrder);

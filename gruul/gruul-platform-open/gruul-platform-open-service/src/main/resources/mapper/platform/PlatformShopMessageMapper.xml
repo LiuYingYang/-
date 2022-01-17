@@ -17,7 +17,6 @@
         <result column="code_msg" property="codeMsg"/>
         <result column="mp_open" property="mpOpen"/>
         <result column="mp_msg" property="mpMsg"/>
-        <result column="tenant_id" property="tenantId"/>
         <result column="mark" property="mark"/>
         <result column="mini_template_id" property="miniTemplateId"/>
         <result column="code_template_id" property="codeTemplateId"/>
@@ -30,23 +29,8 @@
         is_deleted,title,
         update_time,
         create_time,
-        id, use_type, version, message_type, mini_open, mini_msg, code_open, code_msg, mp_open, mp_msg, tenant_id, mark,
+        id, use_type, version, message_type, mini_open, mini_msg, code_open, code_msg, mp_open, mp_msg, mark,
         mini_template_id, code_template_id, mp_template_id
     </sql>
-    <select id="getLastMiniMsg" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from
-        t_platform_shop_message
-        where
-        use_type = 1
-        and
-        version = (
-        select version from t_platform_shop_message
-        where id = (
-        select max(id) from t_platform_shop_message
-        )
-        )
-    </select>
 
 </mapper>

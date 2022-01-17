@@ -47,15 +47,6 @@ public class ShopsRenovationAssembly extends BaseEntity {
 
 
     /**
-     * 店铺id
-     */
-    @NotNull
-    @ApiModelProperty(value = "店铺id")
-    @TableField("shop_id")
-    private String shopId;
-
-
-    /**
      * 组件属性 json串
      */
     @NotNull

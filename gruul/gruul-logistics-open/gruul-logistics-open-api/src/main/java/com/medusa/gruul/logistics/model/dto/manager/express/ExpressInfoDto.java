@@ -2,8 +2,6 @@ package com.medusa.gruul.logistics.model.dto.manager.express;
 
 import lombok.Data;
 
-import java.util.List;
-
 /**
  * <p>
  * 快递接口数据传输对象

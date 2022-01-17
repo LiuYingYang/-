@@ -13,10 +13,6 @@ import com.medusa.gruul.order.api.entity.OrderShareSetting;
  */
 public interface IOrderShareSettingService extends IService<OrderShareSetting> {
 
-    /**
-     * Init.
-     */
-    void init();
 
     /**
      * Gets setting.

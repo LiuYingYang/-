@@ -17,7 +17,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author alan
- * @since 2020 -08-05
+ * @since 2020-08-05
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -34,13 +34,6 @@ public class AfsNegotiateHistory extends BaseEntity {
     @ApiModelProperty(value = "工单id")
     @TableId("id")
     private Long id;
-
-    /**
-     * 商铺ID
-     */
-    @ApiModelProperty(value = "商铺ID")
-    @TableField("shop_id")
-    private String shopId;
 
     /**
      * 申请人ID

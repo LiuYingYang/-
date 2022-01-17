@@ -15,5 +15,5 @@ public class LatitudeAndlongitudeVo {
     private String location;
 
     @ApiModelProperty(value = "省市区")
-    private AnalysisLatitudeAndlongitudeVo andlongitudeVo;
+    private AnalysisLatitudeAndLongitudeVo andLongitudeVo;
 }

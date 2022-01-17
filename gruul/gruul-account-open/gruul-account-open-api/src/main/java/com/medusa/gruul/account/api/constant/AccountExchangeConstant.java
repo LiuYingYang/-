@@ -17,9 +17,5 @@ public class AccountExchangeConstant {
      */
     public static final String MEMBER_EXCHANGE = "payment.notify.exchange";
 
-//    /**
-//     * 会员模块交换机
-//     */
-//    public static final String MEMBERINFO_EXCHANGE = "gruul.member.exchange";
 
 }

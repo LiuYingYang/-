@@ -3,13 +3,10 @@ package com.medusa.gruul.platform.service.impl;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUnit;
 import cn.hutool.core.date.DateUtil;
-import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.medusa.gruul.common.core.constant.CommonConstants;
 import com.medusa.gruul.common.core.constant.TimeConstants;
@@ -21,20 +18,16 @@ import com.medusa.gruul.platform.conf.PlatformRedis;
 import com.medusa.gruul.platform.constant.BaseCategoryTypeEnum;
 import com.medusa.gruul.platform.constant.RedisConstant;
 import com.medusa.gruul.platform.constant.ServiceTypeEnum;
+import com.medusa.gruul.platform.mapper.PlatformLibrariesInfoMapper;
 import com.medusa.gruul.platform.mapper.PlatformServiceInfoMapper;
-import com.medusa.gruul.platform.model.dto.PlatformServiceInfoDto;
-import com.medusa.gruul.platform.service.IPlatformLibrariesInfoService;
 import com.medusa.gruul.platform.service.IPlatformServiceInfoService;
-import com.medusa.gruul.platform.service.IPlatformShopInfoService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * <p>
@@ -48,10 +41,9 @@ import java.util.Set;
 @Slf4j
 public class PlatformServiceInfoServiceImpl extends ServiceImpl<PlatformServiceInfoMapper, PlatformServiceInfo> implements IPlatformServiceInfoService {
 
+
     @Autowired
-    private IPlatformShopInfoService platformShopInfoService;
-    @Autowired
-    private IPlatformLibrariesInfoService platformLibrariesInfoService;
+    private PlatformLibrariesInfoMapper platformLibrariesInfoMapper;
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -85,7 +77,7 @@ public class PlatformServiceInfoServiceImpl extends ServiceImpl<PlatformServiceI
         if (StrUtil.isEmpty(jsonData)) {
             //当前为业务基础库
             if (baseCategoryTypeEnum.getValue().equals(CommonConstants.NUMBER_ONE)) {
-                platformLibrariesInfo = platformLibrariesInfoService.getBaseMapper().selectOne(new QueryWrapper<PlatformLibrariesInfo>()
+                platformLibrariesInfo = platformLibrariesInfoMapper.selectOne(new QueryWrapper<PlatformLibrariesInfo>()
                         .eq("uniqueness", monitorServiceConfig.getUniqueness())
                         .eq("version", monitorServiceConfig.getVersion())
                         .eq("category_type", baseCategoryTypeEnum.getValue()));
@@ -95,7 +87,7 @@ public class PlatformServiceInfoServiceImpl extends ServiceImpl<PlatformServiceI
                 }
             } else {
                 //支持基础库
-                platformLibrariesInfo = platformLibrariesInfoService.getBaseMapper().selectOne(new QueryWrapper<PlatformLibrariesInfo>()
+                platformLibrariesInfo = platformLibrariesInfoMapper.selectOne(new QueryWrapper<PlatformLibrariesInfo>()
                         .eq("version", monitorServiceConfig.getVersion())
                         .eq("category_type", baseCategoryTypeEnum.getValue()));
                 if (platformLibrariesInfo == null) {
@@ -104,7 +96,7 @@ public class PlatformServiceInfoServiceImpl extends ServiceImpl<PlatformServiceI
                     platformLibrariesInfo.setVersion(monitorServiceConfig.getVersion());
                     platformLibrariesInfo.setCount(CommonConstants.NUMBER_ZERO);
                     platformLibrariesInfo.setStatus(CommonConstants.NUMBER_ZERO);
-                    platformLibrariesInfoService.save(platformLibrariesInfo);
+                    platformLibrariesInfoMapper.insert(platformLibrariesInfo);
                 }
             }
             Date date = new Date();
@@ -116,84 +108,6 @@ public class PlatformServiceInfoServiceImpl extends ServiceImpl<PlatformServiceI
         }
         //基础库下的服务数据生成
         processing(monitorServiceConfig, platformLibrariesInfo);
-    }
-
-    @Override
-    public IPage<PlatformServiceInfo> getByLibrariesId(Long id, Integer page, Integer size, Integer serviceType) {
-        QueryWrapper<PlatformServiceInfo> query = new QueryWrapper<PlatformServiceInfo>().eq("libraries_info_id", id);
-        if (serviceType != null) {
-            query.eq("type", serviceType.equals(CommonConstants.NUMBER_ONE) ? CommonConstants.NUMBER_ZERO : CommonConstants.NUMBER_ONE);
-        }
-        return this.getBaseMapper().selectPage(new Page<>(page, size), query);
-    }
-
-    @Override
-    public void updateService(Long serviceId, PlatformServiceInfoDto dto) {
-        PlatformServiceInfo platformServiceInfo = this.getBaseMapper().selectById(serviceId);
-        if (platformServiceInfo == null) {
-            throw new ServiceException("不存在该服务");
-        }
-        platformServiceInfo.setDescription(dto.getServiceDesc());
-        this.getBaseMapper().updateById(platformServiceInfo);
-    }
-
-    @Override
-    public void deleteService(Long serviceId) {
-        PlatformServiceInfo platformServiceInfo = this.baseMapper.selectById(serviceId);
-        if (ObjectUtil.isNull(platformServiceInfo)) {
-            throw new ServiceException("非法删除");
-        }
-        if (getServiceActivity(platformServiceInfo)) {
-            throw new ServiceException("当前服务存在活动无法删除");
-        }
-        this.removeById(serviceId);
-    }
-
-    /**
-     * 判断当前服务是否存在活动
-     * 存在返回true  不存在返回false
-     *
-     * @param platformServiceInfo 基础库服务
-     */
-    private Boolean getServiceActivity(PlatformServiceInfo platformServiceInfo) {
-        PlatformRedis platformRedis = new PlatformRedis();
-        //该键值数据在心跳机制中存入
-        String redisKey = RedisConstant.BASE_LIBRARY_SERVICE_KEY.concat(platformServiceInfo.getId().toString());
-        String jsonData = platformRedis.get(redisKey);
-        return StrUtil.isNotEmpty(jsonData);
-    }
-
-    @Override
-    public Integer getServiceActivityCount(PlatformServiceInfo platformServiceInfo) {
-        PlatformRedis platformRedis = new PlatformRedis();
-        //不存在在服务名称则是支撑基础库
-        String baseType = BaseCategoryTypeEnum.BUSINESS.getType();
-
-        PlatformLibrariesInfo librariesInfo = platformLibrariesInfoService.getById(platformServiceInfo.getLibrariesInfoId());
-        if (librariesInfo.getCategoryType().equals(CommonConstants.NUMBER_TWO)) {
-            baseType = BaseCategoryTypeEnum.PUBLIC.getType();
-        }
-        String serviceType = ServiceTypeEnum.UNIVERSAL_SERVICE.getType();
-        if (ServiceTypeEnum.COMMISSION_SERVICE.getValue().equals(platformServiceInfo.getType())) {
-            serviceType = ServiceTypeEnum.COMMISSION_SERVICE.getType();
-        }
-
-        //获取除hash相同但当前启动标识不同的同一服务数量
-        String redisKey = platformRedis.getBaseKey().concat(":")
-                .concat(RedisConstant.BASE_LIBRARY_SERVICE_KEY)
-                .concat(platformServiceInfo.getVersion()).concat(":")
-                .concat(baseType).concat("-")
-                .concat(serviceType).concat("-")
-                .concat(platformServiceInfo.getName()).concat("-")
-                .concat("*");
-        Set<String> keys = platformRedis.keys(redisKey);
-        return keys.size();
-    }
-
-    @Override
-    public List<PlatformServiceInfo> getByLibrariesId(Long id) {
-        return this.getBaseMapper().selectList(new QueryWrapper<PlatformServiceInfo>()
-                .eq("libraries_info_id", id));
     }
 
     /**
@@ -240,7 +154,7 @@ public class PlatformServiceInfoServiceImpl extends ServiceImpl<PlatformServiceI
         }
         if (platformLibrariesInfo.getStatus().equals(CommonConstants.NUMBER_ZERO)) {
             platformLibrariesInfo.setStatus(CommonConstants.NUMBER_ONE);
-            platformLibrariesInfoService.updateById(platformLibrariesInfo);
+            platformLibrariesInfoMapper.updateById(platformLibrariesInfo);
             String baseLibraryKey = platformRedis.getBaseKey().concat(RedisConstant.BASE_LIBRARY_KEY)
                     .concat(monitorServiceConfig.getBaseType()).concat(":")
                     .concat(monitorServiceConfig.getVersion()).concat(":")

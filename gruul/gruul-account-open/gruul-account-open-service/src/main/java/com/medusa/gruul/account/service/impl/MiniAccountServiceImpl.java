@@ -23,9 +23,9 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.medusa.gruul.account.api.conf.MiniInfoProperty;
 import com.medusa.gruul.account.api.entity.*;
 import com.medusa.gruul.account.api.enums.BlacklistEnum;
-import com.medusa.gruul.account.api.enums.MpLoginCodeEnum;
 import com.medusa.gruul.account.api.enums.OauthTypeEnum;
 import com.medusa.gruul.account.api.model.*;
 import com.medusa.gruul.account.conf.AccountRedis;
@@ -40,12 +40,8 @@ import com.medusa.gruul.common.core.constant.TimeConstants;
 import com.medusa.gruul.common.core.constant.enums.LoginTerminalEnum;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.*;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.common.dto.CurMiniUserInfoDto;
 import com.medusa.gruul.common.dto.CurUserDto;
-import com.medusa.gruul.goods.api.feign.RemoteGoodsService;
-import com.medusa.gruul.platform.api.feign.RemoteMiniInfoService;
 import com.medusa.gruul.platform.api.model.dto.LoginDto;
 import com.medusa.gruul.shops.api.entity.ShopsPartner;
 import com.medusa.gruul.shops.api.feign.RemoteShopsService;
@@ -78,9 +74,7 @@ import java.util.stream.Collectors;
 public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniAccount> implements IMiniAccountService {
 
     @Autowired
-    private RemoteMiniInfoService remoteMiniInfoService;
-    @Autowired
-    private RemoteShopsService remoteShopsService;
+    private MiniInfoProperty miniInfoProperty;
     @Autowired
     private SnowflakeProperty snowflakeProperty;
     @Autowired
@@ -95,10 +89,7 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
     private IMiniAccountAddressService iMiniAccountAddressService;
     @Autowired
     private IMiniAccountRestrictService miniAccountRestrictService;
-    @Autowired
-    private AmqpTemplate amqpTemplate;
-    @Autowired
-    private RemoteGoodsService remoteGoodsService;
+
 
     /**
      * 封装小程序信息
@@ -107,8 +98,8 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
      */
     public WxMaService getWxMaService() {
         WxMaDefaultConfigImpl config = new WxMaDefaultConfigImpl();
-        config.setAppid("小程序Appid");
-        config.setSecret("小程序Secret");
+        config.setAppid(miniInfoProperty.getAppId());
+        config.setSecret(miniInfoProperty.getSecret());
         config.setMsgDataFormat("JSON");
         WxMaService wxMaService = new WxMaServiceImpl();
         wxMaService.setWxMaConfig(config);
@@ -118,36 +109,28 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
     @Override
     @Transactional(rollbackFor = Exception.class)
     public LoginBaseInfoVo login(String code) {
-        String tenantId = TenantContextHolder.getTenantId();
-        if (StrUtil.isBlank(tenantId)) {
-            throw new ServiceException("登陆失败,请求错误", SystemCode.DATA_EXISTED.getCode());
-        }
         LocalDateTime currentDateTime = LocalDateTime.now();
-        //Todo 微信开放平台获取openid 等 调用
-        LoginDto login = remoteMiniInfoService.login(tenantId, code);
-
-        //Todo 如 etWxMaService();
-//        if (StrUtil.isBlank(code)) {
-//            throw new ServiceException("当前code不存在");
-//        }
-//        WxMaJscode2SessionResult session = null;
-//        try {
-//            session = wxService.getUserService().getSessionInfo(code);
-//            if (ObjectUtil.isEmpty(session)) {
-//                throw new ServiceException("login handler error");
-//            }
-//        } catch (WxErrorException e) {
-//            e.printStackTrace();
-//        }
-//        LoginDto login = new LoginDto();
-//        login.setOpenId(session.getOpenid());
-//        login.setUnionId(session.getUnionid());
-//        login.setSessionKey(session.getSessionKey());
-
+        final WxMaService wxService = getWxMaService();
+        if (StrUtil.isBlank(code)) {
+            throw new ServiceException("当前code不存在");
+        }
+        WxMaJscode2SessionResult session = null;
+        try {
+            session = wxService.getUserService().getSessionInfo(code);
+            if (ObjectUtil.isEmpty(session)) {
+                throw new ServiceException("login handler error");
+            }
+        } catch (WxErrorException e) {
+            e.printStackTrace();
+        }
+        LoginDto login = new LoginDto();
+        login.setOpenId(session.getOpenid());
+        login.setUnionId(session.getUnionid());
+        login.setSessionKey(session.getSessionKey());
         if (login == null || login.getOpenId() == null) {
             throw new ServiceException("登陆失败,调用错误", SystemCode.DATA_EXISTED.getCode());
         }
-        String loginKey = RedisConstant.LOGIN_KEY.concat(tenantId).concat(":")
+        String loginKey = RedisConstant.LOGIN_KEY.concat(":")
                 .concat(OauthTypeEnum.WX_MINI.getType().toString()).concat(":").concat(login.getOpenId());
         AccountRedis accountRedis = new AccountRedis();
         //获取缓存中用户数据
@@ -191,7 +174,7 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
         }
         //新用户,创建新数据
         if (miniAccountOauthsDto == null) {
-            miniAccountOauthsDto = initMiniInfo(tenantId, currentDateTime, login, loginKey);
+            miniAccountOauthsDto = initMiniInfo(currentDateTime, login, loginKey);
         }
         String userId = miniAccountOauthsDto.getUserId();
         CompletableFuture.runAsync(() -> {
@@ -214,13 +197,12 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
     /**
      * 初始化新用户数据
      *
-     * @param tenantId        租户id
      * @param currentDateTime 当前时间
      * @param login           com.medusa.gruul.platform.api.model.dto.LoginDto
      * @param loginKey        ket
      * @return com.medusa.gruul.account.model.dto.MiniAccountOauthsDto
      */
-    private MiniAccountOauthsDto initMiniInfo(String tenantId, LocalDateTime currentDateTime, LoginDto login, String loginKey) {
+    private MiniAccountOauthsDto initMiniInfo(LocalDateTime currentDateTime, LoginDto login, String loginKey) {
         log.info("进入initMiniInfo".concat(login.toString()));
         System.out.println("进入initMiniInfo".concat(login.toString()));
         MiniAccountOauthsDto miniAccountOauthsDto;
@@ -245,13 +227,9 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
         miniAccountExtends.setConsumeNum(0);
         miniAccountExtends.setCurrentStatus(CommonConstants.NUMBER_ONE);
         miniAccountExtends.setConsumeTotleMoney(BigDecimal.valueOf(0.0));
-        //新用户所在店铺为默认店铺
-        ShopsPartner shopsPartner = remoteShopsService.oneByTenantId(tenantId);
-        miniAccountExtends.setShopId(shopsPartner.getShopId());
         miniAccountExtends.setShopUserId(snowflake.nextId() + "");
         miniAccountExtendsService.save(miniAccountExtends);
         miniAccountOauthsDto = accuontOauthsCache(loginKey, miniAccountOauths, account, miniAccountExtends);
-        // Todo 通知生成店铺首次访问记录
         return miniAccountOauthsDto;
     }
 
@@ -330,7 +308,6 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
         curUserDto.setAvatarUrl(account.getAvatarUrl());
         curUserDto.setGender(account.getGender());
         curUserDto.setUserId(accountExtends.getShopUserId());
-        curUserDto.setShopId(accountExtends.getShopId());
         curUserDto.setShopType(0);
         curUserDto.setVersion("");
         curUserDto.setOpenId(miniAccountOauthsDto.getOpenId());
@@ -349,7 +326,7 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
             account = JSONObject.parseObject(accountJson, MiniAccount.class);
         } else {
             account = this.baseMapper.selectOne(new QueryWrapper<MiniAccount>().eq("user_id", userId));
-            accountCeche(account);
+            accountCache(account);
         }
         return account;
     }
@@ -367,7 +344,7 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
         }
         miniAccount.setPhone(phoneNumber);
         this.updateById(miniAccount);
-        accountCeche(miniAccount);
+        accountCache(miniAccount);
         return phoneNumber;
     }
 
@@ -379,13 +356,13 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
             throw new ServiceException("数据错误", SystemCode.DATA_NOT_EXIST_CODE);
         }
         BeanUtil.copyProperties(updateUserBaseInfoDto, miniAccount, CopyOptions.create().ignoreNullValue());
-        if (StrUtil.isEmpty(updateUserBaseInfoDto.getNikeName())){
+        if (StrUtil.isEmpty(updateUserBaseInfoDto.getNikeName())) {
             miniAccount.setNikeName(updateUserBaseInfoDto.getNickName());
         }
         miniAccount.setWhetherAuthorization(Boolean.TRUE);
         this.updateById(miniAccount);
         //缓存用户最新的基础信息
-        accountCeche(miniAccount);
+        accountCache(miniAccount);
     }
 
     /**
@@ -393,13 +370,13 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
      *
      * @param miniAccount com.medusa.gruul.account.api.entity.MiniAccount
      */
-    private void accountCeche(MiniAccount miniAccount) {
+    private void accountCache(MiniAccount miniAccount) {
         String key = RedisConstant.ACCOUNT_DB_KEY.concat(miniAccount.getUserId());
         AccountRedis accountRedis = new AccountRedis();
         accountRedis.set(key, JSON.toJSONString(miniAccount));
         CompletableFuture.runAsync(() -> {
             MiniAccountOauths miniAccountOauths = miniAccountOauthsService.getByUserId(OauthTypeEnum.WX_MINI.getType(), miniAccount.getUserId());
-            String loginKey = RedisConstant.LOGIN_KEY.concat(miniAccount.getTenantId()).concat(":").concat(OauthTypeEnum.WX_MINI.getType().toString()).concat(":").concat(miniAccountOauths.getOpenId());
+            String loginKey = RedisConstant.LOGIN_KEY.concat(":").concat(OauthTypeEnum.WX_MINI.getType().toString()).concat(":").concat(miniAccountOauths.getOpenId());
             MiniAccountExtends accountExtends = miniAccountExtendsService.findByCurrentStatus(miniAccountOauths.getUserId());
             accuontOauthsCache(loginKey, miniAccountOauths, miniAccount, accountExtends);
         });
@@ -425,15 +402,6 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
             BeanUtils.copyProperties(miniAccountExtends, extendsVo);
             //用户扩展信息
             vo.setInfoExtends(extendsVo);
-            log.error("shopId : " + extendsVo.getShopId());
-            if (StrUtil.isEmpty(extendsVo.getShopId())) {
-                log.error("shopId : " + extendsVo.getShopId() + "tenant_id" + TenantContextHolder.getTenantId());
-                ShopsPartner shopsPartner = remoteShopsService.oneByTenantId(TenantContextHolder.getTenantId());
-                log.error("shopsPartner : " + JSON.toJSONString(shopsPartner));
-                if (null != shopsPartner) {
-                    extendsVo.setShopId(shopsPartner.getShopId());
-                }
-            }
         }
         if (infoLevel.equals(CommonConstants.NUMBER_THREE)) {
             UserBlacklistAstrictVo astrictVo = new UserBlacklistAstrictVo();
@@ -458,18 +426,10 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
 
     @Override
     public PageUtils<List<UserListVo>> userList(String nikeName,
-                                                String becomeMemberStartTime, String becomeMemberEndTime,
                                                 Long tagId,
                                                 String orderSuccessStartTime, String orderSuccessEndTime,
-                                                String memberNumber, Integer page, Integer size, Integer sortType) {
-        String tenantId = TenantContextHolder.getTenantId();
+                                                Integer page, Integer size, Integer sortType) {
         Map<String, Object> paramMap = new HashMap<>(8);
-        if (StrUtil.isNotEmpty(becomeMemberStartTime)) {
-            paramMap.put("becomeMemberStartTime", becomeMemberStartTime);
-        }
-        if (StrUtil.isNotEmpty(becomeMemberEndTime)) {
-            paramMap.put("becomeMemberEndTime", becomeMemberEndTime);
-        }
         if (tagId != null) {
             paramMap.put("tagId", tagId);
         }
@@ -478,9 +438,6 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
         }
         if (StrUtil.isNotEmpty(orderSuccessEndTime)) {
             paramMap.put("orderSuccessEndTime", orderSuccessEndTime);
-        }
-        if (StrUtil.isNotEmpty(memberNumber)) {
-            paramMap.put("memberNumber", memberNumber);
         }
         if (StrUtil.isNotBlank(nikeName)) {
             AtomicReference<String> name = new AtomicReference<>("%");
@@ -492,11 +449,7 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
         if (sortType != null) {
             paramMap.put("sortType", sortType);
         }
-        String shopId = ShopContextHolder.getShopId();
-        if (StrUtil.isEmpty(shopId)) {
-            throw new ServiceException("店铺id不存在");
-        }
-        paramMap.put("shopId", shopId);
+
         IPage<UserListDto> iPage = this.baseMapper.selectByUserList(new Page<>(page, size), paramMap);
         List<UserListDto> records = iPage.getRecords();
         if (CollectionUtil.isEmpty(records)) {
@@ -512,18 +465,16 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
         }
 
         //封装用户数据
-        setPcAccountListVos(tenantId, shopId, records, vos, userTag);
+        setPcAccountListVos(records, vos, userTag);
         return new PageUtils(vos, (int) iPage.getTotal(), (int) iPage.getSize(), (int) iPage.getCurrent());
     }
 
     /**
-     * @param tenantId           租户id
-     * @param shopId             店铺id
-     * @param records            用户数据
-     * @param vos                标签数据
-     * @param userTag            用户标签
+     * @param records 用户数据
+     * @param vos     标签数据
+     * @param userTag 用户标签
      */
-    private void setPcAccountListVos(String tenantId, String shopId, List<UserListDto> records, List<UserListVo> vos, Map<String, List<UserTagVo>> userTag) {
+    private void setPcAccountListVos(List<UserListDto> records, List<UserListVo> vos, Map<String, List<UserTagVo>> userTag) {
         for (UserListDto record : records) {
             UserListVo vo = new UserListVo();
             BeanUtils.copyProperties(record, vo);
@@ -591,20 +542,6 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
                     MiniAccountOauths miniAccountOauths = miniAccountOauthsService.getByUserId(OauthTypeEnum.WX_MINI.getType(), ext.getUserId());
                     accountInfoDto.setMiniAccountOauths(miniAccountOauths);
                     break;
-                case 5:
-                    MiniAccountExtends accountExtends = miniAccountExtendsService.findByShopUserId(shopUserId);
-//                    AssembleActivityAssociation associationServiceAssByAssId =
-//                            assActAssociationService.getAssByAssId(accountExtends.getCommunityId().toString());
-//                    if (associationServiceAssByAssId != null && associationServiceAssByAssId.getId() != null) {
-//                        AssembleActivityAssociationDto assembleActivityAssociationDto = BeanUtil.toBean(associationServiceAssByAssId, AssembleActivityAssociationDto.class);
-//                        MiniAccount account = this.getByShopUserId(associationServiceAssByAssId.getUserId());
-//                        if (ObjectUtil.isNotNull(account)) {
-//                            assembleActivityAssociationDto.setAvatarUrl(account.getAvatarUrl());
-//                            assembleActivityAssociationDto.setNikeName(account.getNikeName());
-//                        }
-//                        accountInfoDto.setAssembleActivityAssociationDto(assembleActivityAssociationDto);
-//                    }
-                    break;
                 default:
             }
         }
@@ -618,11 +555,6 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
         if (StrUtil.isNotEmpty(fuzzy)) {
             paramMap.put("fuzzy", "%" + fuzzy + "%");
         }
-        String shopId = ShopContextHolder.getShopId();
-        if (StrUtil.isEmpty(shopId)) {
-            throw new ServiceException("店铺id不存在");
-        }
-        paramMap.put("shopId", shopId);
         IPage<BlacklistUserDto> userDtoIpage = this.baseMapper.selectByBlackListUser(new Page<BlacklistUserDto>(page, size), paramMap);
         List<BlacklistUserDto> records = userDtoIpage.getRecords();
         if (CollectionUtil.isEmpty(records)) {
@@ -647,65 +579,6 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
 
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public String switchShops(String shopId) {
-        CurUserDto curUser = CurUserUtil.getHttpCurUser();
-        if (curUser == null) {
-            throw new ServiceException("token错误", SystemCode.DATA_NOT_EXIST_CODE);
-        }
-        MiniAccountExtends accountExtends = miniAccountExtendsService.findByShopUserId(curUser.getUserId());
-        if (accountExtends == null) {
-            throw new ServiceException("错误账号", SystemCode.DATA_NOT_EXIST_CODE);
-        }
-        //修改该用户的所有扩展店铺数据未非当前默认账号数据
-        MiniAccountExtends up = new MiniAccountExtends();
-        up.setCurrentStatus(CommonConstants.NUMBER_ZERO);
-        miniAccountExtendsService.update(up, new QueryWrapper<MiniAccountExtends>().eq("user_id", accountExtends.getUserId()));
-        //修改店铺id
-        //判断是否已存在该店铺账号扩展数据
-        MiniAccountExtends miniAccountExtends = miniAccountExtendsService.getOne(new QueryWrapper<MiniAccountExtends>().eq("user_id", accountExtends.getUserId()).eq("shop_id", shopId));
-        if (miniAccountExtends == null) {
-            miniAccountExtends = new MiniAccountExtends();
-            //用户信息扩展
-            miniAccountExtends.setUserId(accountExtends.getUserId());
-            miniAccountExtends.setIsBlacklist(0);
-            miniAccountExtends.setConsumeNum(0);
-            miniAccountExtends.setCurrentStatus(CommonConstants.NUMBER_ONE);
-            miniAccountExtends.setConsumeTotleMoney(BigDecimal.valueOf(0.0));
-            String shopUserId = IdUtil.createSnowflake(snowflakeProperty.getWorkerId(), snowflakeProperty.getDatacenterId()) + "";
-            miniAccountExtends.setShopUserId(shopUserId);
-            miniAccountExtends.setShopId(shopId);
-            miniAccountExtends.setTenantId(accountExtends.getTenantId());
-            LocalDateTime currentDateTime = LocalDateTimeUtils.convertDateToLDT(new Date());
-            miniAccountExtends.setLastLoginTime(currentDateTime);
-            miniAccountExtendsService.save(miniAccountExtends);
-        } else {
-            miniAccountExtends.setCurrentStatus(CommonConstants.NUMBER_ONE);
-            miniAccountExtends.setShopId(shopId);
-        }
-        miniAccountExtendsService.updateById(miniAccountExtends);
-        //重新缓存店铺用户数据
-        MiniAccountOauths miniAccountOauths = miniAccountOauthsService.getByUserId(OauthTypeEnum.WX_MINI.getType(), accountExtends.getUserId());
-        String loginKey = RedisConstant.LOGIN_KEY.concat(miniAccountOauths.getTenantId()).concat(":").concat(OauthTypeEnum.WX_MINI.getType().toString()).concat(":").concat(miniAccountOauths.getOpenId());
-        MiniAccount account = this.getByUserId(accountExtends.getUserId());
-        MiniAccountOauthsDto miniAccountOauthsDto = accuontOauthsCache(loginKey, miniAccountOauths, account, miniAccountExtends);
-        return RedisConstant.ACCOUNT_KEY.concat(miniAccountOauthsDto.getToken());
-    }
-
-    @Override
-    public void generateAccountDefault(String jsonData) {
-        JSONObject jsonObject = JSONObject.parseObject(jsonData);
-        String tenantId = jsonObject.getString("tenantId");
-        String shopId = jsonObject.getString("shopId");
-        if (StrUtil.isEmpty(tenantId) || StrUtil.isEmpty(shopId)) {
-            throw new ServiceException("jsonData:".concat(jsonData).concat("--->数据为空"));
-        }
-        TenantContextHolder.setTenantId(tenantId);
-        ShopContextHolder.setShopId(shopId);
-//        remoteShippingFeignService.createDefaultPoint(tenantId, shopId, "", "");
-    }
-
-    @Override
     public List<MiniAccountExtDto> accountsInfoList(List<String> shopUserIds) {
         return this.baseMapper.selectByShopUserIds(shopUserIds);
     }
@@ -722,47 +595,6 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
         return Base64.encode(bytes);
     }
 
-
-    @Override
-    public Result mpLogin(WxMpUserDto wxMpUserDto) {
-        if (StrUtil.isEmpty(wxMpUserDto.getUnionId())) {
-            return Result.failed(MpLoginCodeEnum.UNIONID_NULL.getCode(), MpLoginCodeEnum.UNIONID_NULL.getMessage());
-        }
-        if (StrUtil.isEmpty(wxMpUserDto.getShopId())) {
-            return Result.failed(MpLoginCodeEnum.SHOPID_NULL.getCode(), MpLoginCodeEnum.SHOPID_NULL.getMessage());
-        }
-        TenantContextHolder.setTenantId(wxMpUserDto.getTenantId());
-        String loginKey = RedisConstant.LOGIN_KEY.concat(wxMpUserDto.getTenantId()).concat(":")
-                .concat(OauthTypeEnum.WX_MP.getType().toString()).concat(":").concat(wxMpUserDto.getOpenId());
-        //1.获取小程序用户信息
-        MiniAccountOauths miniAccountOauths = miniAccountOauthsService.getByUnionIdAndType(wxMpUserDto.getUnionId(), OauthTypeEnum.WX_MINI);
-        //2.用户信息不存在直接返回
-        if (miniAccountOauths == null) {
-            return Result.failed(MpLoginCodeEnum.MINI_NOT_LOG.getCode(), MpLoginCodeEnum.MINI_NOT_LOG.getMessage());
-        }
-        //获取公众号授权信息不存在则增加
-        MiniAccountOauths mpAccountOauths = miniAccountOauthsService.getByOpenId(wxMpUserDto.getOpenId(), OauthTypeEnum.WX_MP.getType());
-        MiniAccount account = getByUserId(miniAccountOauths.getUserId());
-        if (mpAccountOauths == null) {
-            //用户第三方授权表
-            mpAccountOauths = new MiniAccountOauths();
-            mpAccountOauths.setOauthType(OauthTypeEnum.WX_MP.getType());
-            mpAccountOauths.setUserId(account.getUserId());
-            mpAccountOauths.setOpenId(wxMpUserDto.getOpenId());
-            miniAccountOauthsService.save(mpAccountOauths);
-        }
-
-        MiniAccountExtends accountExtends = miniAccountExtendsService.findByShopIdAndUserId(wxMpUserDto.getShopId(), mpAccountOauths.getUserId());
-        if (accountExtends == null) {
-            return Result.failed(MpLoginCodeEnum.DATA_NULL.getCode(), MpLoginCodeEnum.DATA_NULL.getMessage());
-        }
-        //缓存用户数据
-        MiniAccountOauthsDto miniAccountOauthsDto = accuontOauthsCache(loginKey, mpAccountOauths, account, accountExtends);
-        miniAccountExtendsService.update(new UpdateWrapper<MiniAccountExtends>()
-                .set("last_login_time", LocalDateTime.now()).eq("shop_user_id", accountExtends.getShopUserId()));
-        String token = RedisConstant.ACCOUNT_KEY.concat(miniAccountOauthsDto.getToken());
-        return Result.ok(token);
-    }
 
     @Override
     public MiniAccount getByShopUserId(String shopUserId) {

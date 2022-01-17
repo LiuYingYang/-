@@ -3,7 +3,6 @@ package com.medusa.gruul.order.service.impl;
 import cn.hutool.core.util.ObjectUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.medusa.gruul.account.api.feign.RemoteMiniAccountService;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.CurUserUtil;
 import com.medusa.gruul.common.core.util.PageUtils;

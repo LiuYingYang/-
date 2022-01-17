@@ -13,20 +13,13 @@ import java.util.Date;
  * @date created in 2019/11/15
  */
 @Data
-@ApiModel(value = "ShopsMenuConfigVo 实体", description = "店铺合伙人菜单属性配置 vo")
+@ApiModel(value = "ShopsMenuConfigVo 实体", description = "店铺Modify菜单属性配置 vo")
 public class ShopsMenuConfigVo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
 
     private Long id;
-
-
-    /**
-     * 店铺id
-     */
-    @ApiModelProperty(value = "店铺id")
-    private String shopId;
 
 
     /**
@@ -41,13 +34,6 @@ public class ShopsMenuConfigVo implements Serializable {
      */
     @ApiModelProperty(value = "逻辑删除标识  0正常 1已删除")
     private String isDeleted;
-
-
-    /**
-     * 归属关联Id
-     */
-    @ApiModelProperty(value = "归属关联Id")
-    private String tenantId;
 
 
     /**

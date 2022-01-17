@@ -23,8 +23,6 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS t_logistics_address;
 CREATE TABLE t_logistics_address (
   id bigint NOT NULL AUTO_INCREMENT ,
-  tenant_id varchar(30) DEFAULT NULL ,
-  shop_id varchar(64) DEFAULT NULL ,
   name varchar(64) DEFAULT NULL ,
   province varchar(64) DEFAULT '' ,
   province_id varchar(20) DEFAULT '' ,
@@ -56,8 +54,6 @@ CREATE TABLE t_logistics_company (
   is_deleted int DEFAULT '0' ,
   create_time datetime DEFAULT NULL ,
   update_time timestamp NULL  AS CURRENT_TIMESTAMP ,
-  tenant_id varchar(32) DEFAULT NULL,
-  shop_id varchar(64) DEFAULT NULL,
   PRIMARY KEY (id)
 );
 
@@ -67,8 +63,6 @@ CREATE TABLE t_logistics_company (
 DROP TABLE IF EXISTS t_logistics_express;
 CREATE TABLE t_logistics_express (
   id bigint NOT NULL AUTO_INCREMENT ,
-  tenant_id varchar(32) NOT NULL ,
-  shop_id varchar(64) NOT NULL ,
   name varchar(32) NOT NULL ,
   code varchar(16) NOT NULL ,
   phone varchar(16) NOT NULL ,
@@ -90,8 +84,6 @@ CREATE TABLE t_logistics_express (
 DROP TABLE IF EXISTS t_logistics_express_print;
 CREATE TABLE t_logistics_express_print (
   id bigint NOT NULL AUTO_INCREMENT ,
-  tenant_id varchar(32) NOT NULL ,
-  shop_id varchar(64) NOT NULL ,
   device_type varchar(10) NOT NULL ,
   device_model varchar(64) NOT NULL ,
   device_name varchar(64) NOT NULL ,
@@ -119,8 +111,6 @@ CREATE TABLE t_logistics_include_postage (
   is_deleted int NOT NULL DEFAULT '0' ,
   create_time datetime NOT NULL ,
   update_time timestamp NOT NULL  AS CURRENT_TIMESTAMP ,
-  tenant_id varchar(32) DEFAULT NULL,
-  shop_id varchar(64) DEFAULT NULL,
   PRIMARY KEY (id)
 );
 
@@ -130,8 +120,6 @@ CREATE TABLE t_logistics_include_postage (
 DROP TABLE IF EXISTS t_logistics_manage;
 CREATE TABLE t_logistics_manage (
   id bigint NOT NULL ,
-  tenant_id varchar(30) NOT NULL ,
-  shop_id varchar(64) NOT NULL ,
   state int NOT NULL DEFAULT '0' ,
   deliver_build_time varchar(128) NOT NULL ,
   is_deleted int NOT NULL DEFAULT '0' ,
@@ -158,8 +146,6 @@ CREATE TABLE t_logistics_shipping_model (
   is_deleted int NOT NULL DEFAULT '0' ,
   create_time datetime NOT NULL ,
   update_time timestamp NOT NULL  AS CURRENT_TIMESTAMP ,
-  tenant_id varchar(32) ,
-  shop_id varchar(64) ,
   PRIMARY KEY (id)
 );
 
@@ -169,8 +155,6 @@ CREATE TABLE t_logistics_shipping_model (
 DROP TABLE IF EXISTS t_logistics_shop;
 CREATE TABLE t_logistics_shop (
   id bigint NOT NULL AUTO_INCREMENT ,
-  tenant_id varchar(30) NOT NULL ,
-  shop_id varchar(64) NOT NULL ,
   logistics_company_id bigint NOT NULL ,
   is_default int NOT NULL DEFAULT '0' ,
   is_deleted int NOT NULL DEFAULT '0' ,
@@ -185,8 +169,6 @@ CREATE TABLE t_logistics_shop (
 DROP TABLE IF EXISTS t_logistics_template;
 CREATE TABLE t_logistics_template (
   id bigint NOT NULL AUTO_INCREMENT,
-  tenant_id varchar(30) DEFAULT NULL ,
-  shop_id varchar(64) DEFAULT NULL ,
   name varchar(45) DEFAULT NULL ,
   is_incl_postage int NOT NULL DEFAULT '0' ,
   valuation_model int NOT NULL ,

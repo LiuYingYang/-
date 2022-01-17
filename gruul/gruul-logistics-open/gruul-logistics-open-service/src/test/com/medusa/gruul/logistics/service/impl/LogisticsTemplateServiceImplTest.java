@@ -4,8 +4,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.test.autoconfigure.MybatisPlusTest;
 import com.medusa.gruul.common.core.constant.CommonConstants;
 import com.medusa.gruul.common.data.handler.IMetaObjectHandler;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.common.dto.AreaDto;
 import com.medusa.gruul.logistics.model.dto.manager.LogisticsIncludePostageDto;
 import com.medusa.gruul.logistics.model.dto.manager.LogisticsShippingModelDto;
@@ -51,8 +49,6 @@ public class LogisticsTemplateServiceImplTest {
 
     @Test
     public void getTemplateList() {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         LogisticsTemplateParam logisticsTemplateParam = new LogisticsTemplateParam();
         IPage<LogisticsTemplateVo> logisticsTemplateVoIPage = logisticsTemplateService.getTemplateList(logisticsTemplateParam);
         Assert.assertNotNull(logisticsTemplateVoIPage);
@@ -61,8 +57,6 @@ public class LogisticsTemplateServiceImplTest {
 
     @Test
     public void getTemplateInfo() {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         Long id = 194L;
         LogisticsTemplateVo logisticsTemplateVo = logisticsTemplateService.getTemplateInfo(id);
         Assert.assertNotNull(logisticsTemplateVo);
@@ -71,8 +65,6 @@ public class LogisticsTemplateServiceImplTest {
 
     @Test
     public void addOrUpdateTemplate() {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         LogisticsTemplateDto logisticsTemplateDto = new LogisticsTemplateDto();
         logisticsTemplateDto.setId(194L);
         logisticsTemplateDto.setName("全国包邮模版");
@@ -120,8 +112,6 @@ public class LogisticsTemplateServiceImplTest {
 
     @Test
     public void removeTemplateById() {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         Long id = 194L;
         try{
             logisticsTemplateService.removeTemplateById(id);
@@ -134,8 +124,6 @@ public class LogisticsTemplateServiceImplTest {
 
     @Test
     public void feignGetList() {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         List<LogisticsTemplateVo> logisticsTemplateVos = logisticsTemplateService.feignGetList();
         Assert.assertNotNull(logisticsTemplateVos);
         System.out.println(logisticsTemplateVos.toString());
@@ -143,8 +131,6 @@ public class LogisticsTemplateServiceImplTest {
 
     @Test
     public void feignGetInfo() {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         Long id = 194L;
         LogisticsTemplateVo logisticsTemplateVo = logisticsTemplateService.feignGetInfo(id);
         Assert.assertNotNull(logisticsTemplateVo);

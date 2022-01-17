@@ -20,10 +20,6 @@ public class ShoppingCartMessage implements Serializable {
 
     private ApiShoppingCartDto apiShoppingCartDto;
 
-    private String tenantId;
-
-    private String shopId;
-
     private String userId;
 
     private Long skuId;

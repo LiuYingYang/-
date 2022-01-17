@@ -21,13 +21,6 @@ public interface ShopsService extends IService<Shops> {
      */
     List listShops();
 
-    /**
-     * 获取店铺最大id
-     *
-     * @return 最大的id 不存在则返回1
-     */
-    Long getMaxId();
-
 
     /**
      * 获取热门词汇

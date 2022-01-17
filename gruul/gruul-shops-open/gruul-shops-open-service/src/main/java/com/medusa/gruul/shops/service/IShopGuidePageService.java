@@ -3,7 +3,6 @@ package com.medusa.gruul.shops.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.medusa.gruul.shops.api.entity.ShopGuidePage;
 import com.medusa.gruul.shops.model.dto.ShopGuidePageDto;
-import com.medusa.gruul.shops.model.vo.ShopGuidePageVo;
 
 import java.util.List;
 

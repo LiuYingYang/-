@@ -11,13 +11,7 @@ import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.PageUtils;
 import com.medusa.gruul.common.core.util.Result;
 import com.medusa.gruul.common.core.util.SystemCode;
-import com.medusa.gruul.common.data.annotation.EscapeShop;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
-import com.medusa.gruul.common.dto.CurUserDto;
-import com.medusa.gruul.shops.api.entity.ShopsRenovationAssembly;
 import com.medusa.gruul.shops.api.entity.ShopsRenovationPage;
-import com.medusa.gruul.shops.mapper.ShopsRenovationTemPageAssMapper;
 import com.medusa.gruul.shops.mapper.ShopsRenovationTemPageMapper;
 import com.medusa.gruul.shops.model.param.ShopsRenovationPageParam;
 import com.medusa.gruul.shops.model.vo.ShopsRenovationPageVo;
@@ -25,12 +19,10 @@ import com.medusa.gruul.shops.properties.GlobalConstant;
 import com.medusa.gruul.shops.properties.ShopsRenovationRedisTools;
 import com.medusa.gruul.shops.service.ShopsRenovationTemPageService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
-
 
 /**
  * @author create by zq
@@ -38,8 +30,6 @@ import java.util.Arrays;
  */
 @Service(value = "shopsRenovationTemPageServiceImpl")
 public class ShopsRenovationTemPageServiceImpl extends ServiceImpl<ShopsRenovationTemPageMapper, ShopsRenovationPage> implements ShopsRenovationTemPageService {
-    @Autowired
-    private ShopsRenovationTemPageAssMapper shopsRenovationTemPageAssMapper;
 
     /**
      * 保存模板页面
@@ -80,14 +70,13 @@ public class ShopsRenovationTemPageServiceImpl extends ServiceImpl<ShopsRenovati
 
 
     /**
-     * 删除商铺装修模板页面 by ids or templateId
+     * 删除商铺装修模板页面
      *
      * @param ids
      * @param templateId
      * @return Result
      */
     @Override
-    @EscapeShop
     public Result delTemplatePage(String ids, String templateId) {
         if (StringUtils.isNotBlank(ids)) {
             Arrays.asList(ids.split(GlobalConstant.STRING_COMMA)).stream().forEach(id -> {
@@ -125,7 +114,6 @@ public class ShopsRenovationTemPageServiceImpl extends ServiceImpl<ShopsRenovati
      * @return Result
      */
     @Override
-    @EscapeShop
     public Result listTemplatePage(ShopsRenovationPageParam param) {
         IPage<ShopsRenovationPageVo> page = new Page<>(param.getCurrent(), param.getSize());
         return Result.ok(new PageUtils(page.setRecords(this.baseMapper.listTemplatePage(page, param))));
@@ -150,7 +138,6 @@ public class ShopsRenovationTemPageServiceImpl extends ServiceImpl<ShopsRenovati
      */
     @Override
     public Boolean delShopRenovationPageByModelId(String modelId)  {
-        log.warn(TenantContextHolder.getTenantId()+" : "+ ShopContextHolder.getShopId());
         log.warn("moderId :{}"+modelId);
         ShopsRenovationPage shopsRenovationPage = this.baseMapper.selectByModelId(modelId);
         if (null!=shopsRenovationPage){

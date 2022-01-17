@@ -27,8 +27,7 @@ public class ExpirationMessagePostProcessor implements MessagePostProcessor {
     @Override
     public Message postProcessMessage(Message message) throws AmqpException {
         //设置per-message的失效时间
-        message.getMessageProperties()
-                .setDelay(ttl.intValue());
+        message.getMessageProperties().setHeader("x-delay", ttl);
         return message;
     }
 }

@@ -8,6 +8,4 @@ import lombok.Data;
 @Data
 public class BaseAfsOrderMessage {
     private Long id;
-    private String tenantId;
-    private String shopId;
 }

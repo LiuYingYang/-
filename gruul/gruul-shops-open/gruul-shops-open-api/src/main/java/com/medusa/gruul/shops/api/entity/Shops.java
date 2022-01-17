@@ -38,15 +38,6 @@ public class Shops extends BaseEntity {
 
 
     /**
-     * 店铺id
-     */
-    @NotNull
-    @ApiModelProperty(value = "店铺id")
-    @TableField("shop_id")
-    private String shopId;
-
-
-    /**
      * 协议
      */
     @NotNull

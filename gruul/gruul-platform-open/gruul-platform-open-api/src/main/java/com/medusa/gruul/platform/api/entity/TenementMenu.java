@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 平台租户菜单表
+ * 平台菜单表
  * </p>
  *
  * @author whh
@@ -20,7 +20,7 @@ import java.time.LocalDateTime;
 @Data
 @Accessors(chain = true)
 @TableName("t_platform_tenement_menu")
-@ApiModel(value = "TenementMenu对象", description = "平台租户菜单表")
+@ApiModel(value = "TenementMenu对象", description = "平台菜单表")
 public class TenementMenu {
 
     private static final long serialVersionUID = 1L;
@@ -55,14 +55,6 @@ public class TenementMenu {
     @ApiModelProperty(value = "小程序id")
     @TableField("mini_id")
     private Long miniId;
-
-    /**
-     * 租户id
-     */
-    @ApiModelProperty(value = "租户id")
-    @TableField("tenant_id")
-    private String tenantId;
-
 
     /**
      * 是否有权限使用 0-可使用 1不可使用

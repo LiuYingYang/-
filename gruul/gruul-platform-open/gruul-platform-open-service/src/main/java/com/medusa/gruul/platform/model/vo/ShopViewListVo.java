@@ -58,9 +58,6 @@ public class ShopViewListVo {
     @ApiModelProperty(value = "当前使用的套餐名称")
     private String packageName;
 
-    @ApiModelProperty(value = "店铺租户id")
-    private String tenantId;
-
     @ApiModelProperty(value = "店铺当前版本")
     private String versionName;
 }

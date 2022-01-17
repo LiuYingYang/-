@@ -14,11 +14,11 @@ import java.util.Map;
 
 /**
  * <p>
- * 提货点申请的详情 服务实现类
+ * 售后申请详情 服务实现类
  * </p>
  *
  * @author alan
- * @since 2020 -08-21
+ * @since 2020-08-21
  */
 @Service
 public class AfsOrderItemServiceImpl extends ServiceImpl<AfsOrderItemMapper, AfsOrderItem> implements IAfsOrderItemService {

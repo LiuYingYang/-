@@ -45,11 +45,7 @@ public enum OrderQueueEnum {
      */
     QUEUE_ORDER_AUTO_COMPLETED(OrderConstant.DELAY_EXCHANGE_NAME, OrderQueueNameConstant.ORDER_AUTO_COMPLETED,
             "gruul.order.auto.completed"),
-    /**
-     * 移出发货单
-     */
-    QUEUE_DELIVER_REMOVE(OrderConstant.EXCHANGE_NAME, OrderQueueNameConstant.DELIVER_REMOVE,
-            "gruul.order.deliver.remove"),
+
     /**
      * 取消订单
      */
@@ -75,7 +71,6 @@ public enum OrderQueueEnum {
     QUEUE_ORDER_CANCEL_FAIL(OrderConstant.DELAY_EXCHANGE_NAME, OrderQueueNameConstant.ORDER_CANCEL_FAIL,
             "gruul.order.cancel.fail"),
     //================================物流模块==========================================================================
-
     /**
      * 发货单生成
      */
@@ -84,7 +79,8 @@ public enum OrderQueueEnum {
      * 发货单签收成功
      */
     QUEUE_DELIVER_RECEIPT(OrderConstant.DELIVER_EXCHANGE_NAME, "gruul.deliver.receipt", "gruul.deliver.receipt"),
-    //================================支付模块==========================================================================
+
+ //================================支付模块==========================================================================
     /**
      * 订单支付成功回调
      */
@@ -95,12 +91,6 @@ public enum OrderQueueEnum {
      */
     QUEUE_ORDER_REFUND_NOTIFY(OrderConstant.EXCHANGE_NAME, OrderQueueNameConstant.REFUND_NOTIFY,
             "gruul.order.refund.notify"),
-
-    //================================控制台模块==========================================================================
-    /**
-     * 初始化订单设置
-     */
-    QUEUE_DATA_INIT(OrderConstant.ACCOUNT_EXCHANGE, OrderQueueNameConstant.DATA_INIT, "gruul.order.data.init"),
 
 
     ;

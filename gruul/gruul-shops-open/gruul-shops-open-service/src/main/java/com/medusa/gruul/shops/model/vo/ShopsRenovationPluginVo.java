@@ -30,13 +30,6 @@ public class ShopsRenovationPluginVo implements Serializable {
 
 
     /**
-     * 店铺id
-     */
-    @ApiModelProperty(value = "店铺id")
-    private String shopId;
-
-
-    /**
      * 控件JSON
      */
     @ApiModelProperty(value = "控件JSON")
@@ -48,13 +41,6 @@ public class ShopsRenovationPluginVo implements Serializable {
      */
     @ApiModelProperty(value = "逻辑删除标识  0正常 1已删除")
     private String isDeleted;
-
-
-    /**
-     * 归属关联Id
-     */
-    @ApiModelProperty(value = "归属关联Id")
-    private String tenantId;
 
 
     /**

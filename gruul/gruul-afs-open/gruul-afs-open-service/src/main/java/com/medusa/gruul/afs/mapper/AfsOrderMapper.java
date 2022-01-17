@@ -17,19 +17,9 @@ import java.util.Set;
  * </p>
  *
  * @author alan
- * @since 2020 -08-05
+ * @since 2020-08-05
  */
 public interface AfsOrderMapper extends BaseMapper<AfsOrder> {
-
-    /**
-     * 根据订单查询原始订单的信息
-     *
-     * @param orderId the order id
-     * @return java.lang.Long list
-     * @author alan
-     * @date 2020 /8/27 22:31
-     */
-    List<Long> selectOriginalOrderListByOrderId(@Param(value = "orderId") Long orderId);
 
     /**
      * 查询这些订单是否有其他正在进行的售后单

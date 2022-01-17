@@ -8,7 +8,6 @@
         <result column="create_time" property="createTime"/>
         <result column="is_deleted" property="deleted"/>
         <result column="update_time" property="updateTime"/>
-        <result column="tenant_id" property="tenantId"/>
         <result column="menu_name" property="menuName"/>
         <result column="menu_icon_url" property="menuIconUrl"/>
         <result column="defaul_icon" property="defaultIcon"/>
@@ -27,7 +26,6 @@
         split_flag,
         is_deleted,
         update_time,
-        tenant_id,
         id, menu_name, menu_icon_url, style_type, sort_index, p_id, hide_menu, allow_use, link_select_item,defaul_icon
     </sql>
 

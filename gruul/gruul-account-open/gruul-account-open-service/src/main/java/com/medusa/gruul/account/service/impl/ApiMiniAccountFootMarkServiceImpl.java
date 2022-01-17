@@ -16,8 +16,6 @@ import com.medusa.gruul.account.service.IApiMiniAccountFootMarkService;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.CurUserUtil;
 import com.medusa.gruul.common.core.util.SystemCode;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.common.dto.CurUserDto;
 import com.medusa.gruul.goods.api.constant.GoodsProductRedisKey;
 import com.medusa.gruul.goods.api.model.dto.manager.SkuStockDto;
@@ -51,14 +49,11 @@ public class ApiMiniAccountFootMarkServiceImpl extends ServiceImpl<MiniAccountFo
     public List<String> getAccountFootMark(AccountFootMarkParam accountFootMarkParam) {
         CurUserDto curUserDto = CurUserUtil.getHttpCurUser();
         String userId = curUserDto.getUserId();
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
-        List<String> accountFootMarkInfo = getAccountFootMarkInfo(accountFootMarkParam, userId, tenantId, shopId);
+        List<String> accountFootMarkInfo = getAccountFootMarkInfo(accountFootMarkParam, userId);
         return accountFootMarkInfo;
     }
 
-    private List<String> getAccountFootMarkInfo(AccountFootMarkParam accountFootMarkParam, String userId,
-                                                String tenantId, String shopId) {
+    private List<String> getAccountFootMarkInfo(AccountFootMarkParam accountFootMarkParam, String userId) {
         // 获取商品缓存数据 key
         GoodsProductRedisKey goodsProductRedisKey = new GoodsProductRedisKey();
         IPage<AccountFootMarkVo> accountFootMarkVo = new Page<>(accountFootMarkParam.getCurrent(),
@@ -72,7 +67,6 @@ public class ApiMiniAccountFootMarkServiceImpl extends ServiceImpl<MiniAccountFo
         String getTime = "";
         List<String> list = new ArrayList<>(11);
         for (LocalDateTime localDateTime : collect) {
-            String time = localDateTime.format(DateTimeFormatter.ofPattern("MM-dd"));
             List<AccountFootMarkVo> temp = new ArrayList<>();
             for (AccountFootMarkVo footMarkVo : accountFootMarks) {
                 LocalDateTime createTime = footMarkVo.getCreateTime();
@@ -167,8 +161,7 @@ public class ApiMiniAccountFootMarkServiceImpl extends ServiceImpl<MiniAccountFo
         if (type.equals(0)) {
             List<MiniAccountFootMark> miniAccountFootMarks = baseMapper.selectBatchIds(longs);
             for (MiniAccountFootMark miniAccountFootMark : miniAccountFootMarks) {
-                //
-                int i = accountFootMarkMapper.deleteById(miniAccountFootMark.getFootmarkId());
+                int i = accountFootMarkMapper.deleteById(miniAccountFootMark.getFootMarkId());
                 if (i < 1) {
                     throw new ServiceException("删除用户足迹失败", SystemCode.DATA_UPDATE_FAILED_CODE);
                 }
@@ -196,7 +189,6 @@ public class ApiMiniAccountFootMarkServiceImpl extends ServiceImpl<MiniAccountFo
         }
         String userId = curUserDto.getUserId();
         int i = accountFootMarkMapper.selectAccountFootMarkCount(userId);
-
         return i;
     }
 }

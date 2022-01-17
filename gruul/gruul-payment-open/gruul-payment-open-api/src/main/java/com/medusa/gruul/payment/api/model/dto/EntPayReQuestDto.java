@@ -67,14 +67,6 @@ public class EntPayReQuestDto {
     @ApiModelProperty(value = "交易状态：1、 发起支付 2、 交易支付成功 3、交易支付失败 4、交易同步返回成功单业务未成功")
     private Integer tradeStatus;
 
-
-    /**
-     * 租户标识
-     */
-    @ApiModelProperty(value = "租户标识")
-    private String tenantId;
-
-
     /**
      * 用户标识
      */

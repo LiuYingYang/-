@@ -32,6 +32,14 @@
             <version>${gruul.version}</version>
         </dependency>
 
+        <!--common 库-->
+        <dependency>
+            <groupId>com.medusa</groupId>
+            <artifactId>gruul-common-base-open</artifactId>
+            <version>0.1</version>
+        </dependency>
+
+
         <!--注册中心客户端-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -118,6 +126,7 @@
             <plugin>
                 <groupId>com.spotify</groupId>
                 <artifactId>docker-maven-plugin</artifactId>
+
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -128,7 +137,6 @@
             </plugin>
         </plugins>
     </build>
-
 
 
 </project>

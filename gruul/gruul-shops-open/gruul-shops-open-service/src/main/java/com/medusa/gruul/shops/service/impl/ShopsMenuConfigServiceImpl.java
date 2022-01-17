@@ -24,7 +24,7 @@ public class ShopsMenuConfigServiceImpl extends ServiceImpl<ShopsMenuConfigMappe
 
 
     /**
-     * 合伙人菜单属性配置新增or修改
+     * Modify菜单属性配置新增or修改
      *
      * @param param
      * @return Result
@@ -56,13 +56,13 @@ public class ShopsMenuConfigServiceImpl extends ServiceImpl<ShopsMenuConfigMappe
 
 
     /**
-     * 获取店铺合伙人菜单属性配置
+     * 获取店铺菜单属性配置
      *
      * @return Result
      */
     @Override
     public Result getMenuConfig() {
-        return Result.ok(this.baseMapper.selectOne(new QueryWrapper<ShopsMenuConfig>()));
+        return Result.ok(this.baseMapper.selectOne(new QueryWrapper<>()));
     }
 
 

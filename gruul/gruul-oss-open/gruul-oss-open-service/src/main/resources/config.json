@@ -6,7 +6,7 @@
     "imageCompressEnable": true,
     "imageCompressBorder": 1600,
     "imageInsertAlign": "none",
-    "imageUrlPrefix": "https://medusa-small-file-1253272780.cos.ap-shanghai.myqcloud.com",
+    "imageUrlPrefix": "https://medusa-small-file.oss-cn-hangzhou.aliyuncs.com",
     "imagePathFormat": "/upload/image/{yyyy}{mm}{dd}/{time}{rand:6}",
     "scrawlActionName": "uploadscrawl",
     "scrawlFieldName": "upfile",

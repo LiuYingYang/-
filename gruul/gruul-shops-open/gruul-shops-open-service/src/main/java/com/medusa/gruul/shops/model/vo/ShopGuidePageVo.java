@@ -1,12 +1,8 @@
 package com.medusa.gruul.shops.model.vo;
 
-import com.baomidou.mybatisplus.annotation.*;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import java.time.LocalDateTime;
 
 /**
  * @Description: 店铺引导页vo
@@ -30,12 +26,6 @@ public class ShopGuidePageVo {
 
 	@ApiModelProperty(value = "是否为默认 0为默认 1为自定义")
 	private Integer defaulted;
-
-	@ApiModelProperty(value = "店铺id")
-	private String shopId;
-
-	@ApiModelProperty("租户ID")
-	private String tenantId;
 
 
 }

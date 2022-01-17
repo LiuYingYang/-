@@ -5,6 +5,7 @@ import lombok.Data;
 
 /**
  * The type Solitaire order item vo.
+ * @author lcysike
  */
 @Data
 public class SolitaireOrderItemVo {

@@ -103,7 +103,7 @@ public class ProductController {
     /**
      * 商品专区变更
      */
-    @PutMapping("/updateSaleMode/{saleMode}/{type}")
+    @PutMapping("/updateSaleMode/{saleMode}")
     @ApiOperation(value = "商品专区变更(0--商超系统，2--限时秒杀)")
     public Result updateProductSaleMode(@ApiParam(value = "商品ids", required = true) @RequestBody Long[] ids,
                                         @ApiParam(value = "商品专区值", required = true) @PathVariable("saleMode") Long saleMode) {
@@ -115,7 +115,7 @@ public class ProductController {
     /**
      * 商品上下架
      */
-    @PutMapping("/updateStatus/{status}/{type}")
+    @PutMapping("/updateStatus/{status}")
     @ApiOperation(value = "商品上下架")
     public Result updateProductStatus(@ApiParam(value = "商品ids", required = true) @RequestBody Long[] ids,
                                       @ApiParam(value = "商品状态值", required = true) @PathVariable("status") Integer status) {
@@ -126,7 +126,7 @@ public class ProductController {
     /**
      * 商品信息删除
      */
-    @DeleteMapping("/delete/{ids}/{type}")
+    @DeleteMapping("/delete/{ids}")
     @ApiOperation(value = "商品信息删除")
     public Result deleteProductList(@ApiParam(value = "商品ids", required = true) @PathVariable(name = "ids") Long[] ids) {
         productService.deleteProductList(ids);
@@ -134,6 +134,16 @@ public class ProductController {
     }
 
     //=============================================商品组件根据商品集合匹配未删除的商品===================================================
+
+    /**
+     * 组件获取所有商品信息列表
+     */
+    @GetMapping("/discount/list")
+    @ApiOperation(value = "优惠劵、满减商品信息列表")
+    public Result<PageUtils<DiscountProductVo>> getDiscountProductList(DiscountProductParam discountProductParam) {
+        PageUtils<DiscountProductVo> pageUtils = new PageUtils(productService.getDiscountProductList(discountProductParam));
+        return Result.ok(pageUtils);
+    }
 
     /**
      * 根据商品数组匹配未删除的商品
@@ -169,18 +179,5 @@ public class ProductController {
         PageUtils<ProductVo> pageUtils = new PageUtils(productService.getCsvProductList(productParam));
         return Result.ok(pageUtils);
     }
-
-    //=============================================订单移除发货单商品展示列表===================================================
-
-    /**
-     * 已发货的订单商品移除列表
-     */
-    @GetMapping("/remove/product/list")
-    @ApiOperation(value = "已发货的订单商品移除列表")
-    public Result<PageUtils<DiscountProductVo>> getRemoveProductList(DiscountProductParam discountProductParam) {
-        PageUtils<DiscountProductVo> pageUtils = new PageUtils(productService.getRemoveProductList(discountProductParam));
-        return Result.ok(pageUtils);
-    }
-
 
 }

@@ -17,6 +17,6 @@ public class TagVo {
     @ApiModelProperty(value = "标签id")
     private Long tagId;
 
-    @ApiModelProperty(value = "是否选中 false 或 trun(选中) ")
+    @ApiModelProperty(value = "是否选中 false 或 turn(选中) ")
     private Boolean option;
 }

@@ -33,11 +33,6 @@ public class SubscribeMsgSendDto implements Serializable {
     @ApiModelProperty(value = "点击消息所需跳转路径，为空不跳转")
     private String toPath;
     /**
-     * 租户id
-     */
-    @ApiModelProperty(value = "租户id")
-    private String tenantId;
-    /**
      * 发送的内容，按顺序给入
      */
     @ApiModelProperty(value = "发送的内容，按顺序给入,具体内容看商家配置,(只负责接收发送,不完全保证发送成功,只发送一次无论失败成功)")

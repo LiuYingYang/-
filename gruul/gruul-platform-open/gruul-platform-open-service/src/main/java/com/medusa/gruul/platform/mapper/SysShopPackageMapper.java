@@ -3,7 +3,7 @@ package com.medusa.gruul.platform.mapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.medusa.gruul.platform.api.entity.SysShopPackage;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -15,6 +15,7 @@ import java.util.List;
  * @author whh
  * @since 2020-08-01
  */
+@Repository
 public interface SysShopPackageMapper extends BaseMapper<SysShopPackage> {
 
     /**

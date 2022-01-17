@@ -1,8 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "tag": "/components/tag/tag",
-    "data-empty": "/components/data-empty/data-empty",
-    "order-item": "/subcontract/pages/order/order-item/order-item"
-  }
-}

@@ -65,6 +65,7 @@ public class SkuStockDto implements Serializable {
     @ApiModelProperty(value = "销量")
     private Integer sale;
 
+    @NotNull
     @ApiModelProperty(value = "限购数量")
     private Integer perLimit;
 

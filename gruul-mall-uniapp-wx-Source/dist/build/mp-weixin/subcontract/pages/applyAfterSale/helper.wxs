@@ -1,7 +1,0 @@
-var priceNoInput = function(status) {
-  return ["WAIT_FOR_PICKUP"].indexOf(status) !== -1;
-};
-
-module.exports = {
-  priceNoInput: priceNoInput,
-};

@@ -41,19 +41,6 @@ public class AccountQueueNameConstant {
      */
     public static final String MEMBER_PAY_OK_QUEUE_CHANGE = "gruul.member.pay.ok";
 
-    /**
-     * 会员模块队列
-     */
-    public static final String MEMBER_DEFAULT = "gruul.member.default";
 
-    /**
-     * 用户返利支付队列
-     */
-    public static final String MEMBER_REBATE_PAY_OK_QUEUE_CHANGE = "gruul.member.rebate.pay.ok";
-
-    /**
-     * 会员模块初始化sql队列
-     */
-    public static final String MEMBER_INIT_QUEUE_CHANGE = "gruul.member.init";
 
 }

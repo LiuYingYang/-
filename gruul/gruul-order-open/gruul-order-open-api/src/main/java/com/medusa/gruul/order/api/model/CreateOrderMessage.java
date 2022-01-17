@@ -18,6 +18,5 @@ public class CreateOrderMessage implements Serializable {
     private CreateOrderDto orderVo;
     private Long orderId;
     private CurUserDto curUser;
-    private String tenantId;
 
 }

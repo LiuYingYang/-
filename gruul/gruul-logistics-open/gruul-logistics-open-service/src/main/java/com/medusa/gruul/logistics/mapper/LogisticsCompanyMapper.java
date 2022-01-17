@@ -19,7 +19,6 @@ public interface LogisticsCompanyMapper extends BaseMapper<LogisticsCompany> {
      * @param param
      * @return List<LogisticsCompany>
      */
-    @SqlParser(filter = true)
     List<LogisticsCompany> selectListCompany(Map<String, Object> param);
 
     /**
@@ -27,6 +26,5 @@ public interface LogisticsCompanyMapper extends BaseMapper<LogisticsCompany> {
      * @param param
      * @return LogisticsCompany
      */
-    @SqlParser(filter = true)
     LogisticsCompany selectListCompanyByParam(Map<String, Object> param);
 }

@@ -66,33 +66,6 @@ public interface ISystemConfService extends IService<SystemConf> {
      */
     PayConfigVo getPayConfig();
 
-
-    /**
-     * 发起微信支付二维码生成
-     *
-     * @param notifyUrl  回调地址
-     * @param outTradeNo 订单号
-     * @param money      金额
-     * @param body       交易信息
-     * @param productId  商品id
-     * @return com.medusa.gruul.platform.model.dto.PayDto
-     * @throws WxPayException
-     */
-    PayDto wxQrcodePay(String notifyUrl, String outTradeNo, String money, String body, String productId) throws WxPayException;
-
-
-    /**
-     * 支付宝二维码支付
-     *
-     * @param notifyUrl  回调地址
-     * @param subject    标题
-     * @param price      价格(单位元)
-     * @param outTradeNo 订单号
-     * @return com.medusa.gruul.platform.model.dto.PayDto 调用成功返回二维码地址
-     * @throws WxPayException com.github.binarywang.wxpay.exception.WxPayException
-     */
-    PayDto aliPayQrcodePay(String notifyUrl, String subject, String price, String outTradeNo) throws WxPayException;
-
     /**
      * 获取管理台客服消息相关配置
      *

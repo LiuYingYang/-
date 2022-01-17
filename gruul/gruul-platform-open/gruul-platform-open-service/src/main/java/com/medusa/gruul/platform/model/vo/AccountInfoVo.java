@@ -32,8 +32,6 @@ public class AccountInfoVo implements Serializable {
     @ApiModelProperty(value = "电子发票接收邮箱")
     private String email;
 
-    @ApiModelProperty(value = "是否代理")
-    private Boolean isAgent;
 
     @ApiModelProperty(value = "最后一次进入的店铺,值为空,则未进入过任何店铺")
     private LoginShopInfoVo shopInfoVo;

@@ -91,11 +91,7 @@ public class IpsPayServiceImpl extends AbstractHandler implements IpsPayService 
         if (test != null) {
             return test;
         }
-
-        if (StringUtils.isBlank(payRequestDto.getTenantId())) {
-            throw new ServiceException("商户唯一标识不存在");
-        }
-        ShopConfigDto shopConfig = remoteMiniInfoService.getShopConfig(payRequestDto.getTenantId());
+        ShopConfigDto shopConfig = remoteMiniInfoService.getShopConfig();
         if (shopConfig == null) {
             throw new ServiceException("商户配置不存在");
         }
@@ -103,11 +99,6 @@ public class IpsPayServiceImpl extends AbstractHandler implements IpsPayService 
         if (payInfo == null) {
             throw new ServiceException("支付配置不存在");
         }
-        MiniInfo miniInfo = shopConfig.getMiniInfo();
-        if (miniInfo == null) {
-            throw new ServiceException("未授权小程序");
-        }
-        log.info("miniInfo log = " + miniInfo.toString());
         payRequestDto.setFeeType(FeeTypeEnum.CNY.getName());
         /** 记录调用信息 */
         Payment payment = this.generatePayment(payRequestDto, payProperty.getIpsWorkerId(), payProperty.getIpsDatacenterId());
@@ -115,7 +106,7 @@ public class IpsPayServiceImpl extends AbstractHandler implements IpsPayService 
         /** 记录渠道信息数据 */
         innerHandleChannelData(payment, payRequestDto);
         /** 记录业务数据 */
-        PaymentRecord paymentRecord = this.generateRecod(payRequestDto);
+        PaymentRecord paymentRecord = this.generateRecord(payRequestDto);
         paymentRecord.setPaymentId(payment.getId());
 
         // 封装IpsWxPlatformPay
@@ -196,7 +187,7 @@ public class IpsPayServiceImpl extends AbstractHandler implements IpsPayService 
         boolean verifyResult;
         try {
             if (StringUtils.isNotBlank(sign)) {
-                ShopConfigDto shopConfig = remoteMiniInfoService.getShopConfig(merCode);
+                ShopConfigDto shopConfig = remoteMiniInfoService.getShopConfig();
                 if (shopConfig == null) {
                     throw new ServiceException("未获取到shopConfig");
                 }
@@ -311,7 +302,6 @@ public class IpsPayServiceImpl extends AbstractHandler implements IpsPayService 
         paymentWechat.setTradeType(WxPayEnum.IPS_JS_API.getType());
         paymentWechat.setSubject(payRequestDto.getSubject());
         paymentWechat.setOutTradeNo(payRequestDto.getOutTradeNo());
-        paymentWechat.setTenantId(payRequestDto.getTenantId());
         paymentWechat.setOpenId(payRequestDto.getOpenId());
         paymentWechatService.save(paymentWechat);
     }
@@ -376,24 +366,16 @@ public class IpsPayServiceImpl extends AbstractHandler implements IpsPayService 
      * @return
      */
     private IpsWxPlatformPay innerHandleIpsWxPlatformPay(PayRequestDto payRequestDto, Payment payment, PayInfoVo payInfo) {
-        ShopConfigDto shopConfig = remoteMiniInfoService.getShopConfig(payRequestDto.getTenantId());
+        ShopConfigDto shopConfig = remoteMiniInfoService.getShopConfig();
         if (shopConfig == null) {
             throw new ServiceException("商户配置不存在");
         }
-        MiniInfo miniInfo = shopConfig.getMiniInfo();
-        if (miniInfo == null) {
-            throw new ServiceException("未授权小程序");
-        }
 
-        if (null == miniInfo || StringUtils.isBlank(miniInfo.getAppId())) {
-            throw new ServiceException("商户不存在");
-        }
         IpsWxPlatformPay platformPay = new IpsWxPlatformPay();
         platformPay.setMerType(GlobalConstant.STRING_ZERO);
 
         /** 默认 1001 */
         platformPay.setPlatCode("1001");
-        platformPay.setAppId(miniInfo.getAppId());
         platformPay.setAccount(payInfo.getIpsAccCode());
         platformPay.setSceneType(WxPayEnum.IPS_JS_API.getCode());
         platformPay.setTrxId(payment.getTransactionId().toString());

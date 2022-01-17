@@ -37,15 +37,6 @@
         where is_deleted=0
     </select>
 
-    <select id="queryLogisticsAddressByExpressCode" resultMap="BaseResultMap"
-            parameterType="java.lang.String">
-        select a.province, a.city, a.country, a.address
-        from t_logistics_address a
-        inner join t_logistics_express e
-        on a.id = e.address_id
-        where a.is_deleted=0 and e.is_deleted=0 and e.code = #{expressCode}
-    </select>
-
     <select id="queryDefaultAddress" resultMap="BaseResultMap"
             parameterType="java.lang.Integer">
         select

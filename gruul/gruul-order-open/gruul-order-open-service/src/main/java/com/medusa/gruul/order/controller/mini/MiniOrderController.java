@@ -1,13 +1,11 @@
 package com.medusa.gruul.order.controller.mini;
 
 
-import com.medusa.gruul.account.api.feign.RemoteMiniAccountService;
 import com.medusa.gruul.common.core.annotation.EscapeLogin;
 import com.medusa.gruul.common.core.util.CurUserUtil;
 import com.medusa.gruul.common.core.util.PageUtils;
 import com.medusa.gruul.common.core.util.Result;
 import com.medusa.gruul.common.dto.CurShopInfoDto;
-import com.medusa.gruul.goods.api.feign.RemoteGoodsService;
 import com.medusa.gruul.logistics.model.dto.manager.CountCostDto;
 import com.medusa.gruul.order.api.entity.Order;
 import com.medusa.gruul.order.api.entity.OrderSetting;
@@ -214,29 +212,5 @@ public class MiniOrderController {
     public Result<PageUtils<ProductEvaluateVo>> productEvaluate(ApiSearchProductEvaluateDto dto) {
         PageUtils page = orderEvaluateService.productEvaluate(dto);
         return Result.ok(page);
-    }
-
-
-    @ApiOperation(value = "获取接龙活动最近的买家")
-    @GetMapping("/solitaire/lately/buyer")
-    public Result<List<LatelyBuyerVo>> solitaireLatelyBuyer(@RequestParam(value = "solitaireActivityId") @NotNull Integer solitaireActivityId) {
-        //Todo 接龙阉割
-        return Result.ok();
-    }
-
-
-    @ApiOperation(value = "获取接龙活动买家")
-    @GetMapping("/solitaire/buyer")
-    public Result<PageUtils<SolitaireBuyerVo>> solitaireBuyerPage() {
-        //Todo 接龙阉割
-        return Result.ok();
-    }
-
-
-    @ApiOperation(value = "获取我的接龙活动订单")
-    @GetMapping("/solitaire/my")
-    public Result<List<SolitaireBuyerVo>> mySolitaireOrder(@RequestParam(value = "solitaireActivityId") @NotNull Integer solitaireActivityId) {
-        //Todo 接龙阉割
-        return Result.ok();
     }
 }

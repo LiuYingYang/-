@@ -18,20 +18,7 @@ public enum AccountQueueEnum {
     /**
      * 用户收藏更改数据库队列
      */
-    QUEUE_ACCOUNT_COLLECT(AccountExchangeConstant.ACCOUNT_EXCHANGE, AccountQueueNameConstant.ACCOUNT_COLLECT, "gruul.account.collect"),
-
-
-    /**
-     * 默认用户队列
-     */
-    QUEUE_ACCOUNT_DEFAULT(AccountExchangeConstant.ACCOUNT_EXCHANGE, AccountQueueNameConstant.ACCOUNT_DEFAULT, AccountQueueNameConstant.ACCOUNT_DEFAULT),
-
-    /**
-     * 会员支付队列
-     */
-    QUEUE_MEMBER_PAY(AccountExchangeConstant.MEMBER_EXCHANGE, AccountQueueNameConstant.MEMBER_PAY_OK_QUEUE_CHANGE, AccountQueueNameConstant.MEMBER_PAY_OK_QUEUE_CHANGE);
-
-
+    QUEUE_ACCOUNT_COLLECT(AccountExchangeConstant.ACCOUNT_EXCHANGE, AccountQueueNameConstant.ACCOUNT_COLLECT, "gruul.account.collect");
     /**
      * 交换名称
      */

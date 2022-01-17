@@ -29,4 +29,10 @@ public interface AfsConstant {
     String DELIVER_EXCHANGE_NAME = "gruul.deliver.direct";
 
     String ACCOUNT_EXCHANGE = "gruul.account.exchange";
+
+    String STRING_ZERO = "0";
+
+    String STRING_TWO = "2";
+
+    Integer NUMBER_TWENTY = 20;
 }

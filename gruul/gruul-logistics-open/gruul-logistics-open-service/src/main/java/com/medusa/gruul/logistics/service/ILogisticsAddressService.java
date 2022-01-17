@@ -63,11 +63,9 @@ public interface ILogisticsAddressService {
 
     /**
      * 获取发货所需
-     * @param shopId 店铺
-     * @param tenantId
      * @return
      */
-    Map<String, Object> listLogisticsCompany(String shopId,String tenantId);
+    Map<String, Object> listLogisticsCompany();
 
     /**
      * 设置默认快递公司
@@ -90,21 +88,18 @@ public interface ILogisticsAddressService {
     /** 
     * 批量发货
     * @param logisticsBatchDeliverDtos
-    * @param shopId
-     * @param tenantId
      * @author: wangpeng
     * @version : v1.0      
     * @date: 2020/3/14 4:47 下午
     */ 
-    void doBatchDeliver(List<LogisticsBatchDeliverDto> logisticsBatchDeliverDtos, String shopId, String tenantId);
+    void doBatchDeliver(List<LogisticsBatchDeliverDto> logisticsBatchDeliverDtos);
 
     /**
      * 生成快递公司快递单号
      * @param expressInfoDto 订单传输信息
      * @param addressId 发货地址id
-     * @param shopId
      * @return Result
      */
-    Result getLogisticsExpressNumber(ExpressInfoDto expressInfoDto, Long addressId, String shopId);
+    Result getLogisticsExpressNumber(ExpressInfoDto expressInfoDto, Long addressId);
 
 }

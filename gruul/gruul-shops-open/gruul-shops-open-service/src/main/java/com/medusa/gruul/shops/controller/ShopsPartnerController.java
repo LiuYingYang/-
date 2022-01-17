@@ -28,7 +28,6 @@ public class ShopsPartnerController {
     /**
      * 新增默认店铺
      *
-     * @param tenantId
      * @param pass
      * @param phone
      * @return Result
@@ -36,11 +35,10 @@ public class ShopsPartnerController {
     @GetMapping("/save")
     @EscapeLogin
     @ApiOperation(value = "新增默认店铺")
-    public Result<ShopsPartner> save(@RequestParam @NotNull String tenantId,
-                       @RequestParam @NotNull String pass,
+    public Result<ShopsPartner> save(@RequestParam @NotNull String pass,
                        @RequestParam @NotNull String phone,
                        @RequestParam @NotNull Long platformId) {
-        return shopsPartnerService.saveShopsPartner(tenantId, pass, phone,platformId);
+        return shopsPartnerService.saveShopsPartner(pass, phone,platformId);
     }
 
 
@@ -57,30 +55,16 @@ public class ShopsPartnerController {
 
 
     /**
-     * 获取店铺 by shopId
+     * 获取店铺
      *
-     * @param shopId
      * @return ShopsPartner
      */
-    @GetMapping("/one/{shopId}")
+    @GetMapping("/one")
     @EscapeLogin
-    @ApiOperation(value = "获取店铺 by shopId")
-    public ShopsPartner oneByShopId(@NotNull @PathVariable String shopId) {
-        return shopsPartnerService.oneByShopId(shopId);
+    @ApiOperation(value = "获取店铺")
+    public ShopsPartner oneByShopId() {
+        return shopsPartnerService.oneByShopId();
     }
 
-
-    /**
-     * 获取店铺 by tenantId
-     *
-     * @param tenantId
-     * @return ShopsPartner
-     */
-    @GetMapping("/one_by_tenant_id/{tenantId}")
-    @EscapeLogin
-    @ApiOperation(value = "获取店铺 by tenantId")
-    public ShopsPartnerVo oneByTenantId(@NotNull @PathVariable String tenantId) {
-        return shopsPartnerService.oneByTenantId(tenantId);
-    }
 
 }

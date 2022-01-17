@@ -9,12 +9,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.medusa.gruul.common.core.constant.CommonConstants;
 import com.medusa.gruul.common.core.exception.ServiceException;
-import com.medusa.gruul.common.core.util.CurUserUtil;
 import com.medusa.gruul.common.core.util.StringUtil;
 import com.medusa.gruul.common.core.util.SystemCode;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
-import com.medusa.gruul.common.dto.CurShopInfoDto;
 import com.medusa.gruul.goods.api.entity.Product;
 import com.medusa.gruul.goods.api.entity.SaleMode;
 import com.medusa.gruul.goods.api.model.param.api.ApiProductParam;
@@ -27,7 +23,6 @@ import com.medusa.gruul.goods.service.api.IApiProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -60,14 +55,10 @@ public class ApiProductServiceImpl extends ServiceImpl<ApiProductMapper, Product
      */
     @Override
     public ApiProductVo getProductById(Long id) {
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
         ApiProductVo apiProductVo = productMapper.queryByPrimaryKey(id);
         if (BeanUtil.isEmpty(apiProductVo)) {
             throw new ServiceException("商品不存在！", SystemCode.DATA_EXISTED.getCode());
         }
-        //获取当前线程中的租户id的店铺信息;getTemplateCodeEnum 获取当前店铺使用模板类型
-        CurShopInfoDto tenantIdShopInfo = CurUserUtil.getTenantIdShopInfo();
         return apiProductVo;
     }
 
@@ -79,36 +70,10 @@ public class ApiProductServiceImpl extends ServiceImpl<ApiProductMapper, Product
      */
     @Override
     public IPage<ApiAliveProductVo> getPageList(ApiProductParam apiProductParam) {
-        //获取当前线程中的租户id的店铺信息;getTemplateCodeEnum 获取当前店铺使用模板类型
-        CurShopInfoDto tenantIdShopInfo = CurUserUtil.getTenantIdShopInfo();
-        IPage<ApiAliveProductVo> apiAliveProductVoIPage = new Page<>(apiProductParam.getCurrent(), apiProductParam.getSize());
-        List<ApiAliveProductVo> aliveProductVos = apiAliveProductMapper.querySuperMarketProductList(apiAliveProductVoIPage, apiProductParam);
-        return apiAliveProductVoIPage.setRecords(aliveProductVos);
-
-
+        IPage<ApiAliveProductVo> aliveProductVoPage = new Page<>(apiProductParam.getCurrent(), apiProductParam.getSize());
+        List<ApiAliveProductVo> aliveProductVos = apiAliveProductMapper.querySuperMarketProductList(aliveProductVoPage, apiProductParam);
+        return aliveProductVoPage.setRecords(aliveProductVos);
     }
-
-    /**
-     * 字符串ids转List<Long>集合公共方法
-     *
-     * @param filterProductIds 字符串
-     * @return List<Long>
-     */
-    private List<Long> getProductTypeAndIdList(String filterProductIds) {
-        if (StringUtil.isNotEmpty(filterProductIds)) {
-            List<Long> productIds = new ArrayList<>(filterProductIds.split(",").length);
-            Arrays.asList(filterProductIds.split(",")).forEach(str -> {
-                if (StringUtil.isNotEmpty(str)) {
-                    productIds.add(Long.parseLong(str.trim()));
-                }
-            });
-            return productIds;
-        } else {
-            return new ArrayList<>(CommonConstants.NUMBER_ZERO);
-        }
-    }
-
-
 
 
     /**
@@ -119,13 +84,9 @@ public class ApiProductServiceImpl extends ServiceImpl<ApiProductMapper, Product
      */
     @Override
     public IPage<ApiAliveProductVo> getSupermarketList(ApiProductParam apiProductParam) {
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
-        IPage<ApiAliveProductVo> apiAliveProductVoIPage = new Page<>(apiProductParam.getCurrent(), apiProductParam.getSize());
-        List<ApiAliveProductVo> aliveProductVos = apiAliveProductMapper.querySuperMarketProductList(apiAliveProductVoIPage, apiProductParam);
-        //获取当前线程中的租户id的店铺信息;getTemplateCodeEnum 获取当前店铺使用模板类型
-        CurShopInfoDto tenantIdShopInfo = CurUserUtil.getTenantIdShopInfo();
-        return apiAliveProductVoIPage.setRecords(aliveProductVos);
+        IPage<ApiAliveProductVo> aliveProductVoPage = new Page<>(apiProductParam.getCurrent(), apiProductParam.getSize());
+        List<ApiAliveProductVo> aliveProductVos = apiAliveProductMapper.querySuperMarketProductList(aliveProductVoPage, apiProductParam);
+        return aliveProductVoPage.setRecords(aliveProductVos);
     }
 
     //=============================================商品组件根据商品集合匹配未删除的商品===================================================
@@ -141,8 +102,6 @@ public class ApiProductServiceImpl extends ServiceImpl<ApiProductMapper, Product
     @Override
     public List<ApiAliveProductVo> getAliveProductList(Long[] ids, String launchArea, Long saleMode) {
         List<ApiAliveProductVo> aliveProductVos = apiAliveProductMapper.querySaveProductList(Arrays.asList(ids), saleMode);
-        //获取当前线程中的租户id的店铺信息;getTemplateCodeEnum 获取当前店铺使用模板类型
-        CurShopInfoDto tenantIdShopInfo = CurUserUtil.getTenantIdShopInfo();
         return aliveProductVos;
     }
 
@@ -188,16 +147,11 @@ public class ApiProductServiceImpl extends ServiceImpl<ApiProductMapper, Product
      */
     @Override
     public List<ApiShowCategoryProductVo> getAliveProductListByCategory(Long[] ids, Long saleMode) {
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
         SaleMode saleModeSearch = apiSaleModeMapper.selectOne(new QueryWrapper<SaleMode>().eq("id", saleMode));
         if (BeanUtil.isEmpty(saleModeSearch)) {
             return new ArrayList<>(CommonConstants.NUMBER_ZERO);
         }
         List<Long> idList = Arrays.asList(ids);
-        //获取当前线程中的租户id的店铺信息;getTemplateCodeEnum 获取当前店铺使用模板类型
-        CurShopInfoDto tenantIdShopInfo = CurUserUtil.getTenantIdShopInfo();
-
         List<ApiShowCategoryVo> apiShowCategoryVos;
         apiShowCategoryVos = apiShowCategoryMapper.queryApiSupermarketShowCategoryList(saleMode);
         List<ApiShowCategoryProductVo> apiShowCategoryProductVos = new ArrayList<>(apiShowCategoryVos.size());

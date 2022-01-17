@@ -5,16 +5,15 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+/**
+ * @author lcysike
+ */
 @Data
 @NoArgsConstructor
 public class GetOrderListParam {
-    private String tenantId;
-    private String shopId;
     private List<Long> orderIds;
 
-    public GetOrderListParam(String tenantId, String shopId, List<Long> orderIds) {
-        this.tenantId = tenantId;
-        this.shopId = shopId;
+    public GetOrderListParam(List<Long> orderIds) {
         this.orderIds = orderIds;
     }
 }

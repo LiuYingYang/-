@@ -21,21 +21,6 @@ public class ShopsPartnerVo implements Serializable {
 
     private Long id;
 
-
-    /**
-     * 归属关联Id
-     */
-    @ApiModelProperty(value = "归属关联Id")
-    private String tenantId;
-
-
-    /**
-     * 店铺id
-     */
-    @ApiModelProperty(value = "店铺id")
-    private String shopId;
-
-
     /**
      * 总店Id
      */
@@ -128,9 +113,9 @@ public class ShopsPartnerVo implements Serializable {
 
 
     /**
-     *  合伙人模式  0加盟 1子公司
+     *  Modify模式  0加盟 1子公司
      */
-    @ApiModelProperty(value = "合伙人模式  0加盟 1子公司")
+    @ApiModelProperty(value = "Modify模式  0加盟 1子公司")
     private String partnerModel;
 
 

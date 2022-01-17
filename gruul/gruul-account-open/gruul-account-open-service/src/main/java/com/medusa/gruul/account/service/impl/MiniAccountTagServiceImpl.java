@@ -45,7 +45,6 @@ public class MiniAccountTagServiceImpl extends ServiceImpl<MiniAccountTagMapper,
 
     @Override
     public List<TagVo> listAll() {
-        //租户id 自动封装进行!
         List<MiniAccountTag> tagList = this.baseMapper.selectList(new QueryWrapper<MiniAccountTag>());
         if (CollectionUtil.isEmpty(tagList)) {
             return new ArrayList<>(0);

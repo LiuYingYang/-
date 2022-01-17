@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * The type Order share setting vo.
+ * @author lcysike
  */
 @ApiModel("设置分享晒单设置")
 @Data

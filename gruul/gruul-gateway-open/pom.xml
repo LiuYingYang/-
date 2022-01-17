@@ -43,7 +43,7 @@
 		<!--common-core-->
 		<dependency>
 			<groupId>com.medusa</groupId>
-			<artifactId>gruul-common-base</artifactId>
+			<artifactId>gruul-common-base-open</artifactId>
 			<version>${gruul.version}</version>
             <exclusions>
                 <exclusion>

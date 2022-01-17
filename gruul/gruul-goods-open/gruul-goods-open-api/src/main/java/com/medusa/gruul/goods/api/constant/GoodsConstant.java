@@ -37,30 +37,4 @@ public interface GoodsConstant {
      */
     String SUPERMARKET_MODE = "SUPERMARKET";
 
-
-    /**
-     * 默认店铺tenantId
-     */
-    String DEFAULT_TENANT_ID = "100001";
-
-    /**
-     * 默认店铺shopId
-     */
-    String DEFAULT_SHOP_ID = "100001100001";
-
-    /**
-     * 测试店铺tenantId
-     */
-    String TEST_TENANT_ID = "100002";
-
-    /**
-     * 测试店铺shopId
-     */
-    String TEST_SHOP_ID = "100002100001";
-
-    /**
-     * 测试店铺shopId
-     */
-    String TEST_USER_TOKEN = "account:e0e8167bc903519c7dd7b7961d7e248ba41c7efb99c16c7d55667f8b0942d0e4";
-
 }

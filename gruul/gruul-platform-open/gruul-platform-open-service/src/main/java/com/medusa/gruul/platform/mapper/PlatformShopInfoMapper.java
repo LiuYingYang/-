@@ -19,36 +19,6 @@ import java.util.List;
 public interface PlatformShopInfoMapper extends BaseMapper<PlatformShopInfo> {
 
     /**
-     * 获取id最大的店铺
-     *
-     * @return com.medusa.gruul.platform.api.entity.PlatformShopInfo
-     */
-    PlatformShopInfo getLastTenantId();
-
-
-    /**
-     * 管理台查询所有店铺
-     *
-     * @param page           分页对象
-     * @param templateInfoId 模板id
-     * @param search         搜索内容(用户手机号或者店铺昵称)
-     * @param shopStatus     店铺状态
-     * @param deployType     部署类型
-     * @param versionId      版本id
-     * @param packageId      套餐id
-     * @param agentId        代理id1
-     * @return com.medusa.gruul.platform.api.entity.PlatformShopInfo
-     */
-    IPage<PlatformShopInfo> amdinSelectPage(@Param("page") Page<PlatformShopInfo> page,
-                                            @Param("templateInfoId") Integer templateInfoId,
-                                            @Param("search") String search,
-                                            @Param("shopStatus") Integer shopStatus,
-                                            @Param("deployType") Integer deployType,
-                                            @Param("versionId") Integer versionId,
-                                            @Param("packageId") Long packageId, @Param("agentId") Long agentId);
-
-
-    /**
      * 查询指定模板下的所有取消授权小程序和从未上传审核过的小程序的店铺
      *
      * @param shopTemplateId 店铺模板id

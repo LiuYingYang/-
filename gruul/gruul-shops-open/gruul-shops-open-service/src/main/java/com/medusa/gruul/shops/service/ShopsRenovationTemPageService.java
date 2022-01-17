@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.medusa.gruul.common.core.util.Result;
 import com.medusa.gruul.shops.api.entity.ShopsRenovationPage;
 import com.medusa.gruul.shops.model.param.ShopsRenovationPageParam;
-import org.apache.ibatis.annotations.Param;
 
 
 /**

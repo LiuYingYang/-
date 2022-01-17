@@ -1,28 +1,18 @@
 package com.medusa.gruul.shops.service.impl;
 
-import ch.qos.logback.core.net.SyslogOutputStream;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.ArrayUtil;
-import cn.hutool.core.util.StrUtil;
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.medusa.gruul.common.core.constant.CommonConstants;
 import com.medusa.gruul.common.core.exception.ServiceException;
-import com.medusa.gruul.common.core.util.SystemCode;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.shops.api.entity.ShopGuidePage;
-import com.medusa.gruul.shops.api.entity.ShopGuidePageSwitch;
 import com.medusa.gruul.shops.mapper.ShopGuidePageMapper;
 import com.medusa.gruul.shops.model.dto.ShopGuidePageDto;
-import com.medusa.gruul.shops.model.vo.ShopGuidePageVo;
 import com.medusa.gruul.shops.service.IShopGuidePageService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -140,15 +130,6 @@ public class ShopGuidePageServiceImpl extends ServiceImpl<ShopGuidePageMapper, S
 	 */
 	@Override
 	public void init(String jsonStr) {
-		int i = 0;
-		JSONObject jsonObject = JSONObject.parseObject(jsonStr);
-		String tenantId = jsonObject.getString("tenantId");
-		String shopId = jsonObject.getString("shopId");
-		if (StrUtil.isEmpty(tenantId) || StrUtil.isEmpty(shopId)) {
-			throw new ServiceException("jsonStr:".concat(jsonStr).concat("--->数据为空"));
-		}
-		TenantContextHolder.setTenantId(tenantId);
-		ShopContextHolder.setShopId(shopId);
 		List<ShopGuidePageDto> shopGuidePageDtos = shopGuidePageMapper.selectGuidePageDefault();
         ShopGuidePage shopGuidePage = new ShopGuidePage();
 		for (ShopGuidePageDto shopGuidePageDto:shopGuidePageDtos){

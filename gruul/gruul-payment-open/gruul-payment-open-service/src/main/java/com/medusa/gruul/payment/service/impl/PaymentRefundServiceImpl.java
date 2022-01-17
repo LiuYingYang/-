@@ -6,6 +6,7 @@ import com.github.binarywang.wxpay.bean.request.WxPayRefundRequest;
 import com.github.binarywang.wxpay.bean.result.WxPayRefundResult;
 import com.github.binarywang.wxpay.exception.WxPayException;
 import com.github.binarywang.wxpay.service.WxPayService;
+import com.medusa.gruul.account.api.conf.MiniInfoProperty;
 import com.medusa.gruul.common.core.util.Result;
 import com.medusa.gruul.payment.api.entity.PaymentRefund;
 import com.medusa.gruul.payment.api.model.dto.EntPayReQuestDto;
@@ -17,6 +18,8 @@ import com.medusa.gruul.payment.service.EntPayService;
 import com.medusa.gruul.payment.service.PaymentRefundService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +30,8 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service(value = "paymentRefundServiceImpl")
 @Log
+@Component
+@EnableConfigurationProperties(MiniInfoProperty.class)
 public class PaymentRefundServiceImpl extends ServiceImpl<PaymentRefundMapper, PaymentRefund> implements PaymentRefundService {
 
     @Autowired
@@ -51,8 +56,6 @@ public class PaymentRefundServiceImpl extends ServiceImpl<PaymentRefundMapper, P
         }
 
         EntPayReQuestDto dto = new EntPayReQuestDto();
-        dto.setTenantId(param.getTenantId());
-
         WxPayRefundRequest wxPayRefundRequest = new WxPayRefundRequest();
         wxPayRefundRequest.setTotalFee(param.getTotalFee());
         wxPayRefundRequest.setOutTradeNo(param.getOrderId());
@@ -63,7 +66,6 @@ public class PaymentRefundServiceImpl extends ServiceImpl<PaymentRefundMapper, P
         PaymentRefund refundModel = new PaymentRefund();
         refundModel.setOrderId(param.getOrderId());
         refundModel.setAsynRequest(JSONObject.toJSONString(param));
-        refundModel.setTenantId(param.getTenantId());
         refundModel.setRouteKey(param.getRouteKey());
         this.save(refundModel);
 

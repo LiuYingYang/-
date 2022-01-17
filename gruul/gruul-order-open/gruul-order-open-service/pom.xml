@@ -61,7 +61,7 @@
         <!--灰度路由-->
         <dependency>
             <groupId>com.medusa</groupId>
-            <artifactId>gruul-common-gray</artifactId>
+            <artifactId>gruul-common-gray-open</artifactId>
             <version>${gruul.version}</version>
         </dependency>
         <dependency>

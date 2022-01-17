@@ -28,7 +28,7 @@ public interface SystemConstant {
     /**
      * 收款配置 param_key
      */
-    String PLATFROM_PAY_CONFIG = "platfrom_pay_config";
+    String PLATFORM_PAY_CONFIG = "platform_pay_config";
     /**
      * 当前使用的oos配置类型 param_key
      */

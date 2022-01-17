@@ -2,15 +2,11 @@ package com.medusa.gruul.sms.task;
 
 import cn.hutool.core.collection.CollectionUtil;
 import com.medusa.gruul.sms.constant.SmsSmsStatus;
-import com.medusa.gruul.sms.dao.entity.TSmsOrderEntity;
+import com.medusa.gruul.sms.model.entity.TSmsOrderEntity;
 import com.medusa.gruul.sms.service.SmsOrderService;
 import com.medusa.gruul.sms.service.SmsSendService;
-import com.xxl.job.core.biz.model.ReturnT;
-import com.xxl.job.core.handler.IJobHandler;
-import com.xxl.job.core.handler.annotation.JobHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -55,7 +51,7 @@ public class SendSmsTask  {
 
         log.info("-----------短信发送任务结束-----------");
         return "";
-    };
+    }
 
     private List<TSmsOrderEntity> getData() {
 

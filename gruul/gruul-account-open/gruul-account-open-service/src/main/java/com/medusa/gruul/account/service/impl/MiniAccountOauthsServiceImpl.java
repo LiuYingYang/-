@@ -38,8 +38,6 @@ public class MiniAccountOauthsServiceImpl extends ServiceImpl<MiniAccountOauthsM
 
     @Override
     public MiniAccountOauths getByUnionIdAndMiniInfo(String unionId) {
-
-
         List<MiniAccountOauths> accountOauths = this.baseMapper.selectList(new QueryWrapper<MiniAccountOauths>().eq("union_id", unionId));
         if (CollectionUtil.isEmpty(accountOauths)) {
             return null;

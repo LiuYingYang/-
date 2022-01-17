@@ -22,7 +22,6 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        a.tenant_id,
         a.create_time,
         a.update_time,
         a.is_deleted,
@@ -30,7 +29,6 @@
     </sql>
 
     <sql id="Children_Column_List">
-        ac.tenant_id AS c_tenant_id,
         ac.create_time AS c_create_time,
         ac.update_time AS c_update_time,
         ac.is_deleted AS c_is_deleted,

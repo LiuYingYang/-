@@ -33,13 +33,6 @@ public class LogisticsShop extends BaseEntity {
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
-    /**
-     * 店铺id
-     */
-    @NotNull
-    @ApiModelProperty(value = "店铺id")
-    @TableField("shop_id")
-    private String shopId;
 
     /**
      * 物流公司id

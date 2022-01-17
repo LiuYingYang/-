@@ -15,12 +15,7 @@ public class UpdateUserExtendsInfoDto {
      * 设置用户最后一次选择的地理位置经纬度
      */
     @ApiModelProperty(value = "经纬度,经度在前维度在后逗号分隔")
-    private String lastChooseLcation;
+    private String lastChooseLocation;
 
 
-    /**
-     * 设置用户当前所在店铺
-     */
-    @ApiModelProperty(value = "商铺id")
-    private String shopId;
 }

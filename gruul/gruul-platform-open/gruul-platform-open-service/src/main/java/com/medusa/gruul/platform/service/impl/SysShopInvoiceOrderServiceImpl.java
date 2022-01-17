@@ -18,6 +18,7 @@ import com.medusa.gruul.common.core.util.PageUtils;
 import com.medusa.gruul.platform.api.entity.*;
 import com.medusa.gruul.platform.conf.PlatformRedis;
 import com.medusa.gruul.platform.constant.RedisConstant;
+import com.medusa.gruul.platform.mapper.PlatformAccountRechargeMapper;
 import com.medusa.gruul.platform.mapper.SysShopInvoiceOrderMapper;
 import com.medusa.gruul.platform.model.dto.InvoiceOrderAuditDto;
 import com.medusa.gruul.platform.model.dto.ShopInvoiceOrderApplyDto;
@@ -49,7 +50,7 @@ public class SysShopInvoiceOrderServiceImpl extends ServiceImpl<SysShopInvoiceOr
     @Autowired
     private ISysShopPackageOrderService shopPackageOrderService;
     @Autowired
-    private IPlatformAccountRechargeService platformAccountRechargeService;
+    private PlatformAccountRechargeMapper platformAccountRechargeMapper;
     @Autowired
     private ISystemConfService systemConfService;
     @Autowired
@@ -81,7 +82,7 @@ public class SysShopInvoiceOrderServiceImpl extends ServiceImpl<SysShopInvoiceOr
         order.setInvoiceTaxpayerNum(invoiceRise.getInvoiceTaxpayerNum());
         String orderNum = "";
         if (orderApplyDto.getOrderType().equals(CommonConstants.NUMBER_ONE)) {
-            PlatformAccountRecharge platformAccountRecharge = platformAccountRechargeService.getById(orderApplyDto.getOrderId());
+            PlatformAccountRecharge platformAccountRecharge = platformAccountRechargeMapper.selectById(orderApplyDto.getOrderId());
             if (platformAccountRecharge == null) {
                 throw new ServiceException("无效订单");
             }
@@ -168,13 +169,5 @@ public class SysShopInvoiceOrderServiceImpl extends ServiceImpl<SysShopInvoiceOr
 
     }
 
-    @Override
-    public List<InvoiceOrderApplyVo> getByOrderTypeAndOrderIds(Integer orderType, List<Long> orderIds) {
-        List<SysShopInvoiceOrder> invoiceOrders = list(new QueryWrapper<SysShopInvoiceOrder>().eq("order_type", orderType)
-                .in("order_id", orderIds));
-        if (CollectionUtil.isEmpty(invoiceOrders)) {
-            return new ArrayList<>();
-        }
-        return invoiceOrders.stream().map(obj -> BeanUtil.toBean(obj, InvoiceOrderApplyVo.class)).collect(Collectors.toList());
-    }
+
 }

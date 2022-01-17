@@ -9,13 +9,12 @@
         <result column="payment_id" property="paymentId" />
         <result column="out_trade_no" property="outTradeNo" />
         <result column="subject" property="subject" />
-        <result column="tenant_id" property="tenantId" />
         <result column="open_id" property="openId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, trade_type, payment_id, out_trade_no, subject, tenant_id, open_id
+        id, trade_type, payment_id, out_trade_no, subject, open_id
     </sql>
 
 </mapper>

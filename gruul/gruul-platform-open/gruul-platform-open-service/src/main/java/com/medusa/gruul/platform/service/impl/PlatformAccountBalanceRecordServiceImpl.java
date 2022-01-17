@@ -24,7 +24,7 @@ public class PlatformAccountBalanceRecordServiceImpl extends ServiceImpl<Platfor
 
 
     @Override
-    public void newBlanceDeail(AccountInfo accountInfo, Integer consumptionType, String orderNum, BigDecimal accountAmount) {
+    public void newBalanceDetail(AccountInfo accountInfo, Integer consumptionType, String orderNum, BigDecimal accountAmount) {
         PlatformAccountBalanceRecord platformAccountBalanceRecord = new PlatformAccountBalanceRecord();
         platformAccountBalanceRecord.setAccountId(accountInfo.getId());
         platformAccountBalanceRecord.setConsumptionType(consumptionType);

@@ -8,8 +8,6 @@
         <result column="create_time" property="createTime"/>
         <result column="is_deleted" property="deleted"/>
         <result column="update_time" property="updateTime"/>
-        <result column="tenant_id" property="tenantId"/>
-        <result column="shop_id" property="shopId"/>
         <result column="url" property="url"/>
         <result column="path" property="path"/>
         <result column="is_default" property="deleted"/>
@@ -33,7 +31,7 @@
 
     <!--通用ShopGuidePageVo 查询结果列-->
     <sql id="ShopGuidePageDto_Column_List">
-        id,`type`,tenant_id,shop_id,url,path,app_id,link
+        id,`type`,url,path,app_id,link
     </sql>
 
     <update id="updateShopGuidePage">
@@ -62,14 +60,11 @@
             resultMap="ShopGuidePageDtoResultMap">
 
         SELECT
-        `type`,tenant_id,shop_id,url,path,app_id,link
+        `type`,url,path,app_id,link
         FROM
         t_shop_guide_page
         WHERE
-        shop_id = '100001100001'
-        AND
-        tenant_id = '100001'
-        and is_deleted = 0
+        is_deleted = 0
         LIMIT 5
 
     </select>

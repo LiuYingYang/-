@@ -6,8 +6,9 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: ip
-        ip: ip
+        server-addr: 101.71.91.145:8848
+        ip: 101.71.91.145
+#        register-enabled: 127.0.0.1
       config:
         server-addr: ${spring.cloud.nacos.discovery.server-addr}
         file-extension: yml
@@ -16,7 +17,3 @@ spring:
     exclude: org.springframework.cloud.gateway.config.GatewayAutoConfiguration,org.springframework.cloud.gateway.config.GatewayClassPathWarningAutoConfiguration
   profiles:
     active: open
-
-gruul:
-  tenant:
-    use-shop: true

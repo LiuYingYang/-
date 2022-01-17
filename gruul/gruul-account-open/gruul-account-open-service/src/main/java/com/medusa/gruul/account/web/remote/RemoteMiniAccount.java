@@ -45,7 +45,7 @@ public class RemoteMiniAccount {
      * 获取用户信息接口
      *
      * @param shopUserId 用户id
-     * @param infos      [1,2,3,4]  1,基本信息,2,扩展信息,3-地址信息,4-授权信息  需要哪些发哪些 list
+     * @param infos      [1,2,3,4]  1,基本信息,2,扩展信息,3-地址信息,4-授权信息   需要哪些发哪些 list
      * @return com.medusa.gruul.account.api.model.AccountInfoDto
      */
     @RequestMapping(value = "/account/info/{userId}", method = RequestMethod.GET)
@@ -72,38 +72,4 @@ public class RemoteMiniAccount {
             @RequestParam(value = "shopUserId", required = true) @NotNull(message = "店铺用户id不能为null") List<String> shopUserId) {
         return miniAccountService.accountsInfoList(shopUserId);
     }
-
-
-    /**
-     * 积分确认是否足够或直接确认减少接口
-     *
-     * @param userId   用户id
-     * @param value    要减少的积分值
-     * @param isDeduct 是否直接减少 true 直接减少  false不操作积分,只确认积分是否足够
-     * @return 情况1:  isDeduct == true && 减少积分足够 return true   直接扣减并且积分足够
-     * 情况2:  isDeduct == false && 减少积分足够 return true  不扣减仅确认积分是否足够
-     */
-    @RequestMapping(value = "/integral/subtract/affirm/{userId}", method = RequestMethod.GET)
-    @ApiOperation(value = "积分减少确认接口")
-    @EscapeLogin
-    public Boolean integralSubtractAffirm(@PathVariable(value = "userId", required = true) @NotNull(message = "用户id不能为null") String userId,
-                                          @RequestParam(value = "value", required = true) @NotNull(message = "积分值不能为空") BigDecimal value,
-                                          @RequestParam(value = "isDeduct", required = true) @NotNull(message = "是否直接扣除字段不能为null") Boolean isDeduct) {
-        //Todo 积分
-        return null;
-    }
-
-    /**
-     * 公众号授权登录,返回登录token
-     *
-     * @param wxMpUserDto com.medusa.gruul.platform.api.model.dto.WxMpUserDto
-     * @return java.lang.String
-     */
-    @RequestMapping(value = "/mp/login", method = RequestMethod.POST)
-    @ApiOperation(value = "公众号授权登录")
-    @EscapeLogin
-    public Result mpLogin(@RequestBody WxMpUserDto wxMpUserDto) {
-        return miniAccountService.mpLogin(wxMpUserDto);
-    }
-
 }

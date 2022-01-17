@@ -2,12 +2,9 @@ package com.medusa.gruul.logistics.controller;
 
 import com.medusa.gruul.common.core.util.PageUtils;
 import com.medusa.gruul.common.core.util.Result;
-import com.medusa.gruul.logistics.model.dto.manager.LogisticsExpressDto;
 import com.medusa.gruul.logistics.model.dto.manager.LogisticsExpressPrintDto;
-import com.medusa.gruul.logistics.model.param.LogisticsExpressParam;
 import com.medusa.gruul.logistics.model.param.LogisticsExpressPrintParam;
 import com.medusa.gruul.logistics.model.vo.LogisticsExpressPrintVo;
-import com.medusa.gruul.logistics.model.vo.LogisticsExpressVo;
 import com.medusa.gruul.logistics.service.ILogisticsExpressPrintService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.medusa.gruul.common.data.base.BaseNoTenantEntity;
+import com.medusa.gruul.common.data.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @TableName("t_platform_account_recharge")
 @ApiModel(value = "PlatformAccountRecharge对象", description = "充值订单表")
-public class PlatformAccountRecharge extends BaseNoTenantEntity {
+public class PlatformAccountRecharge extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -59,11 +59,7 @@ public class PlatformAccountRecharge extends BaseNoTenantEntity {
     @TableField("pay_num")
     private String payNum;
 
-    /**
-     * 订单生成时所在的店铺
-     */
-    @ApiModelProperty(value = "租户ID")
-    private String tenantId;
+
 
     /**
      * 1支付宝 2 微信 3汇款支付

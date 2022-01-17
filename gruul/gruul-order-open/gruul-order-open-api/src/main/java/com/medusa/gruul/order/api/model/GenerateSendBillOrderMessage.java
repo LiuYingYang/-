@@ -19,10 +19,6 @@ public class GenerateSendBillOrderMessage implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * 租户ID
-     */
-    private String tenantId;
-    /**
      * 发货单ID
      */
     @ApiModelProperty(value = "发货单ID,必填", example = "1")

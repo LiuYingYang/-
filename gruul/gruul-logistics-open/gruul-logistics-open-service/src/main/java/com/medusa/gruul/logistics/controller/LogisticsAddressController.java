@@ -1,10 +1,7 @@
 package com.medusa.gruul.logistics.controller;
 
-import com.medusa.gruul.common.core.annotation.EscapeLogin;
 import com.medusa.gruul.common.core.util.PageUtils;
 import com.medusa.gruul.common.core.util.Result;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.logistics.model.dto.manager.LogisticsAddressDto;
 import com.medusa.gruul.logistics.model.dto.manager.LogisticsBatchDeliverDto;
 import com.medusa.gruul.logistics.model.dto.manager.LogisticsPrintDeliverDto;
@@ -14,7 +11,6 @@ import com.medusa.gruul.logistics.service.ILogisticsAddressService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -116,9 +112,7 @@ public class LogisticsAddressController {
     @GetMapping(value = "/list/company")
     @ApiOperation(value = "发货页面")
     public Result listLogisticsCompany() {
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
-        Map<String, Object> res = logisticsAddressService.listLogisticsCompany(shopId,tenantId);
+        Map<String, Object> res = logisticsAddressService.listLogisticsCompany();
         return Result.ok(res);
     }
 
@@ -142,8 +136,6 @@ public class LogisticsAddressController {
     @PostMapping(value = "/print/deliver/goods")
     @ApiOperation(value = "打印并发货")
     public Result doDeliverGoods(@RequestBody @Valid LogisticsPrintDeliverDto logisticsPrintDeliverDto) {
-        logisticsPrintDeliverDto.setShopId(ShopContextHolder.getShopId());
-        logisticsPrintDeliverDto.setTenantId(TenantContextHolder.getTenantId());
         logisticsAddressService.doPrintDeliverGoods(logisticsPrintDeliverDto);
         return Result.ok();
     }
@@ -157,9 +149,7 @@ public class LogisticsAddressController {
     @PostMapping(value = "/batch/deliver/goods")
     @ApiOperation(value = "批量发货")
     public Result doBatchDeliver(@RequestBody List<LogisticsBatchDeliverDto> logisticsBatchDeliverDtos) {
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
-        logisticsAddressService.doBatchDeliver(logisticsBatchDeliverDtos,shopId,tenantId);
+        logisticsAddressService.doBatchDeliver(logisticsBatchDeliverDtos);
         return Result.ok();
     }
 }

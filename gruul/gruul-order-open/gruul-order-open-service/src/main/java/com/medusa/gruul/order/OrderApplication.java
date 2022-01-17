@@ -1,6 +1,5 @@
 package com.medusa.gruul.order;
 
-import com.medusa.gruul.common.core.monitor.EnableMonitorHeartbeat;
 import com.medusa.gruul.common.swagger.annotation.EnableGruulSwagger2;
 import com.medusa.gruul.order.config.CounterHandler;
 import org.mybatis.spring.annotation.MapperScan;
@@ -14,6 +13,9 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 
+/**
+ * @author lcysike
+ */
 @EnableWebSocket
 @EnableGruulSwagger2
 @SpringCloudApplication

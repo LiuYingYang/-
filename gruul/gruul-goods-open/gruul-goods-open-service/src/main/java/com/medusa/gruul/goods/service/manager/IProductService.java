@@ -117,16 +117,14 @@ public interface IProductService extends IService<Product> {
      */
     List<ItemVo> findItemVoByIds(List<Long> skuIds);
 
-
-
-
     /**
-     * 已发货的订单商品移除列表
+     * 组件查询所有商品列表
      *
      * @param discountProductParam
      * @return 分页对象
      */
-    IPage<DiscountProductVo> getRemoveProductList(DiscountProductParam discountProductParam);
+    IPage<DiscountProductVo> getDiscountProductList(DiscountProductParam discountProductParam);
+
 
     /**
      * 根据商品数组匹配未删除的商品
@@ -159,15 +157,6 @@ public interface IProductService extends IService<Product> {
      * @return Boolean
      */
     Boolean checkProductByTemplateId(Long templateId);
-
-
-
-    /**
-     * 新建店铺同时新增默认店铺里面的默认商品
-     *
-     * @return Result
-     */
-    void createDefaultProduct();
 
     /**
      * 淘宝商品csv文件导入

@@ -1,6 +1,5 @@
 package com.medusa.gruul.payment.api.constant;
 
-import lombok.Getter;
 
 /**
  * @author whh

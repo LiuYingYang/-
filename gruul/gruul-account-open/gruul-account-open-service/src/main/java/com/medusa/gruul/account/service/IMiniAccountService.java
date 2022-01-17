@@ -71,19 +71,16 @@ public interface IMiniAccountService extends IService<MiniAccount> {
      * 获取pc端用户列表
      *
      * @param nikeName              微信昵称
-     * @param becomeMemberStartTime 成为会员开始时间 2019-11-11 11:23:23
-     * @param becomeMemberEndTime   成为会员结束时间 2019-11-11 11:23:23
      * @param tagId                 标签id
      * @param orderSuccessStartTime 成交时间 2019-11-11 11:23:23
      * @param orderSuccessEndTime   成交时间 2019-11-11 11:23:23
-     * @param memberNumber          会员等级代码
      * @param page                  页数
      * @param size                  条数
      * @param sortType
      * @return com.medusa.gruul.account.model.vo.UserListVo
      */
-    PageUtils<List<UserListVo>> userList(String nikeName, String becomeMemberStartTime, String becomeMemberEndTime, Long tagId,
-                                         String orderSuccessStartTime, String orderSuccessEndTime,  String memberNumber, Integer page, Integer size, Integer sortType);
+    PageUtils<List<UserListVo>> userList(String nikeName, Long tagId,
+                                         String orderSuccessStartTime, String orderSuccessEndTime,  Integer page, Integer size, Integer sortType);
 
     /**
      * 获取用户信息接口
@@ -107,20 +104,6 @@ public interface IMiniAccountService extends IService<MiniAccount> {
     PageUtils<List<BlacklistUserVo>> blacklist(Integer page, Integer size, Integer permission, String fuzzy);
 
 
-    /**
-     * 切换用户当前所在店铺
-     *
-     * @param shopId 店铺id
-     * @return java.lang.String
-     */
-    String switchShops(String shopId);
-
-    /**
-     * 生成默认账号
-     *
-     * @param jsonData json数据(租户id和shopId)
-     */
-    void generateAccountDefault(String jsonData);
 
     /**
      * 批量获取指定用户id(用户店铺id)的用户基本信息
@@ -139,13 +122,6 @@ public interface IMiniAccountService extends IService<MiniAccount> {
     String qrCode();
 
 
-    /**
-     * 公众号授权登录,返回登录token
-     *
-     * @param wxMpUserDto com.medusa.gruul.platform.api.model.dto.WxMpUserDto
-     * @return java.lang.String
-     */
-    Result mpLogin(WxMpUserDto wxMpUserDto);
 
     /**
      * 根据店铺用户id查询用户所在店铺唯一id

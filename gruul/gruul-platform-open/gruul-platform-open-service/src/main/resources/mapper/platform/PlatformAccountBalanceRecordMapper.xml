@@ -6,7 +6,7 @@
     <resultMap id="BaseResultMap" type="com.medusa.gruul.platform.api.entity.PlatformAccountBalanceRecord">
         <id column="id" property="id"/>
         <result column="create_time" property="createTime"/>
-        <result column="is_deleted" property="isDeleted"/>
+        <result column="is_deleted" property="deleted"/>
         <result column="update_time" property="updateTime"/>
         <result column="account_id" property="accountId"/>
         <result column="consumption_type" property="consumptionType"/>

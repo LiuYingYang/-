@@ -21,7 +21,7 @@ public class PreAccountVerifyDto {
     @NotBlank(message = "回调页面地址不能为空")
     private String redirectUrl;
 
-    @ApiModelProperty(value = "当前租户对应的用户id,后端用前端不可见", hidden = true)
+    @ApiModelProperty(value = "当前用户id,后端用前端不可见", hidden = true)
     private Long userId;
 
     @ApiModelProperty(value = "扫码场景 具体场景值查看ScanCodeScenesEnum枚举类")

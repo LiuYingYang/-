@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class AccountFootMarkVo {
 
     @ApiModelProperty(value = "用户收藏表id")
-    private Long footmarkId;
+    private Long footMarkId;
 
     @ApiModelProperty(value = "用户id")
     private String userId;

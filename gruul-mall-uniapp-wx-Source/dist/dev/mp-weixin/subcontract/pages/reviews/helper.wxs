@@ -1,7 +1,0 @@
-var isCurrent = function(itemType, currentType) {
-  return itemType === currentType;
-};
-
-module.exports = {
-  isCurrent:isCurrent
-}

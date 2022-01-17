@@ -14,7 +14,7 @@ import com.medusa.gruul.common.core.util.PageUtils;
  * </p>
  *
  * @author alan
- * @since 2020 -08-05
+ * @since 2020-08-05
  */
 public interface IManageAfsOrderService extends IService<AfsOrder> {
 

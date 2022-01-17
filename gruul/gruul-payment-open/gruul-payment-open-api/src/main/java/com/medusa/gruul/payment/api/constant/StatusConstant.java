@@ -10,7 +10,7 @@ public class StatusConstant {
     /**
      * 第三方回调状态 0未回调 1-已处理
      */
-    public static class ThirdpartyNotifyStatus {
+    public static class ThirdPartyNotifyStatus {
         public static Integer UNTREATED = 0;
         public static Integer PROCESSED = 1;
     }

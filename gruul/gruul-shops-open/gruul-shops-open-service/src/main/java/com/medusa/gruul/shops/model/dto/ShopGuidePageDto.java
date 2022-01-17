@@ -1,14 +1,10 @@
 package com.medusa.gruul.shops.model.dto;
 
 import cn.hutool.core.bean.BeanUtil;
-import com.baomidou.mybatisplus.annotation.FieldStrategy;
-import com.baomidou.mybatisplus.annotation.TableField;
 import com.medusa.gruul.shops.api.entity.ShopGuidePage;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-
-import javax.validation.constraints.NotNull;
 
 /**
  * @Description: 商家自定义引导页dto

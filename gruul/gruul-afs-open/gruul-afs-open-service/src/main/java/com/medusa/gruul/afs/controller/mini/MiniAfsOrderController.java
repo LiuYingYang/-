@@ -26,7 +26,7 @@ import java.util.stream.Collectors;
  * </p>
  *
  * @author alan
- * @since 2020 -08-05
+ * @since 2020-08-05
  */
 @Api(tags = "小程序端接口")
 @RestController

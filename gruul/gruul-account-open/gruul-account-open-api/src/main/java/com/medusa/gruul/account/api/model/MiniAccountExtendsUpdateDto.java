@@ -24,9 +24,9 @@ public class MiniAccountExtendsUpdateDto {
 
 
     /**
-     * 设置用户
+     * 设置用户团长等级 0-不是团长 1-团长  2-区域团长
      */
-    @ApiModelProperty(value = "设置用户")
+    @ApiModelProperty(value = "设置用户团长等级 0-不是团长 1-团长  2-区域团长")
     private Integer communityType;
 
 

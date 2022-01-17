@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.medusa.gruul.common.data.base.BaseNoTenantEntity;
+import com.medusa.gruul.common.data.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -26,7 +26,7 @@ import java.time.LocalDateTime;
 @Accessors(chain = true)
 @TableName("t_sys_shop_invoice_order")
 @ApiModel(value = "SysShopInvoiceOrder对象", description = "发票工单表")
-public class SysShopInvoiceOrder extends BaseNoTenantEntity {
+public class SysShopInvoiceOrder extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

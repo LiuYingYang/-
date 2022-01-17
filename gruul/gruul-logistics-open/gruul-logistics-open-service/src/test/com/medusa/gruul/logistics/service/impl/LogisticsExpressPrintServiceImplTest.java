@@ -3,8 +3,6 @@ package com.medusa.gruul.logistics.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.test.autoconfigure.MybatisPlusTest;
 import com.medusa.gruul.common.data.handler.IMetaObjectHandler;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.logistics.model.dto.manager.LogisticsExpressPrintDto;
 import com.medusa.gruul.logistics.model.param.LogisticsAddressParam;
 import com.medusa.gruul.logistics.model.param.LogisticsExpressPrintParam;
@@ -48,8 +46,6 @@ public class LogisticsExpressPrintServiceImplTest {
 
     @Test
     public void getExpressPrintList() {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         LogisticsExpressPrintParam logisticsExpressPrintParam = new LogisticsExpressPrintParam();
         IPage<LogisticsExpressPrintVo> logisticsExpressPrintVoIPage = logisticsExpressPrintService.getExpressPrintList(logisticsExpressPrintParam);
         Assert.assertNotNull(logisticsExpressPrintVoIPage);
@@ -58,8 +54,6 @@ public class LogisticsExpressPrintServiceImplTest {
 
     @Test
     public void getExpressPrintInfo() {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         Long id = 10L;
         LogisticsExpressPrintVo logisticsExpressPrintVo = logisticsExpressPrintService.getExpressPrintInfo(id);
         Assert.assertNotNull(logisticsExpressPrintVo);
@@ -68,8 +62,6 @@ public class LogisticsExpressPrintServiceImplTest {
 
     @Test
     public void setExpressPrintInfo() {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         LogisticsExpressPrintDto logisticsExpressPrintDto = new LogisticsExpressPrintDto();
         logisticsExpressPrintDto.setId(10L);
         logisticsExpressPrintDto.setDeviceType("1");
@@ -89,8 +81,6 @@ public class LogisticsExpressPrintServiceImplTest {
 
     @Test
     public void setExpressPrintStatus() {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         Integer type = 1;
         Long id = 10L;
         try{
@@ -104,8 +94,6 @@ public class LogisticsExpressPrintServiceImplTest {
 
     @Test
     public void delExpressPrintInfo() {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         Long id = 10L;
         try{
             logisticsExpressPrintService.delExpressPrintInfo(id);

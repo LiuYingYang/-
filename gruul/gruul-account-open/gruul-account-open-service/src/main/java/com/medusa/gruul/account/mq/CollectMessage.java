@@ -16,9 +16,6 @@ public class CollectMessage implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private String tenantId;
-
-    private String shopId;
 
     private String userId;
 

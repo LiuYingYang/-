@@ -1,0 +1,43 @@
+<!--
+ * @description: 
+ * @Author: vikingShip
+ * @Date: 2021-08-21 09:28:28
+ * @LastEditors: vikingShip
+ * @LastEditTime: 2021-09-07 14:48:45
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <!-- <link rel="icon" href="<%= BASE_URL %>logo.ico?v=1" /> -->
+    <title></title>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_1447848_ycq8218d1q.css" />
+    <!-- 使用 CDN 加速的 CSS 文件，配置在 vue.config.js 下 -->
+    <% for (var i in htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.css) { %>
+    <link href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" rel="preload" as="style">
+    <link href="<%= htmlWebpackPlugin.options.cdn.css[i] %>" rel="stylesheet">
+    <% } %>
+    <!-- 使用 CDN 加速的 JS 文件，配置在 vue.config.js 下 -->
+    <% for (var i in htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.js) { %>
+    <link href="<%= htmlWebpackPlugin.options.cdn.js[i] %>" rel="preload" as="script">
+    <% } %>
+</head>
+
+<body>
+    <!-- 首屏加载动画 -->
+    <div id="animationLoad"
+        style="background: #fff;width: 100%;height: 100vh;display: flex;flex-direction: column; align-items: center;justify-content: center;">
+        <img style="width: 110px;height: 110px;" src="<%= BASE_URL %>loading.gif">
+        <div style="color:  #A9B0B4;">loading</div>
+    </div>
+    <div id="app"></div>
+    <% for (var i in htmlWebpackPlugin.options.cdn&&htmlWebpackPlugin.options.cdn.js) { %>
+    <script src="<%= htmlWebpackPlugin.options.cdn.js[i] %>"></script>
+    <% } %>
+    <!-- built files will be auto injected -->
+</body>
+
+</html>

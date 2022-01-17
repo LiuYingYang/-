@@ -4,6 +4,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * @author lcysike
+ */
 @Data
 public class ProductBuyerVo {
 

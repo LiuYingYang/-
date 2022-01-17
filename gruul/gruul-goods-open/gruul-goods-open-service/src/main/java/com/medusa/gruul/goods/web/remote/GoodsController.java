@@ -79,7 +79,7 @@ public class GoodsController {
      * @Author alan
      * @Date 2019/10/4 16:03
      */
-    @GetMapping("product/stock/batch/")
+    @GetMapping("product/stock/batch")
     @EscapeLogin
     public Collection<SkuStock> findSkuStockListByProductIds(@RequestParam(value = "productIds", required = true) Set<Long> productIds) {
         return skuStockService.list(new QueryWrapper<SkuStock>().in("product_id", productIds));

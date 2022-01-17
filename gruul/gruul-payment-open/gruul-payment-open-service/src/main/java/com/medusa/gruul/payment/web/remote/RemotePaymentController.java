@@ -39,7 +39,6 @@ public class RemotePaymentController {
      *
      * @param outTradeNo 业务订单号
      * @param payChannel 支付渠道
-     * @param tenantId   商户标识
      * @return
      */
     @ApiOperation(value = "获取指定订单交易状态")
@@ -47,9 +46,8 @@ public class RemotePaymentController {
     @EscapeLogin
     PayStatusDto getPayStatus(@PathVariable("outTradeNo") String outTradeNo,
                               @PathVariable("transactionId") String transactionId,
-                              @RequestParam("payChannel") String payChannel,
-                              @RequestParam("tenantId") String tenantId) {
-        return paymentService.getPayStatus(outTradeNo, payChannel, tenantId,transactionId);
+                              @RequestParam("payChannel") String payChannel) {
+        return paymentService.getPayStatus(outTradeNo, payChannel,transactionId);
     }
 
     @ApiOperation(value = "发起一笔交易请求")
@@ -76,10 +74,6 @@ public class RemotePaymentController {
         System.out.println("payRequestDto{}  "+payRequestDto);
         dto.setReturnCode(ReturnCodeConstant.FAIL);
         //校验必要参数是否存在
-        if (StrUtil.isEmpty(payRequestDto.getTenantId())) {
-            dto.setReturnMsg("商户标识不能为空");
-            return dto;
-        }
         if (payRequestDto.getPayChannel() == null || payRequestDto.getPayChannel() <= 0) {
             dto.setReturnMsg("支付渠道不能为空");
             return dto;

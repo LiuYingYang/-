@@ -19,8 +19,6 @@ public class RefundNotifyResultDto implements Serializable {
     private String outTradeNo;
     @ApiModelProperty(value = "附加数据,格式为json字符串,怎么发送怎么返回")
     private String businessParams;
-    @ApiModelProperty(value = "租户标识")
-    private String tenantId;
     @ApiModelProperty(value = "支付流水号")
     private String transactionId;
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import springfox.documentation.annotations.ApiIgnore;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
  * @Author: alan
  * @Date: 2019/7/17 20:44
  */
-@FeignClient(value = "oss")
+@FeignClient(value = "oss-open")
 @ApiIgnore
 public interface RemoteSysOssService {
 
@@ -46,7 +47,7 @@ public interface RemoteSysOssService {
 
     /**
      * 文件上传
-     * @param prefix 后缀
+     *
      * @param bytes
      * @return com.medusa.gruul.common.core.util.Result<java.lang.String>
      * @Author alan

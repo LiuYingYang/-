@@ -47,6 +47,5 @@ public class BlacklistUserDto {
     @ApiModelProperty(value = "交易总额")
     private BigDecimal consumeTotleMoney;
 
-    @ApiModelProperty(value = "可用积分")
-    private BigDecimal integral;
+
 }

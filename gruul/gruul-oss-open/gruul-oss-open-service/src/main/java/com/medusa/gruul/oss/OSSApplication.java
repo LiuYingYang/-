@@ -2,6 +2,7 @@
 
 package com.medusa.gruul.oss;
 
+import com.medusa.gruul.common.core.monitor.EnableMonitorHeartbeat;
 import com.medusa.gruul.common.swagger.annotation.EnableGruulSwagger2;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;

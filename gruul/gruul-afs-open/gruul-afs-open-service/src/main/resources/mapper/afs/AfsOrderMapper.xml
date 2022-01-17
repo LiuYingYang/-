@@ -4,11 +4,9 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.medusa.gruul.afs.api.entity.AfsOrder">
         <id column="id" property="id"/>
-        <result column="tenant_id" property="tenantId"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="is_deleted" property="deleted"/>
-        <result column="shop_id" property="shopId"/>
         <result column="no" property="no"/>
         <result column="type" property="type"/>
         <result column="status" property="status"/>
@@ -39,23 +37,13 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        tenant_id,create_time,update_time,deleted,id, shop_id, no, type, status, close_type, user_id, user_name,
+        create_time,update_time,deleted,id, no, type, status, close_type, user_id, user_name,
         user_avatar_url, product_sku_id, template_id, return_template_id,
         order_id, refund_amount,
         deadline, description,
         images, close_time, refusal_time, success_time, refusal_reason, receipt_bill_id, note, delivery_sn,
         delivery_code, delivery_company, is_logistics
     </sql>
-    <select id="selectOriginalOrderListByOrderId" resultType="java.lang.Long">
-        SELECT
-            aoi.order_id
-        FROM
-            t_afs_order AS ao
-            LEFT JOIN t_afs_order_item AS aoi ON ao.id = aoi.afs_id
-        WHERE
-            ao.is_deleted = 0
-            AND ao.order_id = #{orderId}
-    </select>
     <select id="selectOriginalOrderByOrderId" resultType="java.lang.Long">
         SELECT
             aoi.order_id

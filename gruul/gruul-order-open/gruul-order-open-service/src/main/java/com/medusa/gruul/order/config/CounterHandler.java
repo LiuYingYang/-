@@ -22,7 +22,7 @@ import java.util.Set;
  */
 @Slf4j
 public class CounterHandler extends TextWebSocketHandler {
-    public static final String COLLECTOR = "shopId";
+    public static final String COLLECTOR = "order";
     private static final Set<WebSocketSession> COUNTS = new ConcurrentHashSet<>();
 
     @Override
@@ -48,13 +48,13 @@ public class CounterHandler extends TextWebSocketHandler {
     /**
      * 给某个用户发送消息
      *
-     * @param shopId
+     * @param key
      * @param message
      */
-    public void sendMessageToUser(String shopId, String message) {
+    public void sendMessageToUser(String key, String message) {
         //遍历记录的session，取出符合条件的session发送消息
         for (WebSocketSession socketSession : COUNTS) {
-            if (socketSession.getAttributes().get(COLLECTOR).equals(shopId)) {
+            if (socketSession.getAttributes().get(COLLECTOR).equals(key)) {
                 try {
                     if (socketSession.isOpen()) {
                         //最关键的一句，给客户端推送消息

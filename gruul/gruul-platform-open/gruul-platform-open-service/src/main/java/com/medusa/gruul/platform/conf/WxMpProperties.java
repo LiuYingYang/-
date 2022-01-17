@@ -1,7 +1,5 @@
 package com.medusa.gruul.platform.conf;
 
-import cn.hutool.core.lang.PatternPool;
-import cn.hutool.core.util.ReUtil;
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

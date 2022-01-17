@@ -5,11 +5,9 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.medusa.gruul.order.api.entity.OrderProductEvaluate">
         <id column="id" property="id"/>
-        <result column="tenant_id" property="tenantId"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="is_deleted" property="deleted"/>
-        <result column="shop_id" property="shopId"/>
         <result column="order_id" property="orderId"/>
         <result column="rate" property="rate"/>
         <result column="product_id" property="productId"/>
@@ -28,11 +26,10 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        tenant_id,
         create_time,
         update_time,
         is_deleted,
-        id, shop_id, order_id, rate, product_id,product_pic, product_name,product_price,product_quantity, product_sku_id, specs, comment, picture, choice, reply
+        id, order_id, rate, product_id,product_pic, product_name,product_price,product_quantity, product_sku_id, specs, comment, picture, choice, reply
     </sql>
     <select id="selectByOrderId" resultType="com.medusa.gruul.order.api.entity.OrderProductEvaluate">
         select

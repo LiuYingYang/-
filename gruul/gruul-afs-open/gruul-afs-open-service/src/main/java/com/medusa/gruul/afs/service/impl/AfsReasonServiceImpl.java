@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author alan
- * @since 2020 -08-05
+ * @since 2020-08-05
  */
 @Service
 public class AfsReasonServiceImpl extends ServiceImpl<AfsReasonMapper, AfsReason> implements IAfsReasonService {

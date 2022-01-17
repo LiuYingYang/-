@@ -1,6 +1,5 @@
 package com.medusa.gruul.payment.mq;
 
-import com.alibaba.fastjson.JSONObject;
 import com.medusa.gruul.payment.api.constant.PaymentQueueNameConstant;
 import com.medusa.gruul.payment.api.entity.Payment;
 import com.rabbitmq.client.Channel;

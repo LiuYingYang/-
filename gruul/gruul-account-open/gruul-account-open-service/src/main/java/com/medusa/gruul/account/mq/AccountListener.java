@@ -26,9 +26,6 @@ public class AccountListener {
     private IMiniAccountExtendsService miniAccountExtendsService;
 
     @Autowired
-    private IMiniAccountService miniAccountService;
-
-    @Autowired
     private IApiMiniAccountCollectService miniAccountCollectService;
 
 
@@ -90,18 +87,6 @@ public class AccountListener {
         log.info(" receive message:" + collectMessage.toString());
         //更新或插入 用户收藏数据
         miniAccountCollectService.updateAccountCollect(collectMessage);
-    }
-
-
-    /**
-     * 生成默认账号
-     *
-     * @param jsonData json字符串
-     */
-    @RabbitListener(queues = AccountQueueNameConstant.ACCOUNT_DEFAULT)
-    public void accountDefault(String jsonData) {
-        log.info(" receive message:" + jsonData);
-        miniAccountService.generateAccountDefault(jsonData);
     }
 
 }

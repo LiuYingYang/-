@@ -61,13 +61,6 @@ public class PaymentWechat {
     private String subject;
 
     /**
-     * 商户标识
-     */
-    @ApiModelProperty(value = "商户标识")
-    @TableField("tenant_id")
-    private String tenantId;
-
-    /**
      * 用户openId
      */
     @ApiModelProperty(value = "用户openId")

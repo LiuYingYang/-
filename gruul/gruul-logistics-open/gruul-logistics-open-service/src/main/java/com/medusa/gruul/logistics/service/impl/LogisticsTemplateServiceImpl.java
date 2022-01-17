@@ -32,7 +32,6 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 /**
@@ -426,37 +425,37 @@ public class LogisticsTemplateServiceImpl extends ServiceImpl<LogisticsTemplateM
                             Integer type = logisticsIncludePostages.get(0).getType();
                             if (0 == type) {
                                 //没有达到指定件数包邮
-                                if (!(logisticsIncludePostages.get(0).getPieceNum() <= logisticsAggregationDto.getNumSum())) {
+                                if (logisticsIncludePostages.get(0).getPieceNum() > logisticsAggregationDto.getNumSum()) {
                                     map.put(k, logisticsShippingModels.get(0));
                                 } else {
                                     aggregation.remove(k);
                                 }
                             } else if (1 == type) {
                                 //没有到达指定包邮重量
-                                if (!((logisticsIncludePostages.get(0).getWeight().compareTo(logisticsAggregationDto.getWeightSum())) <= 0)) {
+                                if ((logisticsIncludePostages.get(0).getWeight().compareTo(logisticsAggregationDto.getWeightSum())) > 0) {
                                     map.put(k, logisticsShippingModels.get(0));
                                 } else {
                                     aggregation.remove(k);
                                 }
                             } else if (2 == type) {
                                 //没有到达指定包邮金额
-                                if (!((logisticsIncludePostages.get(0).getAmountNum().compareTo(logisticsAggregationDto.getPriceSum())) <= 0)) {
+                                if ((logisticsIncludePostages.get(0).getAmountNum().compareTo(logisticsAggregationDto.getPriceSum())) > 0) {
                                     map.put(k, logisticsShippingModels.get(0));
                                 } else {
                                     aggregation.remove(k);
                                 }
                             } else if (3 == type) {
                                 //没有达到指定件数➕金额
-                                if (!((logisticsIncludePostages.get(0).getPieceNum() <= logisticsAggregationDto.getNumSum())
-                                        && (logisticsIncludePostages.get(0).getAmountNum().compareTo(logisticsAggregationDto.getPriceSum()) <= 0))) {
+                                if ((logisticsIncludePostages.get(0).getPieceNum() > logisticsAggregationDto.getNumSum()
+                                        && logisticsIncludePostages.get(0).getAmountNum().compareTo(logisticsAggregationDto.getPriceSum()) > 0)) {
                                     map.put(k, logisticsShippingModels.get(0));
                                 } else {
                                     aggregation.remove(k);
                                 }
                             } else if (4 == type) {
                                 //没有达到指定重量➕金额
-                                if (!((logisticsIncludePostages.get(0).getWeight().compareTo(logisticsAggregationDto.getWeightSum())) <= 0
-                                        && (logisticsIncludePostages.get(0).getAmountNum().compareTo(logisticsAggregationDto.getPriceSum()) <= 0))) {
+                                if ((logisticsIncludePostages.get(0).getWeight().compareTo(logisticsAggregationDto.getWeightSum())) > 0
+                                        && logisticsIncludePostages.get(0).getAmountNum().compareTo(logisticsAggregationDto.getPriceSum()) > 0) {
                                     map.put(k, logisticsShippingModels.get(0));
                                 } else {
                                     aggregation.remove(k);

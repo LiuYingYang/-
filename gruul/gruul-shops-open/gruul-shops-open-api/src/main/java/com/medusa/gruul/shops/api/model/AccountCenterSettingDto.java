@@ -37,9 +37,6 @@ public class AccountCenterSettingDto implements Serializable {
     @ApiModelProperty(value = "菜单选择样式 1-展开式 2-折叠式")
     private Integer menuStyle;
 
-    @ApiModelProperty(value = "租户id")
-    private String tenantId;
-
     @ApiModelProperty(value = "一级菜单")
     private List<AccountCenterMenuDto> menuVos;
 

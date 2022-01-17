@@ -1,10 +1,11 @@
 package com.medusa.gruul.platform.api.feign;
 
+import cn.binarywang.wx.miniapp.api.WxMaService;
+import cn.binarywang.wx.miniapp.api.impl.WxMaServiceImpl;
+import cn.binarywang.wx.miniapp.config.impl.WxMaDefaultConfigImpl;
 import com.medusa.gruul.common.core.util.Result;
-import com.medusa.gruul.platform.api.entity.MiniInfo;
 import com.medusa.gruul.platform.api.model.dto.*;
 import com.medusa.gruul.platform.api.model.vo.MiniMsgVo;
-import com.medusa.gruul.platform.api.model.vo.PayInfoVo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
@@ -20,14 +21,13 @@ public interface RemoteMiniInfoService {
 
 
     /**
-     * 获取指定租户id店铺信息
+     * 获取店铺信息
      *
-     * @param tenantId 租户id
-     * @return com.medusa.gruul.platform.api.model.dto.ShopInfoDto
+     * @return com.medusa.gruul.platform.api.model.dto.InfoDto
      */
     @RequestMapping(value = "/get/shop/info", method = RequestMethod.GET)
-    @ApiOperation(value = "获取指定租户id店铺信息")
-    Result<ShopInfoDto> getShopInfo(@RequestParam(value = "tenantId") String tenantId);
+    @ApiOperation(value = "获取店铺信息")
+    Result<ShopInfoDto> getShopInfo();
 
 
     /**
@@ -40,13 +40,13 @@ public interface RemoteMiniInfoService {
     List<MiniMsgVo> getCurrentMiniMsg();
 
     /**
-     * 确认token和租户id是否一致,确认是否商家账号
+     * 确认是否商家账号
      *
      * @param token 请求token
      * @return java.lang.Boolean
      */
     @RequestMapping(value = "/affirm/lessee/{token}", method = RequestMethod.GET)
-    @ApiOperation(value = "确认是否商家,返回token和租户id是否一致 确认是否商家账号")
+    @ApiOperation(value = "确认是否商家, 确认是否商家账号")
     Result<Boolean> affirmLessee(@PathVariable(value = "token") String token);
 
     /**
@@ -61,30 +61,27 @@ public interface RemoteMiniInfoService {
     /**
      * 根据code换取小程序用户基本信息
      *
-     * @param tenantId 租户标识
      * @param code     code
      * @return com.medusa.gruul.platform.api.entity.MiniInfo
      */
     @ApiOperation(value = "根据code换取小程序用户基本信息")
-    @RequestMapping(value = "/login/{tenantId}/{code}", method = RequestMethod.GET)
-    LoginDto login(@PathVariable(value = "tenantId") String tenantId,
-                   @PathVariable(value = "code") String code);
+    @RequestMapping(value = "/login/{code}", method = RequestMethod.GET)
+    LoginDto login(@PathVariable(value = "code") String code);
 
     /**
-     * 根据租户id换取指定小程序信息
+     * 换取指定小程序信息
      *
-     * @param tenantId 租户id
      * @return com.medusa.gruul.platform.api.model.dto.MiniAuthInfoDto
      * code=200 返回所需信息;  code=400返回错误原因
      */
     @GetMapping("/mini/auth/info")
-    @ApiOperation(value = "根据租户id换取小程序部分授权信息")
-    Result<MiniAuthInfoDto> getMiniAuthInfo(@RequestParam(value = "tenantId") String tenantId);
+    @ApiOperation(value = "换取小程序部分授权信息")
+    Result<MiniAuthInfoDto> getMiniAuthInfo();
 
     /**
      * 提供默认值查询
      *
-     * @param version              租户标识
+     * @param version
      * @param uniqueIdentification 唯一标识
      * @return 导入时的kv
      */
@@ -97,12 +94,11 @@ public interface RemoteMiniInfoService {
     /**
      * 获取店铺配置信息
      *
-     * @param tenantId 租户id
      * @return com.medusa.gruul.platform.api.model.dto.ShopConfigDto
      */
     @RequestMapping(value = "/shop/config", method = RequestMethod.GET)
-    @ApiOperation(value = "根据租户id获取店铺配置信息")
-    ShopConfigDto getShopConfig(@RequestParam(value = "tenantId") String tenantId);
+    @ApiOperation(value = "获取店铺配置信息")
+    ShopConfigDto getShopConfig();
 
 
     /**
@@ -117,24 +113,30 @@ public interface RemoteMiniInfoService {
 
 
     /**
-     * 根据租户id获取店铺当前使用的套餐功能状态
+     * 获取店铺当前使用的套餐功能状态
      * <p>
      * code == 200 返回正确数据
      *
-     * @param tenantId 租户id
      * @return com.medusa.gruul.platform.api.model.dto.ShopInfoDto
      */
     @RequestMapping(value = "/get/shop/function", method = RequestMethod.GET)
-    @ApiOperation(value = "根据租户id获取店铺当前使用的套餐功能状态,当前仅限拼团模板数据")
-    Result<ShopPackageFunctionDto> getShopFunction(@RequestParam(value = "tenantId") String tenantId);
+    @ApiOperation(value = "获取店铺当前使用的套餐功能状态,当前仅限拼团模板数据")
+    Result<ShopPackageFunctionDto> getShopFunction();
 
     /**
-     * 获取当前所有的租户id列表
-     * 仅限默认数据生成兼容使用，调用方请勿频繁调用
-     * @return List<String>
+     * 封装小程序信息
+     * @return
      */
-    @RequestMapping(value = "/shops/all", method = RequestMethod.GET)
-    @ApiOperation(value = "获取当前所有的租户id列表，仅限默认数据生成兼容使用，调用方请勿频繁调用")
-    List<String> getShopsAll();
+    @RequestMapping(value = "/get/miniInfo", method = RequestMethod.GET)
+    @ApiOperation(value = "获取小程序信息，采用硬编码。方便切换多个小程序使用时获取")
+    default WxMaService getWxMaService() {
+        WxMaDefaultConfigImpl config = new WxMaDefaultConfigImpl();
+        config.setAppid("setAppid");
+        config.setSecret("setSecret");
+        config.setMsgDataFormat("JSON");
+        WxMaService wxMaService = new WxMaServiceImpl();
+        wxMaService.setWxMaConfig(config);
+        return wxMaService;
+    }
 
 }

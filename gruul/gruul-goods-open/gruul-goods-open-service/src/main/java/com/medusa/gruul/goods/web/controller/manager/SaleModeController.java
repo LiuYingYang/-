@@ -90,15 +90,6 @@ public class SaleModeController {
         return Result.ok();
     }
 
-//    /**
-//     * 展示、分拣、商品专区老数据专区更新
-//     */
-//    @PutMapping("/refresh/data")
-//    @ApiOperation(value = "展示、分拣、商品专区老数据专区更新")
-//    @EscapeLogin
-//    public Result refreshSaleModeData() {
-//        saleModeService.refreshSaleModeData();
-//        return Result.ok();
-//    }
+
 
 }

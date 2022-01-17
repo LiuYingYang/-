@@ -3,8 +3,6 @@ package com.medusa.gruul.logistics.service.impl;
 import com.baomidou.mybatisplus.test.autoconfigure.MybatisPlusTest;
 import com.medusa.gruul.common.core.util.Result;
 import com.medusa.gruul.common.data.handler.IMetaObjectHandler;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.logistics.model.dto.manager.LogisticsExpressDto;
 import com.medusa.gruul.logistics.model.param.LogisticsExpressParam;
 import com.medusa.gruul.logistics.model.vo.LogisticsExpressVo;
@@ -46,8 +44,6 @@ public class LogisticsExpressServiceImplTest {
 
     @Test
     public void getExpressList() {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         LogisticsExpressParam logisticsExpressParam = new LogisticsExpressParam();
         List<LogisticsExpressVo> logisticsExpressVos = logisticsExpressService.getExpressList(logisticsExpressParam);
         Assert.assertNotNull(logisticsExpressVos);
@@ -56,8 +52,6 @@ public class LogisticsExpressServiceImplTest {
 
     @Test
     public void getExpressInfo() {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         Long id = 23L;
         LogisticsExpressVo logisticsExpressVo = logisticsExpressService.getExpressInfo(id);
         Assert.assertNotNull(logisticsExpressVo);
@@ -66,8 +60,6 @@ public class LogisticsExpressServiceImplTest {
 
     @Test
     public void setExpressInfo() {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         LogisticsExpressDto logisticsExpressPrintDto = new LogisticsExpressDto();
         logisticsExpressPrintDto.setId(23L);
         logisticsExpressPrintDto.setName("顺丰");
@@ -90,8 +82,6 @@ public class LogisticsExpressServiceImplTest {
 
     @Test
     public void delExpressInfo() {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         Long id = 23L;
         try{
             logisticsExpressService.delExpressInfo(id);
@@ -104,8 +94,6 @@ public class LogisticsExpressServiceImplTest {
 
     @Test
     public void getLogisticsExpressRoute() {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         String waybillNo = "123";
         String shipperType = "1";
         Result result = logisticsExpressService.getLogisticsExpressRoute(waybillNo, shipperType);

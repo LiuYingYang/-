@@ -1,6 +1,7 @@
 package com.medusa.gruul.sms.service;
 
-import com.medusa.gruul.sms.dao.entity.TSmsOrderEntity;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.medusa.gruul.sms.model.entity.TSmsOrderEntity;
 
 /**
  * Copyright(C) 2019-12-30 21:55 美杜莎 Inc.ALL Rights Reserved.
@@ -10,11 +11,11 @@ import com.medusa.gruul.sms.dao.entity.TSmsOrderEntity;
  * @author: wangpeng
  * @date: 2019-12-30 21:55
  **/
-public interface SmsSendService {
+public interface SmsSendService extends IService<TSmsOrderEntity> {
 
     /***
-    * @description: 短信发送
-    * @param:com.medusa.gruul.sms.dao.entity.TSmsOrderEntity
+    * 短信发送
+    * @param smsOrderEntity
     * @return: void
     * @throws:
     * @author: wangpeng

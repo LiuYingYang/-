@@ -11,9 +11,6 @@ import com.medusa.gruul.common.core.constant.CommonConstants;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.Result;
 import com.medusa.gruul.common.core.util.SystemCode;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
-import com.medusa.gruul.goods.api.constant.GoodsConstant;
 import com.medusa.gruul.goods.api.entity.Product;
 import com.medusa.gruul.goods.api.entity.SaleMode;
 import com.medusa.gruul.goods.api.entity.ShowCategory;
@@ -54,7 +51,6 @@ public class SaleModeServiceImpl extends ServiceImpl<SaleModeMapper, SaleMode> i
     @Autowired
     private ShowCategoryMapper showCategoryMapper;
 
-
     @Resource
     private RemoteMiniInfoService remoteMiniInfoService;
 
@@ -93,14 +89,12 @@ public class SaleModeServiceImpl extends ServiceImpl<SaleModeMapper, SaleMode> i
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void addSaleMode(List<SaleModeDto> saleModeDtos) {
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
-        Result<ShopPackageFunctionDto> shopPackageFunctionDtoResult = remoteMiniInfoService.getShopFunction(tenantId);
+        Result<ShopPackageFunctionDto> shopPackageFunctionDtoResult = remoteMiniInfoService.getShopFunction();
         if(BeanUtil.isEmpty(shopPackageFunctionDtoResult)){
             throw new ServiceException("获取店铺套餐信息失败！", SystemCode.DATA_EXISTED.getCode());
         }
         Integer shopLevel = shopPackageFunctionDtoResult.getData().getCommunityPackagelevel();
-        Integer count = this.baseMapper.selectCount(new QueryWrapper<SaleMode>().eq("tenant_id", tenantId).eq("shop_id", shopId));
+        Integer count = this.baseMapper.selectCount(new QueryWrapper<>());
         if(CommonConstants.NUMBER_ONE.equals(shopLevel) && count + saleModeDtos.size() > CommonConstants.NUMBER_TWO){
             throw new ServiceException("门店版只能创建两个销售专区", SystemCode.DATA_ADD_FAILED.getCode());
         }
@@ -149,10 +143,8 @@ public class SaleModeServiceImpl extends ServiceImpl<SaleModeMapper, SaleMode> i
         if (update == 0) {
             throw new ServiceException("修改失败！", SystemCode.DATA_UPDATE_FAILED.getCode());
         }
-        String tenantId = TenantContextHolder.getTenantId();
-        String shopId = ShopContextHolder.getShopId();
         // 同步修改装修名称
-        boolean flag = remoteShopsService.updateSpecialArea(tenantId, shopId, oldSaleMode.getModeName(), saleModeDto.getModeName());
+        boolean flag = remoteShopsService.updateSpecialArea(oldSaleMode.getModeName(), saleModeDto.getModeName());
         if (!flag){
             throw  new ServiceException("装修同步修改专区名称失败，请稍后再试");
         }

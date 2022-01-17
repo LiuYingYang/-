@@ -29,6 +29,8 @@ public class LoginShopInfoVo {
     @ApiModelProperty(value = "当前店铺使用的模板跳转地址")
     private String backUrl;
 
+    @ApiModelProperty(value = "区域团长跳转地址")
+    private String regionalUrl;
 
     @ApiModelProperty(value = "小程序信息id")
     private Long miniId;
@@ -36,19 +38,11 @@ public class LoginShopInfoVo {
     @ApiModelProperty(value = "公众号信息id")
     private Long mpId;
 
-    @ApiModelProperty(value = "小程序租户id")
-    private String tenantId;
-
     @ApiModelProperty(value = "到期时间")
     private LocalDateTime dueTime;
 
     @ApiModelProperty(value = "是否到期 0 不是 1是")
     private Integer isDue;
 
-    /**
-     * 待定是否有用
-     */
-    @ApiModelProperty(value = "用户所在店铺拥有的角色")
-    @Deprecated
-    private List<RoleInfoVo> roleInfoVo;
+
 }

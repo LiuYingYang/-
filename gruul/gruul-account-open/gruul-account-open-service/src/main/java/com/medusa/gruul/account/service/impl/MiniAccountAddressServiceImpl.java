@@ -44,7 +44,7 @@ import java.util.stream.Collectors;
 public class MiniAccountAddressServiceImpl extends ServiceImpl<MiniAccountAddressMapper, MiniAccountAddress> implements IMiniAccountAddressService {
 
     @Override
-    public void addressCraete(AddressCraeteDto addersVO) {
+    public void addressCreate(AddressCraeteDto addersVO) {
         String rex = ReUtil.get("^[\\u4E00-\\u9FA5]+$", addersVO.getUserName(), 0);
         if (StrUtil.isEmpty(rex) || rex.length() > CommonConstants.NUMBER_TEN) {
             throw new ServiceException("收货人姓名必须在10个汉字以内");
@@ -54,7 +54,7 @@ public class MiniAccountAddressServiceImpl extends ServiceImpl<MiniAccountAddres
         BeanUtils.copyProperties(addersVO, miniAccountAddress);
         miniAccountAddress.setUserId(userId);
         //校验是否存在相同
-        checkeRepetitionAddress(miniAccountAddress);
+        checkRepetitionAddress(miniAccountAddress);
         miniAccountAddress.setIsDefault(0);
         //获取用户列表判断是否添加第一条地址,是则添加为默认地址
         List<MiniAccountAddress> userAddress = getUserAddress(miniAccountAddress.getUserId());
@@ -71,7 +71,7 @@ public class MiniAccountAddressServiceImpl extends ServiceImpl<MiniAccountAddres
 
         this.baseMapper.insert(miniAccountAddress);
 
-        updateUserAdderssCache(userId);
+        updateUserAddressCache(userId);
     }
 
     @Override
@@ -97,11 +97,11 @@ public class MiniAccountAddressServiceImpl extends ServiceImpl<MiniAccountAddres
     }
 
     @Override
-    public void addressDelete(Integer adderssId) {
-        this.baseMapper.deleteById(adderssId);
+    public void addressDelete(Integer addressId) {
+        this.baseMapper.deleteById(addressId);
         CurUserDto curUser = CurUserUtil.getHttpCurUser();
         String userId = curUser.getUserId();
-        updateUserAdderssCache(userId);
+        updateUserAddressCache(userId);
     }
 
     @Override
@@ -143,21 +143,21 @@ public class MiniAccountAddressServiceImpl extends ServiceImpl<MiniAccountAddres
         }
         if (updateDto.getDefaultStatus().equals(CommonConstants.NUMBER_ZERO)) {
             //校验相同地址
-            checkeRepetitionAddress(miniAccountAddress);
+            checkRepetitionAddress(miniAccountAddress);
             Optional<MiniAccountAddress> first = userAddress.stream().filter(obj -> obj.getId().equals(updateDto.getId())).findFirst();
             first.ifPresent(obj -> {
                 BeanUtils.copyProperties(miniAccountAddress, obj);
                 this.baseMapper.updateById(obj);
             });
         }
-        updateUserAdderssCache(userId);
+        updateUserAddressCache(userId);
     }
 
 
     /**
      * 更新用户地址缓存
      */
-    private void updateUserAdderssCache(String userId) {
+    private void updateUserAddressCache(String userId) {
         if (userId == null) {
             throw new ServiceException("用户数据错误", SystemCode.DATA_NOT_EXIST.getCode());
         }
@@ -170,7 +170,7 @@ public class MiniAccountAddressServiceImpl extends ServiceImpl<MiniAccountAddres
      *
      * @param address com.medusa.gruul.account.api.entity.MiniAccountAddress
      */
-    private void checkeRepetitionAddress(MiniAccountAddress address) {
+    private void checkRepetitionAddress(MiniAccountAddress address) {
         List<MiniAccountAddress> addressList = getUserAddress(address.getUserId());
         if (CollectionUtil.isEmpty(addressList)) {
             return;

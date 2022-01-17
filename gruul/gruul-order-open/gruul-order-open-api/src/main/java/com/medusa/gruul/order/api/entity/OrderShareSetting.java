@@ -33,13 +33,6 @@ public class OrderShareSetting extends BaseEntity {
     private Long id;
 
     /**
-     * 商铺ID
-     */
-    @ApiModelProperty(value = "商铺ID")
-    @TableField("shop_id")
-    private String shopId;
-
-    /**
      * 标题
      */
     @ApiModelProperty(value = "标题")

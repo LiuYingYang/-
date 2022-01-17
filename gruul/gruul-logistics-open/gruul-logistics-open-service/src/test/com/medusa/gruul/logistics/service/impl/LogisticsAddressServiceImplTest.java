@@ -5,8 +5,6 @@ import com.baomidou.mybatisplus.test.autoconfigure.MybatisPlusTest;
 import com.medusa.gruul.common.core.constant.CommonConstants;
 import com.medusa.gruul.common.data.handler.IMetaObjectHandler;
 import com.medusa.gruul.common.data.tenant.CurUserContextHolder;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.logistics.model.dto.manager.LogisticsAddressDto;
 import com.medusa.gruul.logistics.model.dto.manager.LogisticsBatchDeliverDto;
 import com.medusa.gruul.logistics.model.dto.manager.LogisticsPrintDeliverDto;
@@ -54,8 +52,6 @@ public class LogisticsAddressServiceImplTest {
      */
     @Test
     public void testGetAddressList() throws Exception {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         LogisticsAddressParam logisticsAddressParam = new LogisticsAddressParam();
         IPage<LogisticsAddressVo> logisticsAddressVos = logisticsAddressService.getAddressList(logisticsAddressParam);
         Assert.assertNotNull(logisticsAddressVos);
@@ -69,8 +65,6 @@ public class LogisticsAddressServiceImplTest {
      */
     @Test
     public void testGetAllAddressList() throws Exception {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         List<LogisticsAddressVo> logisticsAddressVos = logisticsAddressService.getAllAddressList();
         Assert.assertNotNull(logisticsAddressVos);
         System.out.println(logisticsAddressVos.toString());
@@ -83,8 +77,6 @@ public class LogisticsAddressServiceImplTest {
      */
     @Test
     public void testSetAddress() throws Exception {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         LogisticsAddressDto logisticsAddressDto = new LogisticsAddressDto();
         logisticsAddressDto.setName("测试优惠券");
         logisticsAddressDto.setProvince("宁波市");
@@ -114,8 +106,6 @@ public class LogisticsAddressServiceImplTest {
      */
     @Test
     public void testSetDefAddress() throws Exception {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         Integer type = 1;
         Long id = 115L;
         try{
@@ -134,8 +124,6 @@ public class LogisticsAddressServiceImplTest {
      */
     @Test
     public void testDelAddress() throws Exception {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         Long id = 115L;
         try{
             logisticsAddressService.delAddress(id);
@@ -153,8 +141,6 @@ public class LogisticsAddressServiceImplTest {
      */
     @Test
     public void testGetDefaultAddress() throws Exception {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         CurUserContextHolder.setCurUser("1262357585567289344");
         Integer type = 1;
         LogisticsAddressVo logisticsAddressVo = logisticsAddressService.getDefaultAddress(type);
@@ -164,13 +150,11 @@ public class LogisticsAddressServiceImplTest {
 
     /**
      *
-     * Method: listLogisticsCompany(String shopId, String tenantId)
+     * Method: listLogisticsCompany()
      *
      */
     @Test
     public void testListLogisticsCompany() throws Exception {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         CurUserContextHolder.setCurUser("1262357585567289344");
         Map<String, Object> map = logisticsAddressService.listLogisticsCompany("100002100001", "100002");
         Assert.assertNotNull(map);
@@ -184,8 +168,6 @@ public class LogisticsAddressServiceImplTest {
      */
     @Test
     public void testSetCompanyDefault() throws Exception {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         Long logisticsCompanyId = 1L;
         try{
             logisticsAddressService.setCompanyDefault(logisticsCompanyId);
@@ -203,8 +185,6 @@ public class LogisticsAddressServiceImplTest {
      */
     @Test
     public void testDoPrintDeliverGoods() throws Exception {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         LogisticsPrintDeliverDto logisticsPrintDeliverDto = new LogisticsPrintDeliverDto();
         try{
             logisticsAddressService.doPrintDeliverGoods(logisticsPrintDeliverDto);
@@ -222,8 +202,6 @@ public class LogisticsAddressServiceImplTest {
      */
     @Test
     public void testDoPrintDeliverIntegralOrder() throws Exception {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         LogisticsPrintDeliverDto logisticsPrintDeliverDto = new LogisticsPrintDeliverDto();
         try{
             logisticsAddressService.doPrintDeliverIntegralOrder(logisticsPrintDeliverDto);
@@ -236,13 +214,11 @@ public class LogisticsAddressServiceImplTest {
 
     /**
      *
-     * Method: doBatchDeliver(List<LogisticsBatchDeliverDto> logisticsBatchDeliverDtos, String shopId, String tenantId)
+     * Method: doBatchDeliver(List<LogisticsBatchDeliverDto> logisticsBatchDeliverDtos)
      *
      */
     @Test
     public void testDoBatchDeliver() throws Exception {
-        TenantContextHolder.setTenantId("100002");
-        ShopContextHolder.setShopId("100002100001");
         List<LogisticsBatchDeliverDto> logisticsBatchDeliverDtos = new ArrayList<>(CommonConstants.NUMBER_ONE);
         LogisticsBatchDeliverDto logisticsBatchDeliverDto = new LogisticsBatchDeliverDto();
         logisticsBatchDeliverDtos.add(logisticsBatchDeliverDto);

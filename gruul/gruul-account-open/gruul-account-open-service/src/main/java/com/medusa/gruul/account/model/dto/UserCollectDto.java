@@ -44,7 +44,7 @@ public class UserCollectDto {
     private BigDecimal originalPrice;
 
     @ApiModelProperty(value = "备注")
-    private String ramark;
+    private String remark;
 
     public MiniAccountCollect coverMiniAccountCollect() {
         MiniAccountCollect miniAccountCollect = new MiniAccountCollect();

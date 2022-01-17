@@ -2,6 +2,7 @@ package com.medusa.gruul.platform.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.medusa.gruul.platform.api.entity.PlatformLibrariesInfo;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.medusa.gruul.platform.api.entity.PlatformLibrariesInfo;
  * @author alan
  * @since 2020-02-27
  */
+@Repository
 public interface PlatformLibrariesInfoMapper extends BaseMapper<PlatformLibrariesInfo> {
 
 }

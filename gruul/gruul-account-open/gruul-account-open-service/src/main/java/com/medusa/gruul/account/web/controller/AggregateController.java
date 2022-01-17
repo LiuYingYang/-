@@ -6,7 +6,6 @@ import com.medusa.gruul.account.service.IApiMiniAccountFootMarkService;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.CurUserUtil;
 import com.medusa.gruul.common.core.util.Result;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.common.dto.CurUserDto;
 import com.medusa.gruul.order.api.feign.RemoteOrderService;
 import com.medusa.gruul.platform.api.feign.RemoteMiniInfoService;
@@ -78,7 +77,7 @@ public class AggregateController {
         //获取用户足迹数量
         vo.setAccountFootMarkCount(miniAccountFootMarkService.getAccountFootMarkCount());
         //获取套餐开关
-        Result<ShopPackageFunctionDto> shopFunction = remoteMiniInfoService.getShopFunction(TenantContextHolder.getTenantId());
+        Result<ShopPackageFunctionDto> shopFunction = remoteMiniInfoService.getShopFunction();
         if (shopFunction != null) {
             vo.setPackageFunctionVo(shopFunction.getData());
         }

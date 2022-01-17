@@ -4,6 +4,7 @@ package com.medusa.gruul.afs.mp;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
+import com.medusa.gruul.afs.api.constant.AfsConstant;
 import com.medusa.gruul.afs.api.constant.AfsQueueEnum;
 import com.medusa.gruul.afs.api.enums.AfsOrderStatusEnum;
 import com.medusa.gruul.afs.model.AfsOrderVo;
@@ -86,21 +87,14 @@ public class Sender {
         dto.setTemplateId(afsOrder.getReturnTemplateId());
         dto.setOpenId(openId);
         dto.setToPath(StrUtil.format("/pages/afterSaleDetail/afterSaleDetail?afsid={}", afsOrder.getId()));
-        dto.setTenantId(afsOrder.getTenantId());
         LinkedList<String> s = new LinkedList<>();
-//        订单编号：1234567890
-//        商品名称：iPhone
-//        退款金额：100积分+￥2
-//        退回积分：100积分
-//        温馨提示：商家已同意退款申请，请及时退货！
         s.add(afsOrder.getItem().getOrderId().toString());
-        if(afsOrder.getItem().getProductName().length() >= 20){
+        if(afsOrder.getItem().getProductName().length() >= AfsConstant.NUMBER_TWENTY){
             s.add(afsOrder.getItem().getProductName().indexOf(0,16)+"...");
         }else{
             s.add(afsOrder.getItem().getProductName());
         }
         s.add("￥" + afsOrder.getRefundAmount().toString());
-        // TODO: 2021/8/18 售后推送有积分要不要删除
         s.add(0 + "积分");
         s.add("商家已同意退款申请，请及时退货！");
         dto.setSendDatas(s);
@@ -124,15 +118,9 @@ public class Sender {
         dto.setTemplateId(afsOrder.getTemplateId());
         dto.setOpenId(openId);
         dto.setToPath(StrUtil.format("/pages/afterSaleDetail/afterSaleDetail?afsid={}", afsOrder.getId()));
-        dto.setTenantId(afsOrder.getTenantId());
         LinkedList<String> s = new LinkedList<>();
-//        订单号：2019111900000001
-//        商品名称：这是个商品名称
-//        退款状态：退款失败
-//        退款金额：￥100
-//        退回积分：100积分
         s.add(afsOrder.getItem().getOrderId().toString());
-        if(afsOrder.getItem().getProductName().length() >= 20){
+        if(afsOrder.getItem().getProductName().length() >= AfsConstant.NUMBER_TWENTY){
             s.add(afsOrder.getItem().getProductName().indexOf(0,16)+"...");
         }else{
             s.add(afsOrder.getItem().getProductName());
@@ -143,7 +131,6 @@ public class Sender {
             s.add("退款失败");
         }
         s.add("￥" + afsOrder.getRefundAmount().toString());
-        // TODO: 2021/8/18 售后推送
         s.add(0+ "积分");
         dto.setSendDatas(s);
         CorrelationData correlationData = new CorrelationData(IdUtil.fastSimpleUUID());

@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.medusa.gruul.common.data.base.BaseNoTenantEntity;
+import com.medusa.gruul.common.data.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 
 /**
  * <p>
- * 平台与租户平台用户表
+ * 平台用户表
  * </p>
  *
  * @author whh
@@ -26,8 +26,8 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @TableName("t_platform_account_info")
-@ApiModel(value = "AccountInfo对象", description = "平台与租户平台用户表")
-public class AccountInfo extends BaseNoTenantEntity {
+@ApiModel(value = "AccountInfo对象", description = "平台用户表")
+public class AccountInfo extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -44,18 +44,18 @@ public class AccountInfo extends BaseNoTenantEntity {
 
 
     /**
-     * 小程序账号唯一id
+     * 小程序账号唯一id  区域团长绑定相关
      */
     @ApiModelProperty(value = "小程序唯一id")
     @TableField("bind_mini_id")
     private String bindMiniId;
 
     /**
-     * 小程序店铺唯一id
+     * 小程序店铺唯一id   区域团长绑定相关
      */
     @ApiModelProperty(value = "小程序店铺唯一id")
     @TableField("bind_mini_shop_id")
-    private String bindMiniShopId;
+    private String bindMini;
 
     /**
      * 所属主体账号id,也就是平台管理的用户id
@@ -220,24 +220,10 @@ public class AccountInfo extends BaseNoTenantEntity {
     @TableField("address")
     private String address;
 
-    @ApiModelProperty(value = "最后一次进入的店铺id")
-    @TableField("last_login_shop_id")
-    private Long lastLoginShopId;
 
     @ApiModelProperty(value = "用户余额")
     @TableField("balance")
     private BigDecimal balance;
 
-    @ApiModelProperty(value = "所属代理")
-    @TableField("agent_id")
-    private Long agentId;
-
-    @ApiModelProperty(value = "备注")
-    @TableField("comment_text")
-    private String commentText;
-
-    @ApiModelProperty(value = "用户的代理账号id")
-    @TableField("me_agent_id")
-    private Long meAgentId;
 
 }

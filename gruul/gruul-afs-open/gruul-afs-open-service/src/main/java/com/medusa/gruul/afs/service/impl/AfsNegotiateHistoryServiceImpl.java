@@ -2,10 +2,10 @@ package com.medusa.gruul.afs.service.impl;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.http.HttpStatus;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.medusa.gruul.afs.api.constant.AfsConstant;
 import com.medusa.gruul.afs.api.entity.AfsNegotiateHistory;
 import com.medusa.gruul.afs.api.entity.AfsOrder;
 import com.medusa.gruul.afs.api.entity.AfsOrderItem;
@@ -18,8 +18,6 @@ import com.medusa.gruul.afs.service.IAfsNegotiateHistoryService;
 import com.medusa.gruul.common.core.util.CurUserUtil;
 import com.medusa.gruul.common.core.util.Result;
 import com.medusa.gruul.common.core.util.SystemCode;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.common.dto.CurUserDto;
 import com.medusa.gruul.logistics.api.feign.RemoteLogisticsFeginService;
 import com.medusa.gruul.logistics.model.vo.LogisticsAddressVo;
@@ -40,7 +38,7 @@ import java.util.List;
  * </p>
  *
  * @author alan
- * @since 2020 -08-05
+ * @since 2020-08-05
  */
 @Slf4j
 @Service
@@ -55,7 +53,6 @@ public class AfsNegotiateHistoryServiceImpl extends ServiceImpl<AfsNegotiateHist
     private RemoteOrderService remoteOrderService;
     @Resource
     private RemoteLogisticsFeginService remoteLogisticsFeginService;
-    private final static String MERGE_POINT = "0";
 
     /**
      * 初始化协商历史
@@ -272,7 +269,7 @@ public class AfsNegotiateHistoryServiceImpl extends ServiceImpl<AfsNegotiateHist
      */
     public AfsNegotiateHistory initCreator(Boolean isSystem) {
         AfsNegotiateHistory negotiateHistory = null;
-        Result<ShopInfoDto> dtoResult = remoteMiniInfoService.getShopInfo(TenantContextHolder.getTenantId());
+        Result<ShopInfoDto> dtoResult = remoteMiniInfoService.getShopInfo();
         String logoUrl = "";
         if (dtoResult.getCode() == SystemCode.SUCCESS_CODE) {
             logoUrl = dtoResult.getData().getLogoUrl();
@@ -344,8 +341,8 @@ public class AfsNegotiateHistoryServiceImpl extends ServiceImpl<AfsNegotiateHist
      */
     @Override
     public List<AfsNegotiateHistory> negotiateHistoryList(NegotiateHistoryDto dto) {
-        if ("2".equalsIgnoreCase(dto.getType())) {
-            dto.setType("0");
+        if (AfsConstant.STRING_TWO.equalsIgnoreCase(dto.getType())) {
+            dto.setType(AfsConstant.STRING_ZERO);
         }
         Long orderId = afsOrderMapper.selectOriginalOrderByOrderId(dto.getOrderId());
         if (ObjectUtil.isNull(orderId)) {

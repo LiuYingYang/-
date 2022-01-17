@@ -169,14 +169,6 @@ public class RabbitConfig implements RabbitListenerConfigurer {
         return new Queue(AccountQueueNameConstant.ACCOUNT_DEFAULT, true);
     }
 
-    /**
-     * 绑定用户收藏roukey
-     */
-    @Bean
-    Binding accountDefaultBinding(DirectExchange accountDirect, Queue accountDefaultQueue) {
-        return BindingBuilder.bind(accountDefaultQueue).to(accountDirect)
-                .with(AccountQueueEnum.QUEUE_ACCOUNT_DEFAULT.getRouteKey());
-    }
 
 
     /**
@@ -187,13 +179,5 @@ public class RabbitConfig implements RabbitListenerConfigurer {
         return new Queue(AccountQueueNameConstant.MEMBER_PAY_OK_QUEUE_CHANGE, true);
     }
 
-    /**
-     * 将订单完成队列绑定到交换机.order.payed
-     */
-    @Bean
-    Binding memberCompletedBinding(DirectExchange memberDirect, Queue memberPayOkQueue) {
-        return BindingBuilder.bind(memberPayOkQueue).to(memberDirect)
-                .with(AccountQueueEnum.QUEUE_MEMBER_PAY.getRouteKey());
-    }
 
 }

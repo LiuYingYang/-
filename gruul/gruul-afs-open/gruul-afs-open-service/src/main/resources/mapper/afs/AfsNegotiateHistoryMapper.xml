@@ -4,11 +4,9 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.medusa.gruul.afs.api.entity.AfsNegotiateHistory">
         <id column="id" property="id"/>
-        <result column="tenant_id" property="tenantId"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
         <result column="is_deleted" property="deleted"/>
-        <result column="shop_id" property="shopId"/>
         <result column="user_id" property="userId"/>
         <result column="user_name" property="userName"/>
         <result column="user_avatar_url" property="userAvatarUrl"/>
@@ -20,7 +18,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        tenant_id,create_time,update_time,is_deleted,id, shop_id, user_id, user_name, user_avatar_url, info, image, order_id, apply_user_type
+        create_time,update_time,is_deleted,id, user_id, user_name, user_avatar_url, info, image, order_id, apply_user_type
     </sql>
     <select id="negotiateHistoryList" resultType="com.medusa.gruul.afs.api.entity.AfsNegotiateHistory">
         SELECT * FROM t_afs_negotiate_history WHERE order_id = #{orderId}

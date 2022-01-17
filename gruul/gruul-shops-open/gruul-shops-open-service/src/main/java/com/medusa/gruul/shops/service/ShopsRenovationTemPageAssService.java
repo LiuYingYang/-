@@ -53,11 +53,9 @@ public interface ShopsRenovationTemPageAssService extends IService<ShopsRenovati
 
     /**
      * 修改专区名称
-     * @param tenantId  租户id
-     * @param shopId   店铺id
      * @param linkName  专区原名称
      * @param newLinkName 专区新名称
      * @return
      */
-    boolean updateSpecialArea(String tenantId,String shopId,String linkName,String newLinkName);
+    boolean updateSpecialArea(String linkName,String newLinkName);
 }

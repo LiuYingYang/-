@@ -36,10 +36,6 @@ public class GlobalConstant {
 
     public static final String STRING_ZERO = "0";
 
-    public static final String STRING_TENANT_ID = "tenantId";
-
-    public static final String STRING_SHOP_ID = "shopId";
-
     public static final String TRANSVERSE = "-";
 
     public static final String STRING_SHOP_TEMPLATE = "shop_template";

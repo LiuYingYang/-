@@ -1,6 +1,0 @@
-{
-  "component": true,
-  "usingComponents": {
-    "left-secondgoodssc": "/pages/index/modules/mall/components/left-second-goods/leftSecondGoods"
-  }
-}

@@ -36,13 +36,6 @@ public class Product extends BaseEntity {
     private Long id;
 
     /**
-     * 本店店铺id
-     */
-    @ApiModelProperty(value = "本店店铺id")
-    @TableField("shop_id")
-    private String shopId;
-
-    /**
      * 供应商id
      */
     @ApiModelProperty(value = "供应商id")

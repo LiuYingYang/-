@@ -8,14 +8,12 @@ import lombok.Data;
  * The type Afs user vo.
  *
  * @author alan
- * @description: 提货点申请包含的用户
+ * @description: 申请包含的用户
  * @date 2020 /8/5 21:54
  */
 @Data
 @ApiModel(value = "申请包含的用户")
 public class AfsUserVo {
-
-
 
     /**
      * 用户id

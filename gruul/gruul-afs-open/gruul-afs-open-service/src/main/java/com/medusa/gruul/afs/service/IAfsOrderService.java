@@ -17,7 +17,7 @@ import java.util.List;
  * </p>
  *
  * @author alan
- * @since 2020 -08-05
+ * @since 2020-08-05
  */
 public interface IAfsOrderService extends IService<AfsOrder> {
 

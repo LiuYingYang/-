@@ -9,7 +9,7 @@ import com.medusa.gruul.afs.api.entity.AfsReason;
  * </p>
  *
  * @author alan
- * @since 2020 -08-21
+ * @since 2020-08-21
  */
 public interface AfsReasonMapper extends BaseMapper<AfsReason> {
 

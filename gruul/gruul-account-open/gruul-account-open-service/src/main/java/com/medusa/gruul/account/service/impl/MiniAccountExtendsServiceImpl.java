@@ -5,7 +5,6 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.medusa.gruul.account.api.entity.MiniAccountExtends;
-import com.medusa.gruul.account.api.model.IntegraChangelDto;
 import com.medusa.gruul.account.api.model.MiniAccountExtendsUpdateDto;
 import com.medusa.gruul.account.mapper.MiniAccountExtendsMapper;
 import com.medusa.gruul.account.model.dto.UpdateUserExtendsInfoDto;
@@ -14,7 +13,6 @@ import com.medusa.gruul.common.core.constant.CommonConstants;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.CurUserUtil;
 import com.medusa.gruul.common.core.util.SystemCode;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.common.dto.CurUserDto;
 import com.medusa.gruul.order.api.model.OrderVo;
 import lombok.extern.slf4j.Slf4j;
@@ -73,12 +71,9 @@ public class MiniAccountExtendsServiceImpl extends ServiceImpl<MiniAccountExtend
                         miniAccountExtendsUpdateDto.getCumsumType(), miniAccountExtendsUpdateDto.getBusinessId(), miniAccountExtendsUpdateDto.getLastDealTime());
                 break;
             case 2:
-                //Todo 小区数据
                 flag = Boolean.TRUE;
                 break;
-            //签到数据
             case 3:
-               //Todo 签到数据
                 flag = Boolean.TRUE;
                 break;
             default:
@@ -104,14 +99,9 @@ public class MiniAccountExtendsServiceImpl extends ServiceImpl<MiniAccountExtend
         updateData.setConsumeNum(accountExtends.getConsumeNum() + CommonConstants.NUMBER_ONE);
         updateData.setLastDealTime(lastDealTime);
         flag = this.updateById(updateData);
-        if (StrUtil.isEmpty(TenantContextHolder.getTenantId())) {
-            TenantContextHolder.setTenantId(accountExtends.getTenantId());
-        }
         if (!flag) {
             return Boolean.FALSE;
         }
-        //Todo 累加金额数据
-
         return flag;
     }
 
@@ -125,11 +115,10 @@ public class MiniAccountExtendsServiceImpl extends ServiceImpl<MiniAccountExtend
         if (miniAccountExtends == null) {
             throw new ServiceException("无效用户", SystemCode.DATA_NOT_EXIST.getCode());
         }
-        MiniAccountExtends updata = new MiniAccountExtends();
-        updata.setId(miniAccountExtends.getId());
-        updata.setShopId(updateUserExtendsInfoDto.getShopId());
-        updata.setLastChooseLcation(updateUserExtendsInfoDto.getLastChooseLcation());
-        this.updateById(updata);
+        MiniAccountExtends update = new MiniAccountExtends();
+        update.setId(miniAccountExtends.getId());
+        update.setLastChooseLcation(updateUserExtendsInfoDto.getLastChooseLocation());
+        this.updateById(update);
     }
 
     @Override
@@ -167,7 +156,7 @@ public class MiniAccountExtendsServiceImpl extends ServiceImpl<MiniAccountExtend
     }
 
     @Override
-    public MiniAccountExtends findByShopIdAndUserId(String shopId, String userId) {
-        return this.baseMapper.selectOne(new QueryWrapper<MiniAccountExtends>().eq("user_id", userId).eq("shop_id", shopId));
+    public MiniAccountExtends findByShopIdAndUserId( String userId) {
+        return this.baseMapper.selectOne(new QueryWrapper<MiniAccountExtends>().eq("user_id", userId));
     }
 }

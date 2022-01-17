@@ -8,6 +8,7 @@ import com.medusa.gruul.order.model.UserEvaluateVo;
 
 /**
  * The interface Order product evaluate service.
+ * @author lcysike
  */
 public interface IOrderProductEvaluateService extends IService<OrderProductEvaluate> {
 

@@ -36,13 +36,6 @@ public class SaleMode extends BaseEntity {
     private Long id;
 
     /**
-     * 本店店铺id
-     */
-    @ApiModelProperty(value = "本店店铺id")
-    @TableField("shop_id")
-    private String shopId;
-
-    /**
      * 专区名称
      */
     @ApiModelProperty(value = "专区名称")

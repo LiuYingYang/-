@@ -10,14 +10,10 @@ import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.CurUserUtil;
 import com.medusa.gruul.common.core.util.StringUtil;
 import com.medusa.gruul.common.core.util.SystemCode;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
-import com.medusa.gruul.common.dto.CurShopInfoDto;
 import com.medusa.gruul.common.dto.CurUserDto;
 import com.medusa.gruul.goods.api.constant.GoodsProductRedisKey;
 import com.medusa.gruul.goods.api.constant.GoodsSkuStockRedisKey;
 import com.medusa.gruul.goods.api.constant.ShoppingCartRedisKey;
-import com.medusa.gruul.goods.api.entity.SaleMode;
 import com.medusa.gruul.goods.api.entity.ShoppingCart;
 import com.medusa.gruul.goods.api.model.dto.api.ApiShoppingCartDto;
 import com.medusa.gruul.goods.api.model.dto.manager.SkuStockDto;
@@ -55,9 +51,7 @@ public class ApiShoppingCartServiceImpl extends ServiceImpl<ApiShoppingCartMappe
     public List<ApiShoppingCartVo> getShoppingCartListByUserId() {
         CurUserDto curUserDto = CurUserUtil.getHttpCurUser();
         String userId = curUserDto.getUserId();
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
-        return getData(userId, tenantId, shopId);
+        return getData(userId);
     }
 
     /**
@@ -69,16 +63,12 @@ public class ApiShoppingCartServiceImpl extends ServiceImpl<ApiShoppingCartMappe
     public void addShoppingCart(ApiShoppingCartDto apiShoppingCartDto) {
         CurUserDto curUserDto = CurUserUtil.getHttpCurUser();
         apiShoppingCartDto.setUserId(curUserDto.getUserId());
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
         ShoppingCartRedisKey shoppingCartRedisKey = new ShoppingCartRedisKey();
         Integer goodsNumber = apiShoppingCartDto.getGoodsNumber();
         //缓存中更新购物车信息
-        updateShoppingCartCache(apiShoppingCartDto, Long.valueOf(CommonConstants.NUMBER_ZERO), shoppingCartRedisKey, tenantId, shopId);
+        updateShoppingCartCache(apiShoppingCartDto, Long.valueOf(CommonConstants.NUMBER_ZERO), shoppingCartRedisKey);
         //消息队列发送
         ShoppingCartMessage shoppingCartMessage = new ShoppingCartMessage();
-        shoppingCartMessage.setTenantId(tenantId);
-        shoppingCartMessage.setShopId(shopId);
         //防止缓存更新把数量变更掉，在缓存更新完之后重新赋值
         apiShoppingCartDto.setGoodsNumber(goodsNumber);
         shoppingCartMessage.setApiShoppingCartDto(apiShoppingCartDto);
@@ -99,10 +89,8 @@ public class ApiShoppingCartServiceImpl extends ServiceImpl<ApiShoppingCartMappe
         String userId = curUserDto.getUserId();
         ShoppingCartRedisKey shoppingCartRedisKey = new ShoppingCartRedisKey();
         List<Long> idList = Arrays.asList(ids);
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
-        //用户购物车缓存key值 用户id+租户id+商户id
-        String userKey = userId + tenantId + shopId;
+        //用户购物车缓存key值 用户id
+        String userKey = userId;
         idList.forEach(id -> {
             //清除缓存购物车商品数据
             shoppingCartRedisKey.hdel(userKey, JSON.toJSONString(id));
@@ -123,10 +111,8 @@ public class ApiShoppingCartServiceImpl extends ServiceImpl<ApiShoppingCartMappe
         String userId = curUserDto.getUserId();
         ShoppingCartRedisKey shoppingCartRedisKey = new ShoppingCartRedisKey();
         List<Long> idList = Arrays.asList(ids);
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
-        //用户购物车缓存key值 用户id+租户id+商户id
-        String userKey = userId + tenantId + shopId;
+        //用户购物车缓存key值 用户id
+        String userKey = userId;
         idList.forEach(id -> {
             ApiShoppingCartVo apiShoppingCartVo = JSON.parseObject(shoppingCartRedisKey.hget(userKey, JSON.toJSONString(id)), ApiShoppingCartVo.class);
             if(!BeanUtil.isEmpty(apiShoppingCartVo)){
@@ -148,16 +134,12 @@ public class ApiShoppingCartServiceImpl extends ServiceImpl<ApiShoppingCartMappe
         CurUserDto curUserDto = CurUserUtil.getHttpCurUser();
         oldApiShoppingCartDto.setUserId(curUserDto.getUserId());
         newApiShoppingCartDto.setUserId(curUserDto.getUserId());
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
         Integer goodsNumber = newApiShoppingCartDto.getGoodsNumber();
         ShoppingCartRedisKey shoppingCartRedisKey = new ShoppingCartRedisKey();
         //缓存中更新购物车信息
-        updateShoppingCartCache(newApiShoppingCartDto, oldApiShoppingCartDto.getSkuId(), shoppingCartRedisKey, tenantId, shopId);
+        updateShoppingCartCache(newApiShoppingCartDto, oldApiShoppingCartDto.getSkuId(), shoppingCartRedisKey);
         //消息队列发送
         ShoppingCartMessage shoppingCartMessage = new ShoppingCartMessage();
-        shoppingCartMessage.setTenantId(tenantId);
-        shoppingCartMessage.setShopId(shopId);
         //防止缓存更新把数量变更掉，在缓存更新完之后重新赋值
         newApiShoppingCartDto.setGoodsNumber(goodsNumber);
         shoppingCartMessage.setApiShoppingCartDto(newApiShoppingCartDto);
@@ -171,12 +153,10 @@ public class ApiShoppingCartServiceImpl extends ServiceImpl<ApiShoppingCartMappe
      *
      * @param apiShoppingCartDto
      * @param shoppingCartRedisKey
-     * @param tenantId
-     * @param shopId
      */
-    public void updateShoppingCartCache(ApiShoppingCartDto apiShoppingCartDto, Long skuId, ShoppingCartRedisKey shoppingCartRedisKey, String tenantId, String shopId) {
-        //用户购物车缓存key值 用户id+租户id+商户id
-        String userKey = apiShoppingCartDto.getUserId() + tenantId + shopId;
+    public void updateShoppingCartCache(ApiShoppingCartDto apiShoppingCartDto, Long skuId, ShoppingCartRedisKey shoppingCartRedisKey) {
+        //用户购物车缓存key值 用户id
+        String userKey = apiShoppingCartDto.getUserId();
         ApiShoppingCartVo apiShoppingCartVo = JSON.parseObject(shoppingCartRedisKey.hget(userKey, JSON.toJSONString(apiShoppingCartDto.getSkuId())), ApiShoppingCartVo.class);
         if (!BeanUtil.isEmpty(apiShoppingCartVo)) {
             //如果存在相同规格的商品，查询出来的商品数量累加
@@ -218,8 +198,6 @@ public class ApiShoppingCartServiceImpl extends ServiceImpl<ApiShoppingCartMappe
     @Transactional(rollbackFor = Exception.class)
     public void updateShoppingCartDatabase(ShoppingCartMessage shoppingCartMessage) {
         ShoppingCart addShoppingCart = shoppingCartMessage.getApiShoppingCartDto().coverShoppingCart();
-        addShoppingCart.setTenantId(shoppingCartMessage.getTenantId());
-        addShoppingCart.setShopId(shoppingCartMessage.getShopId());
         String userId = shoppingCartMessage.getUserId();
         Long skuId = shoppingCartMessage.getSkuId();
         //等于0说明是加入购物车，不等于0说明是修改购物车数据
@@ -261,10 +239,8 @@ public class ApiShoppingCartServiceImpl extends ServiceImpl<ApiShoppingCartMappe
         CurUserDto curUserDto = CurUserUtil.getHttpCurUser();
         String userId = curUserDto.getUserId();
         ShoppingCartRedisKey shoppingCartRedisKey = new ShoppingCartRedisKey();
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
-        //用户购物车缓存key值 用户id+租户id+商户id
-        String userKey = userId + tenantId + shopId;
+        //用户购物车缓存key值 用户id
+        String userKey = userId;
         apiShoppingCartDtos.forEach(bean -> {
             bean.setUserId(userId);
             //清除缓存购物车商品数据
@@ -285,10 +261,8 @@ public class ApiShoppingCartServiceImpl extends ServiceImpl<ApiShoppingCartMappe
     @Transactional(rollbackFor = Exception.class)
     public Boolean deleteShoppingCartByOrder(List<Long> skuIds, String userId) {
         ShoppingCartRedisKey shoppingCartRedisKey = new ShoppingCartRedisKey();
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
-        //用户购物车缓存key值 用户id+租户id+商户id
-        String userKey = userId + tenantId + shopId;
+        //用户购物车缓存key值 用户id
+        String userKey = userId;
         if (CollectionUtil.isNotEmpty(skuIds)) {
             skuIds.forEach(skuId -> {
                 //清除缓存购物车商品数据
@@ -306,20 +280,14 @@ public class ApiShoppingCartServiceImpl extends ServiceImpl<ApiShoppingCartMappe
      * 根据用户id获取购物车商品信息
      *
      * @param userId 用户id
-     * @param tenantId
-     * @param shopId
      * @return 购物车商品list
      */
-    private List<ApiShoppingCartVo> getData(String userId, String tenantId, String shopId) {
+    private List<ApiShoppingCartVo> getData(String userId) {
         ShoppingCartRedisKey shoppingCartRedisKey = new ShoppingCartRedisKey();
         GoodsProductRedisKey goodsProductRedisKey = new GoodsProductRedisKey();
         GoodsSkuStockRedisKey goodsSkuStockRedisKey = new GoodsSkuStockRedisKey();
-        //获取当前线程中的租户id的店铺信息;getTemplateCodeEnum 获取当前店铺使用模板类型
-        CurShopInfoDto tenantIdShopInfo = CurUserUtil.getTenantIdShopInfo();
-        SaleMode saleMode = new SaleMode();
-        final Long saleModeId = saleMode.getId();
-        //用户购物车缓存key值 用户id+租户id+商户id
-        String userKey = userId + tenantId + shopId;
+        //用户购物车缓存key值 用户id
+        String userKey = userId;
         //判断缓存key是否存在
         List<String> stringList = shoppingCartRedisKey.hvals(userKey);
         if (CollectionUtil.isNotEmpty(stringList)) {

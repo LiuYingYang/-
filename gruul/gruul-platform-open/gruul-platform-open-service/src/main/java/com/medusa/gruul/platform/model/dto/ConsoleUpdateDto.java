@@ -1,6 +1,5 @@
 package com.medusa.gruul.platform.model.dto;
 
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

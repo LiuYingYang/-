@@ -1,8 +1,6 @@
 package com.medusa.gruul.shops.mq;
 
 import com.alibaba.fastjson.JSONObject;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.shops.api.constant.QueueNameConstant;
 import com.medusa.gruul.shops.api.model.AccountCenterSettingDto;
 import com.medusa.gruul.shops.api.model.RenovationTemplateDto;
@@ -10,7 +8,6 @@ import com.medusa.gruul.shops.service.IAccountCenterService;
 import com.medusa.gruul.shops.service.IShopGuidePageService;
 import com.medusa.gruul.shops.service.IShopGuidePageSwitchService;
 import com.medusa.gruul.shops.service.ShopsRenovationTemService;
-import com.medusa.gruul.shops.service.impl.ShopGuidePageSwitchServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +46,6 @@ public class ShopsListener {
 		try {
 			AccountCenterSettingDto accountCenterSettingDto = JSONObject
 					.parseObject(jsonStr, AccountCenterSettingDto.class);
-			TenantContextHolder.setTenantId(accountCenterSettingDto.getTenantId());
 			accountCenterService.add(accountCenterSettingDto);
 		} catch (Exception e) {
             log.error(e.getMessage(), e);
@@ -66,8 +62,6 @@ public class ShopsListener {
 		log.info("receive message:" + jsonStr);
 		try {
 			RenovationTemplateDto templateSettingDto = JSONObject.parseObject(jsonStr, RenovationTemplateDto.class);
-			TenantContextHolder.setTenantId(templateSettingDto.getTenantId());
-			ShopContextHolder.setShopId(templateSettingDto.getShopId());
 			shopsRenovationTemService.init(templateSettingDto);
 		} catch (Exception e) {
 			log.error(e.getLocalizedMessage());
@@ -83,5 +77,3 @@ public class ShopsListener {
 
 	}
 }
-
-//

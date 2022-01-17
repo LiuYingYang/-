@@ -17,10 +17,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.medusa.gruul.common.core.constant.CommonConstants;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.*;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
-import com.medusa.gruul.common.dto.CurShopInfoDto;
-import com.medusa.gruul.goods.api.constant.GoodsConstant;
 import com.medusa.gruul.goods.api.constant.GoodsProductRedisKey;
 import com.medusa.gruul.goods.api.constant.GoodsSkuStockRedisKey;
 import com.medusa.gruul.goods.api.entity.*;
@@ -30,15 +26,12 @@ import com.medusa.gruul.goods.api.model.param.manager.ProductParam;
 import com.medusa.gruul.goods.api.model.vo.api.ApiShoppingCartProductVo;
 import com.medusa.gruul.goods.api.model.vo.manager.*;
 import com.medusa.gruul.goods.mapper.manager.*;
-import com.medusa.gruul.goods.service.manager.ICommanderService;
 import com.medusa.gruul.goods.service.manager.IProductService;
 import com.medusa.gruul.goods.util.CsvFileUtil;
 import com.medusa.gruul.goods.web.enums.ProductStatusEnum;
-import com.medusa.gruul.goods.web.enums.SaleModeEnum;
 import com.medusa.gruul.order.api.feign.RemoteOrderService;
 import com.medusa.gruul.order.api.model.ProductRateVo;
 import com.medusa.gruul.oss.api.feign.RemoteSysOssService;
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -74,13 +67,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     private ProductAttributeMapper productAttributeMapper;
 
     @Autowired
-    private AttributeTemplateMapper attributeTemplateMapper;
-
-
-    @Autowired
-    private SaleModeMapper saleModeMapper;
-
-    @Autowired
     private ShowCategoryMapper showCategoryMapper;
 
     @Autowired
@@ -96,12 +82,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     @Resource
     private RemoteOrderService remoteOrderService;
 
-
     @Resource
     private RemoteSysOssService remoteSysOssService;
-
-    @Resource
-    private ICommanderService commanderService;
 
     /**
      * 获取商品分页信息
@@ -163,8 +145,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         if (BeanUtil.isEmpty(productVo)) {
             throw new ServiceException("商品不存在！", SystemCode.DATA_EXISTED.getCode());
         }
-        //获取当前线程中的租户id的店铺信息;getTemplateCodeEnum 获取当前店铺使用模板类型
-        CurShopInfoDto tenantIdShopInfo = CurUserUtil.getTenantIdShopInfo();
         return productVo;
     }
 
@@ -346,8 +326,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         });
         //更新购物车缓存商品状态与专区
         updateCacheShoppingCartProductSaleMode(ids, saleMode);
-        //获取当前线程中的租户id的店铺信息;getTemplateCodeEnum 获取当前店铺使用模板类型
-        CurShopInfoDto tenantIdShopInfo = CurUserUtil.getTenantIdShopInfo();
     }
 
     /**
@@ -452,8 +430,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         });
         //更新缓存商品基础信息中的状态
         updateCacheShoppingCartProductStatus(ids, status);
-        //获取当前线程中的租户id的店铺信息;getTemplateCodeEnum 获取当前店铺使用模板类型
-        CurShopInfoDto tenantIdShopInfo = CurUserUtil.getTenantIdShopInfo();
     }
 
     /**
@@ -491,8 +467,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         removeByIds(Arrays.asList(ids));
         //删除缓存里面的商品信息
         deleteCacheShoppingCartProduct(ids);
-        //获取当前线程中的租户id的店铺信息;getTemplateCodeEnum 获取当前店铺使用模板类型
-        CurShopInfoDto tenantIdShopInfo = CurUserUtil.getTenantIdShopInfo();
     }
 
     /**
@@ -536,25 +510,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
 
 
 
-
-    /**
-     * 已发货的订单商品移除列表
-     *
-     * @param discountProductParam
-     * @return 商品list对象
-     */
-    @Override
-    public IPage<DiscountProductVo> getRemoveProductList(DiscountProductParam discountProductParam) {
-        //获取已发货的订单商品list
-        List<Long> productIds = remoteOrderService.waitSendProduct(discountProductParam.getDeliverId());
-        log.debug("-----" + discountProductParam.getDeliverId() + "------获取发货单的商品信息：" + productIds);
-        IPage<DiscountProductVo> page = new Page<>(discountProductParam.getCurrent(), discountProductParam.getSize());
-        if (CollectionUtil.isNotEmpty(productIds)) {
-            discountProductParam.setProductIds(productIds);
-            page.setRecords(discountProductMapper.queryRemoveProductList(page, discountProductParam));
-        }
-        return page;
-    }
 
 
     /**
@@ -601,6 +556,19 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     public Boolean checkProductByTemplateId(Long templateId) {
         int count = productMapper.selectCount(new QueryWrapper<Product>().eq("freight_template_id", templateId).eq("is_deleted", CommonConstants.NUMBER_ZERO));
         return count > 0;
+    }
+
+    /**
+     * 组件查询所有商品列表
+     * discountProductParam
+     *
+     * @param discountProductParam
+     * @return 商品list对象
+     */
+    @Override
+    public IPage<DiscountProductVo> getDiscountProductList(DiscountProductParam discountProductParam) {
+        IPage<DiscountProductVo> page = new Page<>(discountProductParam.getCurrent(), discountProductParam.getSize());
+        return page.setRecords(discountProductMapper.queryDiscountProductList(page, discountProductParam));
     }
 
 
@@ -788,193 +756,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
             //更新sku缓存信息
             goodsSkuStockRedisKey.set(String.valueOf(bean.getId()), String.valueOf(bean.getStock()));
         });
-    }
-
-    /**
-     * 新建店铺同时新增默认店铺里面的默认商品 新增商品信息同时插入运费模版、sku、商品属性、展示分类信息，同时清除缓存数据
-     * 注：每次查库的时候把tenantId跟shopId设置为默认值 查完之后记得恢复 不然数据插入会出错
-     *
-     * @return Result
-     */
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void createDefaultProduct() {
-
-        //全局定义请求的shopId跟tenantId
-        String shopId = ShopContextHolder.getShopId();
-        String tenantId = TenantContextHolder.getTenantId();
-        //设置默认shopId跟tenantId
-        ShopContextHolder.setShopId(GoodsConstant.DEFAULT_SHOP_ID);
-        TenantContextHolder.setTenantId(GoodsConstant.DEFAULT_TENANT_ID);
-        //属性模版默认数据新增
-        AttributeTemplateVo attributeTemplateVo = attributeTemplateMapper.queryDefaultAttributeTemplateList();
-        Long attributeTemplateId = null;
-        String attributeTemplateName = null;
-        //恢复定义的请求的shopId跟tenantId 下面要插入数据
-        if (!BeanUtil.isEmpty(attributeTemplateVo)) {
-            ShopContextHolder.setShopId(shopId);
-            TenantContextHolder.setTenantId(tenantId);
-            AttributeTemplate attributeTemplate = new AttributeTemplate();
-            BeanUtil.copyProperties(attributeTemplateVo, attributeTemplate);
-            attributeTemplate.setId(null);
-            attributeTemplateMapper.insert(attributeTemplate);
-            List<AttributeTemplateSecondVo> attributeTemplates = attributeTemplateVo.getAttributeTemplates();
-            if (CollectionUtil.isNotEmpty(attributeTemplates)) {
-                for (AttributeTemplateSecondVo child : attributeTemplates) {
-                    AttributeTemplate childNode = new AttributeTemplate();
-                    BeanUtil.copyProperties(child, childNode);
-                    childNode.setId(null);
-                    childNode.setParentId(attributeTemplate.getId());
-                    attributeTemplateMapper.insert(childNode);
-                    attributeTemplateId = childNode.getId();
-                    attributeTemplateName = childNode.getName();
-                }
-            } else {
-                attributeTemplateId = attributeTemplate.getId();
-                attributeTemplateName = attributeTemplate.getName();
-            }
-        }
-        //设置默认shopId跟tenantId
-        ShopContextHolder.setShopId(GoodsConstant.DEFAULT_SHOP_ID);
-        TenantContextHolder.setTenantId(GoodsConstant.DEFAULT_TENANT_ID);
-        //恢复定义的请求的shopId跟tenantId 下面要插入数据
-        ShopContextHolder.setShopId(shopId);
-        TenantContextHolder.setTenantId(tenantId);
-
-        //设置默认shopId跟tenantId
-        ShopContextHolder.setShopId(GoodsConstant.DEFAULT_SHOP_ID);
-        TenantContextHolder.setTenantId(GoodsConstant.DEFAULT_TENANT_ID);
-
-        //设置默认shopId跟tenantId
-        ShopContextHolder.setShopId(GoodsConstant.DEFAULT_SHOP_ID);
-        TenantContextHolder.setTenantId(GoodsConstant.DEFAULT_TENANT_ID);
-        //商品专区默认数据新增
-        List<SaleModeVo> saleModeVos = saleModeMapper.queryDefaultSaleMode();
-        //恢复定义的请求的shopId跟tenantId 下面要插入数据
-        ShopContextHolder.setShopId(shopId);
-        TenantContextHolder.setTenantId(tenantId);
-        Long saleModeId = 0L;
-        log.warn(ShopContextHolder.getShopId() + "shopId=============>");
-        log.warn(TenantContextHolder.getTenantId() + "TenantId=============>");
-        for (SaleModeVo saleModeVo : saleModeVos) {
-            //获取当前线程中的租户id的店铺信息;getTemplateCodeEnum 获取当前店铺使用模板类型
-            CurShopInfoDto tenantIdShopInfo = CurUserUtil.getTenantIdShopInfo();
-            SaleMode saleMode = new SaleMode();
-            BeanUtil.copyProperties(saleModeVo, saleMode);
-            saleMode.setId(null);
-            saleModeMapper.insert(saleMode);
-            saleModeId = saleMode.getId();
-        }
-
-        //设置默认shopId跟tenantId
-        ShopContextHolder.setShopId(GoodsConstant.DEFAULT_SHOP_ID);
-        TenantContextHolder.setTenantId(GoodsConstant.DEFAULT_TENANT_ID);
-        //展示分类默认数据新增
-        ShowCategoryVo showCategoryVo = showCategoryMapper.queryDefaultShowCategory();
-        //恢复定义的请求的shopId跟tenantId 下面要插入数据
-        ShopContextHolder.setShopId(shopId);
-        TenantContextHolder.setTenantId(tenantId);
-        ShowCategory showCategory = new ShowCategory();
-        BeanUtil.copyProperties(showCategoryVo, showCategory);
-        showCategory.setId(null);
-        showCategory.setLevel(CommonConstants.NUMBER_ZERO);
-        showCategory.setSaleMode(saleModeId);
-        showCategoryMapper.insert(showCategory);
-        List<ShowCategorySecondVo> showCategoryVos = showCategoryVo.getShowCategoryVos();
-        Long showCategoryId = null;
-        if (CollectionUtil.isNotEmpty(showCategoryVos)) {
-            for (ShowCategorySecondVo child : showCategoryVos) {
-                ShowCategory childNode = new ShowCategory();
-                BeanUtil.copyProperties(child, childNode);
-                childNode.setId(null);
-                childNode.setParentId(showCategory.getId());
-                childNode.setLevel(CommonConstants.NUMBER_ONE);
-                childNode.setSaleMode(saleModeId);
-                showCategoryMapper.insert(childNode);
-                showCategoryId = childNode.getId();
-            }
-        } else {
-            showCategoryId = showCategory.getId();
-        }
-        //商品默认数据新增
-        ShopContextHolder.setShopId(GoodsConstant.DEFAULT_SHOP_ID);
-        TenantContextHolder.setTenantId(GoodsConstant.DEFAULT_TENANT_ID);
-        List<ProductVo> productVos = this.productMapper.queryDefaultProduct();
-        ShopContextHolder.setShopId(shopId);
-        TenantContextHolder.setTenantId(tenantId);
-        if (CollectionUtil.isNotEmpty(productVos)) {
-            for (ProductVo productVo : productVos) {
-                //状态默认上架
-                Product product = new Product();
-                BeanUtil.copyProperties(productVo, product);
-                product.setId(null);
-                product.setCreateTime(null);
-                product.setUpdateTime(null);
-                product.setAttributeId(attributeTemplateId);
-                product.setAttributeName(attributeTemplateName);
-                product.setSaleMode(saleModeId);
-                //商品基础信息新增
-                int insert = productMapper.insert(product);
-                if (insert == 0) {
-                    throw new ServiceException("发布失败！", SystemCode.DATA_ADD_FAILED.getCode());
-                }
-                //商品关联展示分类信息新增
-                ProductShowCategory productShowCategory = new ProductShowCategory();
-                productShowCategory.setProductId(product.getId());
-                productShowCategory.setParentId(0L);
-                productShowCategory.setShowCategoryId(showCategory.getId());
-                productShowCategoryMapper.insert(productShowCategory);
-                if (CollectionUtil.isNotEmpty(showCategoryVos)) {
-                    ProductShowCategory childNode = new ProductShowCategory();
-                    childNode.setProductId(product.getId());
-                    childNode.setShowCategoryId(showCategoryId);
-                    childNode.setParentId(productShowCategory.getId());
-                    productShowCategoryMapper.insert(childNode);
-                }
-                //商品关联属性信息新增
-                List<ProductAttributeVo> productAttributes = productVo.getProductAttributes();
-                if (CollectionUtil.isNotEmpty(productAttributes)) {
-                    for (ProductAttributeVo productAttributeVo : productAttributes) {
-                        ProductAttribute productAttribute = new ProductAttribute();
-                        BeanUtil.copyProperties(productAttributeVo, productAttribute);
-                        productAttribute.setProductId(product.getId());
-                        productAttribute.setId(null);
-                        productAttributeMapper.insert(productAttribute);
-                    }
-                }
-                //商品sku库存与会员价信息新增
-                List<SkuStockVo> skuStocks = productVo.getSkuStocks();
-                //方便商品基础信息缓存存储组装skuStock数据
-                List<SkuStockDto> skuStockDtos = new ArrayList<>(skuStocks.size());
-                if (CollectionUtil.isNotEmpty(skuStocks)) {
-                    skuStocks.stream().forEach(skuStockVo -> {
-                        //新增sku库存信息
-                        SkuStock skuStock = new SkuStock();
-                        BeanUtil.copyProperties(skuStockVo, skuStock);
-                        skuStock.setProductId(product.getId());
-                        skuStock.setId(null);
-                        skuStockMapper.insert(skuStock);
-                        SkuStockDto skuStockDto = new SkuStockDto();
-                        BeanUtil.copyProperties(skuStock, skuStockDto);
-                        skuStockDtos.add(skuStockDto);
-                    });
-                }
-                //更新缓存商品基础信息
-                GoodsProductRedisKey goodsProductRedisKey = new GoodsProductRedisKey();
-                ApiShoppingCartProductVo apiShoppingCartProductVo = new ApiShoppingCartProductVo();
-                apiShoppingCartProductVo.setProductId(product.getId());
-                apiShoppingCartProductVo.setProductName(product.getName());
-                apiShoppingCartProductVo.setProductSn(product.getProductSn());
-                apiShoppingCartProductVo.setPic(product.getPic());
-                apiShoppingCartProductVo.setStatus(product.getStatus());
-                apiShoppingCartProductVo.setDistributionMode(product.getDistributionMode());
-                apiShoppingCartProductVo.setSkuStocks(skuStockDtos);
-                apiShoppingCartProductVo.setSaleMode(product.getSaleMode());
-                apiShoppingCartProductVo.setDeleted(CommonConstants.NUMBER_ZERO);
-                goodsProductRedisKey.set(String.valueOf(product.getId()), JSON.toJSONString(apiShoppingCartProductVo));
-            }
-        }
-
     }
 
     /**

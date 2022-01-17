@@ -5,9 +5,6 @@ import cn.hutool.core.util.StrUtil;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.PageUtils;
 import com.medusa.gruul.common.core.util.Result;
-import com.medusa.gruul.common.core.util.ResultList;
-import com.medusa.gruul.common.data.tenant.ShopContextHolder;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.logistics.api.feign.RemoteLogisticsFeginService;
 import com.medusa.gruul.order.api.constant.OrderShareSettingRedisKey;
 import com.medusa.gruul.order.api.entity.OrderSetting;
@@ -82,34 +79,19 @@ public class ManageOrderController {
         return Result.ok();
     }
 
-
-    /**
-     * Gets order setting.
-     *
-     * @return the order setting
-     */
     @ApiOperation("查询订单设置")
     @GetMapping("/setting")
     public Result<OrderSetting> getOrderSetting() {
-        log.info(TenantContextHolder.getTenantId()+"tenantId");
-        log.info(ShopContextHolder.getShopId()+"shopId");
         OrderSetting orderSetting = orderSettingService.getOne(null);
         return Result.ok(orderSetting);
     }
 
-    /**
-     * Sets order setting.
-     *
-     * @param setting the setting
-     * @return the order setting
-     */
     @ApiOperation("设置订单设置")
     @PostMapping("/setting")
     public Result<OrderSetting> setOrderSetting(@RequestBody @NotNull @Validated OrderSetting setting) {
         OrderSetting orderSetting = orderSettingService.update(setting);
         return Result.ok(orderSetting);
     }
-
 
     @ApiOperation(value = "获取当前分享晒单设置", notes = "晒单设置")
     @GetMapping("/share/setting")
@@ -122,7 +104,7 @@ public class ManageOrderController {
     @PutMapping("/share/setting")
     public Result setShareSetting(@RequestBody @Validated OrderShareSettingVo vo) {
         OrderShareSettingRedisKey redisKey = new OrderShareSettingRedisKey();
-        //Todo 分享写死了name
+        //分享写死了name
         vo.setTitle("{sname}");
         vo.setBackground(" ");
         OrderShareSetting orderShareSetting = orderShareSettingService.getOne(null);
@@ -137,11 +119,8 @@ public class ManageOrderController {
             orderShareSetting.setTitle(vo.getTitle());
         }
         orderShareSettingService.updateById(orderShareSetting);
-        redisKey.del(ShopContextHolder.getShopId());
         return Result.ok(orderShareSetting);
     }
-
-
 
     @ApiOperation(value = "根据运单号查询物流轨迹", notes = "根据运单号查询物流轨迹")
     @GetMapping("/traces")
@@ -151,14 +130,12 @@ public class ManageOrderController {
         return Result.ok(logisticsExpressInfo.getData());
     }
 
-
     @ApiOperation(value = "商家查询订单详情", notes = "用户查询订单详情")
     @GetMapping("/info/{orderId}")
     public Result<OrderVo> orderInfo(@PathVariable(value = "orderId") @NotNull Long orderId) {
         OrderVo orderVo = orderService.orderInfo(orderId);
         return Result.ok(orderVo);
     }
-
 
     @ApiOperation(value = "商家批量关闭订单", notes = "商家批量关闭订单")
     @PutMapping("/close")
@@ -182,19 +159,6 @@ public class ManageOrderController {
         return Result.ok();
     }
 
-    @ApiOperation(value = "商家移出发货单", notes = "商家移出发货单")
-    @PutMapping("/remove/send_bill")
-    public Result removeSendBill(@RequestBody Long[] orderIds) {
-        orderService.removeSendBill(Arrays.asList(orderIds));
-        return Result.ok();
-    }
-
-    @ApiOperation(value = "商家移出发货单", notes = "商家移出发货单")
-    @PutMapping("/remove/send_bill/product")
-    public Result removeSendBillByProductIds(@RequestBody Long[] productIds) {
-        orderService.removeSendBillByProductIds(Arrays.asList(productIds));
-        return Result.ok();
-    }
 
     @ApiOperation(value = "商家查看评价列表", notes = "商家查看评价列表")
     @GetMapping("/evaluate/search")

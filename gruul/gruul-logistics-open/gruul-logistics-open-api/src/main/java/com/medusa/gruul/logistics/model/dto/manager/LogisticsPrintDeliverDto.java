@@ -19,10 +19,6 @@ public class LogisticsPrintDeliverDto {
     @ApiModelProperty("订单id")
     private List<Long> orderIds;
 
-
-    @ApiModelProperty("店铺id")
-    private String shopId;
-
     @ApiModelProperty("物流公司编号")
     @NotBlank(message = "物流公司不能为空")
     private String deliverCode;
@@ -34,9 +30,5 @@ public class LogisticsPrintDeliverDto {
     @ApiModelProperty("物流公司发货地址设置id")
     @NotNull(message = "物流公司发货地址不能为空")
     private Long expressId;
-
-    @ApiModelProperty("租户id")
-    private String tenantId;
-
 
 }

@@ -11,7 +11,7 @@ gruul 小程序商城
 	├── gruul-nacos  --注册配置中心[naocs端口号]
 	├── gruul-gateway-open  --gateway网关[10999]
 	├── gruul-ops  --运维模块
-	│   ├── gruul-ops-job  --xxl-job-admin[9010]
+	│   ├── gruul-ops-job  --xxl-job-admin[9010] 该处指定时任务
 	│   ├── gruul-ops-monitor(未上传)  --Spring Boot Admin[5001]
 	├── gruul-oss-open  --OSS模块
 	│   ├── gruul-oss-api  --OSS公共api
@@ -48,20 +48,6 @@ gruul 小程序商城
 	```
 	- 定制化swagger配置详见com.medusa.gruul.common.swagger.config.SwaggerProperties中的属性
 
-3. 多租户使用
-	- 在表中预留租户字段（默认为tenant_id）
-	- tables表示需要过滤的表，默认所有表都需要包含 tenant_id 字段
-	```yaml
-	# 租户表维护
-	gruul:
-	  tenant:
-	    column: tenant_id
-	    tables:
-	      - t_file
-	
-	```
-
-
 
 #### 安装教程
 
@@ -69,7 +55,7 @@ gruul 小程序商城
        
         - 阅读开源前置条件 :https://gitee.com/qisange/basemall/blob/master/OPEN_PRE.md
 2. 初始化数据库
-	- 运行建库语句sql文件 (每个项目doc下有先对应的sql文件) or  /gruul/init-default-sql 下相关sql文件
+	- 运行建库语句sql文件 /gruul/init-default-sql 下相关sql文件
 	- 运行其他的sql文件
 3. 修改配置文件
 	- 修改gruul-*-open\src\main\resources\bootstrap.yml 中的nacos连接配置
@@ -83,7 +69,7 @@ gruul 小程序商城
 5. 启动顺序  
 	1.NacosApplication       (nacos) (该处指安装的nacos)  
 	2.GatewayApplication.java  (网关)
-	3.XxlJobAdminApplication(xxl-job-admin)  
+	3.XxlJobAdminApplication(xxl-job-admin)(该处指xxl-job)  
 	4.随意(应用)
 	
 	详见 ： https://gitee.com/qisange/basemall/blob/master/OPEN_PRE.md

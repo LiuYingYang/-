@@ -33,5 +33,5 @@ public interface IAccountCenterService extends IService<AccountCenter> {
      * 修改用户中心
      * @param dto  com.medusa.gruul.account.api.model.AccountCenterSettingDto
      */
-    void accountCenterSettingMotify(AccountCenterSettingDto dto);
+    void accountCenterSettingModify(AccountCenterSettingDto dto);
 }

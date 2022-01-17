@@ -35,13 +35,6 @@ public class ShoppingCart extends BaseEntity {
     private Long id;
 
     /**
-     * 本店店铺id
-     */
-    @ApiModelProperty(value = "本店店铺id")
-    @TableField("shop_id")
-    private String shopId;
-
-    /**
      * 产品id
      */
     @NotNull
@@ -73,25 +66,5 @@ public class ShoppingCart extends BaseEntity {
     @TableField("goods_number")
     private Integer goodsNumber;
 
-    /**
-     * 活动id
-     */
-    @NotNull
-    @ApiModelProperty(value = "活动id")
-    @TableField("activity_id")
-    private Long activityId;
 
-    /**
-     * 活动开始时间
-     */
-    @ApiModelProperty(value = "活动开始时间")
-    @TableField("activity_start_time")
-    private Date activityStartTime;
-
-    /**
-     * 活动结束时间
-     */
-    @ApiModelProperty(value = "活动结束时间")
-    @TableField("activity_end_time")
-    private Date activityEndTime;
 }

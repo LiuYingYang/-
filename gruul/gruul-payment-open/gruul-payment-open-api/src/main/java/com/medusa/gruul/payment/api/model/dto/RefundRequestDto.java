@@ -14,12 +14,6 @@ import org.apache.commons.lang3.StringUtils;
 public class RefundRequestDto {
 
     /**
-     * tenantId
-     */
-    @ApiModelProperty(value = "租户id")
-    private String tenantId;
-
-    /**
      * orderId
      */
     @ApiModelProperty(value = "订单id")
@@ -41,12 +35,6 @@ public class RefundRequestDto {
     public boolean checkParam(Result checkResult) {
         if (StringUtils.isBlank(orderId)) {
             checkResult.setMsg("订单号不能为空");
-            checkResult.setCode(CommonConstants.FAIL);
-            return Boolean.TRUE;
-        }
-
-        if (StringUtils.isBlank(tenantId)) {
-            checkResult.setMsg("租户id不能为空");
             checkResult.setCode(CommonConstants.FAIL);
             return Boolean.TRUE;
         }

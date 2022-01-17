@@ -1,14 +1,10 @@
 package com.medusa.gruul.shops.controller;
 
-import com.medusa.gruul.common.core.annotation.EscapeLogin;
 import com.medusa.gruul.common.core.util.Result;
 import com.medusa.gruul.shops.model.dto.ShopGuidePageDto;
-import com.medusa.gruul.shops.model.vo.ShopGuidePageVo;
 import com.medusa.gruul.shops.service.IShopGuidePageService;
-import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

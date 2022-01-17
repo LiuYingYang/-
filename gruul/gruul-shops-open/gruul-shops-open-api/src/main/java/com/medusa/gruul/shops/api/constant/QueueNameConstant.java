@@ -19,7 +19,6 @@ public class QueueNameConstant {
 	/**
 	 * 店铺引导页初始化队列
 	 */
-
 	public static  final  String  SHOP_GUIDE_PAGE_QUEUE_INIT = "gruul.shops.guide.page.init";
 
 }

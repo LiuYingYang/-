@@ -1,7 +1,6 @@
 package com.medusa.gruul.shops.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.medusa.gruul.common.data.annotation.EscapeShop;
 import com.medusa.gruul.shops.api.entity.ShopsRenovationAssembly;
 import com.medusa.gruul.shops.model.param.ShopsRenovationAssemblyParam;
 import com.medusa.gruul.shops.model.param.ShopsRenovationPageParam;
@@ -34,7 +33,6 @@ public interface ShopsRenovationTemPageAssMapper extends BaseMapper<ShopsRenovat
      * @param pageId
      * @return List
      */
-    @EscapeShop
     List<ShopsRenovationAssembly> listTemplatePageAssemblyByPageId(Long pageId);
 
     /**

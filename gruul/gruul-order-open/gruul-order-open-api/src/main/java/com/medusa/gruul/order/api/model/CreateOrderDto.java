@@ -40,12 +40,6 @@ public class CreateOrderDto implements Serializable {
     @ApiModelProperty("收货人信息id")
     private Long miniAccountAddressId;
 
-    @ApiModelProperty("优惠券ID")
-    private Long couponId;
-
-    @ApiModelProperty("参与的满减活动")
-    private Long fullScaleId;
-
     @ApiModelProperty("用户留言")
     private String userNote;
 
@@ -56,7 +50,6 @@ public class CreateOrderDto implements Serializable {
     @NotNull(message = "支付方式不能为空")
     @ApiModelProperty("支付方式")
     private PayTypeEnum payType;
-
 
     @ApiModelProperty("微信formId")
     private String formId;
@@ -71,7 +64,6 @@ public class CreateOrderDto implements Serializable {
 
     @ApiModelProperty("发货消息订阅TemplateId")
     private String deliveryTemplateId;
-
 
     @ApiModelProperty(hidden = true)
     public List<Long> getItemSkuIds() {

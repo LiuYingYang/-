@@ -38,15 +38,6 @@ public class OrderDelivery extends BaseEntity {
     @TableId(value = "order_id", type = IdType.INPUT)
     private Long orderId;
 
-
-    /**
-     * 商铺ID
-     */
-    @ApiModelProperty(value = "商铺ID")
-    @TableField("shop_id")
-    private String shopId;
-
-
     /**
      * 配送方式
      */

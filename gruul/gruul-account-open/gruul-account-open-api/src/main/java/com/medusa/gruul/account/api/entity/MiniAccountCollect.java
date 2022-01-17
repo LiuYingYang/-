@@ -60,13 +60,11 @@ public class MiniAccountCollect extends BaseEntity {
 
 
     @ApiModelProperty(value = "备注")
-    @TableField("ramark")
-    private String ramark;
+    @TableField("remark")
+    private String remark;
 
 
-    @ApiModelProperty(value = "商铺Id")
-    @TableField("shop_id")
-    private String shopId;
+
 
 
 }

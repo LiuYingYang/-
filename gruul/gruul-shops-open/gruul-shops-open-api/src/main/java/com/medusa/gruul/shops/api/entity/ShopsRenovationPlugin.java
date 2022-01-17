@@ -46,14 +46,6 @@ public class ShopsRenovationPlugin extends BaseEntity {
     private Long templateId;
 
 
-    /**
-     * 店铺id
-     */
-    @NotNull
-    @ApiModelProperty(value = "店铺id")
-    @TableField("shop_id")
-    private String shopId;
-
 
     /**
      * 控件JSON

@@ -9,6 +9,4 @@ import lombok.Data;
 public class AfsRemoveDeliverOrderMessage {
     private Long orderId;
     private int type;
-    private String tenantId;
-    private String shopId;
 }

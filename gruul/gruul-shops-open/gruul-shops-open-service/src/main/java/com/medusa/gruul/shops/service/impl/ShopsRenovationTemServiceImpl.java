@@ -12,8 +12,6 @@ import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.PageUtils;
 import com.medusa.gruul.common.core.util.Result;
 import com.medusa.gruul.common.core.util.SystemCode;
-import com.medusa.gruul.common.data.annotation.EscapeShop;
-import com.medusa.gruul.common.data.annotation.EscapeTenant;
 import com.medusa.gruul.shops.api.entity.ShopsRenovationAssembly;
 import com.medusa.gruul.shops.api.entity.ShopsRenovationPage;
 import com.medusa.gruul.shops.api.entity.ShopsRenovationPlugin;
@@ -161,7 +159,6 @@ public class ShopsRenovationTemServiceImpl extends ServiceImpl<ShopsRenovationTe
      * @return Result
      */
     @Override
-    @EscapeShop
     public Result delDefTemplate(String ids) {
         if (StringUtils.isBlank(ids)) {
             throw new ServiceException(SystemCode.PARAM_MISS.getMsg());
@@ -192,8 +189,6 @@ public class ShopsRenovationTemServiceImpl extends ServiceImpl<ShopsRenovationTe
      * @return Result
      */
     @Override
-    @EscapeTenant
-    @EscapeShop
     public Result listDefTemplate(ShopsRenovationTemplateParam param) {
         return Result.ok(this.baseMapper.listDefTemplate(param));
     }
@@ -206,8 +201,6 @@ public class ShopsRenovationTemServiceImpl extends ServiceImpl<ShopsRenovationTe
      * @return Result
      */
     @Override
-    @EscapeShop
-    @EscapeTenant
     @Transactional(rollbackFor = Exception.class)
     public Result copyTemplateById(Long id) {
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
@@ -216,12 +209,6 @@ public class ShopsRenovationTemServiceImpl extends ServiceImpl<ShopsRenovationTe
         }
 
         HttpServletRequest request = requestAttributes.getRequest();
-        final String tenantId = request.getHeader(GlobalConstant.STRING_TENANT_ID);
-        final String shopId = request.getHeader(GlobalConstant.STRING_SHOP_ID);
-
-        if (StringUtils.isBlank(shopId) || StringUtils.isBlank(tenantId)) {
-            throw new ServiceException("租户店铺信息获取失败!");
-        }
 
         ShopsRenovationTemplate byId = this.getById(id);
         if (null == byId) {
@@ -230,8 +217,6 @@ public class ShopsRenovationTemServiceImpl extends ServiceImpl<ShopsRenovationTe
 
         /** 根据模板id copy 模板, 新生成数据 */
         ShopsRenovationTemplate shopsRenovationTemplate = byId.setId(null);
-        byId.setShopId(shopId);
-        byId.setTenantId(tenantId);
         byId.setIsDevTemplate(GlobalConstant.STRING_ZERO);
         byId.setOnlineStatus(GlobalConstant.STRING_ZERO);
         if (!this.save(byId)) {
@@ -244,8 +229,6 @@ public class ShopsRenovationTemServiceImpl extends ServiceImpl<ShopsRenovationTe
                         .selectList(new QueryWrapper<ShopsRenovationPlugin>().eq("template_id", id));
         plugins.stream().forEach(entity -> {
             entity.setId(null);
-            entity.setShopId(shopId);
-            entity.setTenantId(tenantId);
             entity.setTemplateId(shopsRenovationTemplate.getId());
             if (!shopsRenovationPluginService.save(entity)) {
                 throw new ServiceException(String.format("copy template plugins fail ! id : %s, plugin : %s", id, entity));
@@ -265,8 +248,6 @@ public class ShopsRenovationTemServiceImpl extends ServiceImpl<ShopsRenovationTe
             Long pageId = entity.getId();
             entity.setId(null);
             entity.setModelId("0");
-            entity.setShopId(shopId);
-            entity.setTenantId(tenantId);
             entity.setTemplateId(shopsRenovationTemplate.getId());
             if (!shopsRenovationTemPageService.save(entity)) {
                 throw new ServiceException(String.format("copy template page fail ! id : %s, page : %s", id, entity));
@@ -275,8 +256,6 @@ public class ShopsRenovationTemServiceImpl extends ServiceImpl<ShopsRenovationTe
             List<ShopsRenovationAssembly> assemblies = shopsRenovationTemPageAssService.listTemplatePageAssemblyByPageId(pageId);
             assemblies.stream().forEach(assembliesEntity -> {
                 assembliesEntity.setId(null);
-                assembliesEntity.setShopId(shopId);
-                assembliesEntity.setTenantId(tenantId);
                 assembliesEntity.setPageId(entity.getId());
                 if (!shopsRenovationTemPageAssService.save(assembliesEntity)) {
                     throw new ServiceException(
@@ -297,15 +276,15 @@ public class ShopsRenovationTemServiceImpl extends ServiceImpl<ShopsRenovationTe
     @Transactional(rollbackFor = Exception.class)
     public void init(RenovationTemplateDto templateSettingDto) {
         ShopsRenovationTemplate template = new ShopsRenovationTemplate();
-        BeanUtil.copyProperties(templateSettingDto, template, "shopId", "tenantId");
+        BeanUtil.copyProperties(templateSettingDto, template);
         if (StringUtils.isNotBlank(template.getIsDevTemplate())) {
             log.debug("isDevStatus in " + template.getIsDevTemplate());
             template.setIsDevTemplate(GlobalConstant.STRING_ZERO);
         }
 
         List<ShopsRenovationTemplate> list = this.getBaseMapper().selectList(new QueryWrapper<ShopsRenovationTemplate>().eq("name", template.getName()));
-        log.debug(String.format("根据name : %s, 店铺id : %s, 租户id : %s ,获取历史数据 : %s",
-                template.getName(), template.getShopId(), template.getTenantId(), list.toString()));
+        log.debug(String.format("根据name : %s, 店铺id : %s,获取历史数据 : %s",
+                template.getName(), list.toString()));
         if (!list.isEmpty()) {
             return;
         }
@@ -360,15 +339,11 @@ public class ShopsRenovationTemServiceImpl extends ServiceImpl<ShopsRenovationTe
             throw new ServiceException("获取请求参数失败 !");
         }
         HttpServletRequest request = requestAttributes.getRequest();
-        final String shopId = request.getHeader(GlobalConstant.STRING_SHOP_ID);
-        log.debug(String.format("shopId : %s", shopId));
-        String json = redisTools.get(shopId + GlobalConstant.STRING_SHOP_TEMPLATE_KEY);
+        String json = redisTools.get(GlobalConstant.STRING_SHOP_TEMPLATE_KEY);
 
-        log.debug(String.format("shopId : %s, jsonData : %s", shopId, json));
         if (StringUtils.isBlank(json)) {
-            log.debug(String.format("shopId : %s, jsonData : %s, 租户id: %s", shopId, json, request.getHeader(GlobalConstant.STRING_TENANT_ID)));
             vo = innerHandlerGetCache();
-            redisTools.set(shopId + GlobalConstant.STRING_SHOP_TEMPLATE_KEY, JSONObject.toJSONString(vo));
+            redisTools.set(GlobalConstant.STRING_SHOP_TEMPLATE_KEY, JSONObject.toJSONString(vo));
         } else {
             vo = JSONObject.parseObject(json, ShopsRenovationTemplateVo.class);
         }

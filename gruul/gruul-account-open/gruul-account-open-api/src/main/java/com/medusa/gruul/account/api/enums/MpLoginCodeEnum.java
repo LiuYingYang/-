@@ -16,7 +16,7 @@ public enum MpLoginCodeEnum {
      */
     MINI_NOT_LOG(201001, "小程序尚未登录"),
     UNIONID_NULL(201002, "限制下单"),
-    SHOPID_NULL(201003, "限制下单"),
+    _NULL(201003, "限制下单"),
     DATA_NULL(201004, "数据异常"),
     ;
 

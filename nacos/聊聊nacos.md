@@ -26,18 +26,7 @@ nacos 安装
       port: xxxx (端口配置) 如项目本地 及nacos中都配置该端口则默认使用nacos中的端口配置
     monitor:
       monitor为基础库监控 二开可考虑使用
-    wechat:
-      open: 该处为微信第三方平台(开放平台)的相关配置
-      domain:域名 默认格式 (域名/api/platform-open)
-       componentAppId:  第三方平台应用 APPID
-       componentSecret: 第三方平台应用 APPSECRET
-       componentToken:  第三方平台应用 Token
-       componentAesKey: 第三方平台应用 AesKey
-       redirectUrl: "${wechat.open.domain}/mini/authorization/preauthcode/notify/$UUID" 
-    gruul:
-      tenant:
-        use_shop: false  不使用shopId 
-        tables:   细分到表 
+
     platform:  管理台配置
       admin:
         username:   管理台默认账号(二开可考虑使用)

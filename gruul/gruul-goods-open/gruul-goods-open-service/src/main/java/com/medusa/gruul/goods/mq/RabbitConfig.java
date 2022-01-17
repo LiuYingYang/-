@@ -2,7 +2,6 @@ package com.medusa.gruul.goods.mq;
 
 import cn.hutool.json.JSONUtil;
 import com.medusa.gruul.goods.api.constant.GoodsConstant;
-import com.medusa.gruul.goods.api.constant.GoodsMyQueneName;
 import com.medusa.gruul.goods.api.constant.GoodsQueueEnum;
 import com.medusa.gruul.goods.api.constant.ShoppingCartMyQueneName;
 import lombok.extern.slf4j.Slf4j;
@@ -66,10 +65,6 @@ public class RabbitConfig implements RabbitListenerConfigurer {
     }
 
 
-    @Bean
-    public Queue defaultGoodsCreateQueue() {
-        return new Queue(GoodsMyQueneName.GENERATE_DEFAULT_GOODS, true);
-    }
 
     /**
      * 商品消息实际消费队列所绑定的交换机
@@ -82,15 +77,5 @@ public class RabbitConfig implements RabbitListenerConfigurer {
                 .build();
     }
 
-    /**
-     * 将商品创建队列绑定到交换机
-     */
-    @Bean
-    Binding defaultGoodsCreateBinding(DirectExchange goodsDirect, Queue defaultGoodsCreateQueue) {
-        return BindingBuilder
-                .bind(defaultGoodsCreateQueue)
-                .to(goodsDirect)
-                .with(GoodsQueueEnum.DEFAULT_GOODS_CREATE.getRouteKey());
-    }
 
 }

@@ -31,11 +31,10 @@ public interface IPaymentService extends IService<Payment> {
      *
      * @param outTradeNo    业务订单号
      * @param payChannel    支付渠道
-     * @param tenantId      商户标识
      * @param transactionId
      * @return 状态
      */
-    PayStatusDto getPayStatus(String outTradeNo, String payChannel, String tenantId, String transactionId);
+    PayStatusDto getPayStatus(String outTradeNo, String payChannel, String transactionId);
 
 
     /**

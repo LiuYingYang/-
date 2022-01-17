@@ -1,13 +1,11 @@
 package com.medusa.gruul.shops.controller;
 
 
-import com.medusa.gruul.common.core.annotation.EscapeLogin;
 import com.medusa.gruul.common.core.util.Result;
 import com.medusa.gruul.shops.model.param.ShopsRenovationAssemblyParam;
 import com.medusa.gruul.shops.model.param.ShopsRenovationPageParam;
 import com.medusa.gruul.shops.model.param.ShopsRenovationPluginParam;
 import com.medusa.gruul.shops.model.param.ShopsRenovationTemplateParam;
-import com.medusa.gruul.shops.model.vo.ShopsRenovationPageVo;
 import com.medusa.gruul.shops.service.ShopsRenovationPluginService;
 import com.medusa.gruul.shops.service.ShopsRenovationTemPageAssService;
 import com.medusa.gruul.shops.service.ShopsRenovationTemPageService;
@@ -235,10 +233,6 @@ public class ShopsRenovationController {
     public Result listTemplatePageAssembly(@RequestBody ShopsRenovationAssemblyParam param) {
         return shopsRenovationTemPageAssService.listTemplatePageAssembly(param);
     }
-
-
-
-
 
 
     /**

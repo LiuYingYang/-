@@ -71,7 +71,7 @@ public interface RemoteGoodsService {
      * @Author alan
      * @Date 2019/10/4 16:03
      */
-    @GetMapping("product/stock/batch/")
+    @GetMapping("product/stock/batch")
     Collection<SkuStock> findSkuStockListByProductIds(@RequestParam(value = "productIds", required = true) Set<Long> productIds);
 
     /**

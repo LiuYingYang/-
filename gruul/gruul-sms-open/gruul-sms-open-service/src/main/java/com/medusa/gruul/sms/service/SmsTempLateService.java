@@ -1,6 +1,7 @@
 package com.medusa.gruul.sms.service;
 
-import com.medusa.gruul.sms.dao.entity.TSmsTemplateEntity;
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.medusa.gruul.sms.model.entity.TSmsTemplateEntity;
 import com.medusa.gruul.sms.model.dto.TemplateDto;
 
 import java.util.List;
@@ -13,11 +14,11 @@ import java.util.List;
  * @author: wangpeng
  * @date: 2020-01-05 10:19
  **/
-public interface SmsTempLateService {
+public interface SmsTempLateService extends IService<TSmsTemplateEntity> {
 
-    /***
-    * @description: 添加模版
-    * @param:templateDto
+    /**
+    * 添加模版
+    * @param templateDto
     * @return: int
     * @throws:
     * @author: wangpeng
@@ -27,8 +28,8 @@ public interface SmsTempLateService {
     int doAddTempLate(TemplateDto templateDto);
 
     /***
-    * @description: 待推送审核模版
-    * @param:status
+    * 待推送审核模版
+    * @param status
     * @return: java.util.List<com.medusa.gruul.sms.dao.entity.TSmsOrderEntity>
     * @throws:
     * @author: wangpeng
@@ -38,8 +39,8 @@ public interface SmsTempLateService {
     List<TSmsTemplateEntity> doListWaitVerifyTempLate(long status);
 
     /***
-    * @description: 短信模版推审
-    * @param:smsOrderEntity
+    * 短信模版推审
+    * @param tSmsTemplateEntity
     * @return: void
     * @throws:
     * @author: wangpeng

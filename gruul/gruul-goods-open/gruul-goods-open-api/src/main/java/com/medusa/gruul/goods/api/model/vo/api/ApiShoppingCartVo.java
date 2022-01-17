@@ -90,23 +90,7 @@ public class ApiShoppingCartVo implements Serializable {
     @ApiModelProperty(value = "状态(默认上架，0--下架（仓库中），1--上架，2--已售完)")
     private Integer status;
 
-    /**
-     * 活动id
-     */
-    @ApiModelProperty(value = "活动id")
-    private Long activityId;
 
-    /**
-     * 活动开始时间
-     */
-    @ApiModelProperty(value = "活动开始时间")
-    private Date activityStartTime;
-
-    /**
-     * 活动结束时间
-     */
-    @ApiModelProperty(value = "活动结束时间")
-    private Date activityEndTime;
 
     /**
      * 活动状态 0-为开始 1-进行中 2-失效

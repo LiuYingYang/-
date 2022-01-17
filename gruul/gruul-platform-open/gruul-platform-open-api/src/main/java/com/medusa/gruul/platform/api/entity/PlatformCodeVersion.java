@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.medusa.gruul.common.data.base.BaseNoTenantEntity;
+import com.medusa.gruul.common.data.base.BaseEntity;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,7 +24,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("t_platform_code_version")
 @ApiModel(value = "PlatformCodeVersion对象", description = "店铺信息表")
-public class PlatformCodeVersion extends BaseNoTenantEntity {
+public class PlatformCodeVersion extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

@@ -18,10 +18,49 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Product_List">
-        t.id, t.name, t.pic, t.wide_pic, t.album_pics, t.product_sn, t.limit_type, t.sale_mode, t.domino_state, min(u.price) as min_price, case when t.limit_type = 0 then min(u.price) else max(u.price) end as max_price
+        t.id, t.name, t.pic, t.wide_pic, t.album_pics, t.product_sn, t.limit_type, t.sale_mode, min(u.price) as min_price, case when t.limit_type = 0 then min(u.price) else max(u.price) end as max_price
     </sql>
 
-
+    <select id="queryDiscountProductList" resultMap="BaseResultMap"
+            parameterType="com.medusa.gruul.goods.api.model.param.manager.DiscountProductParam">
+        SELECT * from
+        (SELECT
+        <include refid="Base_Product_List"/>
+        FROM
+        t_sku_stock u
+        inner join t_product t on u.product_id = t.id and t.is_deleted = 0 and t.status = 1
+        where u.is_deleted = 0 group by u.product_id) p
+        <where>
+            <if test="discountProductParam.showCategoryId != null">
+                AND EXISTS (
+                SELECT
+                psc.id
+                FROM
+                t_product_show_category psc
+                WHERE
+                psc.product_id = p.id
+                AND
+                (psc.show_category_id = #{discountProductParam.showCategoryId})
+                AND psc.is_deleted = 0
+                )
+            </if>
+            <if test="discountProductParam.name != null and discountProductParam.name != ''">
+                AND p.name LIKE CONCAT('%',#{discountProductParam.name},'%')
+            </if>
+            <if test="discountProductParam.saleMode != null">
+                AND p.sale_mode = #{discountProductParam.saleMode}
+            </if>
+            <if test="discountProductParam.minPrice != null ">
+                AND p.min_price <![CDATA[>=]]> #{discountProductParam.minPrice}
+            </if>
+            <if test="discountProductParam.maxPrice!=null ">
+                AND p.max_price <![CDATA[<=]]> #{discountProductParam.maxPrice}
+            </if>
+        </where>
+        ORDER BY
+        p.id
+        DESC
+    </select>
 
     <select id="queryRemoveProductList" resultMap="BaseResultMap"
             parameterType="com.medusa.gruul.goods.api.model.param.manager.DiscountProductParam">

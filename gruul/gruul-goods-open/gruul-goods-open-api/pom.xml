@@ -20,7 +20,7 @@
         <!--common 库-->
         <dependency>
             <groupId>com.medusa</groupId>
-            <artifactId>gruul-common-auth</artifactId>
+            <artifactId>gruul-common-auth-open</artifactId>
             <version>0.1</version>
         </dependency>
         <!--mybatis plus extension,包含了mybatis plus core-->

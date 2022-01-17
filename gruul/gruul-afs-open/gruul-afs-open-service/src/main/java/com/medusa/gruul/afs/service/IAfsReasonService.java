@@ -9,12 +9,10 @@ import com.medusa.gruul.afs.api.entity.AfsReason;
  * </p>
  *
  * @author alan
- * @since 2020 -08-05
+ * @since 2020-08-05
  */
 public interface IAfsReasonService extends IService<AfsReason> {
 
-    /**
-     * 初始化
-     */
+
     void init();
 }

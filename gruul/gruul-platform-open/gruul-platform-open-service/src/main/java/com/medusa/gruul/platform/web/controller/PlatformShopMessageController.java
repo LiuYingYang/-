@@ -2,10 +2,8 @@ package com.medusa.gruul.platform.web.controller;
 
 
 import com.medusa.gruul.common.core.util.Result;
-import com.medusa.gruul.common.data.tenant.TenantContextHolder;
 import com.medusa.gruul.platform.api.model.vo.ShopMessageVo;
 import com.medusa.gruul.platform.model.dto.MotifyMsgStateDto;
-import com.medusa.gruul.platform.model.vo.PcMsgVo;
 import com.medusa.gruul.platform.service.IPlatformShopMessageService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,16 +38,8 @@ public class PlatformShopMessageController {
 
     @PutMapping(value = "/state")
     @ApiOperation(value = "修改消息开启状态")
-    public Result motifyMsgState(@RequestBody MotifyMsgStateDto msgStateDto) {
-        platformShopMessageService.motifyState(msgStateDto);
-        return Result.ok();
-    }
-
-
-    @GetMapping(value = "/up/subscription/msg")
-    @ApiOperation(value = "更新租户指定版本买家消息至微信(生成消息模板id)")
-    public Result<List<PcMsgVo>> upSubscriptionMsg(@RequestParam(name = "version") String version) {
-        platformShopMessageService.upSubscriptionMsg(version, TenantContextHolder.getTenantId());
+    public Result modifyMsgState(@RequestBody MotifyMsgStateDto msgStateDto) {
+        platformShopMessageService.modifyState(msgStateDto);
         return Result.ok();
     }
 

@@ -46,13 +46,5 @@ public interface ISysShopInvoiceOrderService extends IService<SysShopInvoiceOrde
      */
     void audit(InvoiceOrderAuditDto orderAuditDto);
 
-    /**
-     * 查询指定类型订单,编号
-     *
-     * @param orderType 1-充值订单  2-套餐订购订单
-     * @param orderIds  订单ids
-     * @return com.medusa.gruul.platform.model.vo.InvoiceOrderApplyVo
-     */
-    List<InvoiceOrderApplyVo> getByOrderTypeAndOrderIds(Integer orderType, List<Long> orderIds);
 
 }

@@ -10,6 +10,7 @@ import com.medusa.gruul.payment.api.constant.MagicConstant;
 import com.medusa.gruul.payment.api.constant.StatusConstant;
 import com.medusa.gruul.payment.api.entity.Payment;
 import com.medusa.gruul.payment.api.entity.PaymentRecord;
+import com.medusa.gruul.payment.api.enums.FeeTypeEnum;
 import com.medusa.gruul.payment.api.model.dto.PayRequestDto;
 import com.medusa.gruul.payment.api.model.dto.PayResultDto;
 import org.slf4j.Logger;
@@ -26,7 +27,7 @@ public abstract class AbstractHandler implements PayMessageHandler {
         return null;
     }
 
-    public PaymentRecord generateRecod(PayRequestDto payRequestDto) {
+    public PaymentRecord generateRecord(PayRequestDto payRequestDto) {
         PaymentRecord paymentRecord = new PaymentRecord();
         paymentRecord.setRequestParams(JSON.toJSONString(payRequestDto));
         return paymentRecord;
@@ -43,7 +44,7 @@ public abstract class AbstractHandler implements PayMessageHandler {
         payment.setBusinessParams(payRequestDto.getBusinessParams());
         payment.setTerminalIp(StrUtil.isEmpty(payRequestDto.getTerminalIp()) ? MagicConstant.LOCAL_IP : payRequestDto.getTerminalIp());
         payment.setBusinessNotifyUrl(payRequestDto.getNotifyUrl());
-        payment.setThirdPartyNotifyStatus(StatusConstant.ThirdpartyNotifyStatus.UNTREATED);
+        payment.setThirdPartyNotifyStatus(StatusConstant.ThirdPartyNotifyStatus.UNTREATED);
         payment.setThirdPartyNotifyNumber(0);
         payment.setBusinessNotifyStatus(StatusConstant.BusinessNotifyStatus.UNTREATED);
         payment.setTradeStatus(StatusConstant.TradeStatus.WAIT_BUYER_PAY);
@@ -53,7 +54,6 @@ public abstract class AbstractHandler implements PayMessageHandler {
         payment.setDeleted(false);
         DateTime endTime = setTimeoutExpress(payRequestDto.getTimeoutExpress());
         payment.setTimeoutExpress(DateUtils.timestampCoverLocalDateTime(endTime.getTime()));
-        payment.setTenantId(payRequestDto.getTenantId());
         return payment;
     }
 

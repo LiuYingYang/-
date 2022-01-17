@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.medusa.gruul.common.core.exception.ServiceException;
 import com.medusa.gruul.common.core.util.Result;
 import com.medusa.gruul.common.core.util.SystemCode;
-import com.medusa.gruul.common.data.annotation.EscapeShop;
 import com.medusa.gruul.shops.api.entity.ShopsRenovationPlugin;
 import com.medusa.gruul.shops.mapper.ShopsRenovationPluginMapper;
 import com.medusa.gruul.shops.model.param.ShopsRenovationPluginParam;
@@ -37,7 +36,6 @@ public class ShopsRenovationPluginServiceImpl extends ServiceImpl<ShopsRenovatio
      * @return Result
      */
     @Override
-    @EscapeShop
     public Result addPlugin(ShopsRenovationPluginParam param) {
         if (param.getId() == null) {
             throw new ServiceException("控件id不能为空!");
@@ -54,7 +52,6 @@ public class ShopsRenovationPluginServiceImpl extends ServiceImpl<ShopsRenovatio
         return Result.failed();
     }
 
-
     /**
      * 店铺装修模板 - 全局控件属性配置逻辑删除 by ids
      *
@@ -62,7 +59,6 @@ public class ShopsRenovationPluginServiceImpl extends ServiceImpl<ShopsRenovatio
      * @return Result
      */
     @Override
-    @EscapeShop
     public Result delPlugin(String ids) {
         if (StringUtils.isBlank(ids)) {
             throw new ServiceException(SystemCode.PARAM_MISS.getMsg());
@@ -91,7 +87,6 @@ public class ShopsRenovationPluginServiceImpl extends ServiceImpl<ShopsRenovatio
      * @return Result
      */
     @Override
-    @EscapeShop
     public Result listPlugin(ShopsRenovationPluginParam param) {
         /** 临时移除缓存查询 */
         return Result.ok(this.baseMapper.listPlugin(param));
@@ -105,7 +100,6 @@ public class ShopsRenovationPluginServiceImpl extends ServiceImpl<ShopsRenovatio
      * @return Result
      */
     @Override
-    @EscapeShop
     @Transactional(rollbackFor = Exception.class)
     public Result addPlugins(List<ShopsRenovationPluginParam> list) {
         int size = list.size();

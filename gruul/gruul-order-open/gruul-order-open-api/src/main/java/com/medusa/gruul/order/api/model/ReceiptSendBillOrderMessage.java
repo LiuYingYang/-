@@ -20,10 +20,7 @@ public class ReceiptSendBillOrderMessage implements Serializable {
      * 发货单ID
      */
     private Long id;
-    /**
-     * 租户ID
-     */
-    private String tenantId;
+
     /**
      * 发货单包含的ID
      */

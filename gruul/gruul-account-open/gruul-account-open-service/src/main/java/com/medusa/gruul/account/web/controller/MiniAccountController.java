@@ -69,6 +69,7 @@ public class MiniAccountController {
         return Result.ok(vo);
     }
 
+
     @GetMapping(value = "/qr_code")
     @ApiOperation(value = "获取当前用户二维码")
     public Result<String> qrCode() {
@@ -77,29 +78,19 @@ public class MiniAccountController {
     }
 
 
-    @PutMapping(value = "switch/shops/{shopId}")
-    @ApiOperation(value = "切换店铺,调用之后会返回新的token,同时需重新调用获取指定用户基本信息", notes = "店铺相关接口")
-    public Result<String> switchShops(@ApiParam(value = "店铺id", required = true) @PathVariable(value = "shopId") String shopId) {
-        String token = miniAccountService.switchShops(shopId);
-        return Result.ok(token);
-    }
-
     @GetMapping("list")
     @ApiOperation(value = "pc端获取用户列表")
     public Result<PageUtils<List<UserListVo>>> userList(
             @ApiParam(value = "指定页数", required = true) @RequestParam Integer page,
             @ApiParam(value = "数据条数", required = true) @RequestParam Integer size,
             @ApiParam(name = "nikeName", value = "微信昵称") @RequestParam(required = false) String nikeName,
-            @ApiParam(name = "becomeMemberStartTime", value = "成为会员开始时间 2019-11-11 11:23:23") @RequestParam(required = false) String becomeMemberStartTime,
-            @ApiParam(name = "becomeMemberEndTime", value = "成为会员结束时间 2019-11-11 11:23:23") @RequestParam(required = false) String becomeMemberEndTime,
             @ApiParam(name = "tagId", value = "标签id") @RequestParam(required = false) Long tagId,
             @ApiParam(name = "orderSuccessStartTime", value = "成交时间 2019-11-11 11:23:23") @RequestParam(required = false) String orderSuccessStartTime,
             @ApiParam(name = "orderSuccessEndTime", value = "成交时间 2019-11-11 11:23:23") @RequestParam(required = false) String orderSuccessEndTime,
-            @ApiParam(name = "memberNumber", value = "会员编号") @RequestParam(required = false) String memberNumber,
-            @ApiParam(name = "sort", value = "排序类型 1-交易总额降序 2-交易总额升序 3-会员时间降序 4-会员时间升序") @RequestParam(required = false) Integer sortType
+            @ApiParam(name = "sort", value = "排序类型 1-交易总额降序 2-交易总额升序") @RequestParam(required = false) Integer sortType
     ) {
-        PageUtils<List<UserListVo>> voPageUtils = miniAccountService.userList(nikeName, becomeMemberStartTime, becomeMemberEndTime,
-                tagId, orderSuccessStartTime, orderSuccessEndTime,  memberNumber, page, size, sortType);
+        PageUtils<List<UserListVo>> voPageUtils = miniAccountService.userList(nikeName, tagId, orderSuccessStartTime,
+                orderSuccessEndTime, page, size, sortType);
         return Result.ok(voPageUtils);
     }
 

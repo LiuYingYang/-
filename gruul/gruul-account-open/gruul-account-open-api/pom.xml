@@ -20,7 +20,7 @@
         <!--common 库-->
         <dependency>
             <groupId>com.medusa</groupId>
-            <artifactId>gruul-common-auth</artifactId>
+            <artifactId>gruul-common-auth-open</artifactId>
             <version>${gruul.version}</version>
         </dependency>
         <!--mybatis plus extension,包含了mybatis plus core-->
@@ -28,6 +28,12 @@
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-extension</artifactId>
             <version>${mp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-miniapp</artifactId>
+            <version>3.8.7.B</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <build>

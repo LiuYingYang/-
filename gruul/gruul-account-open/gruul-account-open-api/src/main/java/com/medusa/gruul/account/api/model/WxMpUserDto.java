@@ -40,8 +40,5 @@ public class WxMpUserDto {
 
     @ApiModelProperty(value = "头像")
     private String headImgUrl;
-    @ApiModelProperty(value = "租户id")
-    private String tenantId;
-    @ApiModelProperty(name = "店铺id")
-    private String shopId;
+
 }

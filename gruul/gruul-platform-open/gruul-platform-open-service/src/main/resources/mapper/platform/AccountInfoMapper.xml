@@ -34,7 +34,6 @@
         <result column="account_type" property="accountType"/>
         <result column="region" property="region"/>
         <result column="address" property="address"/>
-        <result column="last_login_shop_id" property="lastLoginShopId"/>
         <result column="bind_mini_shop_id" property="bindMiniShopId"/>
         <result column="balance" property="balance"/>
         <result column="agent_id" property="agentId"/>
@@ -47,7 +46,7 @@
         create_time,
         is_deleted,
         update_time,bind_mini_id,subject_id,forbid_status,
-        account_type,region,address,last_login_shop_id,
+        account_type,region,address,
         id, password, passwd, salt, city, 'language', last_login_time, access_token, refresh_token, nike_name,
         avatar_url, phone, email, gender, open_id, union_id, province, country, privilege,
         ref_expires_time,bind_mini_shop_id,

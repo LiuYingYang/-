@@ -1,7 +1,6 @@
 
 package com.medusa.gruul.shops;
 
-import com.medusa.gruul.common.core.monitor.EnableMonitorHeartbeat;
 import com.medusa.gruul.common.swagger.annotation.EnableGruulSwagger2;
 import org.springframework.boot.SpringApplication;
 import org.springframework.cloud.client.SpringCloudApplication;
