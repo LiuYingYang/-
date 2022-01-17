@@ -244,7 +244,7 @@
 <!--        </repository>-->
     </repositories>
 
-
+<!--该处为jar包读取位置 nexus私服-->
     <distributionManagement>
         <repository>
             <id>medusa-releases</id>
