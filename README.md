@@ -85,11 +85,11 @@ Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前�
 
   商家端  :https://gitee.com/qisange/basemall/tree/master/gruul-mall-admin-source
 
-  小程序端 :https://gitee.com/qisange/basemall/tree/master/gruul-mall-uniapp-wx-Source
+  小程序端 :https://gitee.com/qisange/basemall/tree/master/group-shop-uniapp-wx-Source
 
   后端    :https://gitee.com/qisange/basemall/tree/master/gruul
 
-  数据库  ：gruul/gruul-*-open/doc/xxx.sql
+  数据库  ：https://gitee.com/qisange/basemall/tree/master/gruul/init-default-sql
 
 
 ### 系统版本
