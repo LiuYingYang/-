@@ -15,10 +15,10 @@
         <module>gruul-gateway-open</module>
         <module>gruul-sms-open</module>
         <module>gruul-oss-open</module>
-        <module>platform-open</module>
+        <module>gruul-platform-open</module>
         <module>gruul-shops-open</module>
         <module>gruul-payment-open</module>
-        <module>account-open</module>
+        <module>gruul-account-open</module>
         <module>gruul-afs-open</module>
         <module>gruul-goods-open</module>
         <module>gruul-logistics-open</module>
