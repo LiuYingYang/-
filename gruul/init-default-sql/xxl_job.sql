@@ -4,7 +4,7 @@
  Source Server         : xiaoq
  Source Server Type    : MySQL
  Source Server Version : 80026
- Source Host           : 121.4.158.234:3306
+ Source Host           : 127.0.0.1:3306
  Source Schema         : xxl_job
 
  Target Server Type    : MySQL

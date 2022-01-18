@@ -15,7 +15,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
  */
 @EnableGruulSwagger2
 @SpringCloudApplication
-@EnableFeignClients(basePackages = {"com.medusa.gruul.*.open.api.feign"})
+@EnableFeignClients(basePackages = {"com.medusa.gruul.*.api.feign"})
 @EnableDiscoveryClient
 @EnableScheduling
 public class ShopsApplication {

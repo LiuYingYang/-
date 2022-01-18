@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.medusa.gruul.sms.model.mapper.TSmsTemplateEntityMapper">
-    <resultMap id="BaseResultMap" type="com.medusa.gruul.sms.entity.TSmsTemplateEntity">
+<mapper namespace="com.medusa.gruul.sms.mapper.TSmsTemplateEntityMapper">
+    <resultMap id="BaseResultMap" type="com.medusa.gruul.sms.model.entity.TSmsTemplateEntity">
         <id column="id" property="id" jdbcType="BIGINT"/>
           <result column="user_id" property="userId" jdbcType="BIGINT"/>
           <result column="sms_provider_id" property="smsProviderId" jdbcType="BIGINT"/>
@@ -21,7 +21,7 @@
          id, user_id,  sms_provider_id,  sms_template_content,  sms_template_code,  sms_template_is_pass,  sms_remark,  is_deleted,  create_time,  update_time,  template_type,  sms_template_type,  sms_template_name, sms_template_name 
     </sql>
 
-    <select id="searchByEntity" resultMap="BaseResultMap" parameterType="com.medusa.gruul.sms.entity.TSmsTemplateEntity">
+    <select id="searchByEntity" resultMap="BaseResultMap" parameterType="com.medusa.gruul.sms.model.entity.TSmsTemplateEntity">
         select
         <include refid="Base_Column_List"/>
         from  t_sms_template
