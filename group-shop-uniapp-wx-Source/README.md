@@ -2,8 +2,8 @@
  * @description:
  * @Author: chuyinlong
  * @Date: 2021-07-19 09:13:57
- * @LastEditors: chuyinlong
- * @LastEditTime: 2021-09-03 09:58:30
+ * @LastEditors: latiao
+ * @LastEditTime: 2022-01-18 14:30:40
  * 123
 -->
 
@@ -26,7 +26,7 @@
 ## Project setup
 
 ```
-npm install
+yarn install
 ```
 
 ### 配置环境变量
