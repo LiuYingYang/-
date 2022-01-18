@@ -2,8 +2,8 @@
  * @description: 抽离开源版本
  * @Author: chuyinlong
  * @Date: 2021-08-12 15:36:21
- * @LastEditors: vikingShip
- * @LastEditTime: 2021-09-04 15:50:41
+ * @LastEditors: latiao
+ * @LastEditTime: 2022-01-18 14:35:34
  * 123
  */
 export class global {
@@ -49,7 +49,7 @@ export class global {
 	 * @param immediate 是否在触发事件后 在时间段n开始，立即执行，否则是时间段n结束，才执行
 	 */
 	public debounced(fn: () => void, awit = 1000, immediate = false) {
-		let timer: number | null = null
+		let timer: any = null
 
 		if (timer) clearTimeout(timer)
 
