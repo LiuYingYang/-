@@ -27,7 +27,7 @@ INSERT INTO `t_shop_guide_page_switch` VALUES ('1', '1', '2021-12-18 14:35:45', 
 
 
 
-INSERT INTO t_platform_pay_config` (`id`, `certificate_path`, `mch_key`, `mch_id`, `is_deleted`, `create_time`, `update_time`, `ips_mer_code`, `ips_acc_code`, `ips_certificate_psw`, `ips_rsa_public_key`, `ips_rsa_private_key`, `ips_aes`, `ips_sha`, `sxf_org_id`, `sxf_acc_code`, `sxf_certificate_psw`, `sxf_public`, `sxf_private_key`, `sft_terminal_id`, `sft_md5`, `sft_channel_id`, `sft_sub_merchant_no`) VALUES ('83', NULL, NULL, NULL, '0', '2021-12-17 13:58:05', '2022-01-12 19:53:09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO t_platform_pay_config  VALUES ('83', NULL, NULL, NULL, '0', '2021-12-17 13:58:05', '2022-01-12 19:53:09', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 
 
 INSERT INTO `t_shops_renovation_template` VALUES ('66', '0', null, '1', '1', '2021-12-15 13:30:12', '2021-12-15 13:30:12', null, null, '0', '首页', null);
