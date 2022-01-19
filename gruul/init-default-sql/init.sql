@@ -62,3 +62,9 @@ INSERT INTO `t_product` (`id`, `create_time`, `update_time`, `is_deleted`, `prov
 
 
 INSERT INTO `t_sku_stock` (`id`, `create_time`, `update_time`, `is_deleted`, `version`, `product_id`, `sku_code`, `specs`, `weight`, `pic`, `price`, `original_price`, `stock`, `low_stock`, `sale`, `per_limit`, `gift_integration`) VALUES ('102', '2022-01-12 20:49:10', '2022-01-12 20:49:10', '0', NULL, '68', '', '', '0.00', 'https://medusa-small-file-1253272780.cos.ap-shanghai.myqcloud.com/gruul/20220112/8716df28dfe647529cd0982d698a89e6.png', '8988.00', '8988.00', '10', '0', '0', '10', '0');
+
+INSERT INTO `t_sms_template` (`id`, `user_id`, `sms_provider_id`, `sms_template_content`, `sms_template_code`, `sms_template_is_pass`, `sms_remark`, `is_deleted`, `create_time`, `update_time`, `template_type`, `sms_template_type`, `sms_template_name`) VALUES ('7', '1', '4', '您的验证码为 ${code}，请勿告知他人。', '模板id', '2', ' ', '0', '2020-01-04 15:52:26', '2020-01-04 15:52:28', '1', '1', NULL);
+
+INSERT INTO `t_sms_sign` (`id`, `user_id`, `sms_provider_id`, `sms_sign`, `sms_sign_is_pass`, `sms_sign_remark`, `is_deleted`, `create_time`, `update_time`, `sms_sign_type`, `sign_type`) VALUES ('6', '1', '1', '短信签名', '1', '  ', '0', '2020-01-04 15:32:56', '2020-01-04 15:32:59', NULL, NULL);
+
+INSERT INTO `t_sms_provider` (`id`, `user_id`, `sms_provider_name`, `sms_provider_appId`, `sms_provider_app_secret`, `sms_provider_available_count`, `sms_provider_used_count`, `sms_provider_total_count`, `sms_provider_status`, `is_deleted`, `create_time`, `update_time`) VALUES ('4', '1', '短信供应商名称', 'sms_provider_appId', 'sms_provider_app_secret', '1000', '0', '1000', '0', '0', '2019-12-31 00:53:36', '2019-12-31 00:53:41');

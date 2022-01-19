@@ -1,4 +1,6 @@
 package com.medusa.gruul.sms.model.entity;
+import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -9,7 +11,7 @@ import java.util.Date;
  * @author system
  * 
  */
-
+@TableName("t_sms_order")
 public class TSmsOrderEntity implements Serializable{
 
 	private Long id;
