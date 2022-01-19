@@ -9,7 +9,7 @@ pipeline {
 
     environment {
        PROJECT_VERSION = 0.1 // 项目版本, 公共基础库为 public
-        DOCKER_REGISTRY = "101.71.91.145:81" //镜像上传选地址
+        DOCKER_REGISTRY = "127.0.0.1:81" //镜像上传选地址
        IMAGE_NAME = "gruul/medusa-admin-open"
        MODEL_NAME = "medusa-admin-open"
            SERVICE_NAME = "${MODEL_NAME}-${PROJECT_VERSION}"
