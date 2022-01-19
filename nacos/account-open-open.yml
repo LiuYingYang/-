@@ -1,28 +1,22 @@
-#### goods-open
-
-##### nacos配置
-
-```yaml
 version: 0.2
 # 数据源
 spring:
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 100MB
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      username: 
-      password: 
+      username: root
+      password: password
       url: jdbc:mysql://127.0.0.1:3306/gruul_open?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true&allowPublicKeyRetrieval=true
   rabbitmq:
     host: 127.0.0.1
-    port: 5673
-    username: 
-    password: 
-    # publisher-confirms: true
-    # publisher-returns: true
-    # listener:
-    #   simple:
-    #     acknowledge-mode: manual
+    port: 5672
+    username: root
+    password: password
 
 # 是否启动LCN负载均衡策略(优化选项，开启与否，功能不受影响)
 tx-lcn:
@@ -33,8 +27,6 @@ tx-lcn:
     username: ${spring.datasource.druid.username}
     password: ${spring.datasource.druid.password}
   ribbon:
-    ReadTimeout: 30000
-    ConnectTimeout: 30000
     loadbalancer:
       dtx:
         enabled: true
@@ -43,25 +35,16 @@ tx-lcn:
 # TM方，每有TM进入集群，会找到所有TC并通知其与新TM建立连接。
 # TC方，启动时按配置与集群建立连接，成功后，会再与集群协商，查询集群大小并保持与所有TM的连接
   client:
-    manager-address: 
-redis:
-  network:
-    isintra: false
-  intranet:
-    host: 127.0.0.1
-  outernet:
-    host: 127.0.0.1
-  port: 6378
-  timeout: 3000
-  password: 
-  database: 0
-  listFlush: true   #list记录根据添加修改删除自动清除
-  expireTime: 900     #缓存有效时间15分钟
-  expireTimeShiro: 1800     #缓存有效时间30分钟 
+    manager-address: 127.0.0.1:8070
 monitor:
   useRun: true  #是否使用心跳监听
   useLog: false  #是否打印日志
-  applicationName: "商品服务"  #服务名称
+  applicationName: "用户服务"  #服务名称
   baseType: "business"     #基础库类型  public-支撑基础库   business-业务基础库
   serviceType: "universalService" #服务类型    universalService-通用服务  commissionService-定制服务
-
+# Logger Config
+logging:
+  level:
+    root: info
+    com.baomidou: debug
+    com.medusa: debug

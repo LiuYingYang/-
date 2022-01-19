@@ -1,11 +1,6 @@
-#### application-open
-
-##### nacos配置
-
-```yaml
 spring:
   redis:
-    password: 
+    password: password
     host: 127.0.0.1
     port: 6378
   servlet:
@@ -100,10 +95,8 @@ redis:
     host: 127.0.0.1
   port: 6378
   timeout: 3000
-  password: 
+  password: password
   database: 0
 info:
   appId: appId
   secret: secret
-```
-

@@ -1,8 +1,3 @@
-#### gateway-open
-
-##### nacos配置
-
-```yaml
 server:
   port: 10999
 
@@ -18,6 +13,3 @@ spring:
 ribbon:
   rule:
     gray-enabled: true
-
-```
-

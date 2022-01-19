@@ -1,8 +1,3 @@
-### sms-open
-
-#### nacos配置
-
-```yaml
 version: 0.2
 # 数据源
 spring:
@@ -10,20 +5,15 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      username: 
-      password: 
+      username: root
+      password: password
       url: jdbc:mysql://127.0.0.1:3306/gruul_open?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true&allowPublicKeyRetrieval=true
   rabbitmq:
     host: 127.0.0.1
-    port: 5673
-    username: 
-    password: 
-    
-rabbitmq:
-  host: 127.0.0.1
-  username: 
-  password: 
-  port: 5673
+    port: 5672
+    username: root
+    password: password
+
 
 # 是否启动LCN负载均衡策略(优化选项，开启与否，功能不受影响)
 tx-lcn:
@@ -44,32 +34,31 @@ tx-lcn:
   client:
     manager-address: 
 
+redis:
+  network:
+    isintra: false
+  intranet:
+    host: 127.0.0.1
+  outernet:
+    host: 127.0.0.1
+  port: 6378
+  timeout: 3000
+  password: password
+  database: 0
 # Logger Config
 logging:
+  file: /application.log
+  pattern:
+    file: '%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(%5p) %clr(${PID}){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n%wEx'
   level:
-    root: info
-    com.baomidou: debug
+    root: error
+    com.alibaba.nacos: error
     com.medusa: debug
-
-xxl:
-  job:
-    accessToken:
-    admin:
-      addresses: http://127.0.0.1:9010/xxl-job-admin/
-    executor:
-       ip:
-       appname: sms-job-open
-       port: 12000
-       logpath: /tmp/logs/gruul-sms-open/xxl-job/jobhandler
-       logretentiondays: -1
+    com.baomidou: debug
+    com.medusa.gruul.common.data.tenant.TenantContextHolderFilter: error
 monitor:
   useRun: true  #是否使用心跳监听
-  useLog: true  #是否打印日志
-  businessName: ""   #基础库名(baseType=public时可以为空,不填写)
-  applicationName: "短信服务"  #服务名称
-  baseType: "public"     #基础库类型  public-支撑基础库   business-业务基础库
+  useLog: false  #是否打印日志
+  applicationName: "装修服务"  #服务名称
+  baseType: "business"     #基础库类型  public-支撑基础库   business-业务基础库
   serviceType: "universalService" #服务类型    universalService-通用服务  commissionService-定制服务
-
-
-```
-

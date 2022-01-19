@@ -1,8 +1,3 @@
-#### platform-open
-
-##### nacos配置
-
-```yaml
 version: 0.2
 # 数据源
 spring:
@@ -10,14 +5,14 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      username: 
-      password: 
+      username: root
+      password: password
       url: jdbc:mysql://127.0.0.1:3306/gruul_open?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true&allowPublicKeyRetrieval=true
   rabbitmq:
     host: 127.0.0.1
-    port: 5673
-    username: 
-    password: 
+    port: 5672
+    username: root
+    password: password
 
 xxl:
   job:
@@ -75,48 +70,6 @@ wechat:
         secret: ""
         token: ""
         aesKey: ""
-#平台服务配置
-gruul:
-  tenant:
-    use_shop: false
-    tables:
-      - t_platform_module_manager
-      - t_platform_account_info
-      - t_platform_combo
-      - t_platform_combo_service_mapping
-      - t_platform_default_value
-      - t_platform_service
-      - t_platform_service_manager
-      - t_platform_template_clan
-      - t_platform_template_info
-      - t_mini_audit_record
-      - t_mini_auth_info
-      - t_mini_auth_token
-      - t_mini_change_record
-      - t_mini_info
-      - t_mini_switch
-      - t_mini_template_code
-      - t_system_conf
-      - t_send_code
-      - t_base_menu
-      - t_mini_subscriberi_base
-      - t_auth_role_info
-      - t_auth_user_role
-      - t_platform_code_version
-      - t_platform_shop_deploy
-      - t_platform_shop_info
-      - t_platform_shop_template_detail
-      - t_platform_shop_template_info
-      - t_platform_libraries_info
-      - t_platform_service_info
-      - t_platform_pay_config
-      - t_platform_account_balance_record
-      - t_platform_account_recharge
-      - t_sys_shop_invoice_order
-      - t_sys_shop_invoice_rise
-      - t_sys_shop_package
-      - t_sys_shop_package_order
-      - t_platform_shop_template_detail_minis
 platform:
   admin:
     username:   
@@ -145,6 +98,3 @@ logging:
     com.baomidou: debug
     com.medusa: debug
     com.github.binarywang: debug
-
-```
-

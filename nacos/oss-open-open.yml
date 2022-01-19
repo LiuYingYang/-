@@ -1,8 +1,3 @@
-### oss-open
-
-#### nacos配置
-
-```yaml
 server:
   port: 10300
 
@@ -12,8 +7,8 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      username: 
-      password: 
+      username: root
+      password: password
       url: jdbc:mysql://127.0.0.1:3306/gruul_open?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true&allowPublicKeyRetrieval=true
 
 # Logger Config
@@ -30,7 +25,3 @@ monitor:
   applicationName: "oss"  #服务名称
   baseType: "public"     #基础库类型  public-支撑基础库   business-业务基础库
   serviceType: "universalService" #服务类型    universalService-通用服务  commissionService-定制服务
-
-
-```
-

@@ -1,27 +1,19 @@
-#### account-open
-
-##### nacos配置
-
-```yaml
 version: 0.2
 # 数据源
 spring:
-  servlet:
-    multipart:
-      max-file-size: 500MB
-      max-request-size: 100MB
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     druid:
       driver-class-name: com.mysql.cj.jdbc.Driver
-      username: 
-      password: 
+      username: root
+      password: password
       url: jdbc:mysql://127.0.0.1:3306/gruul_open?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=GMT%2B8&allowMultiQueries=true&allowPublicKeyRetrieval=true
   rabbitmq:
     host: 127.0.0.1
-    port: 5673
-    username: 
-    password: 
+    username: root
+    password: password
+    port: 5672
+
 
 # 是否启动LCN负载均衡策略(优化选项，开启与否，功能不受影响)
 tx-lcn:
@@ -40,19 +32,46 @@ tx-lcn:
 # TM方，每有TM进入集群，会找到所有TC并通知其与新TM建立连接。
 # TC方，启动时按配置与集群建立连接，成功后，会再与集群协商，查询集群大小并保持与所有TM的连接
   client:
-    manager-address: 127.0.0.1:8070
+    manager-address:
+redis:
+  network:
+    isintra: false
+  intranet:
+    host: 127.0.0.1
+  outernet:
+    host: 127.0.0.1
+  port: 6378
+  timeout: 3000
+  password: password
+  database: 0    
+  
+pay:
+  notify: "https://域名/api/payment-open/notify"
+  workerId: 1
+  datacenterId: 1
+  ipsWorkerId: 2
+  ipsDatacenterId: 2
+  ipsVersion: 2.0.0
+  ipsURL: https://api.ips.com.cn
+  ipsTradePlatformPaySubUrl: /trade/platform/pay
+  ipsNotify: https://域名/api/payment-open/ips_notify
+  wxRefundUrl: https://域名/api/payment-open/wx_refund_notify
+
+xxl:
+  job:
+    accessToken:
+    admin:
+      addresses: http://127.0.0.1:9010/xxl-job-admin/
+    executor:
+       ip:
+       appname: payment-job-open
+       port: 12000
+       logpath: /tmp/logs/gruul-payment/xxl-job/jobhandler
+       logretentiondays: -1
 monitor:
   useRun: true  #是否使用心跳监听
-  useLog: false  #是否打印日志
-  applicationName: "用户服务"  #服务名称
-  baseType: "business"     #基础库类型  public-支撑基础库   business-业务基础库
+  useLog: true  #是否打印日志
+  businessName: ""   #基础库名(baseType=public时可以为空,不填写)
+  applicationName: "支付服务"  #服务名称
+  baseType: "public"     #基础库类型  public-支撑基础库   business-业务基础库
   serviceType: "universalService" #服务类型    universalService-通用服务  commissionService-定制服务
-# Logger Config
-logging:
-  level:
-    root: info
-    com.baomidou: debug
-    com.medusa: debug
-
-```
-
