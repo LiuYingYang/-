@@ -56,7 +56,7 @@ export const deleteShop = (id: number) => {
  * @param data
  */
 export const updateShop = (shopId: number, data: any) => {
-  return api.put(`/platform-open/shop/console/update/${shopId}`, data, {
+  return api.put(`/platform-open/shop/console/update`, data, {
     headers: { "Content-Type": "application/json" },
   });
 };

@@ -110,7 +110,7 @@ export const getShopInfo = async () => {
  * @param data
  */
 export const updateShopInfo = (shopId: any, data: any) => {
-  return api.put(`/platform-open/shop/console/update/${shopId}`, data, {
+  return api.put(`/platform-open/shop/console/update`, data, {
     headers: {
       "Content-Type": "application/json",
     },
