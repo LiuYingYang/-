@@ -67,10 +67,10 @@ gruul 小程序商城
 	详见 [idea安装Lombok](https://www.jianshu.com/p/37e24fe833d6)
 
 5. 启动顺序  
-	1.NacosApplication       (nacos) (该处指安装的nacos)  
-	2.GatewayApplication.java  (网关)
-	3.XxlJobAdminApplication(xxl-job-admin)(该处指xxl-job)  
-	4.随意(应用)
+	1.NacosApplication (nacos) (该处指安装的nacos)
+    2.GatewayApplication.java (网关)
+    3.XxlJobAdminApplication(xxl-job-admin)(该处指xxl-job)
+    4.随意(注: 启动AfterServiceApplication前应启动OrderApplication 使监听队列自动注册成功)
 	
 	详见 ： https://gitee.com/qisange/basemall/blob/master/OPEN_PRE.md
 6. 项目部署
