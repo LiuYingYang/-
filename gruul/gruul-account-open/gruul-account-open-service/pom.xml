@@ -230,12 +230,6 @@
             <artifactId>mybatis-plus-boot-starter-test</artifactId>
             <version>3.4.0</version>
         </dependency>
-        <!--h2 单元测试-->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
     </dependencies>
 
     <build>
