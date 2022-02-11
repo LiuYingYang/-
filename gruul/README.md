@@ -171,7 +171,7 @@ jenkins file 详解
         
          steps {
                   maven版本   maven标识
-               withMaven(maven: 'maven3.6.2', mavenSettingsConfig: '3ea105df-717e-4eb7-8f6b-8a429180b140') { 
+               withMaven(maven: 'maven3.6.2', mavenSettingsConfig: 'jenkins中mavenSettings的值') { 
                  maven打包
                  sh "mvn clean package -U -Dmaven.test.skip=true deploy"
                 }

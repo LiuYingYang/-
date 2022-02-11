@@ -6,7 +6,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: 127.0.0.1:8848
+        server-addr: 121.4.158.234:8848
         ip: 127.0.0.1
 #        register-enabled: false
         #server-addr: ${NACOS-HOST:gruul-nacos}:${NACOS-PORT:8848}

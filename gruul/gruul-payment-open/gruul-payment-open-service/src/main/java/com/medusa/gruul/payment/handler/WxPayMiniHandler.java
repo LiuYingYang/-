@@ -293,7 +293,6 @@ public class WxPayMiniHandler extends AbstractHandler {
         wxPayConfig.setMchKey(payInfo.getMchKey());
         wxPayConfig.setKeyPath(payInfo.getCertificatesPath());
         wxPayConfig.setNotifyUrl(notify);
-
         wxPayConfig.setTradeType(WxPayConstants.TradeType.JSAPI);
         wxPayService.setConfig(wxPayConfig);
         return wxPayService;
