@@ -17,8 +17,8 @@ import java.util.Map;
  */
 public class KdniaoTrackQuery {
 
-	private  static  String EBusinessID="1400272";
-	private  static  String AppKey="163391a1-56ab-4baa-bb27-7e56a32e7dff";
+	private  static  String EBusinessID="EBusinessID";
+	private  static  String AppKey="AppKey";
 	private  static  String ReqURL="http://api.kdniao.com/Ebusiness/EbusinessOrderHandle.aspx";
 
 	public static void main(String[] args) {
