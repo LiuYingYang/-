@@ -10,6 +10,7 @@
     <!--Maven 是否需要和用户交互以获得输入。如果 Maven 需要和用户交互以获得输入，则设置成 true，反之则应为 false。默认为
             true。 <interactiveMode>true</interactiveMode>
 -->
+<!--  使用私有仓库 settings.xml模板-->
     <servers>
         <server>
             <id>medusa-releases</id>

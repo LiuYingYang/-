@@ -18,28 +18,6 @@ SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
--- Table structure for t_mini_account_foot_mark
--- ----------------------------
-DROP TABLE IF EXISTS `t_mini_account_foot_mark`;
-CREATE TABLE `t_mini_account_foot_mark` (
-  `footmark_id` bigint NOT NULL AUTO_INCREMENT COMMENT '足迹id',
-  `user_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '用户id',
-  `tenant_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '租户id',
-  `shop_id` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '商铺id区分城市合伙人',
-  `product_id` bigint DEFAULT NULL COMMENT '商品id',
-  `product_pic` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '商品主图',
-  `product_name` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '商品名称',
-  `status` int DEFAULT NULL COMMENT '商品状态  0-上架 1-下架 2-售罄',
-  `product_price` decimal(10,2) DEFAULT NULL COMMENT '商品实际售价',
-  `original_price` decimal(10,2) DEFAULT NULL COMMENT '指导价划线价',
-  `ramark` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '备注',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '修改时间',
-  `is_deleted` tinyint(1) DEFAULT NULL COMMENT '删除状态：0->未删除；1->已删除',
-  PRIMARY KEY (`footmark_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=1980 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- ----------------------------
 -- Records of t_mini_account_foot_mark
 -- ----------------------------
 
