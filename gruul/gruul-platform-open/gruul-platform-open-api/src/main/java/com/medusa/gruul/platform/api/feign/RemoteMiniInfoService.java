@@ -7,6 +7,7 @@ import com.medusa.gruul.common.core.util.Result;
 import com.medusa.gruul.platform.api.model.dto.*;
 import com.medusa.gruul.platform.api.model.vo.MiniMsgVo;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -124,15 +125,17 @@ public interface RemoteMiniInfoService {
     Result<ShopPackageFunctionDto> getShopFunction();
 
     /**
-     * 封装小程序信息
+     * 小程序信息
+     * @param appId appId
+     * @param secret secret
      * @return
      */
     @RequestMapping(value = "/get/miniInfo", method = RequestMethod.GET)
     @ApiOperation(value = "获取小程序信息，采用硬编码。方便切换多个小程序使用时获取")
-    default WxMaService getWxMaService() {
+    default WxMaService getWxMaService(String appId,String secret) {
         WxMaDefaultConfigImpl config = new WxMaDefaultConfigImpl();
-        config.setAppid("setAppid");
-        config.setSecret("setSecret");
+        config.setAppid(appId);
+        config.setSecret(secret);
         config.setMsgDataFormat("JSON");
         WxMaService wxMaService = new WxMaServiceImpl();
         wxMaService.setWxMaConfig(config);

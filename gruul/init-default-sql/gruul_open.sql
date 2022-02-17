@@ -430,25 +430,6 @@ CREATE TABLE `t_auth_operation_log` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Table structure for t_auth_role_info
--- ----------------------------
-DROP TABLE IF EXISTS `t_auth_role_info`;
-CREATE TABLE `t_auth_role_info` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `role_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '角色名称',
-  `role_code` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '角色编码',
-  `remark` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '备注',
-  `create_user_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '创建人姓名',
-  `create_user_id` bigint DEFAULT NULL COMMENT '创建人id',
-  `last_modify_user_id` bigint DEFAULT NULL COMMENT '最近一次修改人id',
-  `last_modify_user_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '最近一次修改人姓名',
-  `is_deleted` tinyint DEFAULT NULL,
-  `create_time` datetime DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `t_auth_user_role_role_code_index` (`role_code`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='用户角色表';
 
 -- ----------------------------
 -- Table structure for t_auth_user_info
@@ -510,22 +491,6 @@ CREATE TABLE `t_auth_user_req` (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC;
 
--- ----------------------------
--- Table structure for t_auth_user_role
--- ----------------------------
-DROP TABLE IF EXISTS `t_auth_user_role`;
-CREATE TABLE `t_auth_user_role` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `user_id` bigint DEFAULT NULL COMMENT '用户id',
-  `role_id` bigint DEFAULT NULL COMMENT '角色id',
-  `create_user_id` bigint DEFAULT NULL COMMENT '创建该角色用户id',
-  `last_modify_user_id` bigint DEFAULT NULL COMMENT '最近更新人id',
-  `last_modify_user_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '最近更新人姓名',
-  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
-  `is_deleted` tinyint DEFAULT NULL,
-  `update_time` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='用户角色关系表';
 
 -- ----------------------------
 -- Table structure for t_base_menu
@@ -1049,22 +1014,6 @@ CREATE TABLE `t_mini_account_tag_group` (
   KEY `tag_id` (`tag_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='用户所属分组表';
 
--- ----------------------------
--- Table structure for t_mini_auth_token
--- ----------------------------
-DROP TABLE IF EXISTS `t_mini_auth_token`;
-CREATE TABLE `t_mini_auth_token` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `authorizer_appid` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '授权方appid',
-  `authorizer_access_token` varchar(256) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '授权方令牌',
-  `expires_in` datetime DEFAULT NULL COMMENT '令牌到期时间',
-  `authorizer_refresh_token` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '刷新令牌',
-  `func_info` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL COMMENT '授权给开发者的权限集列表',
-  `create_time` datetime NOT NULL COMMENT '创建时间',
-  `update_time` datetime DEFAULT NULL COMMENT '更新时间',
-  `is_deleted` tinyint(1) DEFAULT NULL COMMENT '删除状态：0->未删除；1->已删除',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci ROW_FORMAT=DYNAMIC COMMENT='接口调用凭据和授权信息';
 
 -- ----------------------------
 -- Table structure for t_mini_info

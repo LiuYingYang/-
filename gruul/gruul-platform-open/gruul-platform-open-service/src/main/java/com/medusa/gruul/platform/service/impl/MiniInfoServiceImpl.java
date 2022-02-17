@@ -75,7 +75,7 @@ public class MiniInfoServiceImpl extends ServiceImpl<MiniInfoMapper, MiniInfo> i
         if (StrUtil.isNotEmpty(base64)) {
             return Result.ok(base64);
         }
-        WxMaService wxMaService = remoteMiniInfoService.getWxMaService();
+        WxMaService wxMaService = remoteMiniInfoService.getWxMaService(miniInfoProperty.getAppId(),miniInfoProperty.getSecret());
         WxMaQrcodeService qrcodeService = wxMaService.getQrcodeService();
         try {
             byte[] qrcodeBytes = qrcodeService.createWxaCodeBytes(wxaGetwxacode.getPath(), width, true, null, false);
