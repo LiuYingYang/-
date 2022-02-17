@@ -20,6 +20,6 @@ public interface LogisticsIncludePostageMapper extends BaseMapper<LogisticsInclu
      * @param param
      * @return List<LogisticsIncludePostage>
      */
-    @SqlParser(filter = true)
+
     List<LogisticsIncludePostage> selectByParams(Map<String, Object> param);
 }

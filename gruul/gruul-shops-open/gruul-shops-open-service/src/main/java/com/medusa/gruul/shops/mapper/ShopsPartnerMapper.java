@@ -19,7 +19,7 @@ public interface ShopsPartnerMapper extends BaseMapper<ShopsPartner> {
      * @param platformId 平台id
      * @return shops
      */
-    @SqlParser(filter = true)
+
     ShopsPartner selectByPlatformId(@Param("platformId") Long platformId);
 
     /**
@@ -27,7 +27,7 @@ public interface ShopsPartnerMapper extends BaseMapper<ShopsPartner> {
      *
      * @return com.medusa.gruul.shops.api.entity.ShopsPartner
      */
-    @SqlParser(filter = true)
+
     ShopsPartner selectByTenantIdAndPartnerIdIsNull();
 
 }

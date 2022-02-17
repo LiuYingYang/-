@@ -48,7 +48,7 @@ public interface ProductMapper extends BaseMapper<Product> {
      *
      * @return 商品条数
      */
-    @SqlParser(filter = true)
+
     Integer queryAllCount();
 
     /**

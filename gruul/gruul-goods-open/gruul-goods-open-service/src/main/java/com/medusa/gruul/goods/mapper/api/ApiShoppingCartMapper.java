@@ -24,7 +24,7 @@ public interface ApiShoppingCartMapper extends BaseMapper<ShoppingCart> {
      * @param map
      * @return 购物车商品list信息
      */
-    @SqlParser(filter = true)
+
     List<ApiShoppingCartVo> queryShoppingCartListByUserId(Map map);
 
     /**
@@ -33,6 +33,6 @@ public interface ApiShoppingCartMapper extends BaseMapper<ShoppingCart> {
      * @param map
      * @return 购物车商品list信息
      */
-    @SqlParser(filter = true)
+
     List<ApiShoppingCartVo> selectEffectShoppingCart(Map map);
 }

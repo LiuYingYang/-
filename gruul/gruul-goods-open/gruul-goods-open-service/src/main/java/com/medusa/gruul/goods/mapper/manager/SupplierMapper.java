@@ -32,7 +32,7 @@ public interface SupplierMapper extends BaseMapper<Supplier> {
      *
      * @return 供应商条数
      */
-    @SqlParser(filter = true)
+
     Integer queryAllCount();
 
     /**

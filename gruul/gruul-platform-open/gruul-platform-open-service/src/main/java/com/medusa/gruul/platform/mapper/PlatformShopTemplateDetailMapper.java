@@ -29,6 +29,6 @@ public interface PlatformShopTemplateDetailMapper extends BaseMapper<PlatformSho
      * @param versionId 模板本地id
      * @return com.medusa.gruul.platform.api.entity.PlatformShopTemplateDetail
      */
-    @SqlParser(filter = true)
+
     PlatformShopTemplateDetail selectByFilterById(Long versionId);
 }

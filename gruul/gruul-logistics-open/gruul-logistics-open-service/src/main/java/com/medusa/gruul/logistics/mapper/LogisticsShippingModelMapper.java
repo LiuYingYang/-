@@ -19,6 +19,6 @@ public interface LogisticsShippingModelMapper extends BaseMapper<LogisticsShippi
      * @param param
      * @return List<LogisticsIncludePostage>
      */
-    @SqlParser(filter = true)
+
     List<LogisticsShippingModel> selectByParamMap(Map<String, Object> param);
 }

@@ -105,7 +105,7 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @author alan
      * @date 2019 /12/12 22:10
      */
-    @SqlParser(filter = true)
+
     List<GetOrderListDto> selectOrderListByIds(@Param(value = "orderIdList") List<Long> orderIdList);
 
 
@@ -119,7 +119,7 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @author alan
      * @date 2019 /12/17 20:52
      */
-    @SqlParser(filter = true)
+
     List<Order> selectListByPointIdAndDate(@Param(value = "start") Date start,
                                            @Param(value = "end") Date end,
                                            @Param(value = "pointId") String pointId);
@@ -149,7 +149,7 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @author wangpeng
      * @date 2020 /3/14 10:47
      */
-    @SqlParser(filter = true)
+
     OrderDto selectOneById(long id);
 
     /**
@@ -190,7 +190,7 @@ public interface OrderMapper extends BaseMapper<Order> {
      * @param orderStatusEnumList the order status enum list
      * @return the list
      */
-    @SqlParser(filter = true)
+
     List<Order> selectListByPointIdAndStatus(@Param(value = "pointId") String pointId,
                                              @Param(value = "orderStatusList") List<OrderStatusEnum> orderStatusEnumList);
 

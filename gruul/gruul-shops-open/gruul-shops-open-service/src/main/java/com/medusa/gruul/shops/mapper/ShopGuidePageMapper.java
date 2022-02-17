@@ -32,7 +32,7 @@ public interface ShopGuidePageMapper extends BaseMapper<ShopGuidePage> {
 	 * 获取店铺引导页默认值
 	 * @return
 	 */
-	@SqlParser(filter = true)
+
 	List<ShopGuidePageDto> selectGuidePageDefault();
 
 
