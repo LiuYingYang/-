@@ -14,15 +14,9 @@ import java.util.Set;
 public class MqGetTest {
 
     public static void main(String[] args) throws Exception {
-       /* for (int i = 0; i <30 ; i++) {
-            MqSend testSendTask = new MqSend();
-            testSendTask.executeSend(  "test1111" , MdsConstant.MQ_FL_EXCHANGE,MdsConstant.MQ_FL_SLOW_SEVERITIE);
-        }*/
+
         get();
-       /* Set<Thread> threadSet = Thread.getAllStackTraces().keySet();
-        for (Thread thread : threadSet) {
-            System.out.println(thread.getId());
-        }*/
+
 
     }
 

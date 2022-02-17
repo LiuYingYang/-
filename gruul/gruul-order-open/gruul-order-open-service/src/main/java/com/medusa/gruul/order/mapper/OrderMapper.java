@@ -1,6 +1,5 @@
 package com.medusa.gruul.order.mapper;
 
-//import com.baomidou.mybatisplus.annotation.InterceptorIgnore;
 
 import com.baomidou.mybatisplus.annotation.SqlParser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

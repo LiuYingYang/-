@@ -69,13 +69,17 @@ gruul 小程序商城
 
 5. 启动顺序  
 	1.NacosApplication (nacos) (该处指安装的nacos)
+	
     2.GatewayApplication.java (网关)
+    
     3.XxlJobAdminApplication(xxl-job-admin)(该处指xxl-job)
+    
     4.随意(注: 启动AfterServiceApplication前应启动OrderApplication 使监听队列自动注册成功)
 	
 	详见 ： https://gitee.com/qisange/basemall/blob/master/OPEN_PRE.md
 6. 基础配置 
-    1. oss图片上传配置 后台页面-商城设置-通用设置-OSS设置。配置完成后重启oss服务或等待10分钟 oss自动更新配置
+    1. oss图片上传配置 后台页面-商城设置-通用设置-OSS设置。
+        配置完成后重启oss服务或等待10分钟 oss自动更新配置
         相关实现：com.medusa.gruul.oss.task.UpdateConfigTask.class
     2. 短信配置: 短信配置为数据库写死 相关表 t_sms_*
     3. 支付配置：后台页面-商城设置-支付配置 (注:支付配置编辑需完成网站应用验证--二维码认证)

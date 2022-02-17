@@ -39,8 +39,7 @@ public class FileUploadController {
     private RemoteSysOssService remoteSysOssService;
     @Autowired
     private OSSFactory ossFactory;
-    @Autowired
-    private UpdateConfigTask updateConfigTask;
+
 
 
     /**
@@ -83,37 +82,6 @@ public class FileUploadController {
         fileService.removeByIds(Arrays.asList(ids));
 
         return Result.ok();
-    }
-
-    @GetMapping(value = "ueditor/exec")
-    @EscapeLogin
-    public void exec(HttpServletRequest request, HttpServletResponse response) {
-        response.setContentType("application/json");
-        String rootPath = request.getSession().getServletContext().getRealPath("/");
-        System.out.println(rootPath);
-        try {
-            String exec = new ActionEnter(request, rootPath).exec();
-            PrintWriter writer = response.getWriter();
-            writer.write(exec);
-            writer.flush();
-            writer.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    @EscapeLogin
-    @GetMapping("/test1")
-    public Result test1() {
-        updateConfigTask.run();
-        return Result.ok();
-    }
-
-    @EscapeLogin
-    @GetMapping("/version")
-    public Result version() {
-        return Result.ok("1.2");
     }
 
 

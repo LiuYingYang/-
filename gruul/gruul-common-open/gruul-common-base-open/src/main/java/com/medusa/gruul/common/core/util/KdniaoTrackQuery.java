@@ -152,7 +152,6 @@ public class KdniaoTrackQuery {
 		        	  param.append(entry.getValue());		        	  
 		        	  //System.out.println(entry.getKey()+":"+entry.getValue());
 		          }
-		          //System.out.println("param:"+param.toString());
 		          out.write(param.toString());
             }
             // flush输出流的缓冲

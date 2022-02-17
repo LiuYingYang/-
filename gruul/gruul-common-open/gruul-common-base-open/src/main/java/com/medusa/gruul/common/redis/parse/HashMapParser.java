@@ -228,7 +228,6 @@ public final class HashMapParser {
 
 		}
 
-		// LOG.info(key);
 		return key;
 	}
 
