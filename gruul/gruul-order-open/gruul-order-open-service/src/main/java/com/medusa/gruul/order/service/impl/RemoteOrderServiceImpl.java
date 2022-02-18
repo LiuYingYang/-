@@ -303,10 +303,11 @@ public class RemoteOrderServiceImpl extends ServiceImpl<OrderMapper, Order> impl
             dto.setOrderId(order.getTransactionId());
             dto.setRouteKey(OrderQueueNameConstant.REFUND_NOTIFY);
             //没有发货的订单退掉运费
-            if (order.getStatus().equals(OrderStatusEnum.WAIT_FOR_SEND)) {
-                refundAmount = refundAmount.add(order.getFreightAmount());
-            }
-            dto.setTotalFee(NumberUtil.mul(refundAmount, 100).intValue());
+//            if (order.getStatus().equals(OrderStatusEnum.WAIT_FOR_SEND)) {
+//                refundAmount = refundAmount.add(order.getFreightAmount());
+//            }
+            dto.setRefundFee(refundAmount.movePointRight(2).intValue());
+            dto.setTotalFee(NumberUtil.mul(order.getPayAmount(), 100).intValue());
             Result result = remotePaymentService.payRefund(dto);
             log.info("微信退款,入参为: {}", JSONUtil.toJsonStr(dto));
             log.info("微信退款,出参为: {}", JSONUtil.toJsonStr(result));

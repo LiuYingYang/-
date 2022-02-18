@@ -1,5 +1,6 @@
 package com.medusa.gruul.payment.service.impl;
 
+import cn.hutool.core.lang.Snowflake;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.binarywang.wxpay.bean.request.WxPayRefundRequest;
@@ -59,8 +60,9 @@ public class PaymentRefundServiceImpl extends ServiceImpl<PaymentRefundMapper, P
         WxPayRefundRequest wxPayRefundRequest = new WxPayRefundRequest();
         wxPayRefundRequest.setTotalFee(param.getTotalFee());
         wxPayRefundRequest.setOutTradeNo(param.getOrderId());
-        wxPayRefundRequest.setOutRefundNo(param.getOrderId());
-        wxPayRefundRequest.setRefundFee(param.getTotalFee());
+        String outRefundNo = new Snowflake(1, 1).nextIdStr();
+        wxPayRefundRequest.setOutRefundNo(outRefundNo);
+        wxPayRefundRequest.setRefundFee(param.getRefundFee()==null?param.getTotalFee():param.getRefundFee());
         wxPayRefundRequest.setNotifyUrl(payProperty.getWxRefundUrl());
 
         PaymentRefund refundModel = new PaymentRefund();

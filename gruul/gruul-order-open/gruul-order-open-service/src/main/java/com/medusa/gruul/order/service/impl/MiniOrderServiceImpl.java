@@ -898,7 +898,13 @@ public class MiniOrderServiceImpl extends ServiceImpl<OrderMapper, Order> implem
         orderEvaluateMapper.insert(orderEvaluate);
         Map<Long, ApiOrderProductEvaluateDto> productEvaluateMap =
                 dto.getProductEvaluateDtoList().stream().collect(Collectors.toMap(ApiOrderProductEvaluateDto::getProductSkuId, v -> v));
-        for (OrderItem orderItem : orderVo.getOrderItemList()) {
+        for (OrderItemVo orderItem : orderVo.getOrderItemList()) {
+            if (ObjectUtil.isNotEmpty(orderItem.getAfs())) {
+                if (orderItem.getAfs().getStatus() == AfsOrderStatusEnum.SUCCESS) {
+                    //售后成功订单商品不进行评价
+                    break;
+                }
+            }
             ApiOrderProductEvaluateDto productEvaluateDto = productEvaluateMap.get(orderItem.getProductSkuId());
             OrderProductEvaluate productEvaluate = new OrderProductEvaluate();
             productEvaluate.setOrderId(orderVo.getId());

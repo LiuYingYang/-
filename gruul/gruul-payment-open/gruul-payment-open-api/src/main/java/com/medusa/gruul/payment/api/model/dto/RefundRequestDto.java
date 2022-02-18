@@ -31,6 +31,8 @@ public class RefundRequestDto {
     @ApiModelProperty(value = "退款总金额")
     private Integer totalFee;
 
+    @ApiModelProperty(value = "退款金额")
+    private Integer refundFee;
 
     public boolean checkParam(Result checkResult) {
         if (StringUtils.isBlank(orderId)) {

@@ -164,8 +164,7 @@ public class PaymentServiceImpl extends ServiceImpl<PaymentMapper, Payment> impl
         WxPayService wxPayService = innerHandleShopConfigServer(wxPayRefundResult);
         WxPayRefundNotifyResult result = wxPayService.parseRefundNotifyResult(wxPayRefundResult.getXmlString());
         WxPayRefundNotifyResult.ReqInfo reqInfo = result.getReqInfo();
-
-        PaymentRefund refund = paymentRefundService.getOne(new QueryWrapper<PaymentRefund>().eq("order_id", reqInfo.getOutTradeNo()));
+        PaymentRefund refund = paymentRefundService.getOne(new QueryWrapper<PaymentRefund>().eq("order_id", reqInfo.getOutTradeNo()).like("asyn_result","refundFee\":"+ reqInfo.getRefundFee()).last(" limit 1"));
         refund.setSynCallback(s);
         paymentRefundService.updateById(refund);
         // 封装 RefundNotifyResultDto
