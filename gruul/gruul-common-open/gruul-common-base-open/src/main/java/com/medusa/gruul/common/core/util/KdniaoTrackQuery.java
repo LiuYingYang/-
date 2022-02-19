@@ -150,7 +150,6 @@ public class KdniaoTrackQuery {
 		        	  param.append(entry.getKey());
 		        	  param.append("=");
 		        	  param.append(entry.getValue());		        	  
-		        	  //System.out.println(entry.getKey()+":"+entry.getValue());
 		          }
 		          out.write(param.toString());
             }
