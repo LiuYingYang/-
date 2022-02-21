@@ -17,6 +17,7 @@ import javax.validation.Validator;
 import java.util.Set;
 
 /**
+ * @author unknown
  * hibernate-validator校验工具类
  *
  * 参考文档：http://docs.jboss.org/hibernate/validator/5.4/reference/en-US/html_single/

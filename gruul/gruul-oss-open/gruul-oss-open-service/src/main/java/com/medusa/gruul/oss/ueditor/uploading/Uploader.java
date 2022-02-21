@@ -5,7 +5,9 @@ import com.medusa.gruul.oss.ueditor.define.State;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
-
+/**
+ * @author unknown
+ */
 public class Uploader {
 	private HttpServletRequest request = null;
 	private Map<String, Object> conf = null;

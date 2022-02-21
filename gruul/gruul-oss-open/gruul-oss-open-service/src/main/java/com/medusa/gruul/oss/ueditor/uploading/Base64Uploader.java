@@ -8,7 +8,9 @@ import com.medusa.gruul.oss.ueditor.define.State;
 import org.apache.commons.codec.binary.Base64;
 
 import java.util.Map;
-
+/**
+ * @author unknown
+ */
 public final class Base64Uploader {
 
 	public static State save(String content, Map<String, Object> conf) {

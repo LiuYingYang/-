@@ -13,6 +13,9 @@ import com.medusa.gruul.oss.ueditor.uploading.Uploader;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
+/**
+ * @author unknown
+ */
 public class ActionEnter {
 	
 	private HttpServletRequest request = null;

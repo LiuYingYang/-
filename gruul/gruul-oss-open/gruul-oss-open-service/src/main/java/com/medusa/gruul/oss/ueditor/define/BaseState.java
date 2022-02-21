@@ -6,7 +6,9 @@ import com.medusa.gruul.oss.ueditor.Encoder;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
+/**
+ * @author unknown
+ */
 public class BaseState implements State {
 
 	private boolean state = false;

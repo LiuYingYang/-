@@ -21,7 +21,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-
+/**
+ * @author xiaoq
+ */
 @Service("fileService")
 public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements FileService {
 

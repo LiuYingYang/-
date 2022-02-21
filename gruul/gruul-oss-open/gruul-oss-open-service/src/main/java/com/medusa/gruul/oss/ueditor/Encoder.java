@@ -1,5 +1,7 @@
 package com.medusa.gruul.oss.ueditor;
-
+/**
+ * @author unknown
+ */
 public class Encoder {
 
 	public static String toUnicode ( String input ) {

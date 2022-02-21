@@ -5,7 +5,9 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.util.List;
-
+/**
+ * @author xiaoq
+ */
 @Data
 @NoArgsConstructor
 public class AreaDto implements Serializable {

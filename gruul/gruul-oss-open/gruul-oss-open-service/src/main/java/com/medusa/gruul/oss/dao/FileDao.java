@@ -6,6 +6,7 @@ import com.medusa.gruul.oss.api.entity.FileEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
+ * @author xiaoq
  * 文件上传
  */
 @Mapper

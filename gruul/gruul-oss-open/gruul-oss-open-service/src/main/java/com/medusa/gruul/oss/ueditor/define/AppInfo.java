@@ -2,7 +2,9 @@ package com.medusa.gruul.oss.ueditor.define;
 
 import java.util.HashMap;
 import java.util.Map;
-
+/**
+ * @author unknown
+ */
 public final class AppInfo {
 	
 	public static final int SUCCESS = 0;

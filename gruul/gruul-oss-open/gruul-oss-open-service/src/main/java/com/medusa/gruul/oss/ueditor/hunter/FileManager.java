@@ -11,7 +11,9 @@ import java.io.File;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Map;
-
+/**
+ * @author unknown
+ */
 public class FileManager {
 
 	private String dir = null;
