@@ -36,21 +36,7 @@ public class MiniAccountOauthsServiceImpl extends ServiceImpl<MiniAccountOauthsM
                 .eq("oauth_type", oauthType));
     }
 
-    @Override
-    public MiniAccountOauths getByUnionIdAndMiniInfo(String unionId) {
-        List<MiniAccountOauths> accountOauths = this.baseMapper.selectList(new QueryWrapper<MiniAccountOauths>().eq("union_id", unionId));
-        if (CollectionUtil.isEmpty(accountOauths)) {
-            return null;
-        }
-        // 1-微信小程序,2-公众号
-        Map<Integer, MiniAccountOauths> result = accountOauths.stream().collect(Collectors.toMap(MiniAccountOauths::getOauthType, obj -> obj));
-        MiniAccountOauths miniAccountOauth = result.get(OauthTypeEnum.WX_MINI.getType());
-        if (miniAccountOauth != null) {
-            return miniAccountOauth;
-        }
-        //不存在小程序端数据但存在公众号信息，则表示已经初始化过数据
-        return result.get(OauthTypeEnum.WX_MP.getType());
-    }
+
 
     @Override
     public MiniAccountOauths getByUnionIdAndType(String unionId, OauthTypeEnum typeEnum) {

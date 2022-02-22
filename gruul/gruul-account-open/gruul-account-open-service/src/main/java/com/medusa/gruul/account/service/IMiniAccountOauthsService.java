@@ -32,14 +32,7 @@ public interface IMiniAccountOauthsService extends IService<MiniAccountOauths> {
      */
     MiniAccountOauths getByUserId(Integer oauthType, String userId);
 
-    /**
-     * 获取unionId授权数据,存在小程序授权则返回小程序授权信息
-     *
-     * @param unionId 微信关联id
-     * @return com.medusa.gruul.account.api.entity.MiniAccountOauths
-     */
-    @Deprecated
-    MiniAccountOauths getByUnionIdAndMiniInfo(String unionId);
+
 
     /**
      * 获取指定uinoinId的授权类型
