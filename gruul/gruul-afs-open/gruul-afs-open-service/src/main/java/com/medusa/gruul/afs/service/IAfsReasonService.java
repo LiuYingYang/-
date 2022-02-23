@@ -13,6 +13,8 @@ import com.medusa.gruul.afs.api.entity.AfsReason;
  */
 public interface IAfsReasonService extends IService<AfsReason> {
 
-
+    /**
+     * 初始化退货原因
+     */
     void init();
 }
