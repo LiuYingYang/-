@@ -1,6 +1,5 @@
 package com.medusa.gruul.goods.mapper.api;
 
-import com.baomidou.mybatisplus.annotation.SqlParser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.medusa.gruul.goods.api.entity.ShoppingCart;
 import com.medusa.gruul.goods.api.model.vo.api.ApiShoppingCartVo;

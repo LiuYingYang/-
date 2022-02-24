@@ -1,6 +1,5 @@
 package com.medusa.gruul.goods.mapper.manager;
 
-import com.baomidou.mybatisplus.annotation.SqlParser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.medusa.gruul.goods.api.entity.Product;
