@@ -1,6 +1,5 @@
 package com.medusa.gruul.logistics.mapper;
 
-import com.baomidou.mybatisplus.annotation.SqlParser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.medusa.gruul.logistics.api.entity.LogisticsShippingModel;
 import org.springframework.stereotype.Repository;
@@ -19,6 +18,5 @@ public interface LogisticsShippingModelMapper extends BaseMapper<LogisticsShippi
      * @param param
      * @return List<LogisticsIncludePostage>
      */
-
     List<LogisticsShippingModel> selectByParamMap(Map<String, Object> param);
 }

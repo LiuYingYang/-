@@ -1,6 +1,5 @@
 package com.medusa.gruul.logistics.mapper;
 
-import com.baomidou.mybatisplus.annotation.SqlParser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.medusa.gruul.logistics.api.entity.LogisticsCompany;
 import org.springframework.stereotype.Repository;

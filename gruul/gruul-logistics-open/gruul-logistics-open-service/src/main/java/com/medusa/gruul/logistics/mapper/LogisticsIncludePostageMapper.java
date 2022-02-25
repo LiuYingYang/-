@@ -1,6 +1,5 @@
 package com.medusa.gruul.logistics.mapper;
 
-import com.baomidou.mybatisplus.annotation.SqlParser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.medusa.gruul.logistics.api.entity.LogisticsIncludePostage;
 import org.springframework.stereotype.Repository;
@@ -20,6 +19,5 @@ public interface LogisticsIncludePostageMapper extends BaseMapper<LogisticsInclu
      * @param param
      * @return List<LogisticsIncludePostage>
      */
-
     List<LogisticsIncludePostage> selectByParams(Map<String, Object> param);
 }
