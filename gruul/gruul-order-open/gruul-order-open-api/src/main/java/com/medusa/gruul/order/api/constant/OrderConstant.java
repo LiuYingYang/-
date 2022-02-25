@@ -30,9 +30,6 @@ public interface OrderConstant {
      * 支付模块默认交换机
      */
     String PAYMENT_EXCHANGE = "payment.notify.exchange";
-    /**
-     * 账户模块默认交换机
-     */
-    String ACCOUNT_EXCHANGE = "gruul.account.exchange";
+
 
 }

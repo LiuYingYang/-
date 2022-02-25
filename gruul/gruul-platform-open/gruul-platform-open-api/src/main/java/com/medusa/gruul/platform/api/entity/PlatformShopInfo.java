@@ -24,7 +24,8 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("t_platform_shop_info")
+@TableName("" +
+        "")
 @ApiModel(value = "PlatformShopInfo对象", description = "店铺信息表")
 public class PlatformShopInfo extends BaseEntity {
 

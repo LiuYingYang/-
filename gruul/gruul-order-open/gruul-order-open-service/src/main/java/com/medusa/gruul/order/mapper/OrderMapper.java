@@ -1,7 +1,6 @@
 package com.medusa.gruul.order.mapper;
 
 
-import com.baomidou.mybatisplus.annotation.SqlParser;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.medusa.gruul.order.api.entity.Order;

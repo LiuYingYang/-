@@ -37,7 +37,7 @@ import java.util.List;
 @RequestMapping("/manage")
 @Api(tags = "城市合伙人PC端订单接口")
 public class ManageOrderController {
-    private static final String sname = "{sname}";
+    private static final String SNAME = "{sname}";
     @Resource
     private IManageOrderService orderService;
     @Resource
@@ -112,7 +112,7 @@ public class ManageOrderController {
             orderShareSetting.setBackground(OrderShareSetting.DEFAULT_BACKGROUND);
             orderShareSetting.setTitle(OrderShareSetting.DEFAULT_TITLE);
         } else {
-            if (StrUtil.count(vo.getTitle(), sname) != 1) {
+            if (StrUtil.count(vo.getTitle(), SNAME) != 1) {
                 throw new ServiceException("标题必须且只能包含一个收货人信息");
             }
             orderShareSetting.setBackground(vo.getBackground());

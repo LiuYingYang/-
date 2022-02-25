@@ -75,14 +75,5 @@ public interface OrderQueueNameConstant {
      */
     String REFUND_NOTIFY_SUCCEED = "gruul.order.refund.notify.succeed";
 
-    /**
-     * 发货单生成
-     */
-    String DELIVER_CREATE = "gruul.deliver.create";
-
-    /**
-     * 发货单签收
-     */
-    String DELIVER_RECEIPT = "gruul.deliver.receipt";
 
 }

@@ -91,18 +91,6 @@ public interface RemoteOrderService {
     int doLogisticsOrderDelivery(@RequestParam(value = "orderDeliveryDtoList") String orderDeliveryDtoList);
 
 
-    /**
-     * 统计满减活动的销售额
-     *
-     * @param fullScaleIds the full scale ids
-     * @return int list
-     * @author alan
-     * @date 2020 /3/23 22:01
-     */
-    @ApiOperation("统计满减活动的销售额")
-    @GetMapping("/remote/fullScale/statistics")
-    List<ActivityStatisticsVo> fullScaleStatistics(@RequestParam(value = "fullScaleIds") Long[] fullScaleIds);
-
 
 
     /**

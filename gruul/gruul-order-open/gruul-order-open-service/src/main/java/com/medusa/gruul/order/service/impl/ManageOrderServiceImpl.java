@@ -19,7 +19,6 @@ import com.medusa.gruul.order.api.entity.OrderSetting;
 import com.medusa.gruul.order.api.enums.OrderStatusEnum;
 import com.medusa.gruul.order.api.model.BaseOrderMessage;
 import com.medusa.gruul.order.api.model.OrderVo;
-import com.medusa.gruul.order.api.model.RemoveSendBillOrderMessage;
 import com.medusa.gruul.order.mapper.*;
 import com.medusa.gruul.order.model.*;
 import com.medusa.gruul.order.mq.Sender;
