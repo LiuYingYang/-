@@ -103,7 +103,6 @@ public class ManageOrderController {
     @ApiOperation(value = "设置分享晒单设置", notes = "晒单设置")
     @PutMapping("/share/setting")
     public Result setShareSetting(@RequestBody @Validated OrderShareSettingVo vo) {
-        OrderShareSettingRedisKey redisKey = new OrderShareSettingRedisKey();
         //分享写死了name
         vo.setTitle("{sname}");
         vo.setBackground(" ");

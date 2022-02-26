@@ -258,33 +258,7 @@ public interface OrderMapper extends BaseMapper<Order> {
      */
     List<Long> waitSendProductList(@Param(value = "sendBillId") String sendBillId);
 
-    /**
-     * Gets solitaire lately buyer.
-     *
-     * @param solitaireActivityId the solitaire activity id
-     * @return the solitaire lately buyer
-     */
-    List<LatelyBuyerVo> getSolitaireLatelyBuyer(@Param(value = "solitaireActivityId") Integer solitaireActivityId);
 
-    /**
-     * Gets solitaire buyer page.
-     *
-     * @param page                the page
-     * @param solitaireActivityId the solitaire activity id
-     * @return the solitaire buyer page
-     */
-    Page<SolitaireBuyerVo> getSolitaireBuyerPage(Page page,
-                                                 @Param(value = "solitaireActivityId") Integer solitaireActivityId);
-
-    /**
-     * Gets my solitaire order.
-     *
-     * @param solitaireActivityId the solitaire activity id
-     * @param userId              the user id
-     * @return the my solitaire order
-     */
-    List<SolitaireBuyerVo> getMySolitaireOrder(@Param(value = "solitaireActivityId") Integer solitaireActivityId,
-                                               @Param(value = "userId") String userId);
 
     /**
      * Close exchange order.
