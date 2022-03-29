@@ -3,7 +3,7 @@
  * @Author: chuyinlong
  * @Date: 2021-08-20 17:29:09
  * @LastEditors: latiao
- * @LastEditTime: 2022-01-12 18:01:29
+ * @LastEditTime: 2022-03-29 15:04:07
 -->
 <template>
   <div class="spellPage--setting">
@@ -17,7 +17,7 @@
       <el-form-item label="选择样式" v-if="formData.selectMode === 2">
         <el-radio-group v-model="formData.selectType">
           <el-radio :label="1">商品列表</el-radio>
-          <el-radio :label="2">分类列表111</el-radio>
+          <el-radio :label="2">分类列表</el-radio>
         </el-radio-group>
       </el-form-item>
       <div class="class__box">
