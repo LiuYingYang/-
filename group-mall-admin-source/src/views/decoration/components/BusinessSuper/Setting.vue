@@ -3,7 +3,7 @@
  * @Author: chuyinlong
  * @Date: 2021-08-20 17:29:09
  * @LastEditors: latiao
- * @LastEditTime: 2022-03-29 15:04:07
+ * @LastEditTime: 2022-04-24 10:59:08
 -->
 <template>
   <div class="spellPage--setting">
@@ -20,6 +20,7 @@
           <el-radio :label="2">分类列表</el-radio>
         </el-radio-group>
       </el-form-item>
+      
       <div class="class__box">
         <div class="select__box">
           <el-button @click="chooseCategory">选择展示分类</el-button>
