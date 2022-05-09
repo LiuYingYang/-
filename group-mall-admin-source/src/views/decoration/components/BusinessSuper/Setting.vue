@@ -3,7 +3,7 @@
  * @Author: chuyinlong
  * @Date: 2021-08-20 17:29:09
  * @LastEditors: latiao
- * @LastEditTime: 2022-04-24 10:59:08
+ * @LastEditTime: 2022-05-09 13:33:15
 -->
 <template>
   <div class="spellPage--setting">
@@ -39,6 +39,7 @@
           <span style="color: #666">添加分类图片:</span>
           鼠标拖拽调整顺序，小程序端分类按顺序显示
         </div>
+        
         <div v-for="(item, index) in currentFirstCategory.classChart" :key="index" class="homeSwiperForm-item"
           style="background-color: #fff" :draggable="true" @click.capture="chartItemClick(item)"
           @dragstart="chartDragstart(index)" @dragover="handleDragover" @drop="chartDrop(index)">
