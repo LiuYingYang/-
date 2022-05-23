@@ -3,7 +3,7 @@
  * @Author: chuyinlong
  * @Date: 2021-08-12 15:36:21
  * @LastEditors: latiao
- * @LastEditTime: 2022-01-11 11:05:10
+ * @LastEditTime: 2022-05-23 10:55:50
  * 123
 -->
 <template>
@@ -450,6 +450,7 @@ export default class Collect extends Vue {
 					v.isCheck = false
 				})
 			}
+			
 			else{
 				item.isDataCheck = true
 				item.shopList.forEach((v) => {
