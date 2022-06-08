@@ -11,6 +11,7 @@
     <div class="regionTop">
       <div class="regionTop__lineWidth">至少保留一个专区</div>
     </div>
+    
     <div class="regionAdd">
       <el-button @click="addRegion" :disabled="showType">添加专区</el-button>
       <div class="regionAdd__tip">拖拽可调整专区顺序</div>
