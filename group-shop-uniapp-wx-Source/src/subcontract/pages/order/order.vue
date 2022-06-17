@@ -17,7 +17,7 @@
 			swipeable
 			ref="tabs"
 			id="tabs"
-		>
+		> 
 			<van-tab title="全部" name="-1">
 				<order-list
 					:orders="orders"
