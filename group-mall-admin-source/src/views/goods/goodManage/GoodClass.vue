@@ -14,7 +14,7 @@
       v-if="!showType"
     >
       <el-tab-pane label="展示分类" name="ShowClass"></el-tab-pane>
-    </el-tabs>
+    </el-tabs>  
     <component :is="comName"></component>
   </div>
 </template>
