@@ -171,7 +171,16 @@ nginx配置
         ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
         ssl_ciphers ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
         ssl_prefer_server_ciphers on;
+   
 
+        #前端后台页面
+        location /copartner/版本 {
+           proxy_pass http://127.0.0.1:8001/;
+           include /etc/nginx/conf.d/*.conf;
+        }
+
+
+    
          #后端接口
         location /api/ {
           if ($request_method = OPTIONS ) {
