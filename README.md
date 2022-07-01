@@ -134,7 +134,7 @@ Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前�
 - 小程序端接口文档
 - 操作手册.docx
 - 纸质授权证书
-- 增值税专用发票
+- 增值税专用发票  
 
 
 
