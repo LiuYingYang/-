@@ -6,7 +6,7 @@
  * @LastEditTime: 2021-08-20 09:39:11
  * 123
 -->
-<template>
+<template>  
 	<view class="page">
 		<view style="display:flex">
 			<van-search
