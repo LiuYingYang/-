@@ -84,7 +84,7 @@ Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前�
 
  **代码位置** 
 
-  商家端  :https://gitee.com/qisange/basemall/tree/master/gruul-mall-admin-source
+  商家端  :https://gitee.com/qisange/basemall/tree/master/group-mall-admin-source
 
   小程序端 :https://gitee.com/qisange/basemall/tree/master/group-shop-uniapp-wx-Source
 
