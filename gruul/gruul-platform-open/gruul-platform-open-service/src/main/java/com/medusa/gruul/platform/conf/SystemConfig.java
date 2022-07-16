@@ -22,5 +22,6 @@ public class SystemConfig {
 
     @ApiModelProperty(value = "代理后台地址")
     private String agentUrl;
+    
 
 }
