@@ -7,7 +7,7 @@
  * 123
 -->
 <template>  
-	<view class="page">
+	<view class="page"> 
 		<view style="display:flex">
 			<van-search
 				:value="queryName"
