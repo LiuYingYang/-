@@ -6,7 +6,7 @@ import lombok.Data;
 /**
  * @author whh
  * @description
- * @data: 2020/3/29
+ * @data: 2020/3/29 
  */
 @Data
 public class SystemConfig {
