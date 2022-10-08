@@ -216,7 +216,7 @@ public class ApiMiniAccountCollectServiceImpl extends ServiceImpl<MiniAccountCol
 
 
     /**
-     * 查看用户是否多该商品进行了收藏
+     * 查看用户是否收藏过该商品
      *
      * @param productId 商品id
      * @return
@@ -232,11 +232,11 @@ public class ApiMiniAccountCollectServiceImpl extends ServiceImpl<MiniAccountCol
         if (userCollectVo == null) {
             //緩存中 不存在 sql中查詢
             UserCollectDto accountCollect = miniAccountCollectMapper.findAccountCollectByProductId(productId, userId);
-            if (accountCollect != null) {
-                accountRedis.hset(userKey, JSON.toJSONString(accountCollect.getProductId()),
-                        JSON.toJSONString(accountCollect));
+            if (accountCollect == null) {
+                return false;
             }
-            return false;
+            accountRedis.hset(userKey, JSON.toJSONString(accountCollect.getProductId()),
+                    JSON.toJSONString(accountCollect));
         }
         return true;
     }
