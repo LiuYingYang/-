@@ -11,7 +11,7 @@
 
 | smart shop | 社区团购  | 技术微信 |
 |--------|--------|--------|
-|![输入图片说明](images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20211218091218.png)|![输入图片说明](images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20211218091213.png)|![](https://images.gitee.com/uploads/images/2021/1120/135453_4b4de7bd_8533008.jpeg "微信-.jpg")
+|![输入图片说明](images/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20211218091218.png)|![输入图片说明](images/f1b5b8789d3ee371f1ffcb73104af93.png)|![](https://images.gitee.com/uploads/images/2021/1120/135453_4b4de7bd_8533008.jpeg "微信-.jpg")
 
 
 ### 项目介绍
@@ -27,7 +27,7 @@ Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前�
 
 
 ### 技术架构
-#### 运行环境
+#### 运行环境（必备）
 
 - CentOS 7.0+
 - Nginx 1.10+
