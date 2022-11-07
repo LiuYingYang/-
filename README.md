@@ -72,18 +72,18 @@ Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前�
 | 业务架构 |
 |------|
 |  ![](https://images.gitee.com/uploads/images/2021/0706/161344_d0a423b6_8533008.png "Smart Shop系统架构图.png")    |
-
- gruul-platform-open平台模块| gruul-account-open账户模块
-
- gruul-gateway-open网关|gruul-order-open订单模块
-
- gruul-goods-open商品模块|gruul-payment-open支付模块                                                                                     
-
- gruul-oss-openOSS模块|gruul-afs-open售后模块
-
- gruul-shops-open店铺模块|gruul-common-open公共模块
-
- gruul-logistics-open物流模块|gruul-sms-open短信模块
+- gruul-platform-open平台模块
+- gruul-account-open账户模块
+- gruul-gateway-open网关
+- gruul-order-open订单模块
+- gruul-goods-open商品模块
+- gruul-payment-open支付模块                                                                                     
+- gruul-oss-openOSS模块
+- gruul-afs-open售后模块
+- gruul-shops-open店铺模块
+- gruul-common-open公共模块
+- gruul-logistics-open物流模块
+- gruul-sms-open短信模块
 
 
 ####  编码规范
