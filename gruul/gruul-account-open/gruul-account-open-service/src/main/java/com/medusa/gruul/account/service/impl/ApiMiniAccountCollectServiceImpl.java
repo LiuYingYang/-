@@ -109,8 +109,7 @@ public class ApiMiniAccountCollectServiceImpl extends ServiceImpl<MiniAccountCol
     public List<UserCollectVo> getUserCollectInfo() {
         CurUserDto curUserDto = CurUserUtil.getHttpCurUser();
         String userId = curUserDto.getUserId();
-        List<UserCollectVo> collectInfo = getCollectInfo(userId);
-        return collectInfo;
+        return getCollectInfo(userId);
     }
 
     /**
@@ -156,7 +155,7 @@ public class ApiMiniAccountCollectServiceImpl extends ServiceImpl<MiniAccountCol
             userCollectVos = JSON.parseArray(String.valueOf(listKey), UserCollectVo.class);
             //取缓存商品基础信息（包括商品状态）
             if (CollectionUtil.isNotEmpty(userCollectVos)) {
-                userCollectVos.stream().forEach(userCollectVo -> {
+                userCollectVos.forEach(userCollectVo -> {
                     String productId = String.valueOf(userCollectVo.getProductId());
                     ApiShoppingCartProductVo apiShoppingCartProductVo = JSON
                             .parseObject(goodsProductRedisKey.get(productId), ApiShoppingCartProductVo.class);

@@ -49,8 +49,7 @@ public class ApiMiniAccountFootMarkServiceImpl extends ServiceImpl<MiniAccountFo
     public List<String> getAccountFootMark(AccountFootMarkParam accountFootMarkParam) {
         CurUserDto curUserDto = CurUserUtil.getHttpCurUser();
         String userId = curUserDto.getUserId();
-        List<String> accountFootMarkInfo = getAccountFootMarkInfo(accountFootMarkParam, userId);
-        return accountFootMarkInfo;
+        return getAccountFootMarkInfo(accountFootMarkParam, userId);
     }
 
     private List<String> getAccountFootMarkInfo(AccountFootMarkParam accountFootMarkParam, String userId) {
@@ -188,7 +187,6 @@ public class ApiMiniAccountFootMarkServiceImpl extends ServiceImpl<MiniAccountFo
             throw new ServiceException("数据异常");
         }
         String userId = curUserDto.getUserId();
-        int i = accountFootMarkMapper.selectAccountFootMarkCount(userId);
-        return i;
+        return accountFootMarkMapper.selectAccountFootMarkCount(userId);
     }
 }

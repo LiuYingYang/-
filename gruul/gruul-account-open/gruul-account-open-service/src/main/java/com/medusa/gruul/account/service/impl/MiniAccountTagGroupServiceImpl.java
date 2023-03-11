@@ -7,7 +7,6 @@ import com.medusa.gruul.account.api.entity.MiniAccountTagGroup;
 import com.medusa.gruul.account.mapper.MiniAccountTagGroupMapper;
 import com.medusa.gruul.account.service.IMiniAccountTagGroupService;
 import com.medusa.gruul.common.core.exception.ServiceException;
-import org.omg.CORBA.SystemException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

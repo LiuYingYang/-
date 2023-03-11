@@ -14,7 +14,7 @@ public class AccountQueueNameConstant {
 
 
     /**
-     * 用户订单支付队列()
+     * 用户订单支付队列
      */
     public static final String ACCOUNT_ORDER_PAY_OK_QUEUE_CHANGE = "gruul.account.order.pay.ok";
 
@@ -36,10 +36,7 @@ public class AccountQueueNameConstant {
      */
     public static final String ACCOUNT_DEFAULT = "gruul.account.default";
 
-    /**
-     * 会员队列
-     */
-    public static final String MEMBER_PAY_OK_QUEUE_CHANGE = "gruul.member.pay.ok";
+
 
 
 

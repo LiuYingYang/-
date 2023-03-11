@@ -88,23 +88,6 @@ public class RabbitConfig implements RabbitListenerConfigurer {
                 .build();
     }
 
-    /**
-     * 用户服务积分队列
-     */
-    @Bean
-    public Queue accountIntegralQueue() {
-        return new Queue(AccountQueueEnum.QUEUE_ACCOUNT_INTEGRAL_CHANGE.getName(), true);
-    }
-
-
-    /**
-     * 绑定积分加减roukey
-     */
-    @Bean
-    Binding integralChangeBinding(DirectExchange accountDirect, Queue accountIntegralQueue) {
-        return BindingBuilder.bind(accountIntegralQueue).to(accountDirect)
-                .with(AccountQueueEnum.QUEUE_ACCOUNT_INTEGRAL_CHANGE.getRouteKey());
-    }
 
 
     /**
@@ -158,8 +141,8 @@ public class RabbitConfig implements RabbitListenerConfigurer {
      * 绑定用户收藏roukey
      */
     @Bean
-    Binding accountCollectBinding(DirectExchange accountDirect, Queue accountIntegralQueue) {
-        return BindingBuilder.bind(accountIntegralQueue).to(accountDirect)
+    Binding accountCollectBinding(DirectExchange accountDirect, Queue accountCollectQueue) {
+        return BindingBuilder.bind(accountCollectQueue).to(accountDirect)
                 .with(AccountQueueEnum.QUEUE_ACCOUNT_COLLECT.getRouteKey());
     }
 
@@ -171,13 +154,6 @@ public class RabbitConfig implements RabbitListenerConfigurer {
 
 
 
-    /**
-     * 会员购买支付成功队列
-     */
-    @Bean
-    public Queue memberPayOkQueue() {
-        return new Queue(AccountQueueNameConstant.MEMBER_PAY_OK_QUEUE_CHANGE, true);
-    }
 
 
 }

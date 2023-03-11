@@ -127,7 +127,7 @@ public class MiniAccountServiceImpl extends ServiceImpl<MiniAccountMapper, MiniA
         login.setOpenId(session.getOpenid());
         login.setUnionId(session.getUnionid());
         login.setSessionKey(session.getSessionKey());
-        if (login == null || login.getOpenId() == null) {
+        if (login.getOpenId() == null) {
             throw new ServiceException("登陆失败,调用错误", SystemCode.DATA_EXISTED.getCode());
         }
         String loginKey = RedisConstant.LOGIN_KEY.concat(":")
