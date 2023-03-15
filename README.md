@@ -243,7 +243,7 @@ Smart Shop是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue的前�
 
 测试：聂小倩、铁柱、佩奇、十又
 
-运维：陈哥
+运维：陈哥  
 
 
 
