@@ -3,7 +3,6 @@
 ### Example user template
 node_modules
 .DS_Store
-package-lock.json
 # local env files
 .env.local
 .env.*.local
