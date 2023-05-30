@@ -41,7 +41,7 @@ nacos 安装
   
 
     nacos配置加载需要先安装nacos。并创建相关yml文件  nacos为配置文件 创建顺序 
-    1.application-open.md  2.随意
+    1.application-open.yml  2.随意
 
     如遇问题可加入qq群,会有专人解答
 
