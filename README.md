@@ -8,8 +8,8 @@
 
 最新推出一款以低代码开发的应用平台，是通过可视化的交互方式，不仅可以将原本复杂多变的业务逻辑通过拖、拉、拽的方式快速搭建应用，还可以更低的成本去为企业提供更稳定的服务，有兴趣的小伙伴可移至官网查看。
 
-| 交流群：smart shop 商城                     | 交流群：社区团购                                                 | 商业咨询：微信                    |
-| ------------------------------------------- | ---------------------------------------------------------------- | --------------------------------- |
+| 交流群：smart shop 商城                     | 交流群：社区团购                                 | 商业咨询：微信                     |
+| ------------------------------------- | ---------------------------------------- | --------------------------- |
 | ![输入图片说明](images/smrat%20shop%20.png) | ![输入图片说明](images/%E7%A4%BE%E5%8C%BA%E5%9B%A2%E8%B4%AD.png) | ![输入图片说明](images/zpian.png) |
 
 ### 项目介绍
@@ -37,42 +37,39 @@ Smart Shop 是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue 的�
 
 #### 技术选型
 
-| 技术                 | 说明                   | 官网                                            |
-| -------------------- | ---------------------- | ----------------------------------------------- |
-| Spring Cloud         | 微服务框架             | https://spring.io/projects/spring-cloud         |
+|                      |                   |                                          |
+| -------------------- | ----------------- | ---------------------------------------- |
+| 技术                   | 说明                | 官网                                       |
+| Spring Cloud         | 微服务框架             | https://spring.io/projects/spring-cloud  |
 | Spring Cloud Alibaba | 微服务框架             | https://github.com/alibaba/spring-cloud-alibaba |
-| Spring Boot          | 容器+MVC 框架          | https://spring.io/projects/spring-boot          |
-| MyBatis-Plus         | 数据层代码生成         | http://www.mybatis.org/generator/index.html     |
-| Swagger              | 文档生成工具           | https://swagger.io/                             |
-|                      |
-| Elasticsearch        | 搜索引擎               | https://github.com/elastic/elasticsearch        |
-| RabbitMq             | 消息队列               | https://www.rabbitmq.com/                       |
-| Redis                | 分布式缓存             | https://redis.io/                               |
-| Druid                | 数据库连接池           | https://github.com/alibaba/druid                |
-| OSS                  | 对象存储               | https://github.com/aliyun/aliyun-oss-java-sdk   |
-| JWT                  | JWT 登录支持           | https://github.com/jwtk/jjwt                    |
-| XXL-JOB              | 分布式任务调度平台     | https://www.xuxueli.com/xxl-job/                |
-|                      |
-| Lombok               | 简化对象封装工具       | https://github.com/rzwitserloot/lombok          |
-| Jenkins              | 自动化部署工具         | https://github.com/jenkinsci/jenkins            |
-| Docker               | 应用容器引擎           | https://www.docker.com/                         |
-| Sonarqube            | 代码质量控制           | https://www.sonarqube.org/                      |
-|                      |
-| element              | 组件库                 | https://element.eleme.cn/#/zh-CN                |
-| Vue.js               | 渐进式 JavaScript 框架 | https://cn.vuejs.org/                           |
-| Vue-router           | 前端路由               | https://router.vuejs.org/zh/                    |
-| vuex                 | 状态管理               | https://vuex.vuejs.org/zh/                      |
-| modeuse-core         | 自主开发 UI 组件       | --                                              |
-| TypeScript           | JavaScript 超集        | https://www.tslang.cn/                          |
-| eslint               | 代码质量控制           | https://eslint.org/                             |
-| hook                 | 代码质量控制           |                                                 |
-| uniapp               | 小程序模板             | https://uniapp.dcloud.io/README                 |
-| --------             | -------                | -----------------------------------             |
+| Spring Boot          | 容器+MVC 框架         | https://spring.io/projects/spring-boot   |
+| Swagger              | 文档生成工具            | https://swagger.io/                      |
+| MyBatis-Plus         | 数据层代码生成           | http://www.mybatis.org/generator/index.html |
+| RabbitMq             | 消息队列              | https://www.rabbitmq.com/                |
+| Redis                | 分布式缓存             | https://redis.io/                        |
+| Druid                | 数据库连接池            | https://github.com/alibaba/druid         |
+| OSS                  | 对象存储              | https://github.com/aliyun/aliyun-oss-java-sdk |
+| JWT                  | JWT 登录支持          | https://github.com/jwtk/jjwt             |
+| Lombok               | 简化对象封装工具          | https://github.com/rzwitserloot/lombok   |
+| Jenkins              | 自动化部署工具           | https://github.com/jenkinsci/jenkins     |
+| Docker               | 应用容器引擎            | https://www.docker.com/                  |
+| element              | 组件库               | https://element.eleme.cn/#/zh-CN         |
+| Vue.js               | 渐进式 JavaScript 框架 | https://cn.vuejs.org/                    |
+| Vue-router           | 前端路由              | https://router.vuejs.org/zh/             |
+| vuex                 | 状态管理              | https://vuex.vuejs.org/zh/               |
+| modeuse-core         | 自主开发 UI 组件        | --                                       |
+| XXL-JOB              | 分布式任务调度平台         | https://www.xuxueli.com/xxl-job/         |
+| TypeScript           | JavaScript 超集     | https://www.tslang.cn/                   |
+| eslint               | 代码质量控制            | https://eslint.org/                      |
+| hook                 | 代码质量控制            |                                          |
+| uniapp               | 小程序模板             | https://uniapp.dcloud.io/README          |
+| Sonarqube            | 代码质量控制            | https://www.sonarqube.org/               |
+| --------             | -------           | -----------------------------------技术    |
 
 #### 业务架构
 
-| 业务架构                                                                                                      |
-| ------------------------------------------------------------------------------------------------------------- |
+| 业务架构                                     |
+| ---------------------------------------- |
 | ![](https://images.gitee.com/uploads/images/2021/0706/161344_d0a423b6_8533008.png "Smart Shop系统架构图.png") |
 
 - gruul-platform-open 平台模块
@@ -179,15 +176,15 @@ Smart Shop 是一款基于 **Spring Cloud** +MybatisPlus+XXL-JOB+redis+Vue 的�
 ### 演示地址
 
 | 商业版源码生产环境演示地址：https://mall.bgniao.cn/copartner/1.3.13/sign 账号：13157479071 密码：a123456 |
-| -------------------------------------------------------------------------------------------------------- |
-| H5 演示地址：https://mall.bgniao.cn/h5/10002#/                                                           |
+| ---------------------------------------- |
+| H5 演示地址：https://mall.bgniao.cn/h5/10002#/ |
 
-| 小程序端真机截图                                                                                     |
-| ---------------------------------------------------------------------------------------------------- |
+| 小程序端真机截图                                 |
+| ---------------------------------------- |
 | ![](https://images.gitee.com/uploads/images/2021/0702/160747_f27d2e38_8533008.jpeg "移动端展示.jpg") |
 
-| Web 真机截图                                                                                 |
-| -------------------------------------------------------------------------------------------- |
+| Web 真机截图                                 |
+| ---------------------------------------- |
 | ![](https://images.gitee.com/uploads/images/2021/0702/160736_c22cc63c_8533008.jpeg "11.jpg") |
 
 ### 典型客户案例
